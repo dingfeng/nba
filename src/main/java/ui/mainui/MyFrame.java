@@ -25,7 +25,7 @@ import ui.IndexPanel;
 import ui.MatchPanel;
 import ui.playerui.PlayerPanel;
 import ui.teamui.TeamPanel;
-import bl.matchbl.MatchController;
+//import bl.matchbl.MatchController;
 
 public class MyFrame extends JFrame {
 
@@ -39,34 +39,34 @@ public class MyFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	String titleText = new String();
 	public JPanel mainPanel;
-	JPanel frame = new JPanel() {
-		protected void paintComponent(Graphics g) {
-			java.awt.Image img = Toolkit.getDefaultToolkit().getImage(
-					"image/kobe1.jpg");
-			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-			// 细致渲染、绘制背景，可控制截取图片，显示于指定的JPanel位置
-			// g.drawImage(img, 0, 0, frameSize.width, frameSize.height,
-			// 0, 0, icon.getIconWidth(), icon.getIconHeight(),
-			// icon.getImageObserver());
-		}
-	};
+	JPanel frame = new JPanel(); 
+//	{
+//		protected void paintComponent(Graphics g) {
+//			java.awt.Image img = Toolkit.getDefaultToolkit().getImage(
+//					"image/kobe1.jpg");
+//			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+//			// 细致渲染、绘制背景，可控制截取图片，显示于指定的JPanel位置
+//			// g.drawImage(img, 0, 0, frameSize.width, frameSize.height,
+//			// 0, 0, icon.getIconWidth(), icon.getIconHeight(),
+//			// icon.getImageObserver());
+//		}
+//	};
 	MyFrame thisFrame = this;
 	public static JPanel mainpanel = new JPanel();
 	public static CardLayout card = new CardLayout();
 
 	public static IndexPanel indexpanel = new IndexPanel();
-	public static TeamPanel teampanel = new TeamPanel();
-	public static PlayerPanel playerpanel = new PlayerPanel();
-	public static HotPanel hotpanel = new HotPanel();
-	public static MatchPanel matchpanel = new MatchPanel();
+//	public static TeamPanel teampanel = new TeamPanel();
+//	public static PlayerPanel playerpanel = new PlayerPanel();
+//	public static HotPanel hotpanel = new HotPanel();
+//	public static MatchPanel matchpanel = new MatchPanel();
 
 	public static JLabel locationlable = new JLabel();
-	MatchController mc = new MatchController();
+//	MatchController mc = new MatchController();
 
 	public MyFrame() {
 		this.setUndecorated(true);
 
-		// this.setBackground(new Color(0.0f,0.0f,0.0f,0.0f));
 		// 修改图标
 		Image image = Toolkit.getDefaultToolkit().getImage(
 				"image/basketball.png");
@@ -80,19 +80,18 @@ public class MyFrame extends JFrame {
 
 	void setFrame() {
 
-		ImageIcon image = new ImageIcon("image/NBAbackground.png");
 
 		frame.setLayout(null);
-		frame.setBackground(new Color(0, 0, 0, 0));
+		frame.setBackground(Color.white);
 
 		mainpanel.setBounds(0, FrameSize.height / 8, FrameSize.width,
 				FrameSize.height * 7 / 8);
 		mainpanel.setLayout(card);
 		mainpanel.add(indexpanel, "index");
-		mainpanel.add(playerpanel, "player");
-		mainpanel.add(teampanel, "team");
-		mainpanel.add(matchpanel, "match");
-		mainpanel.add(hotpanel, "hot");
+//		mainpanel.add(playerpanel, "player");
+//		mainpanel.add(teampanel, "team");
+//		mainpanel.add(matchpanel, "match");
+//		mainpanel.add(hotpanel, "hot");
 		mainpanel.setOpaque(false);
 		setExit();
 		setMini();
@@ -105,7 +104,7 @@ public class MyFrame extends JFrame {
 		this.setBounds((screenWidth - FrameSize.width) / 2,
 				(screenHeight - FrameSize.height) / 2, FrameSize.width,
 				FrameSize.height);
-		this.setTitle("NBA Analysis System");
+		
 		CardLayout card = new CardLayout();
 		this.setLayout(new BorderLayout());
 		this.add(frame, BorderLayout.CENTER);
@@ -120,24 +119,24 @@ public class MyFrame extends JFrame {
 		title.setFont(new Font("Comic Sans MS", Font.PLAIN, 17));
 		icon.setBounds(5, -15, 24, 59);
 		title.setBounds(FrameSize.width / 2 - 100, -15, 200, 59);
-		title.setForeground(Color.white);
+		title.setForeground(Color.black);
 		frame.add(icon);
 		frame.add(title);
 	}
 
 	void setHeadButton() {
 		JButton index = new MyButton(new ImageIcon("image/index.png"),
-				Color.black, Color.DARK_GRAY);
+				Color.white, Color.DARK_GRAY);
 		JButton playerbutton = new MyButton(new ImageIcon("image/player.png"),
-				Color.black, Color.DARK_GRAY);
+				Color.white, Color.DARK_GRAY);
 		JButton teambutton = new MyButton(new ImageIcon("image/图片1.png"),
-				Color.black, Color.DARK_GRAY);
+				Color.white, Color.DARK_GRAY);
 		JButton hotbutton = new MyButton(new ImageIcon("image/hot.png"),
-				Color.black, Color.DARK_GRAY);
+				Color.white, Color.DARK_GRAY);
 		JButton matchbutton = new MyButton(new ImageIcon("image/match.png"),
-				Color.black, Color.DARK_GRAY);
+				Color.white, Color.DARK_GRAY);
 		JButton helpbutton = new MyButton(new ImageIcon("image/help.png"),
-				Color.black, Color.DARK_GRAY);
+				Color.white, Color.DARK_GRAY);
 
 		index.setBounds(10, 3 * FrameSize.height / 80, 50, 50);
 		hotbutton.setBounds(80, 3 * FrameSize.height / 80, 50, 50);
@@ -155,7 +154,7 @@ public class MyFrame extends JFrame {
 		
 		locationlable.setText("当前位置：主页");
 		locationlable.setOpaque(false);
-		locationlable.setForeground(Color.white);
+		locationlable.setForeground(new Color(0,128,255));
 		locationlable.setBounds(FrameSize.width / 2, FrameSize.height / 20,
 				150, 30);
 		locationlable.setFont(new Font("微软雅黑", Font.PLAIN, 20));
@@ -204,24 +203,22 @@ public class MyFrame extends JFrame {
 	}
 
 	void setExit() {
-		JButton el = new MyButton(new ImageIcon("image/close.png"), new Color(
-				50, 50, 50), Color.red);
+		JButton el = new MyButton(new ImageIcon("image/close.png"), Color.white, Color.red);
 		// JLabel el = new JLabel();
 		// ImageIcon image = new ImageIcon("image/close.png");
 		// el.setIcon(image);
-		el.setBounds(FrameSize.width - 50, -8, 40, 40);
+		el.setBounds(FrameSize.width - 30, 0, 30, 30);
 		el.addMouseListener(new ExitButtonAction());
 		frame.add(el);
 		// this.add(el);
 	}
 
 	void setMini() {
-		JButton el = new MyButton(new ImageIcon("image/mini.png"), new Color(
-				50, 50, 50), new Color(20,34,160));
+		JButton el = new MyButton(new ImageIcon("image/mini.png"), Color.white, new Color(20,34,160));
 		// JLabel el = new JLabel();
 		// ImageIcon image = new ImageIcon("image/mini.png");
 		// el.setIcon(image);
-		el.setBounds(FrameSize.width - 90, -8, 40, 40);
+		el.setBounds(FrameSize.width - 60, 0, 30, 30);
 		el.addMouseListener(new MiniButtonAction());
 		frame.add(el);
 	}

@@ -19,11 +19,11 @@ import javax.swing.table.DefaultTableCellRenderer;
 import po.MatchesPO;
 import ui.mainui.FrameSize;
 import ui.mainui.MyFrame;
-import bl.matchbl.MatchController;
+//import bl.matchbl.MatchController;
 
 public class IndexPanel extends JPanel{
 
-	MatchController mc=new MatchController();
+//	MatchController mc=new MatchController();
 	IndexPanel ip=this;
 	JLabel[] match;
 	JLabel today=new JLabel();
@@ -33,18 +33,18 @@ public class IndexPanel extends JPanel{
 		this.setBounds(0, 0, FrameSize.width, FrameSize.height * 7 / 8);
 //		this.setBackground(FrameSize.backColor);
 		this.setOpaque(false);
-		setDate();
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask(){
-
-			public void run() {
-				try{
-				 update();
-				}catch(Exception e){}
-			}
-			
-		}, 10000,7000);
-		this.repaint();
+//		setDate();
+//		Timer timer = new Timer();
+//		timer.schedule(new TimerTask(){
+//
+//			public void run() {
+//				try{
+//				 update();
+//				}catch(Exception e){}
+//			}
+//			
+//		}, 10000,7000);
+//		this.repaint();
 	}
 	
 	void setDate(){
