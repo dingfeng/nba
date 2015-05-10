@@ -115,13 +115,11 @@ public class MyFrame extends JFrame {
 
 	public void setTitle() {
 		JLabel icon = new JLabel(new ImageIcon("image/basketball.png"));
-		JLabel title = new JLabel("NBA Analysis System");
-		title.setFont(new Font("Comic Sans MS", Font.PLAIN, 17));
+		
 		icon.setBounds(5, -15, 24, 59);
-		title.setBounds(FrameSize.width / 2 - 100, -15, 200, 59);
-		title.setForeground(Color.black);
+		
 		frame.add(icon);
-		frame.add(title);
+		
 	}
 
 	void setHeadButton() {
