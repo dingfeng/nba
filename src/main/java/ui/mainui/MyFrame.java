@@ -82,7 +82,7 @@ public class MyFrame extends JFrame {
 
 
 		frame.setLayout(null);
-		frame.setBackground(Color.white);
+		frame.setBackground(FrameSize.bluecolor);
 
 		mainpanel.setBounds(0, FrameSize.height / 8, FrameSize.width,
 				FrameSize.height * 7 / 8);
@@ -92,7 +92,7 @@ public class MyFrame extends JFrame {
 //		mainpanel.add(teampanel, "team");
 //		mainpanel.add(matchpanel, "match");
 //		mainpanel.add(hotpanel, "hot");
-		mainpanel.setOpaque(false);
+		mainpanel.setBackground(Color.white);;
 		setExit();
 		setMini();
 		setTitle();
@@ -126,17 +126,17 @@ public class MyFrame extends JFrame {
 
 	void setHeadButton() {
 		JButton index = new MyButton(new ImageIcon("image/index.png"),
-				Color.white, Color.DARK_GRAY);
+				FrameSize.bluecolor, Color.DARK_GRAY);
 		JButton playerbutton = new MyButton(new ImageIcon("image/player.png"),
-				Color.white, Color.DARK_GRAY);
+				FrameSize.bluecolor, Color.DARK_GRAY);
 		JButton teambutton = new MyButton(new ImageIcon("image/图片1.png"),
-				Color.white, Color.DARK_GRAY);
+				FrameSize.bluecolor, Color.DARK_GRAY);
 		JButton hotbutton = new MyButton(new ImageIcon("image/hot.png"),
-				Color.white, Color.DARK_GRAY);
+				FrameSize.bluecolor, Color.DARK_GRAY);
 		JButton matchbutton = new MyButton(new ImageIcon("image/match.png"),
-				Color.white, Color.DARK_GRAY);
+				FrameSize.bluecolor, Color.DARK_GRAY);
 		JButton helpbutton = new MyButton(new ImageIcon("image/help.png"),
-				Color.white, Color.DARK_GRAY);
+				FrameSize.bluecolor, Color.DARK_GRAY);
 
 		index.setBounds(10, 3 * FrameSize.height / 80, 50, 50);
 		hotbutton.setBounds(80, 3 * FrameSize.height / 80, 50, 50);
@@ -154,7 +154,7 @@ public class MyFrame extends JFrame {
 		
 		locationlable.setText("当前位置：主页");
 		locationlable.setOpaque(false);
-		locationlable.setForeground(new Color(0,128,255));
+		locationlable.setForeground(FrameSize.darkbluecolor);
 		locationlable.setBounds(FrameSize.width / 2, FrameSize.height / 20,
 				150, 30);
 		locationlable.setFont(new Font("微软雅黑", Font.PLAIN, 20));
@@ -203,7 +203,7 @@ public class MyFrame extends JFrame {
 	}
 
 	void setExit() {
-		JButton el = new MyButton(new ImageIcon("image/close.png"), Color.white, Color.red);
+		JButton el = new MyButton(new ImageIcon("image/close.png"), FrameSize.bluecolor, Color.red);
 		// JLabel el = new JLabel();
 		// ImageIcon image = new ImageIcon("image/close.png");
 		// el.setIcon(image);
@@ -214,7 +214,7 @@ public class MyFrame extends JFrame {
 	}
 
 	void setMini() {
-		JButton el = new MyButton(new ImageIcon("image/mini.png"), Color.white, new Color(20,34,160));
+		JButton el = new MyButton(new ImageIcon("image/mini.png"), FrameSize.bluecolor, new Color(20,34,160));
 		// JLabel el = new JLabel();
 		// ImageIcon image = new ImageIcon("image/mini.png");
 		// el.setIcon(image);
