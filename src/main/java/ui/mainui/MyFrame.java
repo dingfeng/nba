@@ -18,6 +18,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import ui.HelpUtil;
 import ui.HotPanel;
@@ -28,10 +30,8 @@ import ui.teamui.TeamPanel;
 //import bl.matchbl.MatchController;
 
 public class MyFrame extends JFrame {
-
-	// public static void main(String[] args) {
-	// MyFrame m=new MyFrame("NBA Analysis System");
-	// }
+	
+	
 	boolean flag = false;
 	/**
 	 * 
@@ -40,17 +40,6 @@ public class MyFrame extends JFrame {
 	String titleText = new String();
 	public JPanel mainPanel;
 	JPanel frame = new JPanel(); 
-//	{
-//		protected void paintComponent(Graphics g) {
-//			java.awt.Image img = Toolkit.getDefaultToolkit().getImage(
-//					"image/kobe1.jpg");
-//			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-//			// 细致渲染、绘制背景，可控制截取图片，显示于指定的JPanel位置
-//			// g.drawImage(img, 0, 0, frameSize.width, frameSize.height,
-//			// 0, 0, icon.getIconWidth(), icon.getIconHeight(),
-//			// icon.getImageObserver());
-//		}
-//	};
 	MyFrame thisFrame = this;
 	public static JPanel mainpanel = new JPanel();
 	public static CardLayout card = new CardLayout();
@@ -64,6 +53,9 @@ public class MyFrame extends JFrame {
 	public static JLabel locationlable = new JLabel();
 //	MatchController mc = new MatchController();
 
+	 
+	
+	
 	public MyFrame() {
 		this.setUndecorated(true);
 
@@ -80,7 +72,7 @@ public class MyFrame extends JFrame {
 
 	void setFrame() {
 
-
+		
 		frame.setLayout(null);
 		frame.setBackground(FrameSize.bluecolor);
 
@@ -123,6 +115,8 @@ public class MyFrame extends JFrame {
 	}
 
 	void setHeadButton() {
+		
+		
 		JButton index = new MyButton(new ImageIcon("image/index.png"),
 				FrameSize.bluecolor, Color.DARK_GRAY);
 		JButton playerbutton = new MyButton(new ImageIcon("image/player.png"),
@@ -136,6 +130,15 @@ public class MyFrame extends JFrame {
 		JButton helpbutton = new MyButton(new ImageIcon("image/help.png"),
 				FrameSize.bluecolor, Color.DARK_GRAY);
 
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			
+		} catch (ClassNotFoundException | InstantiationException
+				| IllegalAccessException | UnsupportedLookAndFeelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		index.setBounds(10, 3 * FrameSize.height / 80, 50, 50);
 		hotbutton.setBounds(80, 3 * FrameSize.height / 80, 50, 50);
 		playerbutton.setBounds(150, 3 * FrameSize.height / 80, 50, 50);
@@ -149,6 +152,8 @@ public class MyFrame extends JFrame {
 		hotbutton.setToolTipText("热点");
 		matchbutton.setToolTipText("比赛");
 		helpbutton.setToolTipText("帮助");
+		
+		
 		
 		locationlable.setText("当前位置：主页");
 		locationlable.setOpaque(false);
@@ -174,6 +179,7 @@ public class MyFrame extends JFrame {
 	}
 
 	void setIndex() {
+		
 		indexpanel.update();
 		card.show(mainpanel, "index");
 		locationlable.setText("当前位置：主页");
