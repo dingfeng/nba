@@ -36,6 +36,7 @@ public class TeamController implements Teamblservice{
 		return  this.team.getPlayers(team);
 	}
 
+	
 	//获得该球队的赛季数据
 	public synchronized TeamMatchVO getTotalTeam(String teamname) {
 		return this.team.getTotalTeam(teamname);
