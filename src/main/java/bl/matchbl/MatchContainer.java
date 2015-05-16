@@ -5,7 +5,7 @@ import gnu.trove.map.hash.TIntObjectHashMap;
 
 public class MatchContainer {
 	private TIntObjectMap<Match>  match_map;
-	private static  MatchContainer  container;
+	private volatile static  MatchContainer  container;
 	private MatchContainer()
 	{
 		match_map =  new TIntObjectHashMap<Match>();
@@ -15,7 +15,11 @@ public class MatchContainer {
 	{
 		if (container == null)
 		{
-			container = new MatchContainer();
+			synchronized(MatchContainer.class){
+				if(container == null){
+					container = new MatchContainer();
+				}
+			}
 		}
 		return container;
 	}
