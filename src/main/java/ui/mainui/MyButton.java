@@ -20,6 +20,7 @@ public class MyButton extends JButton {
 		this.setIcon(image);
 		this.setBackground(back);
 		this.addMouseListener(new button());
+		this.setFocusPainted(false);
 	}
 	
 	public MyButton(String text, Color back, Color focus) {

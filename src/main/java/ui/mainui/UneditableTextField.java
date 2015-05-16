@@ -1,11 +1,10 @@
 package ui.mainui;
 
 import java.awt.Color;
+import java.awt.Font;
 
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
-import org.apache.batik.svggen.font.Font;
 
 public class UneditableTextField extends JTextField {
 

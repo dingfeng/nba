@@ -118,17 +118,17 @@ public class MyFrame extends JFrame {
 		
 		
 		JButton index = new MyButton(new ImageIcon("image/index.png"),
-				FrameSize.bluecolor, Color.DARK_GRAY);
+				FrameSize.bluecolor, FrameSize.darkbluecolor);
 		JButton playerbutton = new MyButton(new ImageIcon("image/player.png"),
-				FrameSize.bluecolor, Color.DARK_GRAY);
+				FrameSize.bluecolor, FrameSize.darkbluecolor);
 		JButton teambutton = new MyButton(new ImageIcon("image/图片1.png"),
-				FrameSize.bluecolor, Color.DARK_GRAY);
+				FrameSize.bluecolor, FrameSize.darkbluecolor);
 		JButton hotbutton = new MyButton(new ImageIcon("image/hot.png"),
-				FrameSize.bluecolor, Color.DARK_GRAY);
+				FrameSize.bluecolor, FrameSize.darkbluecolor);
 		JButton matchbutton = new MyButton(new ImageIcon("image/match.png"),
-				FrameSize.bluecolor, Color.DARK_GRAY);
+				FrameSize.bluecolor, FrameSize.darkbluecolor);
 		JButton helpbutton = new MyButton(new ImageIcon("image/help.png"),
-				FrameSize.bluecolor, Color.DARK_GRAY);
+				FrameSize.bluecolor, FrameSize.darkbluecolor);
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -157,7 +157,7 @@ public class MyFrame extends JFrame {
 		
 		locationlable.setText("当前位置：主页");
 		locationlable.setOpaque(false);
-		locationlable.setForeground(FrameSize.darkbluecolor);
+		locationlable.setForeground(FrameSize.lightbluecolor);
 		locationlable.setBounds(FrameSize.width / 2, FrameSize.height / 20,
 				150, 30);
 		locationlable.setFont(new Font("微软雅黑", Font.PLAIN, 20));
