@@ -13,37 +13,34 @@ import po.MatchesPO;
 public class Match 
 {
    private	MatchDataService match_data;
-   private	static TIntObjectMap<TeamQueue> team_map;
-   private	static TIntObjectMap<PlayerQueue> player_map;
-   private final static int match_num = 90;
-   private static  Match match;
-   private Match()
+   private	 TIntObjectMap<TeamQueue> team_map;
+   private	 TIntObjectMap<PlayerQueue> player_map;
+   private final  int match_num = 90;
+   private Match(int season)
    {
 		NBADataFactory factory = DataFactoryImp.instance();
 		match_data = factory.getMatchData();
 		team_map = new TIntObjectHashMap<TeamQueue>();
 		player_map = new TIntObjectHashMap<PlayerQueue>();
-		for (String s : teamnames)
-		{
-			team_map.put(s.hashCode(), new TeamQueue(match_num,s));
-		}
 		update();
 	}
     
-	public static  Match instance()
-	{
-		if (match == null)
-		{
-			match = new Match();
-		}
-		return match;
-	}
     
 	//处理一个比赛
 	private void dealWithOneMatch(MatchesPO match)
 	{
 		MatchTeamPO team1 = match.getTeam1();
 		MatchTeamPO team2 = match.getTeam2();
+		String teamName1 = team1.getName();
+		String teamName2 = team2.getName();
+		if (!team_map.containsKey(teamName1.hashCode()))
+		{
+			team_map.put(teamName1.hashCode(), new TeamQueue(match_num,teamName1));
+		}
+		if (!team_map.containsKey(teamName2.hashCode()))
+		{
+			team_map.put(teamName2.hashCode(), new TeamQueue(match_num,teamName2));
+		}
 		AbstractQueue team1_q = team_map.get(team1.getName().hashCode());
 		AbstractQueue team2_q = team_map.get(team2.getName().hashCode());
 		team1_q.enQueue(match);
@@ -156,7 +153,6 @@ public class Match
 	//更新
 	public void update()
 	{
-		 match_data.updateData();
 		 MatchesPO[] matches = match_data.getNewMatches();
 		 if (matches != null)
 		 {
@@ -195,39 +191,6 @@ public class Match
     	}
 		return result /2;
     }
-    
 
-	public static String[] teamnames = new String[]
-			{
-		"ATL",
-    	"BKN",
-    	"BOS",
-    	"CHA",
-    	"CHI",
-    	"CLE",
-    	"DAL",
-    	"DEN",
-    	"DET",
-    	"GSW",
-    	"HOU",
-    	"IND",
-    	"LAC",
-    	"LAL",
-    	"MEM",
-    	"MIA",
-    	"MIL",
-    	"MIN",
-    	"NOP",
-    	"NYK",
-    	"OKC",
-    	"ORL",
-    	"PHI",
-    	"PHX",
-    	"POR",
-    	"SAC",
-    	"SAS",
-    	"TOR",
-    	"UTA",
-    	"WAS"
-			};
+	
 }

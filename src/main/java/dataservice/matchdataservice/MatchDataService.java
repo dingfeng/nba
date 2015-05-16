@@ -4,12 +4,9 @@ import java.util.ArrayList;
 import po.MatchesPO;
 
 public interface MatchDataService {
-	// 得到所有比赛中球员的数据
-	public MatchesPO[] getAllMatches();
-	public MatchesPO[] getTodayMatches();
-//	public MatchesPO[] getRecentPlayerMatches(String playerName, int num);
-//	public MatchesPO[] getRecentTeamMatches(String teamName, int num);
-	public boolean changed();
-	public MatchesPO[] getNewMatches();
-	public void updateData();
+	public MatchesPO[] getSeasonMatches(int season);
+	public MatchesPO[] getPlayerMatches(int season, String name);
+	public MatchesPO[] getTeamMatches(int season, String teamName);
+	public MatchesPO[] getTeamMatches(int season,String Date,String teamName);
+	public MatchesPO[] getMatches(int season, String Date);
 }
