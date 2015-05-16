@@ -20,9 +20,10 @@ import vo.TeamMatchVO;
 import vo.TeamSortBy;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
-import DataFactory.DataFactoryImp;
+import DataFactory.DataFactory;
 import DataFactoryService.NBADataFactory;
 import bl.matchbl.Match;
+import bl.matchbl.MatchContainer;
 import bl.matchbl.TeamQueue;
 import bl.playerbl.SearchItemProvider;
 import blservice.teamblservice.Teamblservice;
@@ -32,16 +33,24 @@ public class Team   implements SearchItemProvider
 	private	TIntObjectMap<TeamQueue> team_map;
 	private Match match;
 	private TeamDataService teamData;
-	private TIntObjectMap<TeamPO> po_map;
-	private TeamPO[] teams;
+	private  static TIntObjectMap<TeamPO> po_map;
+	private static TeamPO[] teams;
 	private final static int TEAM_NUM = 30;
 	ArrayList<String> list = new ArrayList<String>();
-	public Team()
+	public Team(int season)
 	{
-		match = Match.instance();
+		MatchContainer matchContainer = MatchContainer.instance();
+		match = matchContainer.getSeasonMatch(season);
 		team_map = match.getTeam_map();
-		NBADataFactory factory = DataFactoryImp.instance();
+		NBADataFactory factory= null;
+		try {
+			factory = DataFactory.instance();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		teamData = factory.getTeamData();
+		if (teams == null)
+		{
 	    po_map = new TIntObjectHashMap<TeamPO>();
 	    teams = teamData.getAllTeamData();
 	    Arrays.sort(teams);
@@ -49,6 +58,7 @@ public class Team   implements SearchItemProvider
 	    {
 	    	po_map.put(po.getNameAbridge().hashCode(), po);
 	    }
+		}
 	}
 	
 	//获得球员的赛季总数居

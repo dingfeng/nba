@@ -12,8 +12,12 @@ import vo.SortType;
 import blservice.playerblservice.PlayerBlService;
 
 public class PlayerController implements PlayerBlService{
-    Player player = new Player();
+    Player player ;
     //排序球员数据 场均
+    public PlayerController(int season)
+    {
+    	player = new Player(season);
+    }
 	public synchronized PlayerMatchVO[] sortAvePlayers(PlayerSortBy playerSortBy,
 			SortType sortType) {
 		return player.sortAvePlayers(playerSortBy, sortType);
@@ -49,15 +53,8 @@ public class PlayerController implements PlayerBlService{
 		list.toArray(players);
 		return players;
 	}
-	//获得当天热点球员   
 	public  synchronized PlayerMatchVO[] getDayHotPlayer(PlayerSortBy sortby) {
-	    MatchPlayerPO[] pos = player.getDayHotPlayer(sortby);
-	    PlayerMatchVO[] vos = new PlayerMatchVO[pos.length];
-	    for (int i = 0; i < vos.length; i++)
-	    {
-	    	vos[i] = new PlayerMatchVO(pos[i]);
-	    }
-		return vos;
+		return null;
 	}
 	//获得赛季热点球员
 	public synchronized PlayerMatchVO[] getSeasonHotPlayer(PlayerSortBy sortby) {

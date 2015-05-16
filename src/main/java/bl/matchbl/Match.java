@@ -3,7 +3,7 @@ package bl.matchbl;
 
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
-import DataFactory.DataFactoryImp;
+import DataFactory.DataFactory;
 import DataFactoryService.NBADataFactory;
 import dataservice.matchdataservice.MatchDataService;
 import po.MatchPlayerPO;
@@ -16,9 +16,11 @@ public class Match
    private	 TIntObjectMap<TeamQueue> team_map;
    private	 TIntObjectMap<PlayerQueue> player_map;
    private final  int match_num = 90;
-   private Match(int season)
+   private int season;
+   public Match(int season) throws Exception
    {
-		NBADataFactory factory = DataFactoryImp.instance();
+	   this.season = season;
+		NBADataFactory factory = DataFactory.instance();
 		match_data = factory.getMatchData();
 		team_map = new TIntObjectHashMap<TeamQueue>();
 		player_map = new TIntObjectHashMap<PlayerQueue>();
@@ -54,10 +56,7 @@ public class Match
         int  penaltyHandNo1 = 0, offenseRebs1 = 0, defenceRebs1 = 0, hitNo1 = 0, threeHand1 = 0;
         int rebs2 = 0, totalHit2 = 0, teamHand2 = 0, teamPenalty2 = 0, teamMistakes2 = 0, rebs22 = 0;
         int  penaltyHandNo2 = 0, offenseRebs2 = 0, defenceRebs2 = 0, hitNo2 = 0, threeHand2 = 0;
-        
-//        handNo0 + 0.4 * penaltyHandNo0 -
-//		1.07 * (1.0 * offenseRebs0/(offenseRebs0+defenceRebs0)*(handNo0-hitNo0))
-//        + 1.07 * mistakesNo0;
+
         
         for (MatchPlayerPO p : player_team1)
         {
@@ -153,7 +152,7 @@ public class Match
 	//更新
 	public void update()
 	{
-		 MatchesPO[] matches = match_data.getNewMatches();
+		 MatchesPO[] matches = match_data.getSeasonMatches(season);
 		 if (matches != null)
 		 {
 		    for (MatchesPO  m : matches)
@@ -165,11 +164,6 @@ public class Match
 //	 }
 	}
 	
-	//获得今天的比赛信息
-    public MatchesPO[] getTodayMatches()
-    {
-		return match_data.getTodayMatches();
-    }
     
 	//获得球队的所有比赛
     public TIntObjectMap<TeamQueue> getTeam_map() {

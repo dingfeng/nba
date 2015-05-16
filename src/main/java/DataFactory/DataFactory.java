@@ -27,7 +27,7 @@ public class DataFactory implements NBADataFactory{
    	 Class.forName(driver);
    	 Connection conn = DriverManager.getConnection(url,"root","");
 	} 
-	public NBADataFactory instance() throws Exception
+	public static NBADataFactory instance() throws Exception
 	{
 		if (factory == null)
 		{

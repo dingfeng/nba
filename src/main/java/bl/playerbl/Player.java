@@ -18,9 +18,10 @@ import vo.Area;
 import vo.PlayerMatchVO;
 import vo.PlayerSortBy;
 import vo.SortType;
-import DataFactory.DataFactoryImp;
+import DataFactory.DataFactory;
 import DataFactoryService.NBADataFactory;
 import bl.matchbl.Match;
+import bl.matchbl.MatchContainer;
 import bl.matchbl.PlayerQueue;
 import bl.teambl.SortTool;
 import bl.teambl.Team;
@@ -30,20 +31,31 @@ public class Player  implements SearchItemProvider{
 
 	private	TIntObjectMap<PlayerQueue> player_map;
 	private PlayerDataService playerData;
-	private TIntObjectMap<PlayerPO>  player_base_map;
-	private PlayerPO[] allPlayerpos;
+	private static TIntObjectMap<PlayerPO>  player_base_map;
+	private static PlayerPO[] allPlayerpos;
 	private Match  match ;
-	public Player()
+	private int season;
+	public Player(int season)
 	{
-	  match = Match.instance();
+	  this.season = season;
+	  MatchContainer matchContainer = MatchContainer.instance();
+	  match = matchContainer.getSeasonMatch(season);
 	  player_map  = match.getPlayer_map();
-	  NBADataFactory factory = DataFactoryImp.instance();
+	  NBADataFactory factory = null;
+	try {
+		factory = DataFactory.instance();
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
 	  playerData = factory.getPlayerData();
+	  if (allPlayerpos == null)
+	  {
 	  allPlayerpos = playerData.getAllPlayerData();
 	  player_base_map = new TIntObjectHashMap<PlayerPO>();
 	  for ( PlayerPO p : allPlayerpos)
 	  {
 		  player_base_map.put(p.getName().hashCode(), p);
+	  }
 	  }
 	}
 	//根据球员名查找球员的场均数据
@@ -166,7 +178,7 @@ public class Player  implements SearchItemProvider{
     //根据球员的场均数据进行筛选并进行排序
 	public Iterator<PlayerMatchVO> screenAvePlayers(String playerPosition,
 			Area playerArea, PlayerSortBy sortBy) {
-		Team team = new Team();
+		Team team = new Team(season);
 	   ArrayList<PlayerMatchVO> screen_players = new ArrayList<PlayerMatchVO>(500);
 	   ArrayList<PlayerMatchVO> result_players = new ArrayList<PlayerMatchVO>(300);
 	   for (PlayerPO p : allPlayerpos)
@@ -196,7 +208,7 @@ public class Player  implements SearchItemProvider{
 	public Iterator<PlayerMatchVO> screenTotalPlayers(String playerPosition,
 			Area playerArea, PlayerSortBy sortBy) {
 		
-		Team team = new Team();
+		Team team = new Team(season);
 		   ArrayList<PlayerMatchVO> screen_players = new ArrayList<PlayerMatchVO>(500);
 		   ArrayList<PlayerMatchVO> result_players = new ArrayList<PlayerMatchVO>(300);
 		   for (PlayerPO p : allPlayerpos)
@@ -248,36 +260,6 @@ public class Player  implements SearchItemProvider{
 			break;
 		}
 		return result;
-	}
-	//获得当日热点球员
-	public  MatchPlayerPO[] getDayHotPlayer(PlayerSortBy sortby) {
-		MatchesPO[]  todayMatches = match.getTodayMatches();
-		ArrayList<MatchPlayerPO> todayPlayers = new ArrayList<MatchPlayerPO>(500);
-		MatchTeamPO team = null;
-		MatchPlayerPO[] teamPlayers = null;
-		for (MatchesPO m : todayMatches)
-		{
-           teamPlayers = m.getTeam1().getPlayers();
-           for (MatchPlayerPO p : teamPlayers)
-           {
-        	   setHotSortTool(p, sortby);
-        	   todayPlayers.add(p);
-           }
-           teamPlayers = m.getTeam2().getPlayers();
-           for (MatchPlayerPO p : teamPlayers)
-           {
-        	   setHotSortTool(p, sortby);
-        	   todayPlayers.add(p);
-           }
-		}
-		Collections.sort(todayPlayers);
-		int size = todayPlayers.size() > 5 ? 5 : todayPlayers.size();
-		MatchPlayerPO[] m_players = new MatchPlayerPO[size];
-		for (int i = 0; i < size; i++)
-		{
-			m_players[i] = todayPlayers.get(i);
-		}
-		return m_players;
 	}
     
 	//获得赛季热点球员

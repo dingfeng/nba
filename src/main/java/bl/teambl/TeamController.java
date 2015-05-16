@@ -14,8 +14,13 @@ import vo.TeamSortBy;
 import vo.TeamVO;
 
 public class TeamController implements Teamblservice{
-    Team team = new Team();
-    Player player = new Player();
+    Team team ;
+    Player player ;
+    public TeamController(int season)
+    {
+    	player = new Player(season);
+    	team = new Team(season);
+    }
     //获得热门对球队
 	public synchronized  TeamMatchVO[] getHotTeams(TeamSortBy sortby) {
 		return team.getHotTeams(sortby);
