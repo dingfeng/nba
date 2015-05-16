@@ -4,14 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,11 +18,9 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import ui.HelpUtil;
-import ui.HotPanel;
 import ui.IndexPanel;
-import ui.MatchPanel;
-import ui.playerui.PlayerPanel;
-import ui.teamui.TeamPanel;
+import ui.teamui.ShowAllTeamPanel;
+//import bl.matchbl.MatchController;
 //import bl.matchbl.MatchController;
 
 public class MyFrame extends JFrame {
@@ -44,6 +38,7 @@ public class MyFrame extends JFrame {
 	public static JPanel mainpanel = new JPanel();
 	public static CardLayout card = new CardLayout();
 
+	public static ShowAllTeamPanel teampanel=new ShowAllTeamPanel(); 
 	public static IndexPanel indexpanel = new IndexPanel();
 //	public static TeamPanel teampanel = new TeamPanel();
 //	public static PlayerPanel playerpanel = new PlayerPanel();
@@ -81,7 +76,7 @@ public class MyFrame extends JFrame {
 		mainpanel.setLayout(card);
 		mainpanel.add(indexpanel, "index");
 //		mainpanel.add(playerpanel, "player");
-//		mainpanel.add(teampanel, "team");
+		mainpanel.add(teampanel, "team");
 //		mainpanel.add(matchpanel, "match");
 //		mainpanel.add(hotpanel, "hot");
 		mainpanel.setBackground(Color.white);;
