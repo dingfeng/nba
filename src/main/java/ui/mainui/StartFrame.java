@@ -26,7 +26,6 @@ public class StartFrame extends JFrame{
 	private Point origin = new Point();
 	public StartFrame()
 	{  
-		
 		MyFrame my=new MyFrame();
 		my.addMouseListener(new MouseAdapter()
 		{
