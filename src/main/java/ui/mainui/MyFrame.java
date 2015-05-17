@@ -39,7 +39,7 @@ public class MyFrame extends JFrame {
 	public static JPanel mainpanel = new JPanel();
 	public static CardLayout card = new CardLayout();
 
-//	public static ShowAllTeamPanel teampanel=new ShowAllTeamPanel(); 
+	public static ShowAllTeamPanel teampanel=new ShowAllTeamPanel(); 
 	public static IndexPanel indexpanel = new IndexPanel();
 //	public static TeamPanel teampanel = new TeamPanel();
 	public static PlayerPanel playerpanel = new PlayerPanel();
@@ -77,7 +77,7 @@ public class MyFrame extends JFrame {
 		mainpanel.setLayout(card);
 		mainpanel.add(indexpanel, "index");
 		mainpanel.add(playerpanel, "player");
-//		mainpanel.add(teampanel, "team");
+		mainpanel.add(teampanel, "team");
 //		mainpanel.add(matchpanel, "match");
 //		mainpanel.add(hotpanel, "hot");
 		mainpanel.setBackground(Color.white);;

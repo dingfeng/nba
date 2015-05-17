@@ -19,7 +19,7 @@ import bl.teambl.TeamController;
 
 public class ShowAllTeamPanel extends JPanel {
 
-	TeamController tc = new TeamController(2014);
+//	TeamController tc = new TeamController(2013);
 	JButton[] eastTeam = new JButton[15];
 	JButton[] westTeam = new JButton[15];
 	JPanel eastpanel = new JPanel();
@@ -42,14 +42,14 @@ public class ShowAllTeamPanel extends JPanel {
 		eastpic.setIcon(new ImageIcon("image/east.png"));
 		JLabel easttext = new JLabel();
 		easttext.setBackground(FrameSize.darkbluecolor);
-		easttext.setBounds(0, 5, FrameSize.width, 50);
+		easttext.setBounds(0, 0, FrameSize.width, 50);
 		easttext.setForeground(Color.white);
 		easttext.setBackground(new Color(30, 81, 140));
 		easttext.setOpaque(true);
 
 		JLabel eastArea = new JLabel();
 		eastArea.setText("       东南分区                                                                                                                            中央分区                                                                                                                             大西洋分区");
-		eastArea.setBounds(0, 55, FrameSize.width, 30);
+		eastArea.setBounds(0, 50, FrameSize.width, 30);
 		eastArea.setBackground(Color.LIGHT_GRAY);
 		eastArea.setOpaque(true);
 
@@ -81,10 +81,11 @@ public class ShowAllTeamPanel extends JPanel {
 	void setEastTeam() {
 
 		eastpanel.setLayout(new GridLayout(5, 3, 1, 1));
-		eastpanel.setBounds(0, 85, FrameSize.width, FrameSize.height / 2);
+		eastpanel.setBounds(0, 80, FrameSize.width, FrameSize.height * 7 / 16-80);
 		eastpanel.setOpaque(false);
 		for (int i = 0; i < 15; i++) {
 			eastTeam[i] = new JButton();
+			eastTeam[i].setBackground(Color.white);
 			eastTeam[i].setFocusPainted(false);
 			eastpanel.add(eastTeam[i]);
 		}
@@ -97,12 +98,13 @@ public class ShowAllTeamPanel extends JPanel {
 
 		westpanel.setLayout(new GridLayout(5, 3, 1, 1));
 		westpanel.setBounds(0, FrameSize.height * 7 / 16 + 80, FrameSize.width,
-				FrameSize.height / 2);
+				FrameSize.height * 7 / 16 - 80);
 		westpanel.setOpaque(false);
 		for (int i = 0; i < 15; i++) {
 			westTeam[i] = new JButton();
+			westTeam[i].setBackground(Color.white);
 			westTeam[i].setFocusPainted(false);
-			westpanel.add(eastTeam[i]);
+			westpanel.add(westTeam[i]);
 		}
 		this.add(westpanel);
 	}
