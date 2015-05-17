@@ -45,8 +45,8 @@ public class HotPanel extends JPanel {
 
 	JLabel crown=new JLabel();
 	JComboBox<String> choose;
-	TeamController tc = new TeamController();
-	PlayerController pc = new PlayerController();
+	TeamController tc = new TeamController(2012);
+	PlayerController pc = new PlayerController(2012);
 	int hottype = 1;
 
 	HotPanel hotpanel = this;

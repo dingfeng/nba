@@ -31,6 +31,7 @@ public class MyButton extends JButton {
 		this.setText(text);
 		this.setBackground(back);
 		this.addMouseListener(new button());
+		this.setFocusPainted(false);
 	}
 
 	class button implements MouseListener {

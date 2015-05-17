@@ -31,10 +31,9 @@ public class TeamMatchPanel extends JPanel {
 
 	public TeamMatchPanel(String teamname) {
 		this.setLayout(null);
-		this.setBounds(FrameSize.width / 3, FrameSize.height / 12,
-				2 * FrameSize.width / 3, FrameSize.height * 7 / 8
-						- FrameSize.height / 12);
-		this.setBackground(FrameSize.backColor);
+		this.setBounds(0, FrameSize.height / 4,
+				 FrameSize.width , FrameSize.height * 5 / 8);
+		this.setBackground(Color.white);
 		;
 		this.teamName = teamname;
 
@@ -60,7 +59,7 @@ public class TeamMatchPanel extends JPanel {
 
 		recent.setOpaque(true);
 		past.setOpaque(true);
-		recent.setBackground(Color.black);
+		recent.setBackground(FrameSize.bluecolor);
 		past.setBackground(Color.black);
 		recent.setForeground(Color.white);
 		past.setForeground(Color.white);
