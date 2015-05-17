@@ -19,6 +19,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import ui.HelpUtil;
 import ui.IndexPanel;
+import ui.playerui.PlayerPanel;
 import ui.teamui.ShowAllTeamPanel;
 //import bl.matchbl.MatchController;
 //import bl.matchbl.MatchController;
@@ -41,7 +42,7 @@ public class MyFrame extends JFrame {
 	public static ShowAllTeamPanel teampanel=new ShowAllTeamPanel(); 
 	public static IndexPanel indexpanel = new IndexPanel();
 //	public static TeamPanel teampanel = new TeamPanel();
-//	public static PlayerPanel playerpanel = new PlayerPanel();
+	public static PlayerPanel playerpanel = new PlayerPanel();
 //	public static HotPanel hotpanel = new HotPanel();
 //	public static MatchPanel matchpanel = new MatchPanel();
 
@@ -75,7 +76,7 @@ public class MyFrame extends JFrame {
 				FrameSize.height * 7 / 8);
 		mainpanel.setLayout(card);
 		mainpanel.add(indexpanel, "index");
-//		mainpanel.add(playerpanel, "player");
+		mainpanel.add(playerpanel, "player");
 		mainpanel.add(teampanel, "team");
 //		mainpanel.add(matchpanel, "match");
 //		mainpanel.add(hotpanel, "hot");

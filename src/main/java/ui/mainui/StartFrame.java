@@ -12,7 +12,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import ui.playerui.PlayerPanel;
+import ui.playerui.PlayerPanelOld;
 import ui.teamui.TeamPanel;
 
 public class StartFrame extends JFrame{
