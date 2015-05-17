@@ -23,6 +23,8 @@ import ui.playerui.PlayerPanel;
 import ui.teamui.ShowAllTeamPanel;
 //import bl.matchbl.MatchController;
 //import bl.matchbl.MatchController;
+import ui.teamui.TeamPanel;
+import ui.teamui.TeamPanelTry;
 
 public class MyFrame extends JFrame {
 	
@@ -39,9 +41,9 @@ public class MyFrame extends JFrame {
 	public static JPanel mainpanel = new JPanel();
 	public static CardLayout card = new CardLayout();
 
-	public static ShowAllTeamPanel teampanel=new ShowAllTeamPanel(); 
+	public static ShowAllTeamPanel showteampanel=new ShowAllTeamPanel(); 
 	public static IndexPanel indexpanel = new IndexPanel();
-//	public static TeamPanel teampanel = new TeamPanel();
+	public static TeamPanelTry teampanel = new TeamPanelTry();
 	public static PlayerPanel playerpanel = new PlayerPanel();
 //	public static HotPanel hotpanel = new HotPanel();
 //	public static MatchPanel matchpanel = new MatchPanel();

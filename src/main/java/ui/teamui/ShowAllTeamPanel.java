@@ -48,7 +48,7 @@ public class ShowAllTeamPanel extends JPanel {
 		easttext.setOpaque(true);
 
 		JLabel eastArea = new JLabel();
-		eastArea.setText("       东南分区                                                                                                                            中央分区                                                                                                                             大西洋分区");
+		eastArea.setText("       东南分区                                                                                                                     中央分区                                                                                                                      大西洋分区");
 		eastArea.setBounds(0, 50, FrameSize.width, 30);
 		eastArea.setBackground(Color.LIGHT_GRAY);
 		eastArea.setOpaque(true);
@@ -63,7 +63,7 @@ public class ShowAllTeamPanel extends JPanel {
 		westtext.setOpaque(true);
 
 		JLabel westArea = new JLabel();
-		westArea.setText("       太平洋分区                                                                                                                            西北分区                                                                                                                            西南分区");
+		westArea.setText("       太平洋分区                                                                                                                     西北分区                                                                                                                     西南分区");
 		westArea.setBounds(0, FrameSize.height * 7 / 16 + 50, FrameSize.width,
 				30);
 		westArea.setBackground(Color.LIGHT_GRAY);
@@ -85,7 +85,9 @@ public class ShowAllTeamPanel extends JPanel {
 		eastpanel.setOpaque(false);
 		for (int i = 0; i < 15; i++) {
 			eastTeam[i] = new JButton();
+//			eastTeam[i].setBorder(null);
 			eastTeam[i].setBackground(Color.white);
+			eastTeam[i].setIconTextGap(2);
 			eastTeam[i].setFocusPainted(false);
 			eastpanel.add(eastTeam[i]);
 		}
@@ -102,7 +104,9 @@ public class ShowAllTeamPanel extends JPanel {
 		westpanel.setOpaque(false);
 		for (int i = 0; i < 15; i++) {
 			westTeam[i] = new JButton();
+//			westTeam[i].setBorder(null);
 			westTeam[i].setBackground(Color.white);
+			westTeam[i].setIconTextGap(2);
 			westTeam[i].setFocusPainted(false);
 			westpanel.add(westTeam[i]);
 		}
