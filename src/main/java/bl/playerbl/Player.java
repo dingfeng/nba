@@ -487,4 +487,85 @@ public class Player  implements SearchItemProvider{
 		return playerNames;
 	}
 	
+	/**
+	 * 查找以start为开头的球员的场均比赛信息
+	 * @param start
+	 * @return
+	 */
+	public PlayerMatchVO[] getAvePlayers(String start){
+		ArrayList<String> names = new ArrayList<String>(500);
+		
+		for (PlayerPO p : allPlayerpos)
+		{
+			if (p.getName().startsWith(start))
+				names.add(p.getName());
+		}
+		
+		String[] namesArray = (String[]) names.toArray();
+		Arrays.sort(namesArray);
+		PlayerMatchVO[] result = new PlayerMatchVO[names.size()];
+		int cursor = 0;
+		for(String n : namesArray){
+			PlayerMatchVO temp = findPlayerMatchAve(n);
+			result[cursor ++] = temp;
+		}
+		return result;
+	}
+	
+	/**
+	 * 查找以start为开头的球员的所有比赛信息
+	 * @param start
+	 * @return
+	 */
+	public PlayerMatchVO[] getTotalPlayers(String start) {
+		ArrayList<String> names = new ArrayList<String>(500);
+		
+		for (PlayerPO p : allPlayerpos)
+		{
+			if (p.getName().startsWith(start))
+				names.add(p.getName());
+		}
+		
+		String[] namesArray = (String[]) names.toArray();
+		Arrays.sort(namesArray);
+		PlayerMatchVO[] result = new PlayerMatchVO[names.size()];
+		int cursor = 0;
+		for(String n : namesArray){
+			PlayerMatchVO temp = findPlayerMatchTotal(n);
+			result[cursor ++] = temp;
+		}
+		return result;
+	}
+	
+	/**
+	 * 得到所有球员的场均比赛信息
+	 * @return
+	 */
+	public PlayerMatchVO[] getAvePlayers() {
+		String[] names = getSearchItems();
+		Arrays.sort(names);
+		PlayerMatchVO[] result = new PlayerMatchVO[names.length];
+		int cursor = 0;
+		for(String n : names){
+			PlayerMatchVO temp = findPlayerMatchAve(n);
+			result[cursor ++] = temp;
+		}
+		return result;
+	}
+	
+	/**
+	 * 得到所有球员的所有比赛信息
+	 * @return
+	 */
+	public PlayerMatchVO[] getTotalPlayers() {
+		String[] names = getSearchItems();
+		Arrays.sort(names);
+		PlayerMatchVO[] result = new PlayerMatchVO[names.length];
+		int cursor = 0;
+		for(String n : names){
+			PlayerMatchVO temp = findPlayerMatchTotal(n);
+			result[cursor ++] = temp;
+		}
+		return result;
+	}
 }

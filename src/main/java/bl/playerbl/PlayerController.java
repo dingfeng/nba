@@ -84,5 +84,21 @@ public class PlayerController implements PlayerBlService{
 	public synchronized String[] getAllPlayerNames() {
 		return player.getSearchItems();
 	}
-
+	@Override
+	public synchronized PlayerMatchVO[] getAvePlayers(String start) {
+		return player.getAvePlayers(start);
+	}
+	@Override
+	public synchronized PlayerMatchVO[] getTotalPlayers(String start) {
+		return player.getTotalPlayers(start);
+	}
+	@Override
+	public synchronized PlayerMatchVO[] getAvePlayers() {
+		return player.getAvePlayers();
+	}
+	@Override
+	public synchronized PlayerMatchVO[] getTotalPlayers() {
+		// TODO Auto-generated method stub
+		return player.getTotalPlayers();
+	}
 }

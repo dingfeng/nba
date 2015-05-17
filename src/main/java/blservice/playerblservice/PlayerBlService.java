@@ -36,4 +36,12 @@ public interface PlayerBlService {
     public PlayerMatchVO findPlayerTotal(String playername);
     //获得所有球员姓名
     public String[] getAllPlayerNames();
+    //获得以字母为开头的球员场均数据
+    public PlayerMatchVO[] getAvePlayers(String start);
+    //获得首字母为start的球员的所有数据
+    public PlayerMatchVO[] getTotalPlayers(String start);
+    //获得所有球员场均数据
+    public PlayerMatchVO[] getAvePlayers();
+    //获得所有球员所有数据
+    public PlayerMatchVO[] getTotalPlayers();
 }
