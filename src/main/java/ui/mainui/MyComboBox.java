@@ -1,24 +1,23 @@
 package ui.mainui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 
 public class MyComboBox extends JComboBox{
 	
 	public MyComboBox(){
-		this.setBackground(new Color(68,68,68));
-		this.setForeground(Color.white);
-		this.setBorder(null);
+		setFeature();
 	}
 	
 	public MyComboBox(String [] a){
 		for(int i=0;i<a.length;i++){
 			this.addItem(a[i]);
 		}
-		this.setBackground(new Color(68,68,68));
-		this.setForeground(Color.white);
+		setFeature();
 	}
 	
 	public MyComboBox(String text,ArrayList<String> a){
@@ -26,8 +25,7 @@ public class MyComboBox extends JComboBox{
 		for(int i=0;i<a.size();i++){
 			this.addItem(a.get(i));
 		}
-		this.setBackground(new Color(68,68,68));
-		this.setForeground(Color.white);
+		setFeature();
 	}
 	
 	public MyComboBox(String text,String[] a){
@@ -36,7 +34,14 @@ public class MyComboBox extends JComboBox{
 		for(int i=0;i<a.length;i++){
 			this.addItem(a[i]);
 		}
-		this.setBackground(new Color(68,68,68));
-		this.setForeground(Color.white);
+		setFeature();
 	}
+	
+	private void setFeature(){
+		this.setBackground(new Color(69,69,69));
+		this.setForeground(Color.white);
+		this.setFont(new Font("微软雅黑",Font.PLAIN, 12));
+		this.setBorder(BorderFactory.createLineBorder(Color.black));
+//		this.setSelectedIndex(5);
+		}
 }
