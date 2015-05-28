@@ -1,6 +1,8 @@
 package vo;
 
 import po.MatchPlayerPO;
+import po.PlayerHighPO;
+import po.PlayerNormalPO;
 import bl.teambl.SortTool;
 
 
@@ -22,6 +24,12 @@ public class PlayerMatchVO implements Comparable<PlayerMatchVO>{
 	private double mistakesNo;// 失误数
 	private double foulsNo;// 犯规数
 	private double points;// 得分
+	private double twoPair;//两双
+	private double points_uprate; //得分提升率
+	private double rebs_uprate; //篮板提升率
+	private double help_uprate; //助攻提升率
+	private double scoring_rebound_assist;//得分/篮板/助攻（加权比1：1：1）
+	
 	private double efficiency;// 效率
 	private double GmScEfficiency;// GmSc效率值
 	private double trueHitRate;// 真实命中率
@@ -36,27 +44,28 @@ public class PlayerMatchVO implements Comparable<PlayerMatchVO>{
 	private double useEfficiency;// 使用率
 	
 	
-	private double scoring_rebound_assist;//得分/篮板/助攻（加权比1：1：1）
 	private double minute;//分钟
     private double handNo;//投篮出手数
     private double three_points;//三分出手数
     private double penaltyHandNo;//罚球出手数
-	private double twoPair;//两双
 	
-	private double points_uprate; //得分提升率
-	private double rebs_uprate; //篮板提升率
-	private double help_uprate; //助攻提升率
+	
+
+	
+	
 	private double hotData;    //热点数据
-	
 	
 	private String location;//位置
 	private double hitNo; // 投篮命中数
 	private double threeHitNo; // 三分命中数
 	private double threeHandNo; // 三分出手数
 	private double penaltyHitNo; // 罚球命中数
+	
 	private double offenseRebs; // 进攻篮板数
 	private double defenceRebs; // 防守篮板数
+	
 	private double help;//总篮板数
+	
 	private SortTool sortTool; //排序工具
 	private SortType type;
 	public PlayerMatchVO(String name)
@@ -362,6 +371,30 @@ public class PlayerMatchVO implements Comparable<PlayerMatchVO>{
 	public double getHotData()
 	{
 		return  hotData;
+	}
+	
+	public PlayerHighPO getPlayerHighPO()
+	{
+		PlayerHighPO high = new PlayerHighPO( name,  team,  efficiency,
+				GmScEfficiency,  trueHitRate,  hitEfficiency,
+			 rebEfficiency,  offenseRebsEfficiency,
+			 defenceRebsEfficiency,  assistEfficiency,
+			 stealsEfficiency,  blockEfficiency,
+			 mistakeEfficiency,  useEfficiency);
+		return high;
+	}
+	public PlayerNormalPO getPlayerNormalPO()
+	{
+		PlayerNormalPO normal = new PlayerNormalPO( name,  team,  matchNo,
+				 firstServiceNo,  rebs,  assistNo,  time,
+				 offendRebsNo,  defenceRebsNo,  stealsNo,
+				 blockNo,  mistakesNo,  foulsNo,  points,
+				 minute,  hitNo,  handNo,  hitRate,
+				 penaltyHandNo,  penaltyHitNo,  penaltyHitRate,
+				 threeHitNo,  threeHandNo,  threeHitRate,
+				 twoPair,  points_uprate,  rebs_uprate,
+				 help_uprate,  scoring_rebound_assist);
+		return normal;
 	}
 	
 	public void setSortTool(SortTool sortTool)

@@ -1,5 +1,7 @@
 package vo;
 
+import po.TeamHighPO;
+import po.TeamNormalPO;
 import bl.teambl.SortTool;
 
 public class TeamMatchVO implements Comparable<TeamMatchVO>{
@@ -24,6 +26,7 @@ public class TeamMatchVO implements Comparable<TeamMatchVO>{
 	private double threeHitRate;// 三分命中率
 	private double penaltyHitRate;// 罚球命中率
 	private double winRate; // 胜率
+	
 	private double offenseRound; // 进攻回合
 	private double offenseEfficiency;// 进攻效率
 	private double defenceEfficiency;// 防守效率
@@ -204,6 +207,25 @@ public class TeamMatchVO implements Comparable<TeamMatchVO>{
 		sortTypes[0] = type;
 		tool = new SortTool(datas, sortTypes);
 		this.hotdata = data;
+	}
+	
+	public TeamNormalPO getTeamNormal()
+	{
+		TeamNormalPO normal = new TeamNormalPO( name,  matchNo,  hitNo,  handNo,
+				 threeHitNo,  threeHandNo,  penaltyHitNo,
+				 penaltyHandNo,  offenseRebs,  defenceRebs,
+				 rebs,  assistNo,  stealsNo,  blockNo,
+				 mistakesNo,  foulsNo,  points,  hitRate,
+				 threeHitRate,  penaltyHitRate,  winRate);
+		return normal;
+	}
+	public TeamHighPO getTeamHigh()
+	{
+		TeamHighPO high = new TeamHighPO( name, offenseRound,  offenseEfficiency,
+				 defenceEfficiency,  orebsEfficiency,
+				 drebsEfficiency,  stealsEfficiency,
+				 assistEfficiency);
+		return high;
 	}
 	
 	public double getHotData()
