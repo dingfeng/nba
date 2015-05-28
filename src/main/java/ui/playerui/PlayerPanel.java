@@ -7,15 +7,20 @@ import java.awt.event.MouseEvent;
 import java.util.Vector;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import bl.teambl.TeamController;
 import ui.mainui.CharacterButton;
 import ui.mainui.EditableTextField;
 import ui.mainui.FrameSize;
 import ui.mainui.MyComboBox;
+import ui.mainui.MyTable;
+import vo.PlayerMatchVO;
+import vo.PlayerVO;
 
 public class PlayerPanel extends JPanel{
 		
@@ -26,9 +31,14 @@ public class PlayerPanel extends JPanel{
 		this.setOpaque(false);
 		JPanel headerPanel = HeaderPanel();
 		this.add(headerPanel);
-		
+//		PlayerVO[] a = new PlayerVO[5];
+//		PlayerVO b = new PlayerVO(null, null, 0, "A", 7, 2, 1995, 16, 5, "nju", "ball", "team", flags, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, null, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX, alignmentX);
+//		
+		JScrollPane jScrollPane = TablePanel(null);
+		this.add(headerPanel);
 	}
 	
+	/**查找栏*/
 	private static JPanel HeaderPanel(){
 		JPanel headerPanel = new JPanel();
 		headerPanel.setLayout(null);
@@ -85,16 +95,44 @@ public class PlayerPanel extends JPanel{
 		return headerPanel;
 	}
 
-	private JScrollPane TablePanel(){
+	/**显示查找到的球员的基本信息*/
+	private JScrollPane TablePanel(PlayerVO [] playerVOs){
+		if(playerVOs!=null){
 		Vector columnsName = new Vector();
 		columnsName.add(" ");
 		columnsName.add("球员");
 		columnsName.add("姓名");
 		columnsName.add("球队");
-		columnsName.add("位置");
-		
-//		Vector data = new Vector();
-		
+//		columnsName.add("位置");
+		columnsName.add("身高");
+		columnsName.add("学校");
+		columnsName.add("生日");
+		columnsName.add("年龄");
+		columnsName.add("球龄");
+			
+		Vector data = new Vector();
+		for(int i=0;i<playerVOs.length;i++){
+			Vector rowData = new Vector();
+			rowData.add(i);
+			rowData.add(playerVOs[i].getPortrait());
+			rowData.add(playerVOs[i].getName());
+			rowData.add(playerVOs[i].getTeam());
+//			rowData.add(playerVOs[i].getLocation());
+			rowData.add(playerVOs[i].getHeightfeet() + "-"
+					+ playerVOs[i].getHeightinch());
+			rowData.add(playerVOs[i].getSchool());
+			rowData.add(playerVOs[i].getBirth());
+			rowData.add(String.valueOf(playerVOs[i].getAge()));
+			rowData.add(String.valueOf(playerVOs[i].getExp()));
+			
+			data.add(rowData);
+		}
+		DefaultTableModel table = new DefaultTableModel(data,columnsName);
+		MyTable myTable = new MyTable(table);
+		JScrollPane jScrollPane = new JScrollPane(myTable);
+		jScrollPane.setBounds(0,30,FrameSize.width,FrameSize.width*7/8-30);
+		return jScrollPane;
+		}
 		return null;
 		
 	}
