@@ -20,7 +20,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 import ui.HelpUtil;
 import ui.IndexPanel;
 import ui.playerui.PlayerPanel;
-import ui.statistics.StatisticsPanel;
+import ui.statistics.StatisticsPlayerPanel;
+import ui.statistics.StatisticsTeamPanel;
 import ui.teamui.ShowAllTeamPanel;
 //import bl.matchbl.MatchController;
 //import bl.matchbl.MatchController;
@@ -47,8 +48,9 @@ public class MyFrame extends JFrame {
 	public static PlayerPanel playerpanel = new PlayerPanel();
 	// public static HotPanel hotpanel = new HotPanel();
 	// public static MatchPanel matchpanel = new MatchPanel();
-	public static StatisticsPanel statisticspanel = new StatisticsPanel();
-
+	public static StatisticsPlayerPanel statisticsPlayerPanel = new StatisticsPlayerPanel();
+	public static StatisticsTeamPanel statisticsTeamPanel = new StatisticsTeamPanel();
+	
 	public static JLabel locationlable = new JLabel();
 
 	// MatchController mc = new MatchController();
@@ -79,7 +81,8 @@ public class MyFrame extends JFrame {
 		mainpanel.add(teampanel, "team");
 		// mainpanel.add(matchpanel, "match");
 		// mainpanel.add(hotpanel, "hot");
-		mainpanel.add(statisticspanel, "statistics");
+		mainpanel.add(statisticsPlayerPanel, "statisticsPlayer");
+		mainpanel.add(statisticsTeamPanel,"statisticsTeam");
 		mainpanel.setBackground(Color.white);
 		;
 		setExit();
@@ -208,7 +211,7 @@ public class MyFrame extends JFrame {
 	}
 	
 	void setStatics() {
-		card.show(mainpanel, "statics");
+		card.show(mainpanel, "statisticsPlayer");
 		locationlable.setText("当前位置：统计");
 	}
 
