@@ -1,5 +1,6 @@
 package bl.playerbl;
 
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -100,5 +101,9 @@ public class PlayerController implements PlayerBlService{
 	public synchronized PlayerMatchVO[] getTotalPlayers() {
 		// TODO Auto-generated method stub
 		return player.getTotalPlayers();
+	}
+	@Override
+	public Image[] getPlayerImage(String name) {
+		return player.getPlayerImage(name);
 	}
 }

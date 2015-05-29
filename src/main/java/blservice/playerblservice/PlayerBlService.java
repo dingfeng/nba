@@ -1,6 +1,7 @@
 package blservice.playerblservice;
 
 
+import java.awt.Image;
 import java.util.Iterator;
 
 import bl.matchbl.Match;
@@ -44,4 +45,6 @@ public interface PlayerBlService {
     public PlayerMatchVO[] getAvePlayers();
     //获得所有球员所有数据
     public PlayerMatchVO[] getTotalPlayers();
+    //根据球员的名字得到球员的头像和全身图片
+    public Image[] getPlayerImage(String name);
 }
