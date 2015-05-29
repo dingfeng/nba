@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -13,7 +14,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -84,7 +87,7 @@ public class MyFrame extends JFrame {
 		mainpanel.add(statisticsPlayerPanel, "statisticsPlayer");
 		mainpanel.add(statisticsTeamPanel,"statisticsTeam");
 		mainpanel.setBackground(Color.white);
-		;
+		
 		setExit();
 		setMini();
 		setTitle();
@@ -130,14 +133,34 @@ public class MyFrame extends JFrame {
 				FrameSize.bluecolor, FrameSize.darkbluecolor);
 		JButton staticsbutton = new MyButton(new ImageIcon("image/statics.png"),
 				FrameSize.bluecolor, FrameSize.darkbluecolor);
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		
+		JPopupMenu staticstype = new JPopupMenu();
+		JMenuItem playeritem = new JMenuItem("球员数据");
+		playeritem.setBackground(Color.white);
+		playeritem.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				card.show(mainpanel, "statisticsPlayer");
+			}
 
-		} catch (ClassNotFoundException | InstantiationException
-				| IllegalAccessException | UnsupportedLookAndFeelException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		});
+		JMenuItem teamitem = new JMenuItem("球队数据");
+		teamitem.setBackground(Color.white);
+		teamitem.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				card.show(mainpanel, "statisticsTeam");
+			}
+
+		});
+		staticstype.add(playeritem);
+		staticstype.add(teamitem);
+		staticstype.setBackground(Color.white);
+
+		staticsbutton.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				staticstype.show(e.getComponent(), 0, 50);
+			}
+
+		});
 
 		index.setBounds(10, 3 * FrameSize.height / 80, 50, 50);
 		hotbutton.setBounds(80, 3 * FrameSize.height / 80, 50, 50);
@@ -168,7 +191,7 @@ public class MyFrame extends JFrame {
 		hotbutton.addActionListener(e -> setHot());
 		matchbutton.addActionListener(e -> setMatch());
 		helpbutton.addActionListener(e -> HelpUtil.startHelp());
-		staticsbutton.addActionListener(e->setStatics());
+//		staticsbutton.addActionListener(e->setStatics());
 		
 		frame.add(locationlable);
 		frame.add(helpbutton);
