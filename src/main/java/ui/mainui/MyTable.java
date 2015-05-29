@@ -11,8 +11,8 @@ import javax.swing.table.TableCellRenderer;
 
 public class MyTable extends JTable {						// 实现自己的表格类
 	private Color selectionColor = new Color(207,228,249);//行选择颜色
-    private Color evenRowColor = new Color(183,183,183);//奇数行颜色
-    private Color oddRowColor = new Color(225,225,225);//偶数行颜色
+    private Color evenRowColor = new Color(198,198,255);//奇数行颜色
+    private Color oddRowColor = Color.white;//偶数行颜色
     private Color gridColor = new Color(236,233,216);//网格颜色
 	// 重写JTable类的构造方法
 	public MyTable(DefaultTableModel tableModel) {//Vector rowData, Vector columnNames
