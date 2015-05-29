@@ -11,8 +11,8 @@ import javax.swing.table.TableCellRenderer;
 
 public class MyTable extends JTable {						// 实现自己的表格类
 	private Color selectionColor = new Color(207,228,249);//行选择颜色
-    private Color evenRowColor = new Color(198,198,255);//奇数行颜色
-    private Color oddRowColor = Color.white;//偶数行颜色
+    private Color evenRowColor = new Color(245,245,245);//奇数行颜色
+    private Color oddRowColor = new Color(255,255,255);//偶数行颜色
     private Color gridColor = new Color(236,233,216);//网格颜色
 	// 重写JTable类的构造方法
 	public MyTable(DefaultTableModel tableModel) {//Vector rowData, Vector columnNames
@@ -24,7 +24,7 @@ public class MyTable extends JTable {						// 实现自己的表格类
 	public JTableHeader getTableHeader() {					// 定义表格头
 		JTableHeader tableHeader = super.getTableHeader();	// 获得表格头对象
 		tableHeader.setReorderingAllowed(false);			// 设置表格列不可重排
-		tableHeader.setBackground(Color.black);
+		tableHeader.setBackground(new Color(159,159,159));
 		tableHeader.setForeground(Color.white);
 		DefaultTableCellRenderer hr = (DefaultTableCellRenderer) tableHeader
 				.getDefaultRenderer(); 						// 获得表格头的单元格对象
