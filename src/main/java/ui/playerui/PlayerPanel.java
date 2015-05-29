@@ -41,7 +41,7 @@ public class PlayerPanel extends JPanel {
 	private static JPanel HeaderPanel() {
 		JPanel headerPanel = new JPanel();
 		headerPanel.setLayout(null);
-		headerPanel.setBounds(0, 0, FrameSize.width, 30);
+		headerPanel.setBounds(0, 0, FrameSize.width, 40);
 		headerPanel.setBackground(new Color(87, 89, 91));
 
 		// 根据首字母查找球员
@@ -51,7 +51,7 @@ public class PlayerPanel extends JPanel {
 			character[i] = new CharacterButton((char) ('A' + i - 1));
 		}
 		for (int i = 0; i < 27; i++) {
-			character[i].setLocation(30 * i, 0);
+			character[i].setBounds(30 * i, 5,30,30);
 			headerPanel.add(character[i]);
 		}
 
@@ -59,7 +59,7 @@ public class PlayerPanel extends JPanel {
 		EditableTextField playerNameTextField = new EditableTextField("按姓名查找");
 		playerNameTextField.setBackground(new Color(69, 69, 69));
 		playerNameTextField.setForeground(Color.white);
-		playerNameTextField.setBounds(27 * 30, 0,
+		playerNameTextField.setBounds(27 * 30, 5,
 				(FrameSize.width - 27 * 30) / 2 - 10, 30);
 		playerNameTextField.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -72,7 +72,7 @@ public class PlayerPanel extends JPanel {
 		String team[] = new String[30];// 所有球队名
 		MyComboBox findPlayerAccordingTeam = new MyComboBox("按球队查找", team);
 		findPlayerAccordingTeam.setBounds(
-				27 * 30 + (FrameSize.width - 27 * 30) / 2, 0, FrameSize.width
+				27 * 30 + (FrameSize.width - 27 * 30) / 2, 5, FrameSize.width
 						- (27 * 30 + (FrameSize.width - 27 * 30) / 2), 30);
 		headerPanel.add(findPlayerAccordingTeam);
 
@@ -114,11 +114,47 @@ public class PlayerPanel extends JPanel {
 			DefaultTableModel table = new DefaultTableModel(data, columnsName);
 			MyTable myTable = new MyTable(table);
 			JScrollPane jScrollPane = new JScrollPane(myTable);
-			jScrollPane.setBounds(0, 30, FrameSize.width,
-					FrameSize.width * 7 / 8 - 30);
+			jScrollPane.setBounds(0, 60, FrameSize.width,
+					FrameSize.width * 7 / 8 - 40);
 			return jScrollPane;
 		}
-		return null;
+		else{
+			Vector columnsName = new Vector();
+			columnsName.add(" ");
+			columnsName.add("球员");
+			columnsName.add("姓名");
+			columnsName.add("球队");
+			// columnsName.add("位置");
+			columnsName.add("身高");
+			columnsName.add("学校");
+			columnsName.add("生日");
+			columnsName.add("年龄");
+			columnsName.add("球龄");
+
+			Vector data = new Vector();
+			for (int i = 0; i < 100; i++) {
+				Vector rowData = new Vector();
+				rowData.add(i);
+				rowData.add("辣");
+				rowData.add("辣");
+				rowData.add("还");
+				// rowData.add(playerVOs[i].getLocation());
+				rowData.add("没");
+				rowData.add("给");
+				rowData.add("俺");
+				rowData.add("接");
+				rowData.add("口");
+
+				data.add(rowData);
+			}
+			DefaultTableModel table = new DefaultTableModel(data, columnsName);
+			MyTable myTable = new MyTable(table);
+			JScrollPane jScrollPane = new JScrollPane(myTable);
+			jScrollPane.setBounds(0, 40, FrameSize.width,
+					FrameSize.height* 7 / 8 - 40);
+			return jScrollPane;
+		}
+//		return null;
 
 	}
 }
