@@ -106,8 +106,8 @@ public class PlayerPanel extends JPanel {
 						+ playerVOs[i].getHeightinch());
 				rowData.add(playerVOs[i].getSchool());
 				rowData.add(playerVOs[i].getBirth());
-				rowData.add(String.valueOf(playerVOs[i].getAge()));
-				rowData.add(String.valueOf(playerVOs[i].getExp()));
+				rowData.add(playerVOs[i].getAge());
+				rowData.add(playerVOs[i].getExp());
 
 				data.add(rowData);
 			}
