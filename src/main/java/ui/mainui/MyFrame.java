@@ -193,7 +193,6 @@ public class MyFrame extends JFrame {
 		hotbutton.addActionListener(e -> setHot());
 		matchbutton.addActionListener(e -> setMatch());
 		helpbutton.addActionListener(e -> HelpUtil.startHelp());
-//		staticsbutton.addActionListener(e->setStatics());
 		
 		frame.add(locationlable);
 		frame.add(helpbutton);
@@ -234,11 +233,7 @@ public class MyFrame extends JFrame {
 		card.show(mainpanel, "match");
 		locationlable.setText("当前位置：比赛");
 	}
-	
-	void setStatics() {
-		card.show(mainpanel, "statisticsPlayer");
-		locationlable.setText("当前位置：统计");
-	}
+
 
 	void setExit() {
 		JButton el = new MyButton(new ImageIcon("image/close.png"),
