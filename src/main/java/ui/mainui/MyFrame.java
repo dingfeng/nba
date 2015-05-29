@@ -136,6 +136,7 @@ public class MyFrame extends JFrame {
 		
 		JPopupMenu staticstype = new JPopupMenu();
 		JMenuItem playeritem = new JMenuItem("球员数据");
+		playeritem.setFont(MyFont.font1);
 		playeritem.setBackground(Color.white);
 		playeritem.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
@@ -144,6 +145,7 @@ public class MyFrame extends JFrame {
 
 		});
 		JMenuItem teamitem = new JMenuItem("球队数据");
+		playeritem.setFont(MyFont.font1);
 		teamitem.setBackground(Color.white);
 		teamitem.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
