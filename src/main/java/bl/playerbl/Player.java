@@ -545,7 +545,7 @@ public class Player implements SearchItemProvider {
 	/**
 	 * 根据球员的名字得到球员的头像和全身图片
 	 * @param name
-	 * @return
+	 * @return 数组第一维是大头照，第二维全身照，若返回null则没有这个球员
 	 */
 	public Image[] getPlayerImage(String name){
 		PlayerPO playerpo= player_base_map.get(name.hashCode());
