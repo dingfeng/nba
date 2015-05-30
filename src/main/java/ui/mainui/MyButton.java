@@ -19,7 +19,6 @@ public class MyButton extends JButton {
 //		this.setContentAreaFilled(false);
 		this.setIcon(image);
 		this.setBackground(back);
-		this.addMouseListener(new button());
 		this.setFocusPainted(false);
 	}
 	
@@ -30,41 +29,8 @@ public class MyButton extends JButton {
 //		this.setContentAreaFilled(false);
 		this.setText(text);
 		this.setBackground(back);
-		this.addMouseListener(new button());
 		this.setFocusPainted(false);
 	}
 
-	class button implements MouseListener {
 
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
-			 ((JButton)e.getSource()).setBackground(backcolor);
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-			((JButton) e.getSource()).setBackground(focuscolor);
-
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			((JButton) e.getSource()).setBackground(backcolor);
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
-	}
 }

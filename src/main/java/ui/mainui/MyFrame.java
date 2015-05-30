@@ -3,7 +3,6 @@ package ui.mainui;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
@@ -17,8 +16,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 import ui.HelpUtil;
 import ui.IndexPanel;
@@ -26,10 +23,9 @@ import ui.playerui.PlayerPanel;
 import ui.statistics.StatisticsPlayerPanel;
 import ui.statistics.StatisticsTeamPanel;
 import ui.teamui.ShowAllTeamPanel;
-//import bl.matchbl.MatchController;
-//import bl.matchbl.MatchController;
-import ui.teamui.TeamPanel;
 import ui.teamui.TeamPanelTry;
+//import bl.matchbl.MatchController;
+//import bl.matchbl.MatchController;
 
 public class MyFrame extends JFrame {
 
@@ -116,22 +112,30 @@ public class MyFrame extends JFrame {
 		frame.add(icon);
 
 	}
-
+	
+	JButton index;
+	JButton playerbutton;
+	JButton teambutton;
+	JButton hotbutton;
+	JButton matchbutton;
+	JButton helpbutton;
+	JButton staticsbutton;
+	
 	void setHeadButton() {
 
-		JButton index = new MyButton(new ImageIcon("image/index.png"),
+		index = new MyButton(new ImageIcon("image/index.png"),
 				FrameSize.bluecolor, FrameSize.darkbluecolor);
-		JButton playerbutton = new MyButton(new ImageIcon("image/player.png"),
+		playerbutton = new MyButton(new ImageIcon("image/player.png"),
 				FrameSize.bluecolor, FrameSize.darkbluecolor);
-		JButton teambutton = new MyButton(new ImageIcon("image/图片1.png"),
+		teambutton = new MyButton(new ImageIcon("image/图片1.png"),
 				FrameSize.bluecolor, FrameSize.darkbluecolor);
-		JButton hotbutton = new MyButton(new ImageIcon("image/hot.png"),
+		hotbutton = new MyButton(new ImageIcon("image/hot.png"),
 				FrameSize.bluecolor, FrameSize.darkbluecolor);
-		JButton matchbutton = new MyButton(new ImageIcon("image/match.png"),
+		matchbutton = new MyButton(new ImageIcon("image/match.png"),
 				FrameSize.bluecolor, FrameSize.darkbluecolor);
-		JButton helpbutton = new MyButton(new ImageIcon("image/help.png"),
+		helpbutton = new MyButton(new ImageIcon("image/help.png"),
 				FrameSize.bluecolor, FrameSize.darkbluecolor);
-		JButton staticsbutton = new MyButton(new ImageIcon("image/statics.png"),
+		staticsbutton = new MyButton(new ImageIcon("image/statics.png"),
 				FrameSize.bluecolor, FrameSize.darkbluecolor);
 		
 		JPopupMenu staticstype = new JPopupMenu();
@@ -180,12 +184,6 @@ public class MyFrame extends JFrame {
 		helpbutton.setToolTipText("帮助");
 		staticsbutton.setToolTipText("统计");
 		
-		locationlable.setText("当前位置：主页");
-		locationlable.setOpaque(false);
-		locationlable.setForeground(FrameSize.lightbluecolor);
-		locationlable.setBounds(FrameSize.width / 2, FrameSize.height / 20,
-				150, 30);
-		locationlable.setFont(new Font("微软雅黑", Font.PLAIN, 20));
 
 		index.addActionListener(e -> setIndex());
 		playerbutton.addActionListener(e -> setPlayer());
@@ -193,6 +191,15 @@ public class MyFrame extends JFrame {
 		hotbutton.addActionListener(e -> setHot());
 		matchbutton.addActionListener(e -> setMatch());
 		helpbutton.addActionListener(e -> HelpUtil.startHelp());
+		staticsbutton.addActionListener(e->setStatics());
+		
+		index.addMouseListener(new button());
+		playerbutton.addMouseListener(new button());
+		teambutton.addMouseListener(new button());
+		hotbutton.addMouseListener(new button());
+		matchbutton.addMouseListener(new button());
+		helpbutton.addMouseListener(new button());
+		staticsbutton.addMouseListener(new button());
 		
 		frame.add(locationlable);
 		frame.add(helpbutton);
@@ -204,37 +211,102 @@ public class MyFrame extends JFrame {
 		frame.add(staticsbutton);
 	}
 
+	class button implements MouseListener {
 
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			// TODO Auto-generated method stub
+//			 ((JButton)e.getSource()).setBackground(FrameSize.bluecolor);
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+//			((JButton) e.getSource()).setBackground(FrameSize.lightbluecolor);
+
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+//			((JButton) e.getSource()).setBackground(FrameSize.bluecolor);
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			((JButton) e.getSource()).setBackground(FrameSize.darkbluecolor);
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			((JButton) e.getSource()).setBackground(FrameSize.darkbluecolor);
+		}
+
+	}
 
 	void setIndex() {
-
+		
 		indexpanel.update();
 		card.show(mainpanel, "index");
-		locationlable.setText("当前位置：主页");
+		playerbutton.setBackground(FrameSize.bluecolor);
+		teambutton.setBackground(FrameSize.bluecolor);
+		hotbutton.setBackground(FrameSize.bluecolor);
+		matchbutton.setBackground(FrameSize.bluecolor);
+		helpbutton.setBackground(FrameSize.bluecolor);
+		staticsbutton.setBackground(FrameSize.bluecolor);
 
 	}
 
 	void setPlayer() {
 		card.show(mainpanel, "player");
-		locationlable.setText("当前位置：球员");
+		index.setBackground(FrameSize.bluecolor);
+		teambutton.setBackground(FrameSize.bluecolor);
+		hotbutton.setBackground(FrameSize.bluecolor);
+		matchbutton.setBackground(FrameSize.bluecolor);
+		helpbutton.setBackground(FrameSize.bluecolor);
+		staticsbutton.setBackground(FrameSize.bluecolor);
 	}
 
 	public void setTeam() {
 		card.show(mainpanel, "team");
-		locationlable.setText("当前位置：球队");
+		index.setBackground(FrameSize.bluecolor);
+		playerbutton.setBackground(FrameSize.bluecolor);
+		hotbutton.setBackground(FrameSize.bluecolor);
+		matchbutton.setBackground(FrameSize.bluecolor);
+		helpbutton.setBackground(FrameSize.bluecolor);
+		staticsbutton.setBackground(FrameSize.bluecolor);
 	}
 
 	void setHot() {
 		card.show(mainpanel, "hot");
-		locationlable.setText("当前位置：热点");
+		index.setBackground(FrameSize.bluecolor);
+		playerbutton.setBackground(FrameSize.bluecolor);
+		teambutton.setBackground(FrameSize.bluecolor);
+		matchbutton.setBackground(FrameSize.bluecolor);
+		helpbutton.setBackground(FrameSize.bluecolor);
+		staticsbutton.setBackground(FrameSize.bluecolor);
 	}
 
 	void setMatch() {
 		card.show(mainpanel, "match");
-		locationlable.setText("当前位置：比赛");
+		index.setBackground(FrameSize.bluecolor);
+		playerbutton.setBackground(FrameSize.bluecolor);
+		teambutton.setBackground(FrameSize.bluecolor);
+		hotbutton.setBackground(FrameSize.bluecolor);
+		helpbutton.setBackground(FrameSize.bluecolor);
+		staticsbutton.setBackground(FrameSize.bluecolor);
 	}
 
-
+	void setStatics(){
+		index.setBackground(FrameSize.bluecolor);
+		playerbutton.setBackground(FrameSize.bluecolor);
+		teambutton.setBackground(FrameSize.bluecolor);
+		hotbutton.setBackground(FrameSize.bluecolor);
+		helpbutton.setBackground(FrameSize.bluecolor);
+		matchbutton.setBackground(FrameSize.bluecolor);
+	}
+	
 	void setExit() {
 		JButton el = new MyButton(new ImageIcon("image/close.png"),
 				FrameSize.bluecolor, Color.red);

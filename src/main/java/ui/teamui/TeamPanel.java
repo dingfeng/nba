@@ -9,7 +9,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.DecimalFormat;
 import java.util.Comparator;
 import java.util.Vector;
 
@@ -27,8 +26,6 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-
-import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 import po.TeamPO;
 import ui.mainui.FrameSize;
@@ -77,13 +74,13 @@ public class TeamPanel extends JPanel {
 	Vector<String> columnsName = new Vector<String>();
 	JTextField[] teamlabel = new UneditableTextField[54];
 
-	TeamController tc = new TeamController();
+	TeamController tc = new TeamController(2012);
 	MatchController mc = new MatchController();
 
 	public TeamPanel() {
 		String[] teamNames = tc.getTeamNames();
 		searchBox = new MyComboBox(teamNames);
-		AutoCompleteDecorator.decorate(searchBox);
+//		AutoCompleteDecorator.decorate(searchBox);
 		this.setLayout(null);
 		this.setBounds(0, 0, FrameSize.width, FrameSize.height);
 		this.setOpaque(false);
@@ -685,12 +682,12 @@ public class TeamPanel extends JPanel {
 	/** 查看该球队队员 */
 	void setTeamPlayers(String team) {
 		String[] playernames = tc.getPlayers(team);
-		PlayerController pc = new PlayerController();
+		PlayerController pc = new PlayerController(2012);
 		PlayerMatchVO[] players = new PlayerMatchVO[playernames.length];
 		for (int i = 0; i < playernames.length; i++) {
 			players[i] = pc.findPlayerMatchAve(playernames[i]);
 		}
-		MyFrame.playerpanel.showTeamPlayers(players);
+//		MyFrame.playerpanel.showTeamPlayers(players);
 
 		MyFrame.card.show(MyFrame.mainpanel, "player");
 		MyFrame.locationlable.setText("当前位置：球员");

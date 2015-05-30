@@ -24,7 +24,6 @@ public class TeamPanelTry extends JPanel {
 		jb1.setBounds(0, FrameSize.height / 4, FrameSize.width/4, 50);
 	
 		
-		
 		MyButton jb2 = new MyButton("比赛",FrameSize.bluecolor, FrameSize.lightbluecolor);
 		jb2.setBounds(FrameSize.width / 4, FrameSize.height / 4, FrameSize.width/4, 50);
 		

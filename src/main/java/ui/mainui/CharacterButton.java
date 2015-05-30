@@ -6,8 +6,6 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 
-import ui.mainui.MyButton.button;
-
 public class CharacterButton extends JButton{
 	
 	public CharacterButton(String text){
