@@ -42,6 +42,7 @@ public class IndexPanel extends JPanel{
 	void setChart(){
 		for(int i=0;i<30;i++){
 			teams[i]=new JLabel();
+			teams[i].setBounds(30, 35+i*55, 130, 55);
 		}
 	}
 	
