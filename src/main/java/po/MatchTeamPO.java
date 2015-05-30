@@ -66,5 +66,12 @@ public class MatchTeamPO {
     	}
         return sb.toString();
     }
-    
+    public boolean ifPlayer(String playername){
+    	for(MatchPlayerPO p : players){
+    		if(p.getName().equals(playername)){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
 } 

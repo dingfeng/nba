@@ -13,6 +13,7 @@ public class Match {
 	private MatchDataService match_data;
 	private TIntObjectMap<TeamQueue> team_map;
 	private TIntObjectMap<PlayerQueue> player_map;
+	private MatchesPO[] matches;
 	private final int match_num = 90;
 	private int season;
 
@@ -149,7 +150,7 @@ public class Match {
 
 	// 更新
 	public void update() {
-		MatchesPO[] matches = match_data.getSeasonMatches(season);
+		matches = match_data.getSeasonMatches(season);
 		if (matches != null) {
 			for (MatchesPO m : matches) {
 				dealWithOneMatch(m);
@@ -181,4 +182,7 @@ public class Match {
 		//考虑使用一个成员变量存储当前赛季的比赛场数
 	}
 
+	public MatchesPO[] getMatches() {
+		return matches;
+	}
 }
