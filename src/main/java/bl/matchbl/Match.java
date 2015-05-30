@@ -164,10 +164,20 @@ public class Match {
 	public TIntObjectMap<TeamQueue> getTeam_map() {
 		return team_map;
 	}
+	
+	//获得相应球队这个赛季所有比赛数据
+	public TeamQueue getTeamData(String name){
+		return team_map.get(name.hashCode());
+	}
 
 	// 获得球员的所有比赛
 	public TIntObjectMap<PlayerQueue> getPlayer_map() {
 		return player_map;
+	}
+	
+	//获得相应球员这个赛季所有比赛数据
+	public PlayerQueue getPlayerData(String name){
+		return player_map.get(name.hashCode());
 	}
 
 	public int matchNum() {
