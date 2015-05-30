@@ -18,22 +18,11 @@ import dataservice.matchdataservice.MatchDataService;
 public class MatchData implements MatchDataService{
 	   private int season;
 	   private Connection conn;
-	   private String sql_match = "select * from matches where match_id = ?";
-	   private String sql_team = "select * from match_team where match_id = ?";
-	   private String sql_player = "select * from match_player where match_id = ? and player_name = ? and teama = ?"; 
 	   private String sql_seasonMatches = "select * from matches where match_id > ? and match_id < ?";
-	   private String sql_playerById = "select * from match_player where match_id = ? and teama = ?";
-	   private String usr = "root";
-	   private String password = "root";
 	   private String url = "jdbc:mysql://127.0.0.1:3306/nba";
 	   private String driver = "com.mysql.jdbc.Driver";
 	   public MatchData(Connection conn)
 	   {
-    	 try {
-			Class.forName(driver);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 		 this.conn = conn;
 	   }
 	   
@@ -41,7 +30,6 @@ public class MatchData implements MatchDataService{
 	   public MatchesPO[] getRegularSeasonMatches(int season) {
 		   MatchesPO[] result  = null;
 		   try{
-		    conn = DriverManager.getConnection(url,"root","");
 		    PreparedStatement statement = conn.prepareStatement(sql_seasonMatches);
 		    int[] id_scope = getMatchIdScope(season);
 		    statement.setInt(1, id_scope[0]);
@@ -64,14 +52,7 @@ public class MatchData implements MatchDataService{
 		    matchpos.toArray(result);
 		   }catch (Exception e)
 		   {
-		   }
-		   finally 
-		   {
-			   try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			   e.printStackTrace();
 		   }
 		   
 			return result;
@@ -85,7 +66,6 @@ public class MatchData implements MatchDataService{
 		    ArrayList<MatchesPO> allMatches = new ArrayList<MatchesPO>(85);
 		    int matchId = -1;
 		    try{
-		    conn = DriverManager.getConnection(url,"root","");
 		    PreparedStatement statement = conn.prepareStatement(sql);
 		    statement.setInt(1, id_scope[0]);
 		    statement.setInt(2, id_scope[1]);
@@ -99,14 +79,15 @@ public class MatchData implements MatchDataService{
 		    }
 		    }catch(Exception e)
 		    {
+		    	e.printStackTrace();
 		    }
-	        finally{
-	        	try {
-					conn.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-	        }
+//	        finally{
+//	        	try {
+//					conn.close();
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//	        }
 		    MatchesPO[] result = new MatchesPO[allMatches.size()];
 		    allMatches.toArray(result);
 			return result;
@@ -122,7 +103,7 @@ public class MatchData implements MatchDataService{
 			ArrayList<MatchesPO> matchList = new ArrayList<MatchesPO>(90);
 			try
 			{
-			conn = DriverManager.getConnection(url,"root","");
+//			conn = DriverManager.getConnection(url,"root","");
 			PreparedStatement statement  = conn.prepareStatement(sql);
 			statement.setInt(1, id_scope[0]);
 			statement.setInt(2, id_scope[1]);
@@ -152,7 +133,7 @@ public class MatchData implements MatchDataService{
 			MatchesPO match = null;
 			try
 			{
-			conn = DriverManager.getConnection(url,"root","");
+//			conn = DriverManager.getConnection(url,"root","");
 		    PreparedStatement statement = conn.prepareStatement(sql);
 		    statement.setInt(1, id_scope[0]);
 		    statement.setInt(2, id_scope[1]);
@@ -162,6 +143,21 @@ public class MatchData implements MatchDataService{
 		    {
 		    	matchId = results.getInt(1);
 		    	match = getMatches(matchId);
+		    }
+		    if (match == null)
+		    {
+		    	id_scope = getPlayerOffMatchId(season);
+		    	conn = DriverManager.getConnection(url,"root","");
+			    statement = conn.prepareStatement(sql);
+			    statement.setInt(1, id_scope[0]);
+			    statement.setInt(2, id_scope[1]);
+			    statement.setString(3, date1);
+			    results = statement.executeQuery();
+			    while (results.next())
+			    {
+			    	matchId = results.getInt(1);
+			    	match = getMatches(matchId);
+			    }
 		    }
 			}catch(Exception e)
 			{
@@ -175,6 +171,7 @@ public class MatchData implements MatchDataService{
 		public MatchesPO[] getMatches(int season, Date date) {
 			String sql = "select match_id from matches where match_id > ? and match_id < ? and match_date = ?";
 			int[] id_scope = getMatchIdScope(season);
+			int[] playerOff_scope = getPlayerOffMatchId(season);
 			String dateStr = convertDate(date);
 			int matchId = -1;
 			MatchesPO match = null;
@@ -182,12 +179,23 @@ public class MatchData implements MatchDataService{
 			MatchesPO[] result = null;
 			try
 			{
-				conn = DriverManager.getConnection(url,"root","");
+//				conn = DriverManager.getConnection(url,"root","");
 				PreparedStatement statement = conn.prepareStatement(sql);
 				statement.setInt(1, id_scope[0]);
 				statement.setInt(2,id_scope[1]);
 				statement.setString(3, dateStr);
 				ResultSet results = statement.executeQuery();
+				while (results.next())
+				{
+					matchId = results.getInt(1);
+					match = getMatches(matchId);
+					list.add(match);
+				}
+				 statement = conn.prepareStatement(sql);
+				statement.setInt(1, playerOff_scope[0]);
+				statement.setInt(2,playerOff_scope[1]);
+				statement.setString(3, dateStr);
+				results = statement.executeQuery();
 				while (results.next())
 				{
 					matchId = results.getInt(1);
@@ -230,7 +238,7 @@ public class MatchData implements MatchDataService{
 			return season;
 		}
 		
-		private int[] getMatchIdScope(int season)
+		public static int[] getMatchIdScope(int season)
 		{
 			int[] result = new int[2];
 			int temp = 0;
@@ -251,6 +259,13 @@ public class MatchData implements MatchDataService{
 				result[1] = temp + 10000;
 			}
 			return result;
+		}
+		public static  int[] getPlayerOffMatchId(int season)
+		{
+			int[] scope = getMatchIdScope(season);
+			scope[0] += 10000000;
+			scope[1] += 10000000;
+			return scope;
 		}
         private int[] getPointsList(int[] points)
         {
@@ -359,17 +374,110 @@ public class MatchData implements MatchDataService{
         }
 
 		@Override
-		public MatchesPO[] getPlayerOffMatches(int season) {
-			return null;
+		public MatchesPO[] getPlayerOffMatches(int season){
+			   MatchesPO[] result  = null;
+			   try{
+//			    conn = DriverManager.getConnection(url,"root","");
+			    PreparedStatement statement = conn.prepareStatement(sql_seasonMatches);
+			    int[] id_scope = getPlayerOffMatchId(season);
+			    statement.setInt(1, id_scope[0]);
+			    statement.setInt(2, id_scope[1]);
+			    ResultSet results =  statement.executeQuery();
+			    ArrayList<MatchesPO> matchpos = new ArrayList<MatchesPO>(1300);
+			    String date = null;
+			    String team1 = null;
+			    String team2 = null;
+			    int matchId = -1;
+			    while (results.next())
+			    {
+			    	matchId = results.getInt(1);
+			    	team1 = results.getString(2);
+			    	team2 = results.getString(3);
+			    	date  = results.getString(4);
+			    	matchpos.add(new MatchesPO(getMatchTeamPO(matchId,team1),getMatchTeamPO(matchId,team2),date));
+			    }
+			    result = new MatchesPO[matchpos.size()];
+			    matchpos.toArray(result);
+			   }catch (Exception e)
+			   {
+				   e.printStackTrace();
+			   }
+//			   finally 
+//			   {
+//				   try {
+//					conn.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			   }
+			   
+				return result;
 		}
 
 		@Override
 		public MatchesPO[] getPlayerOffPlayerMatches(int season, String name) {
-			return null;
+
+			String sql  = "select match_id from match_player where match_id > ? and match_id < ? and player_name = ?";
+		    int[] id_scope = getPlayerOffMatchId(season);
+		    ArrayList<MatchesPO> allMatches = new ArrayList<MatchesPO>(85);
+		    int matchId = -1;
+		    try{
+//		    conn = DriverManager.getConnection(url,"root","");
+		    PreparedStatement statement = conn.prepareStatement(sql);
+		    statement.setInt(1, id_scope[0]);
+		    statement.setInt(2, id_scope[1]);
+		    statement.setString(3, name);
+		    ResultSet results = statement.executeQuery();
+		    while (results.next())
+		    {
+		    	matchId = results.getInt(1);
+		    	MatchesPO matchespo = getMatches(matchId);
+		    	allMatches.add(matchespo);
+		    }
+		    }catch(Exception e)
+		    {
+		    	e.printStackTrace();
+		    }
+//	        finally{
+//	        	try {
+//					conn.close();
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//	        }
+		    MatchesPO[] result = new MatchesPO[allMatches.size()];
+		    allMatches.toArray(result);
+			return result;
 		}
 
 		@Override
 		public MatchesPO[] getPlayerOffTeamMatches(int season, String teamName) {
-			return null;
+			String sql = "select match_id from match_team where match_id > ? and match_id < ? and teama = ?";
+			int[] id_scope = getPlayerOffMatchId(season);
+			int matchId = -1;
+			MatchesPO[] matchpos = null;
+			MatchesPO match = null;
+			ArrayList<MatchesPO> matchList = new ArrayList<MatchesPO>(90);
+			try
+			{
+//			conn = DriverManager.getConnection(url,"root","");
+			PreparedStatement statement  = conn.prepareStatement(sql);
+			statement.setInt(1, id_scope[0]);
+			statement.setInt(2, id_scope[1]);
+			statement.setString(3, teamName);
+			ResultSet results = statement.executeQuery();
+			while (results.next())
+			{
+			 matchId = results.getInt(1);
+		     match = getMatches(matchId);
+		     matchList.add(match);
+			}
+			}catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			matchpos = new MatchesPO[matchList.size()];
+			matchList.toArray(matchpos);
+			return  matchpos;
 		}
 }
