@@ -38,7 +38,7 @@ public class MatchData implements MatchDataService{
 	   }
 	   
 	   @Override
-	   public MatchesPO[] getSeasonMatches(int season) {
+	   public MatchesPO[] getRegularSeasonMatches(int season) {
 		   MatchesPO[] result  = null;
 		   try{
 		    conn = DriverManager.getConnection(url,"root","");
@@ -78,7 +78,7 @@ public class MatchData implements MatchDataService{
 		}
 
 		@Override
-		public MatchesPO[] getPlayerMatches(int season, String name) 
+		public MatchesPO[] getRegularPlayerMatches(int season, String name) 
 		{
 			String sql  = "select match_id from match_player where match_id > ? and match_id < ? and player_name = ?";
 		    int[] id_scope = getMatchIdScope(season);
@@ -113,7 +113,7 @@ public class MatchData implements MatchDataService{
 		}
 
 		@Override
-		public MatchesPO[] getTeamMatches(int season, String teamName) {
+		public MatchesPO[] getRegularTeamMatches(int season, String teamName) {
 			String sql = "select match_id from match_team where match_id > ? and match_id < ? and teama = ?";
 			int[] id_scope = getMatchIdScope(season);
 			int matchId = -1;
@@ -357,4 +357,19 @@ public class MatchData implements MatchDataService{
         	String result = format.format(date);
         	return result;
         }
+
+		@Override
+		public MatchesPO[] getPlayerOffMatches(int season) {
+			return null;
+		}
+
+		@Override
+		public MatchesPO[] getPlayerOffPlayerMatches(int season, String name) {
+			return null;
+		}
+
+		@Override
+		public MatchesPO[] getPlayerOffTeamMatches(int season, String teamName) {
+			return null;
+		}
 }

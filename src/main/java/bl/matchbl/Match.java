@@ -149,7 +149,7 @@ public class Match {
 
 	// 更新
 	public void update() {
-		MatchesPO[] matches = match_data.getSeasonMatches(season);
+		MatchesPO[] matches = match_data.getRegularSeasonMatches(season);
 		if (matches != null) {
 			for (MatchesPO m : matches) {
 				dealWithOneMatch(m);
