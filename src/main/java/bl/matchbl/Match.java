@@ -14,6 +14,7 @@ public class Match {
 	private TIntObjectMap<TeamQueue> team_map;
 	private TIntObjectMap<PlayerQueue> player_map;
 	private final int match_num = 90;
+	private MatchesPO[] matches;
 	private int season;
 
 	public Match(int season) throws Exception {
@@ -149,7 +150,7 @@ public class Match {
 
 	// 更新
 	public void update() {
-		MatchesPO[] matches = match_data.getRegularSeasonMatches(season);
+		matches = match_data.getRegularSeasonMatches(season);
 		if (matches != null) {
 			for (MatchesPO m : matches) {
 				dealWithOneMatch(m);
@@ -179,5 +180,10 @@ public class Match {
 		}
 		return result / 2;
 		//考虑使用一个成员变量存储当前赛季的比赛场数
+	}
+	
+	//得到本赛季所有比赛
+	public MatchesPO[] getMatches(){
+		return matches;
 	}
 }
