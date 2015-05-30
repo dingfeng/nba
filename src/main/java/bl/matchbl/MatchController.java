@@ -122,4 +122,9 @@ public class MatchController implements Matchblservice {
 	public synchronized void update1() {
 	}
 
+	@Override
+	public Match getMatch(int season) {
+		return matchContainer.getSeasonMatch(season);
+	}
+
 }

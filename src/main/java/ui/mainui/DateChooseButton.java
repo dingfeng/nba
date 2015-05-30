@@ -41,7 +41,7 @@ public class DateChooseButton extends JButton {
 	private String originalText = null;
 	private SimpleDateFormat sdf = null;
 	public DateChooseButton() {
-		this(getNowDate());
+		/*this(getNowDate());*/
 		this.setBackground(FrameSize.buttonbackColor);
 		this.setForeground(Color.white);
 	}
@@ -65,7 +65,7 @@ public class DateChooseButton extends JButton {
 		try {
 			originalDate = df.parse(dateString);
 		} catch (ParseException ex) {
-			originalDate = getNowDate();
+			/*originalDate = getNowDate();*/
 		}
 		initOriginalText(originalDate);
 	}
@@ -100,6 +100,7 @@ public class DateChooseButton extends JButton {
 		});
 	}
 
+	/*
 	private static Date getNowDate() {
 		MatchController mc=new MatchController();
 		String Date=mc.getTodayMatches()[0].getDate();
@@ -117,6 +118,7 @@ public class DateChooseButton extends JButton {
 		date.setDate(day);
 		return date;
 	}
+	*/
 
 	private static SimpleDateFormat getDefaultDateFormat() {
 		return new SimpleDateFormat("yyyy-MM-dd");
@@ -161,9 +163,9 @@ public class DateChooseButton extends JButton {
 		try {
 			date = getDefaultDateFormat().parse(s);
 		} catch (ParseException e) {
-			date = getNowDate();
+			/*date = getNowDate();*/
 		}
-		setDate(date);
+		/*setDate(date);*/
 	}
 
 	public void setText(SimpleDateFormat df, String s) {
@@ -171,24 +173,25 @@ public class DateChooseButton extends JButton {
 		try {
 			date = df.parse(s);
 		} catch (ParseException e) {
-			date = getNowDate();
+			/*date = getNowDate();*/
 		}
-		setDate(date);
+		/*setDate(date);*/
 	}
 
 	public void setDate(Date date) {
 		super.setText(preLabel + getDefaultDateFormat().format(date));
 	}
-
+/*
 	public Date getDate() {
 		String dateString = getText().substring(preLabel.length());
 		try {
 			SimpleDateFormat currentSdf = getCurrentSimpleDateFormat();
 			return currentSdf.parse(dateString);
 		} catch (ParseException e) {
-			return getNowDate();
+			/*return getNowDate();*/
 		}
 	}
+	*/
 
 	/**
 	 * 覆盖父类的方法使之无效
@@ -585,7 +588,7 @@ public class DateChooseButton extends JButton {
 			dialog.setVisible(false);
 			if (matchPanel != null)
 			{
-				matchPanel.findMatchConfirmClick();;
+				/*matchPanel.findMatchConfirmClick();;*/
 			}
 		}
 		

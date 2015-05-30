@@ -19,6 +19,7 @@ import javax.swing.JPopupMenu;
 
 import ui.HelpUtil;
 import ui.IndexPanel;
+import ui.MatchPanel;
 import ui.playerui.PlayerPanel;
 import ui.statistics.StatisticsPlayerPanel;
 import ui.statistics.StatisticsTeamPanel;
@@ -46,11 +47,10 @@ public class MyFrame extends JFrame {
 	public static TeamPanelTry teampanel = new TeamPanelTry();
 	public static PlayerPanel playerpanel = new PlayerPanel();
 	// public static HotPanel hotpanel = new HotPanel();
-	// public static MatchPanel matchpanel = new MatchPanel();
+	 public static MatchPanel matchpanel = new MatchPanel();
 	public static StatisticsPlayerPanel statisticsPlayerPanel = new StatisticsPlayerPanel();
 	public static StatisticsTeamPanel statisticsTeamPanel = new StatisticsTeamPanel();
 	
-	public static JLabel locationlable = new JLabel();
 
 	// MatchController mc = new MatchController();
 
@@ -78,7 +78,7 @@ public class MyFrame extends JFrame {
 		mainpanel.add(indexpanel, "index");
 		mainpanel.add(playerpanel, "player");
 		mainpanel.add(teampanel, "team");
-		// mainpanel.add(matchpanel, "match");
+		 mainpanel.add(matchpanel, "match");
 		// mainpanel.add(hotpanel, "hot");
 		mainpanel.add(statisticsPlayerPanel, "statisticsPlayer");
 		mainpanel.add(statisticsTeamPanel,"statisticsTeam");
@@ -201,7 +201,7 @@ public class MyFrame extends JFrame {
 		helpbutton.addMouseListener(new button());
 		staticsbutton.addMouseListener(new button());
 		
-		frame.add(locationlable);
+
 		frame.add(helpbutton);
 		frame.add(index);
 		frame.add(playerbutton);
@@ -247,7 +247,6 @@ public class MyFrame extends JFrame {
 
 	void setIndex() {
 		
-		indexpanel.update();
 		card.show(mainpanel, "index");
 		playerbutton.setBackground(FrameSize.bluecolor);
 		teambutton.setBackground(FrameSize.bluecolor);

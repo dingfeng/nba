@@ -6,7 +6,7 @@ import java.util.Date;
 public class MatchesPO {
 	   
        private MatchTeamPO team1;
-       private  MatchTeamPO team2;
+       private MatchTeamPO team2;
        private String date;
        public MatchesPO(MatchTeamPO team1,MatchTeamPO team2,
     		   String date)

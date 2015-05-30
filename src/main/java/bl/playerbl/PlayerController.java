@@ -1,32 +1,53 @@
 package bl.playerbl;
 
+import gnu.trove.iterator.TIntObjectIterator;
+import gnu.trove.map.TIntObjectMap;
+
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import dataservice.playerdataservice.PlayerDataService;
+import dataservice.playerdataservice.SeasonType;
 import po.MatchPlayerPO;
+import po.PlayerNormalPO;
 import po.PlayerPO;
 import vo.Area;
 import vo.PlayerMatchVO;
 import vo.PlayerSortBy;
 import vo.SortType;
+import DataFactory.DataFactory;
+import DataFactoryService.NBADataFactory;
+import bl.matchbl.Match;
+import bl.matchbl.MatchController;
+import bl.matchbl.PlayerQueue;
+import blservice.matchblservice.Matchblservice;
 import blservice.playerblservice.PlayerBlService;
 
-public class PlayerController implements PlayerBlService{
-    Player player ;
+public class PlayerController{
+	Matchblservice matchservice;
+    PlayerDataService playerService;
     //排序球员数据 场均
     public PlayerController(int season)
     {
-    	player = new Player(season);
+    	NBADataFactory dataFactory;
+		try {
+			dataFactory = DataFactory.instance();
+			playerService = dataFactory.getPlayerData();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		matchservice = new MatchController();
     }
 	public synchronized PlayerMatchVO[] sortAvePlayers(PlayerSortBy playerSortBy,
 			SortType sortType) {
-		return player.sortAvePlayers(playerSortBy, sortType);
+		return null;
 	}
 	//排序球员数据  赛季数据
 	public  synchronized PlayerMatchVO[] sortTotalPlayers(PlayerSortBy playerSortBy,
 			SortType sortType) {
-		return player.sortTotalPlayers(playerSortBy, sortType);
+		return null;
 	}
 	//筛选球员数据  场均  
 	public  synchronized PlayerMatchVO[] screenAvePlayers(String playerPosition,
@@ -54,56 +75,78 @@ public class PlayerController implements PlayerBlService{
 		list.toArray(players);
 		return players;
 	}
-	public  synchronized PlayerMatchVO[] getDayHotPlayer(PlayerSortBy sortby) {
+	public  synchronized PlayerMatchVO[] getDayHotPlayer(String sortBy) {
 		return null;
 	}
 	//获得赛季热点球员
-	public synchronized PlayerMatchVO[] getSeasonHotPlayer(PlayerSortBy sortby) {
-		return player.getSeasonHotPlayer(sortby);
+	public synchronized PlayerNormalPO[] getSeasonHotPlayer(int season, String sortby, SeasonType type) {
+		return playerService.sortPlayerNormalAven(season, sortby, 5, type);
 	}
+	
 	//获得进步最快球员
 	public synchronized PlayerMatchVO[] getPromotePlayer(PlayerSortBy sortby) {
-		return player.getPromotePlayer(sortby);
+		return null;
 	}
-	//模糊查找球员
-	public synchronized  Iterator<String> fuzzilyFind(String info) {
-		return player.fuzzilyFind(info);
-	}
+
 	//根据球员名字查找球员
 	public synchronized PlayerPO findPlayer(String info) {
-		return player.findPlayer(info);
+		return playerService.findPlayer(info);
 	}
-	@Override
-	public synchronized PlayerMatchVO findPlayerMatchAve(String playername) {
-		return player.findPlayerMatchAve(playername);
+	
+	public synchronized PlayerMatchVO findPlayerMatchAve(int season, String playername) {
+		Match seasonMatch = matchservice.getMatch(season);
+		PlayerQueue playerQ = seasonMatch.getPlayerData(playername);
+		return playerQ.getAvePlayer();
 	}
-	@Override
-	public synchronized PlayerMatchVO findPlayerTotal(String playername) {
-		return player.findPlayerMatchTotal(playername);
+	
+	public synchronized PlayerMatchVO findPlayerTotal(int season, String playername) {
+		Match seasonMatch = matchservice.getMatch(season);
+		PlayerQueue playerQ = seasonMatch.getPlayerData(playername);
+		return playerQ.getTotalPlayer();
 	}
-	@Override
-	public synchronized String[] getAllPlayerNames() {
-		return player.getSearchItems();
-	}
-	@Override
+	
 	public synchronized PlayerMatchVO[] getAvePlayers(String start) {
-		return player.getAvePlayers(start);
+		return null;
 	}
-	@Override
+	
 	public synchronized PlayerMatchVO[] getTotalPlayers(String start) {
-		return player.getTotalPlayers(start);
+		return null;
 	}
-	@Override
-	public synchronized PlayerMatchVO[] getAvePlayers() {
-		return player.getAvePlayers();
+	
+	public synchronized PlayerMatchVO[] getAvePlayers(int season) {
+		Match seasonMatch = matchservice.getMatch(season);
+		TIntObjectMap<PlayerQueue> players = seasonMatch.getPlayer_map();
+		PlayerQueue thisPlayerQueue;
+		int size = players.size();
+		PlayerMatchVO[] matchVOs = new PlayerMatchVO[size];
+		
+		TIntObjectIterator<PlayerQueue> it = players.iterator();             
+		for(int i = 0; i > size; i++){                  
+			it.advance();
+			thisPlayerQueue = (PlayerQueue) it.value();
+			matchVOs[i] = thisPlayerQueue.getAvePlayer();
+		}
+		return matchVOs;
 	}
-	@Override
-	public synchronized PlayerMatchVO[] getTotalPlayers() {
-		// TODO Auto-generated method stub
-		return player.getTotalPlayers();
+	
+	public synchronized PlayerMatchVO[] getTotalPlayers(int season) {
+		Match seasonMatch = matchservice.getMatch(season);
+		TIntObjectMap<PlayerQueue> players = seasonMatch.getPlayer_map();
+		PlayerQueue thisPlayerQueue;
+		int size = players.size();
+		PlayerMatchVO[] matchVOs = new PlayerMatchVO[size];
+		
+		TIntObjectIterator<PlayerQueue> it = players.iterator();             
+		for(int i = 0; i > size; i++){                  
+			it.advance();
+			thisPlayerQueue = (PlayerQueue) it.value();
+			matchVOs[i] = thisPlayerQueue.getTotalPlayer();
+		}
+		return matchVOs;
 	}
-	@Override
-	public Image[] getPlayerImage(String name) {
-		return player.getPlayerImage(name);
+	
+	public Image getPlayerImage(String name) {
+		PlayerPO playerP = playerService.findPlayer(name);
+		return playerP.getPortrait();
 	}
 }
