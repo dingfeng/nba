@@ -74,22 +74,20 @@ public class StatisticsTeamPanel extends JPanel {
 		
 		columnsName.add("排名");
 		columnsName.add("球队");
-		columnsName.add("比赛场数");
-		columnsName.add("投篮命中数");
-		columnsName.add("投篮出手数");
-		columnsName.add("三分命中数");
-		columnsName.add("三分出手数");
-		columnsName.add("罚球命中数");
-		columnsName.add("罚球出手数");
+		columnsName.add("得分");
+		columnsName.add("篮板");
+		columnsName.add("助攻");
+		columnsName.add("盖帽");
+		columnsName.add("抢断");
+		columnsName.add("犯规");
+		columnsName.add("失误");
+		columnsName.add("投篮命中率");
+		columnsName.add("三分命中率");
+		columnsName.add("罚球命中率");
 		columnsName.add("进攻篮板数");
 		columnsName.add("防守篮板数");
 		columnsName.add("篮板数");
-		columnsName.add("助攻数");
-		columnsName.add("抢断数");
-		columnsName.add("盖帽数");
-		columnsName.add("失误数");
-		columnsName.add("犯规数");
-		columnsName.add("比赛得分");
+//		columnsName.add("比赛场数");
 		
 		rowimage.clear();
 		for (int i = 0; i <30; i++) {
@@ -97,22 +95,20 @@ public class StatisticsTeamPanel extends JPanel {
 			Vector data = new Vector();
 			data.add(i+1);
 			data.add("球队");
-			data.add("比赛场数");
-			data.add("投篮命中数");
-			data.add("投篮出手数");
-			data.add("三分命中数");
-			data.add("三分出手数");
-			data.add("罚球命中数");
-			data.add("罚球出手数");
+			data.add("球队");
+			data.add("得分");
+			data.add("篮板");
+			data.add("助攻");
+			data.add("盖帽");
+			data.add("抢断");
+			data.add("犯规");
+			data.add("失误");
+			data.add("投篮命中率");
+			data.add("三分命中率");
+			data.add("罚球命中率");
 			data.add("进攻篮板数");
 			data.add("防守篮板数");
 			data.add("篮板数");
-			data.add("助攻数");
-			data.add("抢断数");
-			data.add("盖帽数");
-			data.add("失误数");
-			data.add("犯规数");
-			data.add("比赛得分");
 			rowimage.add(data);
 		}
 		table.setDataVector(rowimage, columnsName);
@@ -159,9 +155,6 @@ public class StatisticsTeamPanel extends JPanel {
 		columnsName.removeAllElements();
 		columnsName.add("排名");
 		columnsName.add("球队");
-		columnsName.add("投篮命中率(%)");
-		columnsName.add("三分命中率(%)");
-		columnsName.add("罚球命中率(%)");
 		columnsName.add("胜率(%)");
 		columnsName.add("进攻回合");
 		columnsName.add("进攻效率");
@@ -169,7 +162,7 @@ public class StatisticsTeamPanel extends JPanel {
 		columnsName.add("进攻篮板效率");
 		columnsName.add("防守篮板效率");
 		columnsName.add("抢断效率");
-		columnsName.add("助攻率");
+		columnsName.add("助攻效率");
 		
 		rowimage.clear();
 		for (int i = 0; i <30; i++) {
@@ -177,9 +170,6 @@ public class StatisticsTeamPanel extends JPanel {
 			Vector data = new Vector();
 			data.add(i+1);
 			data.add("球队");
-			data.add("投篮命中率(%)");
-			data.add("三分命中率(%)");
-			data.add("罚球命中率(%)");
 			data.add("胜率(%)");
 			data.add("进攻回合");
 			data.add("进攻效率");
