@@ -52,7 +52,7 @@ public class MatchTeamPO {
     {
     	StringBuilder sb = new StringBuilder();
     	sb.append(name + "---");
-    	sb.append(totalScores);
+    	sb.append(totalScores+"  ");
     	for (int score : scores)
     	{
     		sb.append(score);
@@ -60,6 +60,7 @@ public class MatchTeamPO {
     	}
     	sb.append("  ");
     	sb.append("\n");
+    	if (players != null)
     	for (MatchPlayerPO player : players)
     	{
     		sb.append(player.toString());

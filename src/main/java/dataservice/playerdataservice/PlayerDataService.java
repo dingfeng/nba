@@ -30,6 +30,9 @@ public interface PlayerDataService {
 	public PlayerNormalPO[] getPlayerAllSeasonsAve(String playerName, SeasonType type);
 	//获得球员的所有的赛季高阶数据
 	public PlayerHighPO[] getPlayerAllSeasons(String playerName, SeasonType type);
+	//获得所有球员名 
+	public String[] fuzzilySearch(String info);
+	//球员筛选
 //	public PlayerHighPO[] sortPlayerHighHis(String sort,int n);
 //	public PlayerNormalPO[] sortPlayerNormalTotalHis(String sort, int n);
 //	public PlayerNormalPO sortPlayerNormalAveHis(String sort, int n);

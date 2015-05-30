@@ -13,20 +13,17 @@ import java.util.Iterator;
 import po.MatchPlayerPO;
 import po.MatchTeamPO;
 import po.MatchesPO;
+import po.SimpleMatchPO;
 import dataservice.matchdataservice.MatchDataService;
 
 public class MatchData implements MatchDataService{
-	   private int season;
 	   private Connection conn;
 	   private String sql_seasonMatches = "select * from matches where match_id > ? and match_id < ?";
-	   private String url = "jdbc:mysql://127.0.0.1:3306/nba";
-	   private String driver = "com.mysql.jdbc.Driver";
 	   public MatchData(Connection conn)
 	   {
 		 this.conn = conn;
 	   }
 	   
-	   @Override
 	   public MatchesPO[] getRegularSeasonMatches(int season) {
 		   MatchesPO[] result  = null;
 		   try{
@@ -46,7 +43,7 @@ public class MatchData implements MatchDataService{
 		    	team1 = results.getString(2);
 		    	team2 = results.getString(3);
 		    	date  = results.getString(4);
-		    	matchpos.add(new MatchesPO(getMatchTeamPO(matchId,team1),getMatchTeamPO(matchId,team2),date));
+		    	matchpos.add(new MatchesPO(getMatchTeamPO(matchId,team1,0),getMatchTeamPO(matchId,team2,0),date));
 		    }
 		    result = new MatchesPO[matchpos.size()];
 		    matchpos.toArray(result);
@@ -58,7 +55,6 @@ public class MatchData implements MatchDataService{
 			return result;
 		}
 
-		@Override
 		public MatchesPO[] getRegularPlayerMatches(int season, String name) 
 		{
 			String sql  = "select match_id from match_player where match_id > ? and match_id < ? and player_name = ?";
@@ -74,7 +70,7 @@ public class MatchData implements MatchDataService{
 		    while (results.next())
 		    {
 		    	matchId = results.getInt(1);
-		    	MatchesPO matchespo = getMatches(matchId);
+		    	MatchesPO matchespo = getMatches(matchId,0);
 		    	allMatches.add(matchespo);
 		    }
 		    }catch(Exception e)
@@ -93,7 +89,6 @@ public class MatchData implements MatchDataService{
 			return result;
 		}
 
-		@Override
 		public MatchesPO[] getRegularTeamMatches(int season, String teamName) {
 			String sql = "select match_id from match_team where match_id > ? and match_id < ? and teama = ?";
 			int[] id_scope = getMatchIdScope(season);
@@ -112,7 +107,7 @@ public class MatchData implements MatchDataService{
 			while (results.next())
 			{
 			 matchId = results.getInt(1);
-		     match = getMatches(matchId);
+		     match = getMatches(matchId,0);
 		     matchList.add(match);
 			}
 			}catch (Exception e)
@@ -123,12 +118,12 @@ public class MatchData implements MatchDataService{
 		}
 
 		@Override
-		public MatchesPO getTeamMatches(int season, Date date,
+		public MatchesPO getTeamMatches(Date date,
 				String teamName) {
-			String sql = "select m.match_id from matches m where m.match_id > ? and m.match_id < ? and m.match_date = ? and "
+			String sql = "select m.match_id from matches m where m.match_id > ? and m.match_id < ? and m.match_date = ? and  "
 					+ "? in (select team1.teama from match_team as team1 where team1.match_id = m.match_id)";
 			String date1 = convertDate(date);
-			int[] id_scope = getMatchIdScope(season);
+			int[] id_scope = getMatchIdScope(season1);
 			int matchId = -1;
 			MatchesPO match = null;
 			try
@@ -138,25 +133,26 @@ public class MatchData implements MatchDataService{
 		    statement.setInt(1, id_scope[0]);
 		    statement.setInt(2, id_scope[1]);
 		    statement.setString(3, date1);
+		    statement.setString(4, teamName);
 		    ResultSet results = statement.executeQuery();
 		    while (results.next())
 		    {
 		    	matchId = results.getInt(1);
-		    	match = getMatches(matchId);
+		    	match = getMatches(matchId,0);
 		    }
 		    if (match == null)
 		    {
-		    	id_scope = getPlayerOffMatchId(season);
-		    	conn = DriverManager.getConnection(url,"root","");
+		    	id_scope = getPlayerOffMatchId(season1);
 			    statement = conn.prepareStatement(sql);
 			    statement.setInt(1, id_scope[0]);
 			    statement.setInt(2, id_scope[1]);
 			    statement.setString(3, date1);
+			    statement.setString(4, teamName);
 			    results = statement.executeQuery();
 			    while (results.next())
 			    {
 			    	matchId = results.getInt(1);
-			    	match = getMatches(matchId);
+			    	match = getMatches(matchId,0);
 			    }
 		    }
 			}catch(Exception e)
@@ -167,11 +163,10 @@ public class MatchData implements MatchDataService{
 			return match;
 		}
 		
-		@Override
-		public MatchesPO[] getMatches(int season, Date date) {
+		public MatchesPO[] getMatches(Date date) {
 			String sql = "select match_id from matches where match_id > ? and match_id < ? and match_date = ?";
-			int[] id_scope = getMatchIdScope(season);
-			int[] playerOff_scope = getPlayerOffMatchId(season);
+			int[] id_scope = getMatchIdScope(season1);
+			int[] playerOff_scope = getPlayerOffMatchId(season1);
 			String dateStr = convertDate(date);
 			int matchId = -1;
 			MatchesPO match = null;
@@ -188,7 +183,7 @@ public class MatchData implements MatchDataService{
 				while (results.next())
 				{
 					matchId = results.getInt(1);
-					match = getMatches(matchId);
+					match = getMatches(matchId,0);
 					list.add(match);
 				}
 				 statement = conn.prepareStatement(sql);
@@ -199,7 +194,7 @@ public class MatchData implements MatchDataService{
 				while (results.next())
 				{
 					matchId = results.getInt(1);
-					match = getMatches(matchId);
+					match = getMatches(matchId,0);
 					list.add(match);
 				}
 				result = new MatchesPO[list.size()];
@@ -212,7 +207,7 @@ public class MatchData implements MatchDataService{
 			return result;
 		}
 		
-		private MatchesPO getMatches(int match_id) throws Exception
+		private MatchesPO getMatches(int match_id,int flag) throws Exception
 		{
 			String sql = "select * from matches where match_id = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
@@ -227,15 +222,10 @@ public class MatchData implements MatchDataService{
 		    	team2 = results.getString(3);
 		    	date  = results.getString(4);
 			}
-			MatchTeamPO teampo1 = getMatchTeamPO(match_id,team1);
-			MatchTeamPO teampo2 = getMatchTeamPO(match_id,team2);
+			MatchTeamPO teampo1 = getMatchTeamPO(match_id,team1,flag);
+			MatchTeamPO teampo2 = getMatchTeamPO(match_id,team2,flag);
 			MatchesPO matchpo = new MatchesPO(teampo1,teampo2,date);
 			return matchpo;
-		}
-		
-		private int getSeason()
-		{
-			return season;
 		}
 		
 		public static int[] getMatchIdScope(int season)
@@ -284,7 +274,7 @@ public class MatchData implements MatchDataService{
            }
            return result;
         }
-        private MatchTeamPO getMatchTeamPO(int matchId, String teamName) throws Exception
+        private MatchTeamPO getMatchTeamPO(int matchId, String teamName,int flag) throws Exception
         {
         	String sql = "select * from match_team where match_id = ? and teama = ?";
         	int [] scores= new int[14];
@@ -304,7 +294,9 @@ public class MatchData implements MatchDataService{
         	 scores = getPointsList(scores);
         	}
            time = 2880 + ( scores.length -4) * 300;
-        	MatchPlayerPO[] players = getMatchPlayerPOs(matchId,teamName);
+        	MatchPlayerPO[] players = null;
+        	if (flag == 1)
+             players = getMatchPlayerPOs(matchId,teamName);
         	MatchTeamPO teamPO  = new MatchTeamPO(players,scores,totalScore, teamName, time);
 			return teamPO;
         }
@@ -312,7 +304,7 @@ public class MatchData implements MatchDataService{
         {
         	String sql = "select player_name,courtTime,hitNo,handNo,threeHitNo,threeHandNo,penaltyHitNo,penaltyHandNo,"
         			+ "offenseRebs,defenceRebs,rebs,assist,steal,blockno,mistakeno,fouls"
-        			+ "from match_player where match_id = ? and teama = ?";
+        			+ " from match_player where match_id = ? and teama = ?";
         	PreparedStatement statement = conn.prepareStatement(sql);
         	statement.setInt(1, matchId);
         	statement.setString(2, teamName);
@@ -366,14 +358,20 @@ public class MatchData implements MatchDataService{
         	players.toArray(result);
 			return result;
         }
+        int season1;
         private  String convertDate(Date date)
         {
-        	SimpleDateFormat format = new SimpleDateFormat("MM-dd");
+        	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         	String result = format.format(date);
-        	return result;
+        	this.season1 = Integer.parseInt(result.substring(0, 4));
+        	String s = result.substring(5, 10);
+        	if (result.charAt(0) == '0')
+        	{
+        		--season1;
+        	}
+        	return result.substring(5, 10);
         }
 
-		@Override
 		public MatchesPO[] getPlayerOffMatches(int season){
 			   MatchesPO[] result  = null;
 			   try{
@@ -394,7 +392,7 @@ public class MatchData implements MatchDataService{
 			    	team1 = results.getString(2);
 			    	team2 = results.getString(3);
 			    	date  = results.getString(4);
-			    	matchpos.add(new MatchesPO(getMatchTeamPO(matchId,team1),getMatchTeamPO(matchId,team2),date));
+			    	matchpos.add(new MatchesPO(getMatchTeamPO(matchId,team1,0),getMatchTeamPO(matchId,team2,0),date));
 			    }
 			    result = new MatchesPO[matchpos.size()];
 			    matchpos.toArray(result);
@@ -414,7 +412,6 @@ public class MatchData implements MatchDataService{
 				return result;
 		}
 
-		@Override
 		public MatchesPO[] getPlayerOffPlayerMatches(int season, String name) {
 
 			String sql  = "select match_id from match_player where match_id > ? and match_id < ? and player_name = ?";
@@ -431,7 +428,7 @@ public class MatchData implements MatchDataService{
 		    while (results.next())
 		    {
 		    	matchId = results.getInt(1);
-		    	MatchesPO matchespo = getMatches(matchId);
+		    	MatchesPO matchespo = getMatches(matchId,0);
 		    	allMatches.add(matchespo);
 		    }
 		    }catch(Exception e)
@@ -450,7 +447,6 @@ public class MatchData implements MatchDataService{
 			return result;
 		}
 
-		@Override
 		public MatchesPO[] getPlayerOffTeamMatches(int season, String teamName) {
 			String sql = "select match_id from match_team where match_id > ? and match_id < ? and teama = ?";
 			int[] id_scope = getPlayerOffMatchId(season);
@@ -469,7 +465,7 @@ public class MatchData implements MatchDataService{
 			while (results.next())
 			{
 			 matchId = results.getInt(1);
-		     match = getMatches(matchId);
+		     match = getMatches(matchId,0);
 		     matchList.add(match);
 			}
 			}catch (Exception e)
@@ -478,6 +474,17 @@ public class MatchData implements MatchDataService{
 			}
 			matchpos = new MatchesPO[matchList.size()];
 			matchList.toArray(matchpos);
-			return  matchpos;
+			return matchpos;
+		}
+
+
+		@Override
+		public MatchesPO getMatchById(int matchId) {
+			try {
+				return getMatches(matchId,1);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
 		}
 }
