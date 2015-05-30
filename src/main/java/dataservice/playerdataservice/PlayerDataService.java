@@ -23,7 +23,7 @@ public interface PlayerDataService {
   	//获得某个球员赛季场均数据
 	public PlayerNormalPO getPlayerNormalAve(int season, String playerName, SeasonType type);
 	//排序球员的场均基础数据
-	public PlayerNormalPO sortPlayerNormalAven(int season, String sort, int n, SeasonType type);
+	public PlayerNormalPO[] sortPlayerNormalAven(int season, String sort, int n, SeasonType type);
 	//获得球员的所有赛季总数据
 	public PlayerNormalPO[] getPlayerAllSeasonsTotal(String playerName, SeasonType type);
 	//获得球员的赛季场均数据

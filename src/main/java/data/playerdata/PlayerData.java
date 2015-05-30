@@ -30,40 +30,9 @@ public class PlayerData implements PlayerDataService{
 		{
 		  PreparedStatement statement = conn.prepareStatement(sql);
 		  ResultSet results = statement.executeQuery();
-		   Image action = null;// 大头图片
-		   Image portrait = null;// 全身图片
-		   String name = null;// 姓名
-		   int number = -1;// 球衣号码
-		   String position = null;// 位置
-		   int heightfeet = -1;// 身高的英尺
-		   int heightinch = -1;// 身高的英寸
-		   int weight = -1;// 体重（磅）
-		   String birth = null;// 生日
-		   int age = -1;// 年龄
-		   int exp = -1;// 球龄
-		   String school = null;// 毕业学校
-		   Blob blob =null;
-		   PlayerPO player = null;
 		  while (results.next())
 		  {
-			blob  = results.getBlob("photo_action");
-			action = blobToImage(blob);
-			blob = results.getBlob("photo_portrait");
-			portrait = blobToImage(blob);
-			name = results.getString("player_name");
-			number = results.getInt("num");
-			position = results.getString("position");
-			heightfeet = results.getInt("heightfeet");
-			heightinch = results.getInt("heightinch");
-			weight = results.getInt("weight");
-			birth = results.getString("birth");
-			age = results.getInt("age");
-			exp = results.getInt("exp");
-			school = results.getString("school");
-			player = new PlayerPO( action,  portrait,  name,  number,
-					 position,  heightfeet,  heightinch,  weight,
-					 birth,  age,  exp,  school);
-			list.add(player);
+			list.add(toPlayerPO(results));
 		  }
 		  list.toArray(players);
 		}
@@ -74,6 +43,27 @@ public class PlayerData implements PlayerDataService{
 		return players;
 	}
 
+	private PlayerPO toPlayerPO(ResultSet result) throws Exception
+	{
+		Blob blob  = result.getBlob("photo_action");
+		Image action = blobToImage(blob);
+	    blob = result.getBlob("photo_portrait");
+		Image portrait = blobToImage(blob);
+		String name = result.getString("player_name");
+		int number = result.getInt("num");
+		String position = result.getString("position");
+		int heightfeet = result.getInt("heightfeet");
+		int heightinch = result.getInt("heightinch");
+		int weight = result.getInt("weight");
+		String birth = result.getString("birth");
+		int age = result.getInt("age");
+		int exp = result.getInt("exp");
+		String school = result.getString("school");
+		PlayerPO player = new PlayerPO( action,  portrait,  name,  number,
+				 position,  heightfeet,  heightinch,  weight,
+				 birth,  age,  exp,  school);
+		return player;
+	}
 	 private Image blobToImage(Blob blob)
 	 {
 		 if (blob == null)
@@ -92,36 +82,276 @@ public class PlayerData implements PlayerDataService{
 	}
 	@Override
 	public PlayerHighPO getPlayerHigh(int season, String playerName, SeasonType type) {
-		return null;
+		String sql = null;
+		PlayerHighPO player = null;
+		switch (type)
+		{
+		case REGULAR:
+			sql = "select * from player_season_high where season = ? and playerName = ?";
+			break;
+		case PLAYOFF:
+			sql = "select * from player_season_high_playeroff where season = ? and playerName = ?";
+			break;
+		}
+
+		try
+		{
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, season);
+			statement.setString(2, playerName);
+			ResultSet result = statement.executeQuery();
+			if (result.next())
+			{
+				player = toPlayerHigh(result);
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return player;
+	}
+	private PlayerHighPO toPlayerHigh(ResultSet result) throws Exception
+	{
+		String playerName = result.getString("playerName");
+		String teamName = result.getString("teamName");
+		double efficiency = result.getDouble("efficiency");
+		double gmScEfficiency = result.getDouble("GmScEfficiency");
+		double trueHitRate = result.getDouble("trueHitRate");
+		double hitEfficiency = result.getDouble("hitEfficiency");
+		double rebEfficiency = result.getDouble("rebEfficiency");
+		double offenseRebsEfficiency = result.getDouble("offenseRebsEfficiency");
+		double defenceRebsEfficiency = result.getDouble("defenceRebsEfficiency");
+		double assistEfficiency = result.getDouble("assistEfficiency");
+		double stealsEfficiency = result.getDouble("stealsEfficiency");
+		double blockEfficiency = result.getDouble("blockEfficiency");
+		double mistakeEfficiency = result.getDouble("mistakeEfficiency");
+		double useEfficiency = result.getDouble("useEfficiency");
+		PlayerHighPO player = new PlayerHighPO( playerName,  teamName,  efficiency,
+				 gmScEfficiency,  trueHitRate,  hitEfficiency,
+				 rebEfficiency,  offenseRebsEfficiency,
+				 defenceRebsEfficiency,  assistEfficiency,
+				 stealsEfficiency,  blockEfficiency,
+				 mistakeEfficiency,  useEfficiency);
+		return player;
 	}
 	@Override
 	public PlayerHighPO[] sortPlayerHighn(int season, String sort, int n,
 			SeasonType type) {
-		return null;
+		String sql = null;
+		PlayerHighPO[] players = null;
+		ArrayList<PlayerHighPO> list = new ArrayList<PlayerHighPO>(n);
+		switch (type)
+		{
+		case REGULAR:
+			sql = "select * from player_season_high where season = ? order by "+sort +" limit "+String.valueOf(n);
+			break;
+		case PLAYOFF:
+			sql = "select * from player_season_high_playeroff where season = ?  order by "+sort +" limit "+String.valueOf(n);
+			break;
+		}
+		try
+		{
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, season);
+			ResultSet results = statement.executeQuery();
+			while (results.next())
+			{
+				list.add(toPlayerHigh(results));
+			}
+		    players = new PlayerHighPO[list.size()];
+		    list.toArray(players);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return players;
 	}
 	@Override
 	public PlayerNormalPO getPlayerNormalTotal(int season, String playerName,
 			SeasonType type) {
-		return null;
+		String sql = null;
+		PlayerNormalPO player = null;;
+		switch(type)
+		{
+		case REGULAR:
+			sql = "select * from player_season_normal where ave = ? and season = ? and player_name = ? ";
+			break;
+		case PLAYOFF:
+			sql = "select * from player_season_normal_playeroff where ave = ? and season = ? and player_name = ?";
+			break;
+		}
+		try
+		{
+		 	PreparedStatement statement = conn.prepareStatement(sql);
+		 	statement.setInt(1, 0);
+		 	statement.setInt(2, season);
+		 	statement.setString(3, playerName);
+		 	ResultSet result = statement.executeQuery();
+		 	if(result.next())
+		 	{
+		 		player  = toPlayerNormal(result);
+		 	}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return player;
+	}
+	private PlayerNormalPO toPlayerNormal(ResultSet result) throws Exception
+	{
+		String name = result.getString(3);
+		String team = result.getString(4);
+		int matchNo = result.getInt(5);
+		double firstServiceNo = result.getDouble(6);
+		double rebs = result.getDouble(7);
+		double assistNo = result.getDouble(8);
+		double time = result.getDouble(9);
+		double offendRebsNo = result.getDouble(10);
+		double defenceRebsNo = result.getDouble(11);
+		double stealsNo = result.getDouble(12);
+		double blockNo = result.getDouble(13);
+		double mistakesNo = result.getDouble(14); 
+		double foulsNo = result.getDouble(15);
+		double points = result.getDouble(16);
+		double minute = result.getDouble(17);
+		double hitNo = result.getDouble(18);
+		double handNo = result.getDouble(19);
+		double hitRate = result.getDouble(20);
+		double penaltyHandNo = result.getDouble(21);
+		double penaltyHitNo = result.getDouble(22);
+		double penaltyHitRate = result.getDouble(23);
+		double threeHitNo = result.getDouble(24);
+		double threeHandNo = result.getDouble(25);
+		double threeHitRate = result.getDouble(26);
+		double twoPair = result.getDouble(27);
+		double points_uprate = result.getDouble(28);
+		double rebs_uprate = result.getDouble(29);
+		double help_uprate = result.getDouble(30);
+		double scoring_rebound_assist = result.getDouble(31);
+		PlayerNormalPO player = new PlayerNormalPO( name,  team,  matchNo,
+				 firstServiceNo,  rebs,  assistNo,  time,
+				 offendRebsNo,  defenceRebsNo,  stealsNo,
+				 blockNo,  mistakesNo,  foulsNo,  points,
+				 minute,  hitNo,  handNo,  hitRate,
+				 penaltyHandNo,  penaltyHitNo,  penaltyHitRate,
+				 threeHitNo,  threeHandNo,  threeHitRate,
+				 twoPair,  points_uprate,  rebs_uprate,
+				 help_uprate,  scoring_rebound_assist);
+		return player;
 	}
 	@Override
 	public PlayerNormalPO[] sortPlayerNormalTotal(int season, String sort,
 			int n, SeasonType type) {
-		return null;
+		PlayerNormalPO[] players = null;
+		ArrayList<PlayerNormalPO> list = new ArrayList<PlayerNormalPO>(n);
+		String sql = null;
+		switch (type)
+		{
+		case REGULAR:
+			sql = "select * from player_season_normal where ave = ? and season = ? order by  "+sort+" limit "+String.valueOf(n); 
+			break;
+		case PLAYOFF:
+			sql = "select * from player_season_normal_playoff where ave = ? and season = ? order by  "+sort+" limit "+String.valueOf(n);
+			break;
+		}
+		try
+		{
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, 0);
+			statement.setInt(2, season);
+			ResultSet results = statement.executeQuery();
+			while (results.next())
+			{
+				list.add(toPlayerNormal(results));
+			}
+			players = new PlayerNormalPO[list.size()];
+			list.toArray(players);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return players;
 	}
 	@Override
 	public PlayerNormalPO getPlayerNormalAve(int season, String playerName,
 			SeasonType type) {
-		return null;
+		String sql = null;
+		PlayerNormalPO player = null;;
+		switch(type)
+		{
+		case REGULAR:
+			sql = "select * from player_season_normal where ave = ? and season = ? and player_name = ? ";
+			break;
+		case PLAYOFF:
+			sql = "select * from player_season_normal_playeroff where ave = ? and season = ? and player_name = ?";
+			break;
+		}
+		try
+		{
+		 	PreparedStatement statement = conn.prepareStatement(sql);
+		 	statement.setInt(1, 1);
+		 	statement.setInt(2, season);
+		 	statement.setString(3, playerName);
+		 	ResultSet result = statement.executeQuery();
+		 	if(result.next())
+		 	{
+		 		player  = toPlayerNormal(result);
+		 	}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return player;
 	}
 	@Override
-	public PlayerNormalPO sortPlayerNormalAven(int season, String sort, int n,
+	public PlayerNormalPO[] sortPlayerNormalAven(int season, String sort, int n,
 			SeasonType type) {
-		return null;
+		PlayerNormalPO[] players = null;
+		ArrayList<PlayerNormalPO> list = new ArrayList<PlayerNormalPO>(n);
+		String sql = null;
+		switch (type)
+		{
+		case REGULAR:
+			sql = "select * from player_season_normal where ave = ? and season = ? order by  "+sort+" limit "+String.valueOf(n); 
+			break;
+		case PLAYOFF:
+			sql = "select * from player_season_normal_playoff where ave = ? and season = ? order by  "+sort+" limit "+String.valueOf(n);
+			break;
+		}
+		try
+		{
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, 1);
+			statement.setInt(2, season);
+			ResultSet results = statement.executeQuery();
+			while (results.next())
+			{
+				list.add(toPlayerNormal(results));
+			}
+			players = new PlayerNormalPO[list.size()];
+			list.toArray(players);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return players;
 	}
 	@Override
 	public PlayerNormalPO[] getPlayerAllSeasonsTotal(String playerName,
 			SeasonType type) {
+		String sql = null;
+		
+		switch (type)
+		{
+		case REGULAR:
+		case 
+		}
 		return null;
 	}
 	@Override

@@ -23,11 +23,6 @@ public class MatchData implements MatchDataService{
 	   private String driver = "com.mysql.jdbc.Driver";
 	   public MatchData(Connection conn)
 	   {
-//    	 try {
-//			Class.forName(driver);
-//		} catch (ClassNotFoundException e) {
-//			e.printStackTrace();
-//		}
 		 this.conn = conn;
 	   }
 	   
@@ -243,7 +238,7 @@ public class MatchData implements MatchDataService{
 			return season;
 		}
 		
-		private int[] getMatchIdScope(int season)
+		public static int[] getMatchIdScope(int season)
 		{
 			int[] result = new int[2];
 			int temp = 0;
@@ -265,7 +260,7 @@ public class MatchData implements MatchDataService{
 			}
 			return result;
 		}
-		private int[] getPlayerOffMatchId(int season)
+		public static  int[] getPlayerOffMatchId(int season)
 		{
 			int[] scope = getMatchIdScope(season);
 			scope[0] += 10000000;
