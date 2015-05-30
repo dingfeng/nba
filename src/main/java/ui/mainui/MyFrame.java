@@ -50,7 +50,6 @@ public class MyFrame extends JFrame {
 	public static StatisticsPlayerPanel statisticsPlayerPanel = new StatisticsPlayerPanel();
 	public static StatisticsTeamPanel statisticsTeamPanel = new StatisticsTeamPanel();
 	
-	public static JLabel locationlable = new JLabel();
 
 	// MatchController mc = new MatchController();
 
@@ -201,7 +200,7 @@ public class MyFrame extends JFrame {
 		helpbutton.addMouseListener(new button());
 		staticsbutton.addMouseListener(new button());
 		
-		frame.add(locationlable);
+
 		frame.add(helpbutton);
 		frame.add(index);
 		frame.add(playerbutton);
@@ -247,7 +246,6 @@ public class MyFrame extends JFrame {
 
 	void setIndex() {
 		
-		indexpanel.update();
 		card.show(mainpanel, "index");
 		playerbutton.setBackground(FrameSize.bluecolor);
 		teambutton.setBackground(FrameSize.bluecolor);
