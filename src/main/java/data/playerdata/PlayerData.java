@@ -70,11 +70,11 @@ public class PlayerData implements PlayerDataService{
 			 return null;
 		 byte[] bytes = null;
 		 try {
-			bytes = blob.getBytes(0,(int)blob.length());
+			bytes = blob.getBytes(1,(int)blob.length());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		 return Toolkit.getDefaultToolkit().createImage(bytes);
+		 return Toolkit.getDefaultToolkit().createImage(bytes,0,bytes.length);
 	 }
 	@Override
 	public PlayerPO findPlayer(String playerName) {
@@ -441,5 +441,26 @@ public class PlayerData implements PlayerDataService{
 		}
 		return players;
 	}
-  
+   public double getSeasonAveData(int season,String data)
+   {
+	   String sql  = "select sum(?)/sum(matchNo) where season = ? group by season";
+	   double result = -1;
+	   try
+	   {
+		   PreparedStatement statement = conn.prepareStatement(sql);
+		   statement.setString(1, data);
+		   statement.setInt(2, season);
+		   ResultSet results = statement.executeQuery();
+		   if (results.next())
+		   {
+			   result = results.getDouble(1);
+		   }
+	   }
+	   catch(Exception e)
+	   {
+		   e.printStackTrace();
+	   }
+	   return result;
+   }
+   
 }

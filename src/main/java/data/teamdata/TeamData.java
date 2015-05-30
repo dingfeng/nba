@@ -178,7 +178,6 @@ public class TeamData implements TeamDataService{
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, 0);
 			statement.setInt(2, season);
-			statement.setString(3, sort);
 			ResultSet results = statement.executeQuery();
 			while (results.next())
 			{
@@ -245,7 +244,6 @@ public class TeamData implements TeamDataService{
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, 1);
 			statement.setInt(2, season);
-			statement.setString(3, sort);
 			ResultSet results = statement.executeQuery();
 			while (results.next())
 			{
@@ -270,7 +268,7 @@ public class TeamData implements TeamDataService{
 			sql = "select * from team_season_high where season = ? and teamName = ?";
 			break;
 		case PLAYOFF:
-			sql = "select * from team_season_high_playeroff where season = ? and teamName = ?";
+			sql = "select * from team_season_high_playoff where season = ? and teamName = ?";
 			break;
 		}
 		try
@@ -405,7 +403,7 @@ public class TeamData implements TeamDataService{
 		try
 		{
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(2, teama);
+			statement.setString(1, teama);
 			ResultSet results = statement.executeQuery();
 			while (results.next())
 			{
