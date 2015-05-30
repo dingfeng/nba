@@ -346,9 +346,11 @@ public class MyFrame extends JFrame {
 		}
 
 		public void mouseEntered(MouseEvent arg0) {
+			((JButton)arg0.getSource()).setBackground(Color.red);
 		}
 
 		public void mouseExited(MouseEvent arg0) {
+			((JButton)arg0.getSource()).setBackground(FrameSize.bluecolor);
 		}
 
 		public void mousePressed(MouseEvent arg0) {
@@ -365,9 +367,11 @@ public class MyFrame extends JFrame {
 		}
 
 		public void mouseEntered(MouseEvent e) {
+			((JButton)e.getSource()).setBackground(FrameSize.darkbluecolor);
 		}
 
 		public void mouseExited(MouseEvent e) {
+			((JButton)e.getSource()).setBackground(FrameSize.bluecolor);
 		}
 
 		public void mousePressed(MouseEvent e) {
