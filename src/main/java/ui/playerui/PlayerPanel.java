@@ -87,12 +87,12 @@ public class PlayerPanel extends JPanel {
 			columnsName.add("球员");
 			columnsName.add("姓名");
 			columnsName.add("球队");
-			// columnsName.add("位置");
+			columnsName.add("位置");
 			columnsName.add("身高");
+			columnsName.add("体重");
 			columnsName.add("学校");
 			columnsName.add("生日");
-			columnsName.add("年龄");
-			columnsName.add("球龄");
+			columnsName.add("球衣");
 
 			Vector data = new Vector();
 			for (int i = 0; i < playerVOs.length; i++) {
@@ -101,13 +101,11 @@ public class PlayerPanel extends JPanel {
 				rowData.add(playerVOs[i].getPortrait());
 				rowData.add(playerVOs[i].getName());
 				rowData.add(playerVOs[i].getTeam());
-				// rowData.add(playerVOs[i].getLocation());
-				rowData.add(playerVOs[i].getHeightfeet() + "-"
-						+ playerVOs[i].getHeightinch());
+    			rowData.add(playerVOs[i].getPosition());
+				rowData.add("这里是体重");
 				rowData.add(playerVOs[i].getSchool());
 				rowData.add(playerVOs[i].getBirth());
-				rowData.add(playerVOs[i].getAge());
-				rowData.add(playerVOs[i].getExp());
+				rowData.add(playerVOs[i].getNumber());
 
 				data.add(rowData);
 			}
@@ -124,26 +122,28 @@ public class PlayerPanel extends JPanel {
 			columnsName.add("球员");
 			columnsName.add("姓名");
 			columnsName.add("球队");
-			// columnsName.add("位置");
+			columnsName.add("位置");
 			columnsName.add("身高");
+			columnsName.add("体重");
 			columnsName.add("学校");
 			columnsName.add("生日");
-			columnsName.add("年龄");
-			columnsName.add("球龄");
+			columnsName.add("球衣");
+
 
 			Vector data = new Vector();
 			for (int i = 0; i < 100; i++) {
 				Vector rowData = new Vector();
 				rowData.add(i);
-				rowData.add("辣");
-				rowData.add("辣");
-				rowData.add("还");
-				// rowData.add(playerVOs[i].getLocation());
-				rowData.add("没");
-				rowData.add("给");
-				rowData.add("俺");
-				rowData.add("接");
-				rowData.add("口");
+				rowData.add("放个小照片");
+				rowData.add("名字长长长");
+				rowData.add("球队");
+    			rowData.add("位置");
+				rowData.add("身高");
+				rowData.add("体重");
+				rowData.add("学校长长长");
+				rowData.add("生日长长长");
+				rowData.add("00-00");
+
 
 				data.add(rowData);
 			}
