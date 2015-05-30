@@ -11,7 +11,8 @@ import blservice.matchblservice.Matchblservice;
 
 public class MatchController implements Matchblservice {
 	MatchContainer matchContainer;
-	public MatchController() throws Exception{
+	
+	public MatchController(){
 		matchContainer = MatchContainer.instance();
 	}
 
