@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import dataservice.playerdataservice.SeasonType;
 import bl.matchbl.Match;
+import po.HPlayerPO;
 import po.MatchPlayerPO;
 import po.PlayerNormalPO;
 import po.PlayerPO;
@@ -29,13 +30,13 @@ public interface PlayerBlService {
 	//查找模糊
 	public String[] fuzzilyFind(String info);
 	//查找球员 并获得球员基本信息
-    public PlayerPO findPlayer(String info);
+    public HPlayerPO findPlayer(String info);
     //查找球员场均数据
     public PlayerMatchVO findPlayerMatchAve(int season, String playername);
     //查找球员赛季数据
     public PlayerMatchVO findPlayerTotal(int season, String playername);
     //获得以字母为开头的球员场均数据
-    public PlayerPO[] getPlayersWithStart(int season, String start);
+    public HPlayerPO[] getPlayersWithStart(int season, String start);
     //获得所有球员场均数据
     public PlayerMatchVO[] getAvePlayers(int season);
     //获得所有球员所有数据

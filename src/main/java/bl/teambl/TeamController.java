@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import dataservice.playerdataservice.PlayerDataService;
 import dataservice.playerdataservice.SeasonType;
 import dataservice.teamdataservice.TeamDataService;
+import po.HPlayerPO;
 import po.PlayerPO;
 import po.TeamNormalPO;
 import po.TeamPO;
@@ -147,7 +148,7 @@ public class TeamController implements Teamblservice{
 	}
 
 	@Override
-	public PlayerPO getPlayerBase(String playername) {
+	public HPlayerPO getPlayerBase(String playername) {
 		return playerservice.findPlayer(playername);
 	}
 

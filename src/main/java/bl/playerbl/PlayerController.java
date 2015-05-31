@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import dataservice.playerdataservice.PlayerDataService;
 import dataservice.playerdataservice.SeasonType;
+import po.HPlayerPO;
 import po.PlayerNormalPO;
 import po.PlayerPO;
 import vo.Area;
@@ -127,7 +128,7 @@ public class PlayerController implements PlayerBlService{
 	}
 
 	//根据球员名字查找球员
-	public synchronized PlayerPO findPlayer(String info) {
+	public synchronized HPlayerPO findPlayer(String info) {
 		return playerService.findPlayer(info);
 	}
 	
@@ -143,17 +144,17 @@ public class PlayerController implements PlayerBlService{
 		return playerQ.getTotalPlayer();
 	}
 	
-	public synchronized PlayerPO[] getPlayersWithStart(int season, String start) {
+	public synchronized HPlayerPO[] getPlayersWithStart(int season, String start) {
 		String[] playersFit = playerService.fuzzilySearch(start);
-		ArrayList<PlayerPO> result = new ArrayList<PlayerPO>(playersFit.length);
-		PlayerPO playerP;
+		ArrayList<HPlayerPO> result = new ArrayList<HPlayerPO>(playersFit.length);
+		HPlayerPO playerP;
 		for(String s : playersFit){
 			playerP = playerService.findPlayer(s);
 			if(playerP != null){
 				result.add(playerP);
 			}
 		}
-		return (PlayerPO[])result.toArray();
+		return (HPlayerPO[])result.toArray();
 	}
 	
 	public synchronized PlayerMatchVO[] getAvePlayers(int season) {
@@ -189,7 +190,7 @@ public class PlayerController implements PlayerBlService{
 	}
 	
 	public Image getPlayerImage(String name) {
-		PlayerPO playerP = playerService.findPlayer(name);
+		HPlayerPO playerP = playerService.findPlayer(name);
 		return playerP.getPortrait();
 	}
 

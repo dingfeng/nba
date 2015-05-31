@@ -1,6 +1,7 @@
 package blservice.teamblservice;
 
 import dataservice.playerdataservice.SeasonType;
+import po.HPlayerPO;
 import po.PlayerPO;
 import po.TeamNormalPO;
 import po.TeamPO;
@@ -25,7 +26,7 @@ public interface Teamblservice
 	//根据球队简称查找其下的球员的赛季数据
 	public PlayerMatchVO[] getAllPlayerMatchTotal(int season, String teamname);
 	//获得球员的基本信息
-	public PlayerPO getPlayerBase(String playername);
+	public HPlayerPO getPlayerBase(String playername);
 	//获得所有球队名
 	public String[] getTeamNames();
 }
