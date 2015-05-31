@@ -2,8 +2,10 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.util.Date;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -11,12 +13,15 @@ import javax.swing.ScrollPaneConstants;
 
 import po.MatchesPO;
 import bl.matchbl.MatchController;
+import bl.teambl.TeamController;
 import blservice.matchblservice.Matchblservice;
+import blservice.teamblservice.Teamblservice;
 import ui.mainui.DateChooseButton;
 import ui.mainui.FrameSize;
 
 public class MatchPanel extends JPanel {
 	Matchblservice matchController = new MatchController();
+	Teamblservice teamController = new TeamController();
 	JScrollPane todatyMatchScrollPane = new JScrollPane();
 
 	public MatchPanel() {
@@ -26,8 +31,8 @@ public class MatchPanel extends JPanel {
 		this.setOpaque(false);
 		JPanel headerPanel = HeaderPanel();
 		this.add(headerPanel);
-//		setTodayMatches();
-		test();
+		setTodayMatches(null);
+//		test();
 	}
 
 	/**查找栏*/
@@ -50,14 +55,45 @@ public class MatchPanel extends JPanel {
 	
 	/**一天的所有比赛*/
 	public void setTodayMatches(Date date){
-		todatyMatchScrollPane.removeAll();
-		MatchesPO [] matches = matchController.getTimeMatches(date);
-		JLabel[] matchLabel = new JLabel[matches.length];
-		for(int i=0;i<matches.length;i++){
+		todatyMatchScrollPane.getViewport().removeAll();
+		JPanel matchPanel = new JPanel();
+		matchPanel.setLayout(null);
+//		MatchesPO [] matches = matchController.getTimeMatches(date);
+		JLabel[] matchLabel = new JLabel[100];
+		for(int i=0;i<100;i++){
 			matchLabel[i]=new JLabel();
-			
+			matchLabel[i].setBounds(0,i*200,FrameSize.width,200);
+//			JLabel team1 = new JLabel(scaleImage(
+//					new ImageIcon(teamController.getTeamData(matches[i].getTeam1().getName())
+//							.getImage()),150,150));
+			JLabel team1 = new JLabel();
+			team1.setOpaque(true);
+			team1.setBackground(Color.red);
+			team1.setBounds(200,25,150,150);
+//			JLabel team2 = new JLabel(scaleImage(
+//					new ImageIcon(teamController.getTeamData(matches[i].getTeam2().getName())
+//							.getImage()),150,150));
+			JLabel team2 = new JLabel();
+			team2.setOpaque(true);
+			team2.setBackground(Color.blue);
+			team2.setBounds(FrameSize.width-350,25,150,150);
+			team1.setText("1-"+String.valueOf(i));
+			team2.setText("2-"+String.valueOf(i));
+			matchLabel[i].add(team1);
+			matchLabel[i].add(team2);
+			matchPanel.add(matchLabel[i]);
 		}
-	}
+		matchPanel.setOpaque(false);
+		todatyMatchScrollPane.getViewport().add(matchPanel);
+		matchPanel.setPreferredSize(new Dimension(FrameSize.width,100*130));
+		todatyMatchScrollPane.setBounds(0,40,FrameSize.width,FrameSize.height*7/8-40);
+		todatyMatchScrollPane.setOpaque(false);
+		todatyMatchScrollPane.getViewport().setOpaque(false);
+		todatyMatchScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		todatyMatchScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		this.add(todatyMatchScrollPane);
+		this.repaint();
+		}
 	
 	private void test(){
 		JLabel[] jLabel = new JLabel[100];
@@ -78,6 +114,21 @@ public class MatchPanel extends JPanel {
 		jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		this.add(jScrollPane);
 		this.repaint();
+	}
+
+	/**更改图片大小*/
+	private ImageIcon scaleImage(ImageIcon icon, int iconWidth, int iconHeight) {
+		int width = icon.getIconWidth();
+		int height = icon.getIconHeight();
+
+		if (width == iconWidth && height == iconHeight) {
+			return icon;
+		}
+		Image image = icon.getImage();
+		image = image.getScaledInstance(iconWidth, iconHeight,
+				Image.SCALE_DEFAULT);
+
+		return new ImageIcon(image);
 	}
 	
 	
