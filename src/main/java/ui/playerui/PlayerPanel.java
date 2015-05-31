@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import po.PlayerPO;
 import bl.teambl.TeamController;
 import ui.mainui.CharacterButton;
 import ui.mainui.EditableTextField;
@@ -20,7 +21,6 @@ import ui.mainui.FrameSize;
 import ui.mainui.MyComboBox;
 import ui.mainui.MyTable;
 import vo.PlayerMatchVO;
-import vo.PlayerVO;
 
 public class PlayerPanel extends JPanel {
 
@@ -80,14 +80,14 @@ public class PlayerPanel extends JPanel {
 	}
 
 	/** 显示查找到的球员的基本信息 */
-	private JScrollPane TablePanel(PlayerVO[] playerVOs) {
+	private JScrollPane TablePanel(PlayerPO[] playerVOs) {
 		if (playerVOs != null) {
 			Vector columnsName = new Vector();
 			columnsName.add(" ");
 			columnsName.add("球员");
 			columnsName.add("姓名");
 			columnsName.add("球队");
-			// columnsName.add("位置");
+			columnsName.add("位置");
 			columnsName.add("身高");
 			columnsName.add("学校");
 			columnsName.add("生日");
@@ -100,8 +100,8 @@ public class PlayerPanel extends JPanel {
 				rowData.add(i);
 				rowData.add(playerVOs[i].getPortrait());
 				rowData.add(playerVOs[i].getName());
-				rowData.add(playerVOs[i].getTeam());
-				// rowData.add(playerVOs[i].getLocation());
+//				rowData.add(playerVOs[i].getTeam());
+				rowData.add(playerVOs[i].getPosition());
 				rowData.add(playerVOs[i].getHeightfeet() + "-"
 						+ playerVOs[i].getHeightinch());
 				rowData.add(playerVOs[i].getSchool());
@@ -124,7 +124,7 @@ public class PlayerPanel extends JPanel {
 			columnsName.add("球员");
 			columnsName.add("姓名");
 			columnsName.add("球队");
-			// columnsName.add("位置");
+			columnsName.add("位置");
 			columnsName.add("身高");
 			columnsName.add("学校");
 			columnsName.add("生日");
@@ -138,7 +138,7 @@ public class PlayerPanel extends JPanel {
 				rowData.add("辣");
 				rowData.add("辣");
 				rowData.add("还");
-				// rowData.add(playerVOs[i].getLocation());
+				rowData.add(" ");
 				rowData.add("没");
 				rowData.add("给");
 				rowData.add("俺");
