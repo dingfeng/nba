@@ -1,100 +1,93 @@
 package bl.teambl;
 
-import java.util.Iterator;
-
+import dataservice.playerdataservice.PlayerDataService;
+import dataservice.teamdataservice.TeamDataService;
 import po.PlayerPO;
+import po.TeamNormalPO;
 import po.TeamPO;
-import bl.playerbl.Player;
+import DataFactory.DataFactory;
+import DataFactoryService.NBADataFactory;
+import bl.matchbl.Match;
+import bl.matchbl.MatchController;
+import bl.matchbl.TeamQueue;
+import blservice.matchblservice.Matchblservice;
 import blservice.teamblservice.Teamblservice;
-import vo.Area;
 import vo.PlayerMatchVO;
-import vo.SortType;
 import vo.TeamMatchVO;
-import vo.TeamSortBy;
-import vo.TeamVO;
 
 public class TeamController implements Teamblservice{
-    Team team ;
-    Player player ;
-    public TeamController(int season)
-    {
-    	player = new Player(season);
-    	team = new Team(season);
-    }
-    //获得热门对球队
-	public synchronized  TeamMatchVO[] getHotTeams(TeamSortBy sortby) {
-		return team.getHotTeams(sortby);
+	TeamDataService teamservice;
+	PlayerDataService playerservice;
+	Matchblservice matchservice;
+	
+	public TeamController(){
+		NBADataFactory dataFactory;
+		try {
+			dataFactory = DataFactory.instance();
+			playerservice = dataFactory.getPlayerData();
+			teamservice = dataFactory.getTeamData();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		matchservice = new MatchController();
+	}
+	
+	@Override
+	public TeamNormalPO[] getHotTeams(int season, String sortby) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	//获得场均排序后的球队
-	public synchronized TeamMatchVO[] getSortedAveTeams(TeamSortBy sortby, SortType type) {
-		return team.getSortedAveTeams(sortby, type);
+	@Override
+	public String[] getPlayers(int season, String team) {
+		Match match = matchservice.getMatch(season);
+		TeamQueue teamQ = match.getTeamData(team);
+		return teamQ.getAllPlayers();
+	}
+
+	@Override
+	public TeamMatchVO getTotalTeam(int season, String teamname) {
+		Match match = matchservice.getMatch(season);
+		TeamQueue teamQ = match.getTeamData(teamname);
+		return teamQ.getTeamvoTotal();
+	}
+
+	@Override
+	public TeamMatchVO getAveTeam(int season, String teamname) {
+		Match match = matchservice.getMatch(season);
+		TeamQueue teamQ = match.getTeamData(teamname);
+		return teamQ.getTeamvoAverage();
+	}
+
+	@Override
+	public TeamPO getTeamData(String team) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PlayerMatchVO[] getAllPlayerMatchAve(int season, String teamname) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PlayerMatchVO[] getAllPlayerMatchTotal(int season, String teamname) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PlayerPO getPlayerBase(String playername) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String[] getTeamNames() {
+		// TODO Auto-generated method stub
+		return null;
 	}
     
-	//获得赛季数据排序后的球队
-	public synchronized TeamMatchVO[] getSortedTotalTeams(TeamSortBy sortby , SortType type)
-	{
-		return team.getSortedTotalTeams(sortby, type);
-	}
-	//获得该球队的所有球员名
-	public synchronized String[] getPlayers(String team) {
-		return  this.team.getPlayers(team);
-	}
-
-	
-	//获得该球队的赛季数据
-	public synchronized TeamMatchVO getTotalTeam(String teamname) {
-		return this.team.getTotalTeam(teamname);
-	}
-
-	//获得该球队的场均数据
-	public synchronized TeamMatchVO getAveTeam(String teamname) {
-		return team.getAveTeam(teamname);
-	}
-
-	//模糊查找该球队的场均数据
-	public synchronized Iterator<String> fuzzilyFind(String info) {
-		return this.team.fuzzilyFind(info);
-	}
-	//获得球队的基本信息
-	public synchronized TeamPO getTeamData(String team) {
-		if (team.equals("NOH"))
-			team = "NOP";
-		return this.team.getTeamData(team);
-	}
-
-	@Override
-	public synchronized PlayerMatchVO[] getAllPlayerMatchAve(String teamname) {
-		String[] players = team.getPlayers(teamname);
-		if (players == null) return null;
-		PlayerMatchVO[] playerMatches = new PlayerMatchVO[players.length];
-		for (int i = 0; i < players.length; i++)
-		{
-			playerMatches[i] = player.findPlayerMatchAve(players[i]);
-		}
-		return  playerMatches;
-	}
-
-	@Override
-	public synchronized PlayerMatchVO[] getAllPlayerMatchTotal(String teamname) {
-		String[] players = team.getPlayers(teamname);
-		if (players == null) return null;
-		PlayerMatchVO[] playerMatches = new PlayerMatchVO[players.length];
-		for (int i = 0; i < players.length; i++)
-		{
-			playerMatches[i] = player.findPlayerMatchTotal(players[i]);
-		}
-		return  playerMatches;
-	}
-
-	@Override
-	public synchronized PlayerPO getPlayerBase(String playername) {
-		return player.findPlayer(playername);
-	}
-
-	@Override
-	public synchronized  String[] getTeamNames() {
-		return team.getSearchItems();
-	}
-	
 }

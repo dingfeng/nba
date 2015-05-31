@@ -3,7 +3,6 @@ package bl.matchbl;
 import po.MatchPlayerPO;
 import po.MatchesPO;
 import vo.PlayerMatchVO;
-import vo.PlayerVO;
 
 public class PlayerQueue {
 	private final static double MIN_DOUBLE = -1000;
