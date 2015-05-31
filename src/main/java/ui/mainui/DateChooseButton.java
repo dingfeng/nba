@@ -28,6 +28,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import bl.matchbl.MatchController;
 import ui.MatchPanel;
 
 public class DateChooseButton extends JButton {
@@ -100,7 +101,7 @@ public class DateChooseButton extends JButton {
 		});
 	}
 
-	/*
+	
 	private static Date getNowDate() {
 		MatchController mc=new MatchController();
 		String Date=mc.getTodayMatches()[0].getDate();
@@ -118,7 +119,7 @@ public class DateChooseButton extends JButton {
 		date.setDate(day);
 		return date;
 	}
-	*/
+	
 
 	private static SimpleDateFormat getDefaultDateFormat() {
 		return new SimpleDateFormat("yyyy-MM-dd");
@@ -173,25 +174,25 @@ public class DateChooseButton extends JButton {
 		try {
 			date = df.parse(s);
 		} catch (ParseException e) {
-			/*date = getNowDate();*/
+			date = getNowDate();
 		}
-		/*setDate(date);*/
+setDate(date);
 	}
 
 	public void setDate(Date date) {
 		super.setText(preLabel + getDefaultDateFormat().format(date));
 	}
-/*
+
 	public Date getDate() {
 		String dateString = getText().substring(preLabel.length());
 		try {
 			SimpleDateFormat currentSdf = getCurrentSimpleDateFormat();
 			return currentSdf.parse(dateString);
 		} catch (ParseException e) {
-			/*return getNowDate();*/
+			return getNowDate();
 		}
 	}
-	*/
+	
 
 	/**
 	 * 覆盖父类的方法使之无效
@@ -588,7 +589,7 @@ public class DateChooseButton extends JButton {
 			dialog.setVisible(false);
 			if (matchPanel != null)
 			{
-				/*matchPanel.findMatchConfirmClick();;*/
+				matchPanel.findMatchConfirmClick();;
 			}
 		}
 		
