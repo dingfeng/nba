@@ -1,8 +1,5 @@
 package bl.playerbl;
 
-import gnu.trove.iterator.TIntObjectIterator;
-import gnu.trove.map.TIntObjectMap;
-
 import java.awt.Image;
 import java.util.ArrayList;
 
@@ -14,7 +11,6 @@ import po.PlayerNormalPO;
 import po.PlayerPO;
 import vo.Area;
 import vo.HotPlayerTeam;
-import vo.PlayerSortBy;
 import DataFactory.DataFactory;
 import DataFactoryService.NBADataFactory;
 import bl.matchbl.MatchController;
@@ -119,7 +115,7 @@ public class PlayerController implements PlayerBlService{
 	
 	public Image getPlayerImage(String name) {
 		HPlayerPO playerP = playerService.findPlayer(name);
-		return playerP.getPortrait();
+		return playerP.getImage();
 	}
 
 	@Override
@@ -133,8 +129,33 @@ public class PlayerController implements PlayerBlService{
 	//筛选球员 场均数据 低阶
 	public PlayerNormalPO[] screenNormalAvePlayers(int season,
 			String playerPosition, Area playerArea) {
-		// TODO Auto-generated method stub
-		return null;
+		String area = new String();
+		switch (playerArea){
+			case ATLANTIC:
+				area = "ATLANTIC";
+				break;
+			case CENTRAL:
+				area = "CENTRAL";
+				break;
+			case SOUTHEAST:
+				area = "SOUTHEAST";
+				break;
+			case SOUTHWEST:
+				area = "SOUTHWEST";
+				break;
+			case NORTHWEST:
+				area = "NORTHWEST";
+				break;
+			case PACIFIC:
+				area = "PACIFIC";
+				break;
+		}
+		PlayerPO[] players = playerService.screenPlayer(null, area, playerPosition, 100);
+		PlayerNormalPO[] result = new PlayerNormalPO[players.length];
+		for(int i = 0; i != players.length; i ++){
+			result[i] = playerService.getPlayerNormalAve(season, players[i].getName(), SeasonType.REGULAR);
+		}
+		return result;
 	}
 
 
@@ -142,8 +163,33 @@ public class PlayerController implements PlayerBlService{
 	//筛选球员 赛季数据 低阶
 	public PlayerNormalPO[] screenNormalTotalPlayers(int season,
 			String playerPosition, Area playerArea) {
-		// TODO Auto-generated method stub
-		return null;
+		String area = new String();
+		switch (playerArea){
+			case ATLANTIC:
+				area = "ATLANTIC";
+				break;
+			case CENTRAL:
+				area = "CENTRAL";
+				break;
+			case SOUTHEAST:
+				area = "SOUTHEAST";
+				break;
+			case SOUTHWEST:
+				area = "SOUTHWEST";
+				break;
+			case NORTHWEST:
+				area = "NORTHWEST";
+				break;
+			case PACIFIC:
+				area = "PACIFIC";
+				break;
+		}
+		PlayerPO[] players = playerService.screenPlayer(null, area, playerPosition, 100);
+		PlayerNormalPO[] result = new PlayerNormalPO[players.length];
+		for(int i = 0; i != players.length; i ++){
+			result[i] = playerService.getPlayerNormalTotal(season, players[i].getName(), SeasonType.REGULAR);
+		}
+		return result;
 	}
 
 
@@ -151,8 +197,33 @@ public class PlayerController implements PlayerBlService{
 	//筛选球员 数据 高阶
 	public PlayerHighPO[] screenHighPlayers(int season, String playerPosition,
 			Area playerArea) {
-		// TODO Auto-generated method stub
-		return null;
+		String area = new String();
+		switch (playerArea){
+			case ATLANTIC:
+				area = "ATLANTIC";
+				break;
+			case CENTRAL:
+				area = "CENTRAL";
+				break;
+			case SOUTHEAST:
+				area = "SOUTHEAST";
+				break;
+			case SOUTHWEST:
+				area = "SOUTHWEST";
+				break;
+			case NORTHWEST:
+				area = "NORTHWEST";
+				break;
+			case PACIFIC:
+				area = "PACIFIC";
+				break;
+		}
+		PlayerPO[] players = playerService.screenPlayer(null, area, playerPosition, 100);
+		PlayerHighPO[] result = new PlayerHighPO[players.length];
+		for(int i = 0; i != players.length; i ++){
+			result[i] = playerService.getPlayerHigh(season, players[i].getName(), SeasonType.REGULAR);
+		}
+		return result;
 	}
 
 
@@ -179,25 +250,22 @@ public class PlayerController implements PlayerBlService{
 
 	@Override
 	//获得所有球员场均数据 低阶
-	public PlayerNormalPO[] getAveAllPlayers(int season) {
-		// TODO Auto-generated method stub
-		return null;
+	public PlayerNormalPO[] getAveAllPlayers(int season, SeasonType type) {
+		return playerService.getSeasonPlayerNormalAve(season, type);
 	}
 
 
 	@Override
 	//获得所有球员所有数据 低阶
-	public PlayerNormalPO[] getTotalAllPlayers(int season) {
-		// TODO Auto-generated method stub
-		return null;
+	public PlayerNormalPO[] getTotalAllPlayers(int season, SeasonType type) {
+		return playerService.getSeasonPlayerNormalTotal(season, type);
 	}
 
 
 	@Override
 	//获得所有球员高阶数据
-	public PlayerHighPO[] getHighAllPlayers(int season) {
-		// TODO Auto-generated method stub
-		return null;
+	public PlayerHighPO[] getHighAllPlayers(int season, SeasonType type) {
+		return playerService.getSeasonPlayerHigh(season, type);
 	}
 
 
@@ -227,5 +295,19 @@ public class PlayerController implements PlayerBlService{
 	@Override
 	public PlayerPO[] getAllActivePlayerData() {
 		return playerService.getAllActivePlayerData();
+	}
+
+
+	@Override
+	public Image getRadarImage(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public Image getCompareImage(String name1, String name2) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

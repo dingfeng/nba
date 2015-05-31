@@ -7,15 +7,16 @@ import po.MatchesPO;
 
 public interface Matchblservice 
 {
-	public void update();
-	public boolean changed();
     public MatchesPO[] getTodayMatches();
     public MatchesPO[] getPlayerOffMatches(int season);
 	public MatchesPO[] getAllMatches(int season);
-	public MatchesPO[] getRecentPlayerMatches(String playerName, int num);
-	public MatchesPO[] getRecentTeamMatches(String teamName, int num);
-	public MatchesPO[] getPlayerMatches(int season, String playername);
-	public MatchesPO[] getTeamMatches(int season, String teamname);
+	public MatchesPO[] getRegularPlayerMatches(int season, String playername);
+	public MatchesPO[] getPlayerOffPlayerMatches(int season, String playername);
+	public MatchesPO[] getRegularTeamMatches(int season, String teamname);
+	public MatchesPO[] getPlayerOffTeamMatches(int season, String teamname);
     public MatchesPO[] getTimeMatches(Date date);
-    public void update1();
+    public MatchesPO[] getRegularPlayerMatchesn(int season, String name);
+	public MatchesPO[] getRegularTeamMatchesn(int season, String teamName);
+	public MatchesPO[] getPlayerOffPlayerMatchesn(int season, String name);
+	public MatchesPO[] getPlayerOffTeamMatchesn(int season, String teamName);
 }

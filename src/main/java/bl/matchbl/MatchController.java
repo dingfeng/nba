@@ -1,12 +1,8 @@
 package bl.matchbl;
 
-import gnu.trove.map.TIntObjectMap;
-
-import java.util.ArrayList;
 import java.util.Date;
 
 import dataservice.matchdataservice.MatchDataService;
-import po.MatchTeamPO;
 import po.MatchesPO;
 import DataFactory.DataFactory;
 import DataFactoryService.NBADataFactory;
@@ -26,16 +22,6 @@ public class MatchController implements Matchblservice {
 		}
 	}
 
-	// 更新数据
-	public synchronized void update() {
-		
-	}
-
-	// 数据是否改变
-	public synchronized boolean changed() {
-		return false;
-	}
-
 	// 获得今日的比赛数据
 	public synchronized MatchesPO[] getTodayMatches() {
 		return null;
@@ -43,7 +29,7 @@ public class MatchController implements Matchblservice {
 
 	// 获得当前赛季所有的比赛数据
 	public synchronized MatchesPO[] getAllMatches(int season) {
-		return null;
+		return matchservice.getRegularSeasonMatches(season);
 	}
 	
 	//获得当前赛季所有的赛后季比赛数据
@@ -51,35 +37,49 @@ public class MatchController implements Matchblservice {
 		return matchservice.getPlayerOffMatches(season);
 	}
 
-	// 获得某球员最近的几场比赛数据
-	public synchronized MatchesPO[] getRecentPlayerMatches(String playerName,
-			int num) {
-		return null;
-	}
-
-	// 获得某球队最近的几场比赛数据
-	public synchronized MatchesPO[] getRecentTeamMatches(String teamName,
-			int num) {
-		return null;
-	}
-
 	// 获得某球员所有的比赛数据
-	public synchronized MatchesPO[] getPlayerMatches(int season, String playername) {
-		return null;
+	public synchronized MatchesPO[] getRegularPlayerMatches(int season, String playername) {
+		return matchservice.getRegularPlayerMatchesn(season, playername, 100);
 	}
 
 	// 获得某球队所有的比赛数据
-	public synchronized MatchesPO[] getTeamMatches(int season, String teamname) {
-		return null;
+	public synchronized MatchesPO[] getRegularTeamMatches(int season, String teamname) {
+		return matchservice.getRegularTeamMatchesn(season, teamname, 100);
 	}
-
+	
 	// 获得在某一时间区间内的所有比赛信息
 	public synchronized MatchesPO[] getTimeMatches(Date date) {
 		return matchservice.getMatches(date);
 	}
+	
+	@Override
+	public MatchesPO[] getRegularPlayerMatchesn(int season, String name) {
+		return matchservice.getRegularPlayerMatchesn(season, name, 5);
+	}
 
 	@Override
-	public synchronized void update1() {
+	public MatchesPO[] getRegularTeamMatchesn(int season, String teamName) {
+		return matchservice.getRegularTeamMatchesn(season, teamName, 5);
+	}
+
+	@Override
+	public MatchesPO[] getPlayerOffPlayerMatchesn(int season, String name) {
+		return matchservice.getPlayerOffPlayerMatchesn(season, name, 5);
+	}
+
+	@Override
+	public MatchesPO[] getPlayerOffTeamMatchesn(int season, String teamName) {
+		return matchservice.getPlayerOffTeamMatchesn(season, teamName, 5);
+	}
+
+	@Override
+	public MatchesPO[] getPlayerOffPlayerMatches(int season, String playername) {
+		return matchservice.getPlayerOffPlayerMatchesn(season, playername, 100);
+	}
+
+	@Override
+	public MatchesPO[] getPlayerOffTeamMatches(int season, String teamname) {
+		return matchservice.getPlayerOffTeamMatchesn(season, teamname, 100);
 	}
 
 }
