@@ -15,4 +15,5 @@ public interface MatchDataService {
 	public MatchesPO getTeamMatches(Date date,String teamName);
 	public MatchesPO getMatchById(int matchId);
 	public MatchesPO[] getMatches( Date date);
+	
 }
