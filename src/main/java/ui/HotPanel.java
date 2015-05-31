@@ -13,11 +13,13 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import po.PlayerNormalPO;
 import dataservice.playerdataservice.SeasonType;
 import ui.mainui.FrameSize;
 import ui.mainui.MyButton;
 import ui.mainui.MyComboBox;
 import ui.mainui.MyFrame;
+import vo.HotPlayerTeam;
 import vo.PlayerMatchVO;
 import vo.PlayerSortBy;
 import vo.TeamMatchVO;
@@ -45,9 +47,9 @@ public class HotPanel extends JPanel {
 	JLabel score_5 = new JLabel();
 
 	JLabel crown=new JLabel();
-	JComboBox<String> choose;
+	JButton[] choose=new JButton[8];
 //	TeamController tc = new TeamController(2012);
-//	PlayerController pc = new PlayerController(2012);
+	PlayerController pc = new PlayerController();
 	int hottype = 1;
 
 	HotPanel hotpanel = this;
@@ -119,12 +121,10 @@ public class HotPanel extends JPanel {
 		show.setBackground(Color.white);
 		show.setBounds(FrameSize.width / 6, 0, 5 * FrameSize.width / 6,
 				11 * FrameSize.height / 12);
-
-		choose = new MyComboBox(new String[] { "得分", "篮板", "助攻", "得分/篮板/助攻",
-				"盖帽", "抢断", "犯规", "失误", "分钟", "效率", "投篮", "三分", "罚球", "两双" });
-		choose.setBackground(Color.white);
-		choose.setForeground(Color.black);
-		
+		for(int i=0;i<8;i++){
+		choose[i]=new JButton();
+		choose[i].setBackground(Color.gray);
+		}
 		for (int i = 0; i < 5; i++) {
 			name[i] = new JLabel();
 			name[i].setBounds(FrameSize.width / 3, (i + 1) * FrameSize.height
@@ -168,58 +168,80 @@ public class HotPanel extends JPanel {
 
 	}
 
-	/** 设置下拉框 */
+	/** 设置选择 */
 	void showchoose(int type) {
 		hottype = type;
-		choose.setVisible(false);
+//		choose.setVisible(false);
 		switch (type) {
 		case 3:
-			choose = new MyComboBox(new String[] { "篮板数", "助攻数", "抢断数", "盖帽数",
-					"比赛得分", "投篮命中率", "三分命中率", "罚球命中率" });
-			choose.setBackground(Color.white);
-			choose.setForeground(Color.black);
-			choose.setSelectedIndex(0);
+			choose[0].setText("得分");
+			choose[1].setText("篮板");
+			choose[2].setText("助攻");
+			choose[3].setText("盖帽");
+			choose[4].setText("抢断");
+			choose[5].setText("三分%");
+			choose[6].setText("%");
+			choose[7].setText("罚球%");
+			for(int i=0;i<8;i++){
+				choose[i].setBounds(FrameSize.width*5/48*i,0,FrameSize.width*5/48 , 50);
+				show.add(choose[i]);
+				String sortBy=choose[i].getText();
+//				choose[i].addActionListener(e -> showMessage_team(sortBy));
+			}
+			
+			
+			
 
 //			showMessage_team();
 //			choose.addActionListener(e -> showMessage_team());
 			break;
 		case 4:
-			choose = new MyComboBox(new String[] { "得分提升率", "篮板提升率", "助攻提升率" });
-			choose.setBackground(Color.white);
-			choose.setForeground(Color.black);
-			choose.setSelectedIndex(0);
+			choose[0].setText("得分提升率");
+			choose[1].setText("篮板提升率");
+			choose[2].setText("助攻提升率");
+			for(int i=0;i<8;i++){
+				choose[i].setBounds(FrameSize.width*5/18*i,0,FrameSize.width*5/18 , 50);
+				String sortBy=choose[i].getText();
+//				choose[i].addActionListener(e -> showMessage_player(sortBy));
+				show.add(choose[i]);
+			}
+			
+			
 
-//			showMessage_player();
+//			showMessage_player("得分提升率");
 //			choose.addActionListener(e -> showMessage_player());
 			break;
 		default:
-			choose = new MyComboBox(
-					new String[] { "得分", "篮板", "助攻", "盖帽", "抢断" });
-			choose.setBackground(Color.white);
-			choose.setForeground(Color.black);
-			choose.setSelectedIndex(0);
+			choose[0].setText("得分");
+			choose[1].setText("篮板");
+			choose[2].setText("助攻");
+			choose[3].setText("盖帽");
+			choose[4].setText("抢断");
+			for(int i=0;i<8;i++){
+				choose[i].setBounds(FrameSize.width/6*i,0,FrameSize.width/6 , 50);
+				String sortBy=choose[i].getText();
+//				choose[i].addActionListener(e -> showMessage_player(sortBy));
+				show.add(choose[i]);
+			}
+			
 
-//			showMessage_player();
+//			showMessage_player("得分");
 //			choose.addActionListener(e -> showMessage_player());
 
 			break;
 
 		}
 
-		choose.setBounds(10, 50, 150, 30);
-		choose.repaint();
-		choose.setVisible(true);
-		show.add(choose);
+		
 		show.repaint();
 		this.repaint();
 	}
 
 	/** 热点球员 */
-	void showMessage_player() {
+	void showMessage_player(String sort) {
 
-		String sortBy = (String) choose.getSelectedItem();
-		PlayerSortBy playerSortBy = sortby(sortBy);
-		PlayerMatchVO[] players = new PlayerMatchVO[5];
+		String sortBy=sortby(sort);
+		HotPlayerTeam[] players = new HotPlayerTeam[5];
 		switch (hottype) {
 		case 1:
 			players = pc.getDayHotPlayer(sortBy);
@@ -228,7 +250,7 @@ public class HotPanel extends JPanel {
 			players = pc.getSeasonHotPlayer(2012,sortBy,SeasonType.REGULAR);
 			break;
 		case 4:
-			players = pc.getPromotePlayer(playerSortBy);
+			players = pc.getPromotePlayer(2012,sortBy);
 		}
 		try {
 			portrait_1.setIcon(scaleImage(
@@ -313,9 +335,9 @@ public class HotPanel extends JPanel {
 	}
 
 	/** 热点球队 */
-	void showMessage_team() {
+	void showMessage_team(String sortby) {
 		TeamSortBy teamSortBy = null;
-		String sortby = (String) choose.getSelectedItem();
+		
 		if (sortby.equals("比赛场数")) {
 			teamSortBy = TeamSortBy.matchNo;
 		} else if (sortby.equals("投篮命中数")) {
@@ -478,43 +500,43 @@ public class HotPanel extends JPanel {
 
 	}
 
-	private PlayerSortBy sortby(String sortBy) {
-		PlayerSortBy playerSortBy = null;
+	private String sortby(String sortBy) {
+		String playerSortBy = null;
 
 		if (sortBy.equals("得分")) {
-			playerSortBy = PlayerSortBy.points;
+			playerSortBy = "points";
 		} else if (sortBy.equals("篮板")) {
-			playerSortBy = PlayerSortBy.rebs;
+			playerSortBy = "rebs";
 		} else if (sortBy.equals("助攻")) {
-			playerSortBy = PlayerSortBy.assist;
+			playerSortBy = "assist";
 		} else if (sortBy.equals("得分/篮板/助攻")) {
-			playerSortBy = PlayerSortBy.scoring_rebound_assist;
+			playerSortBy = "scoring_rebound_assist";
 		} else if (sortBy.equals("盖帽")) {
-			playerSortBy = PlayerSortBy.block;
+			playerSortBy = "block";
 		} else if (sortBy.equals("抢断")) {
-			playerSortBy = PlayerSortBy.steal;
+			playerSortBy = "steal";
 		} else if (sortBy.equals("犯规")) {
-			playerSortBy = PlayerSortBy.foul;
+			playerSortBy = "foul";
 		} else if (sortBy.equals("失误")) {
-			playerSortBy = PlayerSortBy.mistake;
+			playerSortBy = "mistake";
 		} else if (sortBy.equals("分钟")) {
-			playerSortBy = PlayerSortBy.minute;
+			playerSortBy = "minute";
 		} else if (sortBy.equals("效率")) {
-			playerSortBy = PlayerSortBy.efficiency;
+			playerSortBy = "efficiency";
 		} else if (sortBy.equals("投篮")) {
-			playerSortBy = PlayerSortBy.shot;
+			playerSortBy = "shot";
 		} else if (sortBy.equals("三分")) {
-			playerSortBy = PlayerSortBy.three_points;
+			playerSortBy = "three_points";
 		} else if (sortBy.equals("罚球")) {
-			playerSortBy = PlayerSortBy.freeThrow;
+			playerSortBy = "freeThrow";
 		} else if (sortBy.equals("两双")) {
-			playerSortBy = PlayerSortBy.twoPair;
+			playerSortBy = "twoPair";
 		} else if (sortBy.equals("得分提升率")) {
-			playerSortBy = PlayerSortBy.points_uprate;
+			playerSortBy = "points_uprate";
 		} else if (sortBy.equals("篮板提升率")) {
-			playerSortBy = PlayerSortBy.rebs_uprate;
+			playerSortBy = "rebs_uprate";
 		} else if (sortBy.equals("助攻提升率")) {
-			playerSortBy = PlayerSortBy.help_uprate;
+			playerSortBy = "help_uprate";
 		}
 		return playerSortBy;
 

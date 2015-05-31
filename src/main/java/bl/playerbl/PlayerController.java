@@ -5,17 +5,15 @@ import gnu.trove.map.TIntObjectMap;
 
 import java.awt.Image;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import dataservice.playerdataservice.PlayerDataService;
 import dataservice.playerdataservice.SeasonType;
-import po.MatchPlayerPO;
 import po.PlayerNormalPO;
 import po.PlayerPO;
 import vo.Area;
+import vo.HotPlayerTeam;
 import vo.PlayerMatchVO;
 import vo.PlayerSortBy;
-import vo.SortType;
 import DataFactory.DataFactory;
 import DataFactoryService.NBADataFactory;
 import bl.matchbl.Match;
@@ -28,7 +26,7 @@ public class PlayerController implements PlayerBlService{
 	Matchblservice matchservice;
     PlayerDataService playerService;
     //排序球员数据 场均
-    public PlayerController(int season)
+    public PlayerController()
     {
     	NBADataFactory dataFactory;
 		try {
@@ -73,16 +71,58 @@ public class PlayerController implements PlayerBlService{
 		*/
 		return null;
 	}
-	public  synchronized PlayerNormalPO[] getDayHotPlayer(String sortBy) {
+	public  synchronized HotPlayerTeam[] getDayHotPlayer(String sortBy) {
 		return null;
 	}
 	//获得赛季热点球员
-	public synchronized PlayerNormalPO[] getSeasonHotPlayer(int season, String sortby, SeasonType type) {
-		return playerService.sortPlayerNormalAven(season, sortby, 5, type);
+	public synchronized HotPlayerTeam[] getSeasonHotPlayer(int season, String sortby, SeasonType type) {
+		PlayerNormalPO[] players = playerService.sortPlayerNormalAven(season, sortby, 5, type);
+		HotPlayerTeam[] hotPlayers = new HotPlayerTeam[5];
+		double[] data = new double[5];
+		if(sortby.equals("score")){
+			for(int i = 0; i != 5; i ++){
+				data[i] = players[i].getPoints();
+			}
+		} else if(sortby.equals("rebs")){
+			for(int i = 0; i != 5; i ++){
+				data[i] = players[i].getRebs();
+			}
+		} else if(sortby.equals("assist")){
+			for(int i = 0; i != 5; i ++){
+				data[i] = players[i].getAssistNo();
+			}
+		} else if(sortby.equals("blockno")){
+			for(int i = 0; i != 5; i ++){
+				data[i] = players[i].getBlockNo();
+			}
+		} else if(sortby.equals("steal")){
+			for(int i = 0; i != 5; i ++){
+				data[i] = players[i].getStealsNo();
+			}
+		} else if(sortby.equals("threeHitRate")){
+			for(int i = 0; i != 5; i ++){
+				data[i] = players[i].getThreeHitRate();
+			}
+		} else if(sortby.equals("hitRate")){
+			for(int i = 0; i != 5; i ++){
+				data[i] = players[i].getHitRate();
+			}
+		} else if(sortby.equals("penaltyHitRate")){
+			for(int i = 0; i != 5; i ++){
+				data[i] = players[i].getPenaltyHitRate();
+			}
+		}
+			
+		String name;
+		for(int i = 0; i != 5; i ++){
+			name = players[i].getName();
+			hotPlayers[i] = new HotPlayerTeam(this.getPlayerImage(name), name, data[i]);
+		}
+		return hotPlayers;
 	}
 	
 	//获得进步最快球员
-	public synchronized PlayerNormalPO[] getPromotePlayer(int season, String sortby) {
+	public synchronized HotPlayerTeam[] getPromotePlayer(int season, String sortby) {
 		return null;
 	}
 
@@ -103,32 +143,17 @@ public class PlayerController implements PlayerBlService{
 		return playerQ.getTotalPlayer();
 	}
 	
-	public synchronized PlayerMatchVO[] getAvePlayers(int season, String start) {
+	public synchronized PlayerPO[] getPlayersWithStart(int season, String start) {
 		String[] playersFit = playerService.fuzzilySearch(start);
-		Match match = matchservice.getMatch(season);
-		ArrayList<PlayerMatchVO> result = new ArrayList<PlayerMatchVO>(playersFit.length);
-		PlayerQueue playerQ;
+		ArrayList<PlayerPO> result = new ArrayList<PlayerPO>(playersFit.length);
+		PlayerPO playerP;
 		for(String s : playersFit){
-			playerQ = match.getPlayerData(s);
-			if(playerQ != null){
-				result.add(playerQ.getAvePlayer());
+			playerP = playerService.findPlayer(s);
+			if(playerP != null){
+				result.add(playerP);
 			}
 		}
-		return (PlayerMatchVO[])result.toArray();
-	}
-	
-	public synchronized PlayerMatchVO[] getTotalPlayers(int season, String start) {
-		String[] playersFit = playerService.fuzzilySearch(start);
-		Match match = matchservice.getMatch(season);
-		ArrayList<PlayerMatchVO> result = new ArrayList<PlayerMatchVO>(playersFit.length);
-		PlayerQueue playerQ;
-		for(String s : playersFit){
-			playerQ = match.getPlayerData(s);
-			if(playerQ != null){
-				result.add(playerQ.getTotalPlayer());
-			}
-		}
-		return (PlayerMatchVO[])result.toArray();
+		return (PlayerPO[])result.toArray();
 	}
 	
 	public synchronized PlayerMatchVO[] getAvePlayers(int season) {

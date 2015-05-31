@@ -27,7 +27,7 @@ public class TeamDataTest {
     }
 	@Test
 	public void testGetAllTeamData() {
-		TeamPO[] teams = teamData.getAllTeamData();
+//		TeamPO[] teams = teamData.getAllTeamData();
 //		print(teams);
 		assertEquals(true,true);
 	}
@@ -35,7 +35,7 @@ public class TeamDataTest {
 	@Test
 	public void testFindTeam() {
 		TeamPO team = teamData.findTeam("ATL");
-//		System.out.println(team);
+		System.out.println(team);
 		assertEquals(true,true);
 	}
 

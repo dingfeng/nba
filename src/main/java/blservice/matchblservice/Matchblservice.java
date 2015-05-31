@@ -20,7 +20,6 @@ public interface Matchblservice
 	public MatchesPO[] getRecentTeamMatches(String teamName, int num);
 	public MatchesPO[] getPlayerMatches(int season, String playername);
 	public MatchesPO[] getTeamMatches(int season, String teamname);
-    public MatchesPO[] getTimeMatches(int season, Date date1, Date date2);
-    public MatchesPO[] getTime_TeamMatches(int season, Date date1, Date date2, String teamname, String playername);
+    public MatchesPO[] getTimeMatches(int season, Date date);
     public void update1();
 }

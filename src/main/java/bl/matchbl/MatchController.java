@@ -5,15 +5,27 @@ import gnu.trove.map.TIntObjectMap;
 import java.util.ArrayList;
 import java.util.Date;
 
+import dataservice.matchdataservice.MatchDataService;
 import po.MatchTeamPO;
 import po.MatchesPO;
+import DataFactory.DataFactory;
+import DataFactoryService.NBADataFactory;
 import blservice.matchblservice.Matchblservice;
 
 public class MatchController implements Matchblservice {
 	MatchContainer matchContainer;
+	MatchDataService matchservice;
 	
 	public MatchController(){
 		matchContainer = MatchContainer.instance();
+		NBADataFactory dataFactory;
+		try {
+			dataFactory = DataFactory.instance();
+			matchservice = dataFactory.getMatchData();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	// 更新数据
@@ -87,35 +99,8 @@ public class MatchController implements Matchblservice {
 	}
 
 	// 获得在某一时间区间内的所有比赛信息
-	public synchronized MatchesPO[] getTimeMatches(int season, Date date1, Date date2) {
-		ArrayList<MatchesPO> matchlist = new ArrayList<MatchesPO>();
-		Match match1 = matchContainer.getSeasonMatch(season);
-		MatchesPO[] seasonAllMatches = match1.getMatches();
-		for(MatchesPO m : seasonAllMatches){
-			String matchDate = m.getDate();
-			//时间判定缺少
-		}
-		return null;
-	}
-
-	public synchronized MatchesPO[] getTime_TeamMatches(int season, Date date1, Date date2,
-			String teamname, String playername) {
-		ArrayList<MatchesPO> matchlist = new ArrayList<MatchesPO>();
-		Match matches = matchContainer.getSeasonMatch(season);
-		TIntObjectMap<TeamQueue> team_map = matches.getTeam_map();
-		TeamQueue teamQ = team_map.get(teamname.hashCode());
-		MatchesPO[] teamMatches = teamQ.getAllMatches();
-		if(teamMatches.length != 0){
-			for(MatchesPO m : teamMatches){
-				//时间判断缺少
-				MatchTeamPO team = m.getTeam1().getName().equals(teamname)? m.getTeam1(): m.getTeam2();
-				if(team.ifPlayer(playername)){
-					matchlist.add(m);
-				}
-			}
-			return (MatchesPO[])matchlist.toArray();
-		}
-		return null;
+	public synchronized MatchesPO[] getTimeMatches(int season, Date date) {
+		return matchservice.getMatches(date);
 	}
 
 	@Override
