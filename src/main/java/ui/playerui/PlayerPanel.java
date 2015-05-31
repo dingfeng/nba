@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import po.HPlayerPO;
 import po.PlayerPO;
 import bl.teambl.TeamController;
 import ui.mainui.CharacterButton;
@@ -80,7 +81,7 @@ public class PlayerPanel extends JPanel {
 	}
 
 	/** 显示查找到的球员的基本信息 */
-	private JScrollPane TablePanel(PlayerPO[] playerVOs) {
+	private JScrollPane TablePanel(HPlayerPO[] playerVOs) {
 		if (playerVOs != null) {
 			Vector columnsName = new Vector();
 			columnsName.add(" ");
@@ -91,6 +92,7 @@ public class PlayerPanel extends JPanel {
 			columnsName.add("身高");
 			columnsName.add("体重");
 			columnsName.add("学校");
+			columnsName.add("城市");
 			columnsName.add("生日");
 			columnsName.add("球衣");
 
@@ -100,12 +102,13 @@ public class PlayerPanel extends JPanel {
 				rowData.add(i+1);
 				rowData.add("大头照");
 				rowData.add(playerVOs[i].getName());
-				rowData.add(playerVOs[i].getTeamA());
+				rowData.add(playerVOs[i].getTeama());
 				rowData.add(playerVOs[i].getPosition());
-				rowData.add("体重");
-				rowData.add(playerVOs[i].getSchool());
-				rowData.add("生日");
-				rowData.add(playerVOs[i].getNumber());
+				rowData.add(playerVOs[i].getWeight());
+				rowData.add(playerVOs[i].getHigh_school());
+				rowData.add(playerVOs[i].getBirthCity());
+				rowData.add(playerVOs[i].getBirthday());
+				rowData.add(playerVOs[i].getNum());
 
 				data.add(rowData);
 			}

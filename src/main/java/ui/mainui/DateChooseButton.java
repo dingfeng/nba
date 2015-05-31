@@ -589,7 +589,7 @@ setDate(date);
 			dialog.setVisible(false);
 			if (matchPanel != null)
 			{
-				matchPanel.findMatchConfirmClick();;
+				matchPanel.setTodayMatches(c.getTime());
 			}
 		}
 		
