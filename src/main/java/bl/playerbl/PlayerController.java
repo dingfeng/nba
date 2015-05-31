@@ -24,7 +24,7 @@ import bl.matchbl.PlayerQueue;
 import blservice.matchblservice.Matchblservice;
 import blservice.playerblservice.PlayerBlService;
 
-public class PlayerController{
+public class PlayerController implements PlayerBlService{
 	Matchblservice matchservice;
     PlayerDataService playerService;
     //排序球员数据 场均
@@ -40,18 +40,11 @@ public class PlayerController{
 		}
 		matchservice = new MatchController();
     }
-	public synchronized PlayerMatchVO[] sortAvePlayers(PlayerSortBy playerSortBy,
-			SortType sortType) {
-		return null;
-	}
-	//排序球员数据  赛季数据
-	public  synchronized PlayerMatchVO[] sortTotalPlayers(PlayerSortBy playerSortBy,
-			SortType sortType) {
-		return null;
-	}
+
 	//筛选球员数据  场均  
-	public  synchronized PlayerMatchVO[] screenAvePlayers(String playerPosition,
+	public  synchronized PlayerMatchVO[] screenAvePlayers(int season, String playerPosition,
 			Area playerArea, PlayerSortBy sortBy) {
+		/**
 		Iterator<PlayerMatchVO> itr = player.screenAvePlayers(playerPosition, playerArea, sortBy);
 		ArrayList<PlayerMatchVO> list = new ArrayList<PlayerMatchVO>();
 		while (itr.hasNext())
@@ -61,10 +54,13 @@ public class PlayerController{
 		PlayerMatchVO[] players = new PlayerMatchVO[list.size()];
 		list.toArray(players);
 		return players;
+		*/
+		return null;
 	}
 	//筛选球员数据  赛季
-	public synchronized PlayerMatchVO[] screenTotalPlayers(String playerPosition,
+	public synchronized PlayerMatchVO[] screenTotalPlayers(int season, String playerPosition,
 			Area playerArea, PlayerSortBy sortBy) {
+		/**
 		Iterator<PlayerMatchVO> itr =  player.screenTotalPlayers(playerPosition, playerArea, sortBy);
 		ArrayList<PlayerMatchVO> list = new ArrayList<PlayerMatchVO>();
 		while (itr.hasNext())
@@ -74,8 +70,10 @@ public class PlayerController{
 		PlayerMatchVO[] players = new PlayerMatchVO[list.size()];
 		list.toArray(players);
 		return players;
+		*/
+		return null;
 	}
-	public  synchronized PlayerMatchVO[] getDayHotPlayer(String sortBy) {
+	public  synchronized PlayerNormalPO[] getDayHotPlayer(String sortBy) {
 		return null;
 	}
 	//获得赛季热点球员
@@ -84,7 +82,7 @@ public class PlayerController{
 	}
 	
 	//获得进步最快球员
-	public synchronized PlayerMatchVO[] getPromotePlayer(PlayerSortBy sortby) {
+	public synchronized PlayerNormalPO[] getPromotePlayer(int season, String sortby) {
 		return null;
 	}
 
@@ -105,12 +103,32 @@ public class PlayerController{
 		return playerQ.getTotalPlayer();
 	}
 	
-	public synchronized PlayerMatchVO[] getAvePlayers(String start) {
-		return null;
+	public synchronized PlayerMatchVO[] getAvePlayers(int season, String start) {
+		String[] playersFit = playerService.fuzzilySearch(start);
+		Match match = matchservice.getMatch(season);
+		ArrayList<PlayerMatchVO> result = new ArrayList<PlayerMatchVO>(playersFit.length);
+		PlayerQueue playerQ;
+		for(String s : playersFit){
+			playerQ = match.getPlayerData(s);
+			if(playerQ != null){
+				result.add(playerQ.getAvePlayer());
+			}
+		}
+		return (PlayerMatchVO[])result.toArray();
 	}
 	
-	public synchronized PlayerMatchVO[] getTotalPlayers(String start) {
-		return null;
+	public synchronized PlayerMatchVO[] getTotalPlayers(int season, String start) {
+		String[] playersFit = playerService.fuzzilySearch(start);
+		Match match = matchservice.getMatch(season);
+		ArrayList<PlayerMatchVO> result = new ArrayList<PlayerMatchVO>(playersFit.length);
+		PlayerQueue playerQ;
+		for(String s : playersFit){
+			playerQ = match.getPlayerData(s);
+			if(playerQ != null){
+				result.add(playerQ.getTotalPlayer());
+			}
+		}
+		return (PlayerMatchVO[])result.toArray();
 	}
 	
 	public synchronized PlayerMatchVO[] getAvePlayers(int season) {
@@ -148,5 +166,11 @@ public class PlayerController{
 	public Image getPlayerImage(String name) {
 		PlayerPO playerP = playerService.findPlayer(name);
 		return playerP.getPortrait();
+	}
+
+	@Override
+	public String[] fuzzilyFind(String info) {
+		String[] playersFit= playerService.fuzzilySearch(info);
+		return playersFit;
 	}
 }
