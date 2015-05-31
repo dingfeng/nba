@@ -11,11 +11,12 @@ import javax.swing.ScrollPaneConstants;
 
 import po.MatchesPO;
 import bl.matchbl.MatchController;
+import blservice.matchblservice.Matchblservice;
 import ui.mainui.DateChooseButton;
 import ui.mainui.FrameSize;
 
 public class MatchPanel extends JPanel {
-	MatchController matchController = new MatchController();
+	Matchblservice matchController = new MatchController();
 
 	public MatchPanel() {
 		this.setLayout(null);
@@ -38,7 +39,7 @@ public class MatchPanel extends JPanel {
 		
 		DateChooseButton dateButton = new DateChooseButton();
 		dateButton.setBounds(0,5,150,30);
-		dateButton.setEnd(this);
+//		dateButton.setEnd(this);
 		headerPanel.add(dateButton);
 		
 		
@@ -49,11 +50,12 @@ public class MatchPanel extends JPanel {
 	/**一天的所有比赛*/
 	public void setTodayMatches(Date date){
 		MatchesPO [] matches = matchController.getTimeMatches(date);
-
+		for(int i=0;i<matches.length;i++){
+			
+		}
 	}
 	
 	private void test(){
-		
 		JLabel[] jLabel = new JLabel[100];
 		JScrollPane jScrollPane = new JScrollPane();
 		JPanel jPanel = new JPanel();
