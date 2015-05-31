@@ -1,27 +1,23 @@
 package blservice.teamblservice;
 
-import java.util.Iterator;
-
+import dataservice.playerdataservice.SeasonType;
 import po.PlayerPO;
 import po.TeamNormalPO;
 import po.TeamPO;
-import vo.Area;
+import vo.HotPlayerTeam;
 import vo.PlayerMatchVO;
-import vo.SortType;
 import vo.TeamMatchVO;
-import vo.TeamSortBy;
-import vo.TeamVO;
 
 public interface Teamblservice
 {
 	//获得热点球队
-	public TeamNormalPO[] getHotTeams(int season, String sortby);
+	public HotPlayerTeam[] getHotTeams(int season, String sortby, SeasonType type);
 	//获得该球队的所有球员名
 	public String[] getPlayers(int season, String team);
 	//根据球队简称查找赛季数据
 	public TeamMatchVO getTotalTeam(int season, String teamname);
 	//根据球队简称查找场均数据
-	public  TeamMatchVO getAveTeam(int season, String teamname);
+	public TeamMatchVO getAveTeam(int season, String teamname);
 	//根据球队的简称查找球队基本数据
 	public TeamPO getTeamData(String team);
 	//根据球队简称查找其下的球员的场均数据
