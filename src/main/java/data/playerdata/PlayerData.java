@@ -34,6 +34,7 @@ public class PlayerData implements PlayerDataService{
 		  {
 			list.add(toPlayerPO(results));
 		  }
+		  players = new PlayerPO[list.size()];
 		  list.toArray(players);
 		}
 		catch (Exception e)
@@ -351,10 +352,10 @@ public class PlayerData implements PlayerDataService{
 		switch (type)
 		{
 		case REGULAR:
-			sql = "select * from player_season_normal ave = ? and player_name  = ?";
+			sql = "select * from player_season_normal where ave = ? and player_name  = ?";
 			break;
 		case PLAYOFF:
-			sql = "select * from player_season_normal_playerofff where ave = ? and player_name = ?";
+			sql = "select * from player_season_normal_playoff where ave = ? and player_name = ?";
 			break;
 		}
 		try
@@ -385,10 +386,10 @@ public class PlayerData implements PlayerDataService{
 		switch (type)
 		{
 		case REGULAR:
-			sql = "select * from player_season_normal ave = ? and player_name  = ?";
+			sql = "select * from player_season_normal where ave = ? and player_name  = ?";
 			break;
 		case PLAYOFF:
-			sql = "select * from player_season_normal_playerofff where ave = ? and player_name = ?";
+			sql = "select * from player_season_normal_playoff where ave = ? and player_name = ?";
 			break;
 		}
 		try
@@ -418,10 +419,10 @@ public class PlayerData implements PlayerDataService{
 		switch(type)
 		{
 		case REGULAR:
-			sql = "select * from player_season_high where playerName = "+playerName;
+			sql = "select * from player_season_high where playerName = '"+playerName+"'";
 			break;
 		case PLAYOFF:
-			sql = "select * from player_season_high_playeroff where playerName = "+playerName;
+			sql = "select * from player_season_high_playoff where playerName = '"+playerName+"'";
 			break;
 		}
 		try
@@ -462,5 +463,10 @@ public class PlayerData implements PlayerDataService{
 	   }
 	   return result;
    }
+@Override
+public String[] fuzzilySearch(String info) {
+	String sql = "";
+	return null;
+}
    
 }

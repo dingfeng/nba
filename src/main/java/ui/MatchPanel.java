@@ -24,10 +24,12 @@ public class MatchPanel extends JPanel {
 		headerPanel.setBounds(0, 0, FrameSize.width, 40);
 		headerPanel.setBackground(new Color(87, 89, 91));
 
+		/*
 		DateChooseButton dateButton = new DateChooseButton();
 		dateButton.setBounds(0,5,150,30);
-//		dateButton.setEnd(this);
+		dateButton.setEnd(this);
 		headerPanel.add(dateButton);
+		*/
 		
 		return headerPanel;
 				
