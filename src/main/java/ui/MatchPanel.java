@@ -2,16 +2,20 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.Date;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+import po.MatchesPO;
+import bl.matchbl.MatchController;
 import ui.mainui.DateChooseButton;
 import ui.mainui.FrameSize;
 
 public class MatchPanel extends JPanel {
+	MatchController matchController = new MatchController();
 
 	public MatchPanel() {
 		this.setLayout(null);
@@ -20,7 +24,7 @@ public class MatchPanel extends JPanel {
 		this.setOpaque(false);
 		JPanel headerPanel = HeaderPanel();
 		this.add(headerPanel);
-		setTodayMatches();
+//		setTodayMatches();
 	}
 
 	/**查找栏*/
@@ -42,13 +46,14 @@ public class MatchPanel extends JPanel {
 	}
 	
 	/**一天的所有比赛*/
-	private void setTodayMatches(){
+	private void setTodayMatches(Date date){
+		MatchesPO [] matches = matchController.getTimeMatches(date);
+		
 		JLabel[] jLabel = new JLabel[100];
 		JScrollPane jScrollPane = new JScrollPane();
 		JPanel jPanel = new JPanel();
 		jPanel.setLayout(null);
 		jPanel.setBackground(Color.red);
-		jPanel.setBounds(0,0,FrameSize.width,3000);
 		jScrollPane.setBounds(0,40,FrameSize.width,FrameSize.height*7/8-40);
 		for(int i=0;i<100;i++){
 			jLabel[i] = new JLabel(String.valueOf(i));
@@ -58,8 +63,8 @@ public class MatchPanel extends JPanel {
 		jScrollPane.getViewport().add(jPanel);
 		jPanel.setPreferredSize(new Dimension(FrameSize.width, 3000));
 		jScrollPane.getViewport().setOpaque(false);
+		jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		jScrollPane.setVisible(true);
 		this.add(jScrollPane);
 		this.repaint();
 	}

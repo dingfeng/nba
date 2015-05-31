@@ -89,25 +89,23 @@ public class PlayerPanel extends JPanel {
 			columnsName.add("球队");
 			columnsName.add("位置");
 			columnsName.add("身高");
+			columnsName.add("体重");
 			columnsName.add("学校");
 			columnsName.add("生日");
-			columnsName.add("年龄");
-			columnsName.add("球龄");
+			columnsName.add("球衣");
 
 			Vector data = new Vector();
 			for (int i = 0; i < playerVOs.length; i++) {
 				Vector rowData = new Vector();
-				rowData.add(i);
-				rowData.add(playerVOs[i].getPortrait());
+				rowData.add(i+1);
+				rowData.add("大头照");
 				rowData.add(playerVOs[i].getName());
-//				rowData.add(playerVOs[i].getTeam());
+				rowData.add(playerVOs[i].getTeamA());
 				rowData.add(playerVOs[i].getPosition());
-				rowData.add(playerVOs[i].getHeightfeet() + "-"
-						+ playerVOs[i].getHeightinch());
+				rowData.add("体重");
 				rowData.add(playerVOs[i].getSchool());
-				rowData.add(playerVOs[i].getBirth());
-				rowData.add(playerVOs[i].getAge());
-				rowData.add(playerVOs[i].getExp());
+				rowData.add("生日");
+				rowData.add(playerVOs[i].getNumber());
 
 				data.add(rowData);
 			}
