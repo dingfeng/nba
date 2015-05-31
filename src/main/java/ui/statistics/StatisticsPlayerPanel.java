@@ -13,6 +13,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import po.PlayerHighPO;
+import po.PlayerNormalPO;
 import ui.mainui.FrameSize;
 import ui.mainui.MyComboBox;
 import ui.mainui.MyTable;
@@ -87,7 +89,7 @@ public class StatisticsPlayerPanel extends JPanel {
 	}
 
 	/** 低阶表格 */
-	private void setLowTable(PlayerMatchVO[] playerMatchVOs) {
+	private void setLowTable(PlayerNormalPO[] playerMatchVOs) {
 		if (playerMatchVOs != null) {
 			columnsName.removeAllElements();
 			/* 00排名 */columnsName.add("排名");
@@ -98,7 +100,6 @@ public class StatisticsPlayerPanel extends JPanel {
 			/* 05篮板 */columnsName.add("篮板");
 			/* 06助攻 */columnsName.add("助攻");
 			/* 07分钟 */columnsName.add("分钟");
-			/* 08效率 */columnsName.add("效率");
 			/* 09三分命中率 */columnsName.add("三分%");
 			/* 10罚球命中率 */columnsName.add("罚球%");
 			/* 11投篮命中率 */columnsName.add("投篮%");
@@ -120,14 +121,13 @@ public class StatisticsPlayerPanel extends JPanel {
 				/* 03球队 */rowData.add(playerMatchVOs[i].getTeam());
 				/* 04场数 */rowData.add(playerMatchVOs[i].getMatchNo());
 				/* 05篮板 */rowData.add(playerMatchVOs[i].getRebs());
-				/* 06助攻 */rowData.add(playerMatchVOs[i].getHelp());
-				/* 07分钟 */rowData.add(playerMatchVOs[i].getMinute());
-				/* 08效率 */rowData.add(playerMatchVOs[i].getEfficiency());
+				/* 06助攻 */rowData.add(playerMatchVOs[i].getAssistNo());
+				/* 07分钟 */rowData.add(playerMatchVOs[i].getTime());
 				/* 09三分命中率 */rowData.add(playerMatchVOs[i].getThreeHitRate());
 				/* 10罚球命中率 */rowData.add(playerMatchVOs[i].getPenaltyHitRate());
 				/* 11投篮命中率 */rowData.add(playerMatchVOs[i].getHitRate());
-				/* 12进攻 */rowData.add(playerMatchVOs[i].getOffendNo());
-				/* 13防守 */rowData.add(playerMatchVOs[i].getDefenceNo());
+				/* 12进攻 */rowData.add(playerMatchVOs[i].getOffendRebsNo());
+				/* 13防守 */rowData.add(playerMatchVOs[i].getDefenceRebsNo());
 				/* 14抢断 */rowData.add(playerMatchVOs[i].getStealsNo());
 				/* 15盖帽 */rowData.add(playerMatchVOs[i].getBlockNo());
 				/* 16失误 */rowData.add(playerMatchVOs[i].getMistakesNo());
@@ -172,17 +172,16 @@ public class StatisticsPlayerPanel extends JPanel {
 	}
 
 	/** 高阶表格 */
-	private void setHighTable(PlayerMatchVO[] playerMatchVOs) {
+	private void setHighTable(PlayerHighPO[] playerMatchVOs) {
 		if (playerMatchVOs != null) {
 			columnsName.removeAllElements();
 			/* 00排名 */columnsName.add("排名");
 			/* 01球员 */columnsName.add("球员");
 			/* 02姓名 */columnsName.add("姓名");
 			/* 03球队 */columnsName.add("球队");
-			/* 04真实命中率 */columnsName.add("真实命中率");
-			/* 05GmSc */columnsName.add("GmSc");
-			/* 06投篮命中率 */columnsName.add("投篮%");
-			/* 07篮板效率 */columnsName.add("篮板%");
+			/* 04效率 */columnsName.add("效率");
+			/* 05真实命中率 */columnsName.add("真实命中率");
+			/* 06GmSc */columnsName.add("GmSc");			/* 08篮板效率 */columnsName.add("篮板%");
 			/* 08进攻篮板率 */columnsName.add("进攻%");
 			/* 09防守篮板率 */columnsName.add("防守%");
 			/* 10助攻率 */columnsName.add("助攻%");
@@ -196,11 +195,11 @@ public class StatisticsPlayerPanel extends JPanel {
 				Vector rowData = new Vector();
 				/* 00排名 */rowData.add(i+1);
 				/* 01球员 */rowData.add("图片");
-				/* 02姓名 */rowData.add(playerMatchVOs[i].getName());
-				/* 03球队 */rowData.add(playerMatchVOs[i].getTeam());
-				/* 04真实命中率 */rowData.add(playerMatchVOs[i].getTrueHitRate());
-				/* 05GmSc */rowData.add(playerMatchVOs[i].getGmScEfficiency());
-				/* 06投篮命中率 */rowData.add(playerMatchVOs[i].getHitRate());
+				/* 02姓名 */rowData.add(playerMatchVOs[i].getPlayerName());
+				/* 03球队 */rowData.add(playerMatchVOs[i].getTeamName());
+				/* 04效率 */rowData.add(playerMatchVOs[i].getEfficiency());
+				/* 05真实命中率 */rowData.add(playerMatchVOs[i].getTrueHitRate());
+				/* 06GmSc */rowData.add(playerMatchVOs[i].getGmScEfficiency());
 				/* 07篮板效率 */rowData.add(playerMatchVOs[i].getRebEfficiency());
 				/* 08进攻篮板率 */rowData.add(playerMatchVOs[i].getDefenceRebsEfficiency());
 				/* 09防守篮板率 */rowData.add(playerMatchVOs[i].getOffenseRebsEfficiency());
@@ -218,10 +217,10 @@ public class StatisticsPlayerPanel extends JPanel {
 			/* 01球员 */columnsName.add("球员");
 			/* 02姓名 */columnsName.add("姓名");
 			/* 03球队 */columnsName.add("球队");
+			columnsName.add("效率");
 			/* 04真实命中率 */columnsName.add("真实命中率");
 			/* 05GmSc */columnsName.add("GmSc");
 			/* 06投篮命中率 */columnsName.add("投篮%");
-			/* 07篮板效率 */columnsName.add("篮板%");
 			/* 08进攻篮板率 */columnsName.add("进攻%");
 			/* 09防守篮板率 */columnsName.add("防守%");
 			/* 10助攻率 */columnsName.add("助攻%");

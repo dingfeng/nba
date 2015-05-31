@@ -25,6 +25,7 @@ public class MatchPanel extends JPanel {
 		JPanel headerPanel = HeaderPanel();
 		this.add(headerPanel);
 //		setTodayMatches();
+		test();
 	}
 
 	/**查找栏*/
@@ -34,20 +35,24 @@ public class MatchPanel extends JPanel {
 		headerPanel.setBounds(0, 0, FrameSize.width, 40);
 		headerPanel.setBackground(new Color(87, 89, 91));
 
-		/*
+		
 		DateChooseButton dateButton = new DateChooseButton();
 		dateButton.setBounds(0,5,150,30);
-//		dateButton.setEnd(this);
+		dateButton.setEnd(this);
 		headerPanel.add(dateButton);
-		*/
+		
 		
 		return headerPanel;
 				
 	}
 	
 	/**一天的所有比赛*/
-	private void setTodayMatches(Date date){
+	public void setTodayMatches(Date date){
 		MatchesPO [] matches = matchController.getTimeMatches(date);
+
+	}
+	
+	private void test(){
 		
 		JLabel[] jLabel = new JLabel[100];
 		JScrollPane jScrollPane = new JScrollPane();
