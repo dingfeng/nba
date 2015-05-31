@@ -99,7 +99,7 @@ public class MatchController implements Matchblservice {
 	}
 
 	// 获得在某一时间区间内的所有比赛信息
-	public synchronized MatchesPO[] getTimeMatches(int season, Date date) {
+	public synchronized MatchesPO[] getTimeMatches(Date date) {
 		return matchservice.getMatches(date);
 	}
 
