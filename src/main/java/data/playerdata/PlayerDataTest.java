@@ -29,7 +29,7 @@ public class PlayerDataTest {
 	@Test
 	public void testGetAllPlayerData() {
 		PlayerPO[] players = player.getAllActivePlayerData();
-		print(players);
+//		print(players);
 		assertEquals(true,true);
 	}
 
@@ -37,7 +37,7 @@ public class PlayerDataTest {
 	public void testFindPlayer() {
 		//未完成
 		HPlayerPO p = player.findPlayer("Kobe Bryant");
-		print (p);
+//		print (p);
 	}
 
 	@Test
@@ -112,15 +112,20 @@ public class PlayerDataTest {
 	}
 	
 	@Test
-	public void fuzzilySearch()
+	public void getTeamTest()
 	{
-		
+		print(player.getPlayersOfTeam("LAL"));
 	}
 	@Test
 	public void testHplayer()
 	{
 		HPlayerPO[] players = player.getHPlayerByIni("a");
 //		print(players);
+	}
+	@Test
+	public void testScreen()
+	{
+		print(player.screenPlayer("player_name desc", "W", "F", 10));
 	}
 	public static void print(Object[] objects)
     {

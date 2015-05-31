@@ -601,40 +601,40 @@ public HPlayerPO[] getHPlayerByIni(String ini) {
 	  }
 	  return teams;
   }
-  
-  public void deal()
-  {
-	  String sql = "insert into player_team(player_name, teama,match_area) values(?,?,?)";
-	  String s1 = "select player_name from hplayerinfo";
-	  try
-	  {
- 		  PreparedStatement statement = conn.prepareStatement(s1);
-          ArrayList<String> list = new ArrayList<String>();
-          ResultSet results = statement.executeQuery();
-          while(results.next())
-          {
-        	  list.add(results.getString(1));
-          }
-          Iterator<String> itr = list.iterator();
-          int i = 0;
-          while(itr.hasNext())
-          {
-        	  String name = itr.next();
-        	  System.out.println((++i)+ " "+name);
-        	  String[] strs = getTeam(name);
-        	  statement = conn.prepareStatement(sql);
-        	  statement.setString(1, name);
-        	  statement.setString(2, strs[0]);
-        	  statement.setString(3, strs[1]);
-        	  statement.execute();
-          }
-	  }
-	  catch(Exception e)
-	  {
-		  e.printStackTrace();
-	  }
-  }
-  
+//  
+//  public void deal()
+//  {
+//	  String sql = "insert into player_team(player_name, teama,match_area) values(?,?,?)";
+//	  String s1 = "select player_name from hplayerinfo";
+//	  try
+//	  {
+// 		  PreparedStatement statement = conn.prepareStatement(s1);
+//          ArrayList<String> list = new ArrayList<String>();
+//          ResultSet results = statement.executeQuery();
+//          while(results.next())
+//          {
+//        	  list.add(results.getString(1));
+//          }
+//          Iterator<String> itr = list.iterator();
+//          int i = 0;
+//          while(itr.hasNext())
+//          {
+//        	  String name = itr.next();
+//        	  System.out.println((++i)+ " "+name);
+//        	  String[] strs = getTeam(name);
+//        	  statement = conn.prepareStatement(sql);
+//        	  statement.setString(1, name);
+//        	  statement.setString(2, strs[0]);
+//        	  statement.setString(3, strs[1]);
+//        	  statement.execute();
+//          }
+//	  }
+//	  catch(Exception e)
+//	  {
+//		  e.printStackTrace();
+//	  }
+//  }
+//  
   public Image getImage(String playerName)
   {
 	  
@@ -656,12 +656,7 @@ public HPlayerPO[] getHPlayerByIni(String ini) {
 	  }
 	  return image;
   }
-  public static void main(String[] args) throws Exception
-  {
-	  NBADataFactory factory = DataFactory.instance();
-	 PlayerData player = (PlayerData) factory.getPlayerData();
-	  
-  }
+  
 @Override
 public PlayerNormalPO[] getSeasonPlayerNormalAve(int season, SeasonType type) {
 	return this.sortPlayerNormalAven(season, "player_name", 1000, type);
@@ -700,10 +695,42 @@ public PlayerPO[] getPlayersOfTeam(String team) {
 		return players;
 }
 @Override
-public PlayerPO[] screenPlayer(String sort, String match_area, String postion,
+public PlayerPO[] screenPlayer(String sort, String match_area, String position,
 		int n) {
-	String sql = "select * from mplayer where ";
-	
-	return null;
+	String sql = "select * from mplayer m where ";
+	String s1 = " m.position like "+"'%"+position+"%' and ";
+	String s2 = "exists(select p.match_area from player_team  p where p.match_area = '"+match_area+"' and p.player_name = m.player_name)";
+	if (sort == null)
+	{
+		sort = " player_name desc";
+	}
+	String s3 = " order by"+" "+sort +" limit "+n;
+	if (position!=null)
+	{
+		sql+=s1;
+	}
+	if (match_area != null)
+	{
+		sql += s2;
+	}
+	sql += s3;
+	ArrayList<PlayerPO> list = new ArrayList<PlayerPO>(3500);
+	PlayerPO[] players = null;
+	try
+	{
+	  PreparedStatement statement = conn.prepareStatement(sql);
+	  ResultSet results = statement.executeQuery();
+	  while (results.next())
+	  {
+		list.add(toPlayerPO(results));
+	  }
+	  players = new PlayerPO[list.size()];
+	  list.toArray(players);
+	}
+	catch (Exception e)
+	{
+		e.printStackTrace();
+	}
+	return players;
 }
 }
