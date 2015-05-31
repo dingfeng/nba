@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
 import ui.HelpUtil;
+import ui.HotPanel;
 import ui.IndexPanel;
 import ui.MatchPanel;
 import ui.playerui.PlayerPanel;
@@ -46,7 +47,7 @@ public class MyFrame extends JFrame {
 	public static IndexPanel indexpanel = new IndexPanel();
 	public static TeamPanelTry teampanel = new TeamPanelTry();
 	public static PlayerPanel playerpanel = new PlayerPanel();
-	// public static HotPanel hotpanel = new HotPanel();
+	 public static HotPanel hotpanel = new HotPanel();
 	 public static MatchPanel matchpanel = new MatchPanel();
 	public static StatisticsPlayerPanel statisticsPlayerPanel = new StatisticsPlayerPanel();
 	public static StatisticsTeamPanel statisticsTeamPanel = new StatisticsTeamPanel();
@@ -79,7 +80,7 @@ public class MyFrame extends JFrame {
 		mainpanel.add(playerpanel, "player");
 		mainpanel.add(teampanel, "team");
 		 mainpanel.add(matchpanel, "match");
-		// mainpanel.add(hotpanel, "hot");
+		 mainpanel.add(hotpanel, "hot");
 		mainpanel.add(statisticsPlayerPanel, "statisticsPlayer");
 		mainpanel.add(statisticsTeamPanel,"statisticsTeam");
 		mainpanel.setBackground(Color.white);

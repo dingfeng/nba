@@ -13,6 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import dataservice.playerdataservice.SeasonType;
 import ui.mainui.FrameSize;
 import ui.mainui.MyButton;
 import ui.mainui.MyComboBox;
@@ -45,8 +46,8 @@ public class HotPanel extends JPanel {
 
 	JLabel crown=new JLabel();
 	JComboBox<String> choose;
-	TeamController tc = new TeamController(2012);
-	PlayerController pc = new PlayerController(2012);
+//	TeamController tc = new TeamController(2012);
+//	PlayerController pc = new PlayerController(2012);
 	int hottype = 1;
 
 	HotPanel hotpanel = this;
@@ -71,7 +72,7 @@ public class HotPanel extends JPanel {
 		tag.setLayout(null);
 		tag.setBounds(0, 0, FrameSize.width / 6, 11 * FrameSize.height / 12);
 		int height = 11 * FrameSize.height / 12;
-		tag.setBackground(FrameSize.backColor);
+		tag.setBackground(Color.white);
 		JButton today_player = new MyButton("当天热点球员",
 				FrameSize.buttonbackColor, Color.GRAY);
 		JButton season_player = new MyButton("赛季热点球员",
@@ -115,13 +116,15 @@ public class HotPanel extends JPanel {
 	/** 设置右侧显示panel */
 	void setShow() {
 		show.setLayout(null);
-		show.setBackground(FrameSize.backColor);
+		show.setBackground(Color.white);
 		show.setBounds(FrameSize.width / 6, 0, 5 * FrameSize.width / 6,
 				11 * FrameSize.height / 12);
 
 		choose = new MyComboBox(new String[] { "得分", "篮板", "助攻", "得分/篮板/助攻",
 				"盖帽", "抢断", "犯规", "失误", "分钟", "效率", "投篮", "三分", "罚球", "两双" });
-
+		choose.setBackground(Color.white);
+		choose.setForeground(Color.black);
+		
 		for (int i = 0; i < 5; i++) {
 			name[i] = new JLabel();
 			name[i].setBounds(FrameSize.width / 3, (i + 1) * FrameSize.height
@@ -161,6 +164,7 @@ public class HotPanel extends JPanel {
 		show.add(score_3);
 		show.add(score_4);
 		show.add(score_5);
+		show.add(crown);
 
 	}
 
@@ -172,25 +176,31 @@ public class HotPanel extends JPanel {
 		case 3:
 			choose = new MyComboBox(new String[] { "篮板数", "助攻数", "抢断数", "盖帽数",
 					"比赛得分", "投篮命中率", "三分命中率", "罚球命中率" });
+			choose.setBackground(Color.white);
+			choose.setForeground(Color.black);
 			choose.setSelectedIndex(0);
 
-			showMessage_team();
-			choose.addActionListener(e -> showMessage_team());
+//			showMessage_team();
+//			choose.addActionListener(e -> showMessage_team());
 			break;
 		case 4:
 			choose = new MyComboBox(new String[] { "得分提升率", "篮板提升率", "助攻提升率" });
+			choose.setBackground(Color.white);
+			choose.setForeground(Color.black);
 			choose.setSelectedIndex(0);
 
-			showMessage_player();
-			choose.addActionListener(e -> showMessage_player());
+//			showMessage_player();
+//			choose.addActionListener(e -> showMessage_player());
 			break;
 		default:
 			choose = new MyComboBox(
 					new String[] { "得分", "篮板", "助攻", "盖帽", "抢断" });
+			choose.setBackground(Color.white);
+			choose.setForeground(Color.black);
 			choose.setSelectedIndex(0);
 
-			showMessage_player();
-			choose.addActionListener(e -> showMessage_player());
+//			showMessage_player();
+//			choose.addActionListener(e -> showMessage_player());
 
 			break;
 
@@ -212,10 +222,10 @@ public class HotPanel extends JPanel {
 		PlayerMatchVO[] players = new PlayerMatchVO[5];
 		switch (hottype) {
 		case 1:
-			players = pc.getDayHotPlayer(playerSortBy);
+			players = pc.getDayHotPlayer(sortBy);
 			break;
 		case 2:
-			players = pc.getSeasonHotPlayer(playerSortBy);
+			players = pc.getSeasonHotPlayer(2012,sortBy,SeasonType.REGULAR);
 			break;
 		case 4:
 			players = pc.getPromotePlayer(playerSortBy);
@@ -426,11 +436,11 @@ public class HotPanel extends JPanel {
 			String info = ((JLabel) e.getSource()).getText();
 			switch (hottype) {
 			case 3:
-				MyFrame.teampanel.findClick(info.substring(info.length() - 3));
+//				MyFrame.teampanel.findClick(info.substring(info.length() - 3));
 				MyFrame.card.show(MyFrame.mainpanel, "team");
 				break;
 			default:
-				MyFrame.playerpanel.findPlayerClick(info);
+//				MyFrame.playerpanel.findPlayerClick(info);
 				MyFrame.card.show(MyFrame.mainpanel, "player");
 			}
 
