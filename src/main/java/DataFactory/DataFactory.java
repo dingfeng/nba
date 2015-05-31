@@ -2,8 +2,6 @@ package DataFactory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
-
 import data.matchdata.MatchData;
 import data.playerdata.PlayerData;
 import data.teamdata.TeamData;
@@ -16,8 +14,8 @@ public class DataFactory implements NBADataFactory{
     private static MatchDataService matchData;
     private static TeamDataService teamData;
     private static PlayerDataService playerData;
-	private String usr = "root";
-	private String password = "root";
+//	private String usr = "root";
+//	private String password = "root";
 //	private String url = "jdbc:mysql://127.0.0.1:3306/nba";
 	String url = "jdbc:mysql://dingfeng:3306/nba";
 	private String driver = "com.mysql.jdbc.Driver";

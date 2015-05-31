@@ -3,7 +3,6 @@ package dataservice.matchdataservice;
 import java.util.Date;
 
 import po.MatchesPO;
-import po.SimpleMatchPO;
 
 public interface MatchDataService {
 	public MatchesPO[] getRegularSeasonMatches(int season);
@@ -15,4 +14,8 @@ public interface MatchDataService {
 	public MatchesPO getTeamMatches(Date date,String teamName);
 	public MatchesPO getMatchById(int matchId);
 	public MatchesPO[] getMatches( Date date);
+	public MatchesPO[] getRegularPlayerMatchesn(int season, String name,int n);
+	public MatchesPO[] getRegularTeamMatchesn(int season, String teamName,int n);
+	public MatchesPO[] getPlayerOffPlayerMatchesn(int season, String name,int n);
+	public MatchesPO[] getPlayerOffTeamMatchesn(int season, String teamName,int n);
 }
