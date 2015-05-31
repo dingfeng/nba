@@ -33,6 +33,6 @@ public class UneditableTextField extends JTextField {
 
 	public void setFont(Font font) {
 		// TODO Auto-generated method stub
-		this.setFont(font);
+//		this.setFont(font);
 	}
 }
