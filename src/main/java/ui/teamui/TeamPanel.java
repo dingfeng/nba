@@ -141,32 +141,32 @@ public class TeamPanel extends JPanel {
 			Vector data = new Vector();
 			data.add(str.getName());
 			data.add(str.getMatchNo());
-			data.add(FrameSize.roundForNumber(str.getHitNo()));
-			data.add(FrameSize.roundForNumber(str.getHandNo()));
-			data.add(FrameSize.roundForNumber(str.getThreeHitNo()));
-			data.add(FrameSize.roundForNumber(str.getThreeHandNo()));
-			data.add(FrameSize.roundForNumber(str.getPenaltyHitNo()));
-			data.add(FrameSize.roundForNumber(str.getPenaltyHandNo()));
-			data.add(FrameSize.roundForNumber(str.getOffenseRebs()));
-			data.add(FrameSize.roundForNumber(str.getDefenceRebs()));
-			data.add(FrameSize.roundForNumber(str.getRebs()));
-			data.add(FrameSize.roundForNumber(str.getAssistNo()));
-			data.add(FrameSize.roundForNumber(str.getStealsNo()));
-			data.add(FrameSize.roundForNumber(str.getBlockNo()));
-			data.add(FrameSize.roundForNumber(str.getMistakesNo()));
-			data.add(FrameSize.roundForNumber(str.getFoulsNo()));
-			data.add(FrameSize.roundForNumber(str.getPoints()));
-			data.add(FrameSize.roundForNumber(str.getHitRate()* 100));
-			data.add(FrameSize.roundForNumber(str.getThreeHitRate()* 100 ));
-			data.add(FrameSize.roundForNumber(str.getPenaltyHitRate()* 100 ));
-			data.add(FrameSize.roundForNumber(str.getWinRate()* 100 ));
-			data.add(FrameSize.roundForNumber(str.getOffenseRound()));
-			data.add(FrameSize.roundForNumber(str.getOffenseEfficiency()));
-			data.add(FrameSize.roundForNumber(str.getDefenceEfficiency()));
-			data.add(FrameSize.roundForNumber(str.getoRebsEfficiency()));
-			data.add(FrameSize.roundForNumber(str.getdRebsEfficiency()));
-			data.add(FrameSize.roundForNumber(str.getStealsEfficiency()));
-			data.add(FrameSize.roundForNumber(str.getAssistEfficiency()));
+			data.add(FrameSize.roundForNumber(str.getHitNo(),1));
+			data.add(FrameSize.roundForNumber(str.getHandNo(),1));
+			data.add(FrameSize.roundForNumber(str.getThreeHitNo(),1));
+			data.add(FrameSize.roundForNumber(str.getThreeHandNo(),1));
+			data.add(FrameSize.roundForNumber(str.getPenaltyHitNo(),1));
+			data.add(FrameSize.roundForNumber(str.getPenaltyHandNo(),1));
+			data.add(FrameSize.roundForNumber(str.getOffenseRebs(),1));
+			data.add(FrameSize.roundForNumber(str.getDefenceRebs(),1));
+			data.add(FrameSize.roundForNumber(str.getRebs(),1));
+			data.add(FrameSize.roundForNumber(str.getAssistNo(),1));
+			data.add(FrameSize.roundForNumber(str.getStealsNo(),1));
+			data.add(FrameSize.roundForNumber(str.getBlockNo(),1));
+			data.add(FrameSize.roundForNumber(str.getMistakesNo(),1));
+			data.add(FrameSize.roundForNumber(str.getFoulsNo(),1));
+			data.add(FrameSize.roundForNumber(str.getPoints(),1));
+			data.add(FrameSize.roundForNumber(str.getHitRate()* 100,1));
+			data.add(FrameSize.roundForNumber(str.getThreeHitRate()* 100 ,1));
+			data.add(FrameSize.roundForNumber(str.getPenaltyHitRate()* 100,1 ));
+			data.add(FrameSize.roundForNumber(str.getWinRate()* 100 ,1));
+			data.add(FrameSize.roundForNumber(str.getOffenseRound(),1));
+			data.add(FrameSize.roundForNumber(str.getOffenseEfficiency(),1));
+			data.add(FrameSize.roundForNumber(str.getDefenceEfficiency(),1));
+			data.add(FrameSize.roundForNumber(str.getoRebsEfficiency(),1));
+			data.add(FrameSize.roundForNumber(str.getdRebsEfficiency(),1));
+			data.add(FrameSize.roundForNumber(str.getStealsEfficiency(),1));
+			data.add(FrameSize.roundForNumber(str.getAssistEfficiency(),1));
 
 			rowimage.add(data);
 		}
@@ -267,32 +267,32 @@ public class TeamPanel extends JPanel {
 			Vector data = new Vector();
 			data.add(str.getName());
 			data.add(str.getMatchNo());
-			data.add(FrameSize.roundForNumber(str.getHitNo()));
-			data.add(FrameSize.roundForNumber(str.getHandNo()));
-			data.add(FrameSize.roundForNumber(str.getThreeHitNo()));
-			data.add(FrameSize.roundForNumber(str.getThreeHandNo()));
-			data.add(FrameSize.roundForNumber(str.getPenaltyHitNo()));
-			data.add(FrameSize.roundForNumber(str.getPenaltyHandNo()));
-			data.add(FrameSize.roundForNumber(str.getOffenseRebs()));
-			data.add(FrameSize.roundForNumber(str.getDefenceRebs()));
-			data.add(FrameSize.roundForNumber(str.getRebs()));
-			data.add(FrameSize.roundForNumber(str.getAssistNo()));
-			data.add(FrameSize.roundForNumber(str.getStealsNo()));
-			data.add(FrameSize.roundForNumber(str.getBlockNo()));
-			data.add(FrameSize.roundForNumber(str.getMistakesNo()));
-			data.add(FrameSize.roundForNumber(str.getFoulsNo()));
-			data.add(FrameSize.roundForNumber(str.getPoints()));
-			data.add(FrameSize.roundForNumber(str.getHitRate()* 100 ));
-			data.add(FrameSize.roundForNumber(str.getThreeHitRate()* 100 ));
-			data.add(FrameSize.roundForNumber(str.getPenaltyHitRate() * 100 ));
-			data.add(FrameSize.roundForNumber(str.getWinRate()* 100 ));
-			data.add(FrameSize.roundForNumber(str.getOffenseRound()));
-			data.add(FrameSize.roundForNumber(str.getOffenseEfficiency()));
-			data.add(FrameSize.roundForNumber(str.getDefenceEfficiency()));
-			data.add(FrameSize.roundForNumber(str.getoRebsEfficiency()));
-			data.add(FrameSize.roundForNumber(str.getdRebsEfficiency()));
-			data.add(FrameSize.roundForNumber(str.getStealsEfficiency()));
-			data.add(FrameSize.roundForNumber(str.getAssistEfficiency()));
+			data.add(FrameSize.roundForNumber(str.getHitNo(),1));
+			data.add(FrameSize.roundForNumber(str.getHandNo(),1));
+			data.add(FrameSize.roundForNumber(str.getThreeHitNo(),1));
+			data.add(FrameSize.roundForNumber(str.getThreeHandNo(),1));
+			data.add(FrameSize.roundForNumber(str.getPenaltyHitNo(),1));
+			data.add(FrameSize.roundForNumber(str.getPenaltyHandNo(),1));
+			data.add(FrameSize.roundForNumber(str.getOffenseRebs(),1));
+			data.add(FrameSize.roundForNumber(str.getDefenceRebs(),1));
+			data.add(FrameSize.roundForNumber(str.getRebs(),1));
+			data.add(FrameSize.roundForNumber(str.getAssistNo(),1));
+			data.add(FrameSize.roundForNumber(str.getStealsNo(),1));
+			data.add(FrameSize.roundForNumber(str.getBlockNo(),1));
+			data.add(FrameSize.roundForNumber(str.getMistakesNo(),1));
+			data.add(FrameSize.roundForNumber(str.getFoulsNo(),1));
+			data.add(FrameSize.roundForNumber(str.getPoints(),1));
+			data.add(FrameSize.roundForNumber(str.getHitRate()* 100 ,1));
+			data.add(FrameSize.roundForNumber(str.getThreeHitRate()* 100,1 ));
+			data.add(FrameSize.roundForNumber(str.getPenaltyHitRate() * 100,1 ));
+			data.add(FrameSize.roundForNumber(str.getWinRate()* 100 ,1));
+			data.add(FrameSize.roundForNumber(str.getOffenseRound(),1));
+			data.add(FrameSize.roundForNumber(str.getOffenseEfficiency(),1));
+			data.add(FrameSize.roundForNumber(str.getDefenceEfficiency(),1));
+			data.add(FrameSize.roundForNumber(str.getoRebsEfficiency(),1));
+			data.add(FrameSize.roundForNumber(str.getdRebsEfficiency(),1));
+			data.add(FrameSize.roundForNumber(str.getStealsEfficiency(),1));
+			data.add(FrameSize.roundForNumber(str.getAssistEfficiency(),1));
 
 			rowimage.add(data);
 		}
@@ -685,12 +685,12 @@ public class TeamPanel extends JPanel {
 		PlayerController pc = new PlayerController(2012);
 		PlayerMatchVO[] players = new PlayerMatchVO[playernames.length];
 		for (int i = 0; i < playernames.length; i++) {
-			players[i] = pc.findPlayerMatchAve(playernames[i]);
+//			players[i] = pc.findPlayerMatchAve(playernames[i]);
 		}
 //		MyFrame.playerpanel.showTeamPlayers(players);
 
 		MyFrame.card.show(MyFrame.mainpanel, "player");
-		MyFrame.locationlable.setText("当前位置：球员");
+		
 	}
 
 	/** 点击查看比赛按钮 */

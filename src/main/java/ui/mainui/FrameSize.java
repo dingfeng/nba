@@ -14,9 +14,9 @@ public class FrameSize {
 	public static Color bluecolor=new Color(0,102,175);
 	public static Color darkbluecolor=new Color(6,72,131);
 	public static Color lightbluecolor=new Color(183,220,249);
-	public static double roundForNumber(double v){
+	public static double roundForNumber(double v,int num){
 		BigDecimal bg = new BigDecimal(v);
-        double f = bg.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
+        double f = bg.setScale(num, BigDecimal.ROUND_HALF_UP).doubleValue();
         return f;
     }
 }

@@ -55,7 +55,7 @@ public class MatchPanel extends JPanel {
 			jLabel[i].setBounds(0,i*30,100,30);
 			jPanel.add(jLabel[i]);
 		}
-		jScrollPane.add(jPanel);
+		jScrollPane.getViewport().add(jPanel);
 		jPanel.setPreferredSize(new Dimension(FrameSize.width, 3000));
 		jScrollPane.getViewport().setOpaque(false);
 		jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);

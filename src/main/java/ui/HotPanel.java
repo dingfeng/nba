@@ -19,6 +19,7 @@ import ui.mainui.FrameSize;
 import ui.mainui.MyButton;
 import ui.mainui.MyComboBox;
 import ui.mainui.MyFrame;
+import vo.HotPlayerTeam;
 import vo.PlayerMatchVO;
 import vo.PlayerSortBy;
 import vo.TeamMatchVO;
@@ -48,7 +49,7 @@ public class HotPanel extends JPanel {
 	JLabel crown=new JLabel();
 	JButton[] choose=new JButton[8];
 //	TeamController tc = new TeamController(2012);
-	PlayerController pc = new PlayerController(2012);
+	PlayerController pc = new PlayerController();
 	int hottype = 1;
 
 	HotPanel hotpanel = this;
@@ -240,7 +241,7 @@ public class HotPanel extends JPanel {
 	void showMessage_player(String sort) {
 
 		String sortBy=sortby(sort);
-		PlayerNormalPO[] players = new PlayerNormalPO[5];
+		HotPlayerTeam[] players = new HotPlayerTeam[5];
 		switch (hottype) {
 		case 1:
 			players = pc.getDayHotPlayer(sortBy);
