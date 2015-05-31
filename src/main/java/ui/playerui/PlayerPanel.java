@@ -21,7 +21,7 @@ import ui.mainui.EditableTextField;
 import ui.mainui.FrameSize;
 import ui.mainui.MyComboBox;
 import ui.mainui.MyTable;
-import vo.PlayerMatchVO;
+
 
 public class PlayerPanel extends JPanel {
 

@@ -17,6 +17,7 @@ import ui.mainui.FrameSize;
 
 public class MatchPanel extends JPanel {
 	Matchblservice matchController = new MatchController();
+	JScrollPane todatyMatchScrollPane = new JScrollPane();
 
 	public MatchPanel() {
 		this.setLayout(null);
@@ -49,8 +50,11 @@ public class MatchPanel extends JPanel {
 	
 	/**一天的所有比赛*/
 	public void setTodayMatches(Date date){
+		todatyMatchScrollPane.removeAll();
 		MatchesPO [] matches = matchController.getTimeMatches(date);
+		JLabel[] matchLabel = new JLabel[matches.length];
 		for(int i=0;i<matches.length;i++){
+			matchLabel[i]=new JLabel();
 			
 		}
 	}

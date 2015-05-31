@@ -18,7 +18,6 @@ import po.PlayerNormalPO;
 import ui.mainui.FrameSize;
 import ui.mainui.MyComboBox;
 import ui.mainui.MyTable;
-import vo.PlayerMatchVO;
 
 public class StatisticsPlayerPanel extends JPanel {
 

@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import po.TeamPO;
 import ui.mainui.FrameSize;
 import vo.SortType;
-import vo.TeamMatchVO;
 import vo.TeamSortBy;
 import vo.TeamVO;
 import bl.teambl.TeamController;

@@ -8,7 +8,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 
+import DataFactory.DataFactory;
+import DataFactoryService.NBADataFactory;
 import po.HPlayerPO;
 import po.PlayerHighPO;
 import po.PlayerNormalPO;
@@ -59,7 +63,7 @@ public class PlayerData implements PlayerDataService{
 		String[] teams = getTeam(name);
 		PlayerPO player = new PlayerPO(   name,  number,
 				 position,  heightfeet,  heightinch,  weight,
-				 birth,  age,  exp,  school, teams[0],teams[1]);
+				 birth,  age,  exp,  school, teams[0],teams[1],getImage(name));
 		return player;
 	}
 	
@@ -78,7 +82,7 @@ public class PlayerData implements PlayerDataService{
 	 }
 	@Override
 	public HPlayerPO findPlayer(String playerName) {
-		String sql = "select * from playerinfo  where player_name = ?";
+		String sql = "select * from hplayerinfo  where player_name = ?";
 		ArrayList<HPlayerPO> list = new ArrayList<HPlayerPO>(300);
 		HPlayerPO player = null;
 		try
@@ -96,7 +100,6 @@ public class PlayerData implements PlayerDataService{
 		   String high_school = null;
 		   String university = null;
 		   String num = null;
-		   Image image = null;
 		   if(results.next())
 		   {
 		     name = results.getString("player_name");
@@ -110,7 +113,7 @@ public class PlayerData implements PlayerDataService{
 		     String[] teams  = getTeam(name);
 		     player = new HPlayerPO( name,  totalName,  position,  height,
 		    			 weight,  birthday,  birthCity,  high_school,
-		    			 university,  num, teams[0],teams[1]);
+		    			 university,  num, teams[0],teams[1],getImage(name));
 		     list.add(player);
 		   }
 		}
@@ -167,12 +170,13 @@ public class PlayerData implements PlayerDataService{
 		double blockEfficiency = result.getDouble("blockEfficiency");
 		double mistakeEfficiency = result.getDouble("mistakeEfficiency");
 		double useEfficiency = result.getDouble("useEfficiency");
+		int season = result.getInt("season");
 		PlayerHighPO player = new PlayerHighPO( playerName,  teamName,  efficiency,
 				 gmScEfficiency,  trueHitRate,  hitEfficiency,
 				 rebEfficiency,  offenseRebsEfficiency,
 				 defenceRebsEfficiency,  assistEfficiency,
 				 stealsEfficiency,  blockEfficiency,
-				 mistakeEfficiency,  useEfficiency);
+				 mistakeEfficiency,  useEfficiency, season);
 		return player;
 	}
 	@Override
@@ -271,6 +275,7 @@ public class PlayerData implements PlayerDataService{
 		double rebs_uprate = result.getDouble(29);
 		double help_uprate = result.getDouble(30);
 		double scoring_rebound_assist = result.getDouble(31);
+		int season = result.getInt("season");
 		PlayerNormalPO player = new PlayerNormalPO( name,  team,  matchNo,
 				 firstServiceNo,  rebs,  assistNo,  time,
 				 offendRebsNo,  defenceRebsNo,  stealsNo,
@@ -279,7 +284,7 @@ public class PlayerData implements PlayerDataService{
 				 penaltyHandNo,  penaltyHitNo,  penaltyHitRate,
 				 threeHitNo,  threeHandNo,  threeHitRate,
 				 twoPair,  points_uprate,  rebs_uprate,
-				 help_uprate,  scoring_rebound_assist);
+				 help_uprate,  scoring_rebound_assist,season);
 		return player;
 	}
 	@Override
@@ -527,7 +532,7 @@ public String[] fuzzilySearch(String info) {
 
 @Override
 public HPlayerPO[] getHPlayerByIni(String ini) {
-	String sql = "select * from playerinfo  where player_name like '"+ini+"%'";
+	String sql = "select * from hplayerinfo  where player_name like '"+ini+"%'";
 	ArrayList<HPlayerPO> list = new ArrayList<HPlayerPO>(300);
 	HPlayerPO[] players = null;
 	HPlayerPO player = null;
@@ -559,7 +564,7 @@ public HPlayerPO[] getHPlayerByIni(String ini) {
 	     String[] teams  = getTeam(name);
 	     player = new HPlayerPO( name,  totalName,  position,  height,
 	    			 weight,  birthday,  birthCity,  high_school,
-	    			 university,  num, teams[0],teams[1]);
+	    			 university,  num, teams[0],teams[1],getImage(name));
 	     list.add(player);
 	   }
 	   players = new HPlayerPO[list.size()];
@@ -572,11 +577,13 @@ public HPlayerPO[] getHPlayerByIni(String ini) {
 	return players;
 }
 
-  private String[] getTeam(String playerName)
+  public String[] getTeam(String playerName)
   {
 	  String[] teams = new String[2];
-	  String sql = "select name_abr,match_area from team where name_abr = (select teama from match_player where player_name = ? "
-	  		+ "order by match_id desc limit 1)";
+//	  String sql = "select a.teama from match_player a where a.player_name = ? and a.match_id = (select max(m.match_id) from "
+//	  		+ " match_player m where m.player_name = ? group by m.player_name)";
+//	  String s1 = "select match_area from team where name_abr = ?";
+	  String sql = "select teama,match_area from player_team where player_name = ?";
 	  try
 	  {
 		  PreparedStatement statement = conn.prepareStatement(sql);
@@ -592,12 +599,45 @@ public HPlayerPO[] getHPlayerByIni(String ini) {
 	  {
 		  e.printStackTrace();
 	  }
-	  long end = System.currentTimeMillis();
 	  return teams;
   }
   
-  private Image getImage(String playerName)
+  public void deal()
   {
+	  String sql = "insert into player_team(player_name, teama,match_area) values(?,?,?)";
+	  String s1 = "select player_name from hplayerinfo";
+	  try
+	  {
+ 		  PreparedStatement statement = conn.prepareStatement(s1);
+          ArrayList<String> list = new ArrayList<String>();
+          ResultSet results = statement.executeQuery();
+          while(results.next())
+          {
+        	  list.add(results.getString(1));
+          }
+          Iterator<String> itr = list.iterator();
+          int i = 0;
+          while(itr.hasNext())
+          {
+        	  String name = itr.next();
+        	  System.out.println((++i)+ " "+name);
+        	  String[] strs = getTeam(name);
+        	  statement = conn.prepareStatement(sql);
+        	  statement.setString(1, name);
+        	  statement.setString(2, strs[0]);
+        	  statement.setString(3, strs[1]);
+        	  statement.execute();
+          }
+	  }
+	  catch(Exception e)
+	  {
+		  e.printStackTrace();
+	  }
+  }
+  
+  public Image getImage(String playerName)
+  {
+	  
 	  String sql = "select photo_portrait from mplayer where player_name = ?";
 	  Image image = null;
 	  try
@@ -616,4 +656,54 @@ public HPlayerPO[] getHPlayerByIni(String ini) {
 	  }
 	  return image;
   }
+  public static void main(String[] args) throws Exception
+  {
+	  NBADataFactory factory = DataFactory.instance();
+	 PlayerData player = (PlayerData) factory.getPlayerData();
+	  
+  }
+@Override
+public PlayerNormalPO[] getSeasonPlayerNormalAve(int season, SeasonType type) {
+	return this.sortPlayerNormalAven(season, "player_name", 1000, type);
+}
+@Override
+public PlayerNormalPO[] getSeasonPlayerNormalTotal(int season, SeasonType type) {
+	return this.sortPlayerNormalTotal(season, "player_name", 1000, type);
+}
+@Override
+public PlayerHighPO[] getSeasonPlayerHigh(int season, SeasonType type) {
+	return this.sortPlayerHighn(season, "player_name", 1000, type);
+}
+@Override
+public PlayerPO[] getPlayersOfTeam(String team) {
+	String sql = "select a.player_id,a.player_name,a.num,a.position,a.heightfeet,a.heightinch,a.weight,a.birth,a.age,a.exp,a.school from mplayer a"
+			+ " where exists(select m.teama from player_team m where m.player_name = a.player_name and  m.teama = ?)";
+		ArrayList<PlayerPO> list = new ArrayList<PlayerPO>(3500);
+		PlayerPO[] players = null;
+		
+		try
+		{
+		  PreparedStatement statement = conn.prepareStatement(sql);
+		  statement.setString(1, team);
+		  ResultSet results = statement.executeQuery();
+		  while (results.next())
+		  {
+			list.add(toPlayerPO(results));
+		  }
+		  players = new PlayerPO[list.size()];
+		  list.toArray(players);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return players;
+}
+@Override
+public PlayerPO[] screenPlayer(String sort, String match_area, String postion,
+		int n) {
+	String sql = "select * from mplayer where ";
+	
+	return null;
+}
 }

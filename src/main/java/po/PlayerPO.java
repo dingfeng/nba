@@ -17,11 +17,12 @@ public class PlayerPO implements Comparable<PlayerPO>{
 	private String school;// 毕业学校
 	private String teama;//球队缩写
 	private String gameArea;//赛区
+	private Image image;
     //private String teamnameAbridge; //球队
 	
 	public PlayerPO( String name, int number,
 			String position, int heightfeet, int heightinch, int weight,
-			String birth, int age, int exp, String school,String teama, String gameArea) {
+			String birth, int age, int exp, String school,String teama, String gameArea, Image image) {
 		super();
 		this.name = name;
 		this.number = number;
@@ -33,8 +34,14 @@ public class PlayerPO implements Comparable<PlayerPO>{
 		this.age = age;
 		this.exp = exp;
 		this.school = school;
+		this.teama = teama;
+		this.gameArea = gameArea;
 	}
 
+	public Image getImage()
+	{
+		return image;
+	}
 //	public String getTeamnameAbridge()
 //	{
 //		return teamnameAbridge;
@@ -99,6 +106,8 @@ public class PlayerPO implements Comparable<PlayerPO>{
 		sb.append(birth+" ");
 		sb.append(age+" ");
 		sb.append(school+" ");
+		sb.append(teama +" ");
+		sb.append(gameArea+" ");
 		return sb.toString();
 	}
 
