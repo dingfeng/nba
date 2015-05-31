@@ -34,7 +34,7 @@ public interface PlayerDataService {
 	//模糊查找
 	public String[] fuzzilySearch(String info);
 	//现役球员名查找
-	public PlayerPO findPlayer(String playerName);
+	public HPlayerPO findPlayer(String playerName);
 	//
 	//
 	//球员筛选

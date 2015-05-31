@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import po.HPlayerPO;
 import po.PlayerHighPO;
 import po.PlayerNormalPO;
 import po.PlayerPO;
@@ -35,8 +36,8 @@ public class PlayerDataTest {
 	@Test
 	public void testFindPlayer() {
 		//未完成
-		PlayerPO p = player.findPlayer("Kobe Bryant");
-//		print (p);
+		HPlayerPO p = player.findPlayer("Kobe Bryant");
+		print (p);
 	}
 
 	@Test
@@ -114,6 +115,12 @@ public class PlayerDataTest {
 	public void fuzzilySearch()
 	{
 		
+	}
+	@Test
+	public void testHplayer()
+	{
+		HPlayerPO[] players = player.getHPlayerByIni("a");
+//		print(players);
 	}
 	public static void print(Object[] objects)
     {

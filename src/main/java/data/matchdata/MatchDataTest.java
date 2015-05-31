@@ -84,7 +84,6 @@ public class MatchDataTest {
 //		print(matches);
 		assertEquals(true,true);
 	}
-	
 	public static void print(Object[] objects)
     {
     	for (Object o : objects)

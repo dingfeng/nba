@@ -5,8 +5,6 @@ import java.awt.Image;
 
 public class PlayerPO implements Comparable<PlayerPO>{
 
-	private Image action;// 大头图片
-	private Image portrait;// 全身图片
 	private String name;// 姓名
 	private int number;// 球衣号码
 	private String position;// 位置
@@ -17,14 +15,14 @@ public class PlayerPO implements Comparable<PlayerPO>{
 	private int age;// 年龄
 	private int exp;// 球龄
 	private String school;// 毕业学校
+	private String teama;//球队缩写
+	private String gameArea;//赛区
     //private String teamnameAbridge; //球队
 	
-	public PlayerPO(Image action, Image portrait, String name, int number,
+	public PlayerPO( String name, int number,
 			String position, int heightfeet, int heightinch, int weight,
-			String birth, int age, int exp, String school) {
+			String birth, int age, int exp, String school,String teama, String gameArea) {
 		super();
-		this.action = action;
-		this.portrait = portrait;
 		this.name = name;
 		this.number = number;
 		this.position = position;
@@ -42,12 +40,13 @@ public class PlayerPO implements Comparable<PlayerPO>{
 //		return teamnameAbridge;
 //	}
 	
-	public Image getAction() {
-		return action;
+	public String getTeamA()
+	{
+		return teama;
 	}
-
-	public Image getPortrait() {
-		return portrait;
+	public String getGameArea()
+	{
+		return gameArea;
 	}
 
 	public String getName() {

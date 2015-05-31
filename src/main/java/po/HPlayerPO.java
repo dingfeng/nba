@@ -13,10 +13,14 @@ public class HPlayerPO {
    String high_school;
    String university;
    String num;
+   String teama;
+   String gameArea;
    public HPlayerPO(String name, String totalName, String position, String height,
 		String weight, String birthday, String birthCity, String high_school,
-		String university, String num, Image image) {
+		String university, String num, String teama, String gameArea) {
 	super();
+	this.teama = teama;
+	this.gameArea = gameArea;
 	this.name = name;
 	this.totalName = totalName;
 	this.position = position;
@@ -27,9 +31,15 @@ public class HPlayerPO {
 	this.high_school = high_school;
 	this.university = university;
 	this.num = num;
-	this.image = image;
 }
-Image image;
+public String getTeama()
+{
+	return teama;
+}
+public String getGameArea()
+{
+	return gameArea;
+}
 public String getName() {
 	return name;
 }
@@ -60,8 +70,9 @@ public String getUniversity() {
 public String getNum() {
 	return num;
 }
-public Image getImage() {
-	return image;
-}
-   
+
+public String toString()
+   {
+	   return name;
+   }
 }

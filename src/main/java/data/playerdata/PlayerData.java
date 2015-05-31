@@ -23,7 +23,7 @@ public class PlayerData implements PlayerDataService{
 		this.conn = conn;
 	}
 	public PlayerPO[] getAllActivePlayerData() {
-		String sql = "select * from mplayer";
+		String sql = "select player_id,player_name,num,position,heightfeet,heightinch,weight,birth,age,exp,school from mplayer";
 		ArrayList<PlayerPO> list = new ArrayList<PlayerPO>(3500);
 		PlayerPO[] players = null;
 		try
@@ -46,10 +46,6 @@ public class PlayerData implements PlayerDataService{
 
 	private PlayerPO toPlayerPO(ResultSet result) throws Exception
 	{
-		Blob blob  = result.getBlob("photo_action");
-		Image action = blobToImage(blob);
-	    blob = result.getBlob("photo_portrait");
-		Image portrait = blobToImage(blob);
 		String name = result.getString("player_name");
 		int number = result.getInt("num");
 		String position = result.getString("position");
@@ -60,9 +56,10 @@ public class PlayerData implements PlayerDataService{
 		int age = result.getInt("age");
 		int exp = result.getInt("exp");
 		String school = result.getString("school");
-		PlayerPO player = new PlayerPO( action,  portrait,  name,  number,
+		String[] teams = getTeam(name);
+		PlayerPO player = new PlayerPO(   name,  number,
 				 position,  heightfeet,  heightinch,  weight,
-				 birth,  age,  exp,  school);
+				 birth,  age,  exp,  school, teams[0],teams[1]);
 		return player;
 	}
 	
@@ -80,8 +77,48 @@ public class PlayerData implements PlayerDataService{
 		 return Toolkit.getDefaultToolkit().createImage(bytes,0,bytes.length);
 	 }
 	@Override
-	public PlayerPO findPlayer(String playerName) {
-		return null;
+	public HPlayerPO findPlayer(String playerName) {
+		String sql = "select * from playerinfo  where player_name = ?";
+		ArrayList<HPlayerPO> list = new ArrayList<HPlayerPO>(300);
+		HPlayerPO player = null;
+		try
+		{
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, playerName);
+			ResultSet results = statement.executeQuery();
+		   String name = null;
+		   String totalName = null;
+		   String position = null;
+		   String height = null;
+		   String weight = null;
+		   String birthday = null;
+		   String birthCity = null;
+		   String high_school = null;
+		   String university = null;
+		   String num = null;
+		   Image image = null;
+		   if(results.next())
+		   {
+		     name = results.getString("player_name");
+		     totalName = results.getString("total_name");
+		     position = results.getString("position");
+		     height = results.getString("height");
+		     weight = results.getString("weight");
+		     birthday = results.getString("birthday");
+		     birthCity = results.getString("birthcity");
+		     high_school = results.getString("high_school");
+		     String[] teams  = getTeam(name);
+		     player = new HPlayerPO( name,  totalName,  position,  height,
+		    			 weight,  birthday,  birthCity,  high_school,
+		    			 university,  num, teams[0],teams[1]);
+		     list.add(player);
+		   }
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return player;
 	}
 	@Override
 	public PlayerHighPO getPlayerHigh(int season, String playerName, SeasonType type) {
@@ -519,14 +556,14 @@ public HPlayerPO[] getHPlayerByIni(String ini) {
 	     birthday = results.getString("birthday");
 	     birthCity = results.getString("birthcity");
 	     high_school = results.getString("high_school");
-	     image  = getImage(name);
+	     String[] teams  = getTeam(name);
 	     player = new HPlayerPO( name,  totalName,  position,  height,
 	    			 weight,  birthday,  birthCity,  high_school,
-	    			 university,  num,  image);
+	    			 university,  num, teams[0],teams[1]);
 	     list.add(player);
 	   }
 	   players = new HPlayerPO[list.size()];
-	   
+	   list.toArray(players);
 	}
 	catch(Exception e)
 	{
@@ -535,11 +572,33 @@ public HPlayerPO[] getHPlayerByIni(String ini) {
 	return players;
 }
 
-
-
+  private String[] getTeam(String playerName)
+  {
+	  String[] teams = new String[2];
+	  String sql = "select name_abr,match_area from team where name_abr = (select teama from match_player where player_name = ? "
+	  		+ "order by match_id desc limit 1)";
+	  try
+	  {
+		  PreparedStatement statement = conn.prepareStatement(sql);
+		  statement.setString(1, playerName);
+		  ResultSet result = statement.executeQuery();
+		  if (result.next())
+		  {
+			  teams[0] = result.getString(1);
+			  teams[1] = result.getString(2);
+		  }
+	  }
+	  catch(Exception e)
+	  {
+		  e.printStackTrace();
+	  }
+	  long end = System.currentTimeMillis();
+	  return teams;
+  }
+  
   private Image getImage(String playerName)
   {
-	  String sql = "select photo_portrait from player where player_name = ?";
+	  String sql = "select photo_portrait from mplayer where player_name = ?";
 	  Image image = null;
 	  try
 	  {
