@@ -29,6 +29,7 @@ public class MyButton extends JButton {
 //		this.setContentAreaFilled(false);
 		this.setText(text);
 		this.setBackground(back);
+		this.setForeground(focus);
 		this.setFocusPainted(false);
 	}
 
