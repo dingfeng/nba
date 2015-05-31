@@ -29,11 +29,11 @@ public interface PlayerBlService {
 	//查找球员 并获得球员基本信息
     public HPlayerPO findPlayer(String info);
     //查找球员场均数据 低阶
-    public PlayerNormalPO findPlayerMatchAve(int season, String playername);
+    public PlayerNormalPO findPlayerMatchAve(int season, String playername,SeasonType type);
     //查找球员赛季数据 低阶
-    public PlayerNormalPO findPlayerTotal(int season, String playername);
+    public PlayerNormalPO findPlayerTotal(int season, String playername, SeasonType type);
     //查找球员高阶数据
-    public PlayerHighPO findPlayerHigh(int season, String playername);
+    public PlayerHighPO findPlayerHigh(int season, String playername, SeasonType type);
     //获得以字母为开头的球员场均数据
     public HPlayerPO[] getPlayersWithStart(int season, String start);
     //获得所有球员场均数据 低阶

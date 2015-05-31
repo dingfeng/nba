@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import dataservice.playerdataservice.PlayerDataService;
 import dataservice.playerdataservice.SeasonType;
 import po.HPlayerPO;
+import po.PlayerHighPO;
 import po.PlayerNormalPO;
 import po.PlayerPO;
 import vo.Area;
@@ -92,14 +93,15 @@ public class PlayerController implements PlayerBlService{
 	public synchronized HotPlayerTeam[] getPromotePlayer(int season, String sortby) {
 		return null;
 	}
-
+	
+	@Override
 	//根据球员名字查找球员
 	public synchronized HPlayerPO findPlayer(String info) {
 		return playerService.findPlayer(info);
 	}
 	
 	
-	
+	@Override
 	public synchronized HPlayerPO[] getPlayersWithStart(int season, String start) {
 		String[] playersFit = playerService.fuzzilySearch(start);
 		ArrayList<HPlayerPO> result = new ArrayList<HPlayerPO>(playersFit.length);
@@ -124,5 +126,106 @@ public class PlayerController implements PlayerBlService{
 	public String[] fuzzilyFind(String info) {
 		String[] playersFit= playerService.fuzzilySearch(info);
 		return playersFit;
+	}
+
+
+	@Override
+	//筛选球员 场均数据 低阶
+	public PlayerNormalPO[] screenNormalAvePlayers(int season,
+			String playerPosition, Area playerArea) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	//筛选球员 赛季数据 低阶
+	public PlayerNormalPO[] screenNormalTotalPlayers(int season,
+			String playerPosition, Area playerArea) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	//筛选球员 数据 高阶
+	public PlayerHighPO[] screenHighPlayers(int season, String playerPosition,
+			Area playerArea) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	//查找球员场均数据 低阶
+	public PlayerNormalPO findPlayerMatchAve(int season, String playername, SeasonType type) {
+		return playerService.getPlayerNormalAve(season, playername, type);
+	}
+
+
+	@Override
+	//查找球员赛季数据 低阶
+	public PlayerNormalPO findPlayerTotal(int season, String playername, SeasonType type) {
+		return playerService.getPlayerNormalTotal(season, playername, type);
+	}
+
+
+	@Override
+	//查找球员高阶数据
+	public PlayerHighPO findPlayerHigh(int season, String playername, SeasonType type) {
+		return playerService.getPlayerHigh(season, playername, type);
+	}
+
+
+	@Override
+	//获得所有球员场均数据 低阶
+	public PlayerNormalPO[] getAveAllPlayers(int season) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	//获得所有球员所有数据 低阶
+	public PlayerNormalPO[] getTotalAllPlayers(int season) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	//获得所有球员高阶数据
+	public PlayerHighPO[] getHighAllPlayers(int season) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	//获得球员的所有赛季总数据
+	public PlayerNormalPO[] getPlayerAllSeasonsTotal(String playerName,
+			SeasonType type) {
+		return playerService.getPlayerAllSeasonsTotal(playerName, type);
+	}
+
+
+	@Override
+	//获得球员的所有赛季场均数据
+	public PlayerNormalPO[] getPlayerAllSeasonsAve(String playerName,
+			SeasonType type) {
+		return playerService.getPlayerAllSeasonsAve(playerName, type);
+	}
+
+
+	@Override
+	//获得球员的所有的赛季高阶数据
+	public PlayerHighPO[] getPlayerAllSeasons(String playerName, SeasonType type) {
+		return playerService.getPlayerAllSeasons(playerName, type);
+	}
+
+
+	@Override
+	public PlayerPO[] getAllActivePlayerData() {
+		return playerService.getAllActivePlayerData();
 	}
 }

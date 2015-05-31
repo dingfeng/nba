@@ -126,32 +126,33 @@ public class TeamController implements Teamblservice{
 	}
 
 	@Override
+	//根据球队简称查找赛季数据 低阶
 	public TeamNormalPO getTotalTeam(int season, String teamname,
 			SeasonType type) {
-		// TODO Auto-generated method stub
-		return null;
+		return teamservice.getTeamNormalTotal(season, teamname, type);
 	}
 
 	@Override
+	//根据球队简称查找场均数据 低阶
 	public TeamNormalPO getAveTeam(int season, String teamname, SeasonType type) {
-		// TODO Auto-generated method stub
-		return null;
+		return teamservice.getTeamNormalAve(season, teamname, type);
 	}
 
 	@Override
+	//根据球队简称查找高阶数据
 	public TeamHighPO getHighTeam(int season, String teamname, SeasonType type) {
-		// TODO Auto-generated method stub
-		return null;
+		return teamservice.getTeamHigh(season, teamname, type);
 	}
 
 	@Override
+	//根据球队简称查找其下的球员的场均数据 低阶
 	public PlayerNormalPO[] getAllPlayerMatchAve(int season, String teamname,
 			SeasonType type) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
+	//根据球队简称查找其下的球员的赛季数据 低阶
 	public PlayerNormalPO[] getAllPlayerMatchTotal(int season, String teamname,
 			SeasonType type) {
 		// TODO Auto-generated method stub
@@ -159,6 +160,7 @@ public class TeamController implements Teamblservice{
 	}
 
 	@Override
+	//根据球队简称查找其下球员的高阶赛季数据
 	public PlayerHighPO[] getAllPlayerHighMatch(int season, String teamname,
 			SeasonType type) {
 		// TODO Auto-generated method stub
@@ -166,21 +168,21 @@ public class TeamController implements Teamblservice{
 	}
 
 	@Override
+	//获得某个球队的所有赛季的总数据
 	public TeamNormalPO[] getTeamSeasonNormalTotal(String teama, SeasonType type) {
-		// TODO Auto-generated method stub
-		return null;
+		return teamservice.getTeamSeasonNormalTotal(teama, type);
 	}
 
 	@Override
+	//获得某个球员所有赛季的场均数据
 	public TeamNormalPO[] getTeamSeasonNormalAve(String teama, SeasonType type) {
-		// TODO Auto-generated method stub
-		return null;
+		return teamservice.getTeamSeasonNormalAve(teama, type);
 	}
 
 	@Override
+	//获得某个球员所有赛季的高阶数据
 	public TeamHighPO[] getTeamSeasonHigh(String teama, SeasonType type) {
-		// TODO Auto-generated method stub
-		return null;
+		return teamservice.getTeamSeasonHigh(teama, type);
 	}
     
 }
