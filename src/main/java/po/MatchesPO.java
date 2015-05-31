@@ -1,8 +1,5 @@
 package po;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class MatchesPO {
 	   
        private MatchTeamPO team1;

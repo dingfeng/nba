@@ -1,7 +1,5 @@
 package po;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 
 public class MatchTeamPO {
        private MatchPlayerPO[] players;

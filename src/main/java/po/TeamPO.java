@@ -2,11 +2,6 @@ package po;
 
 import java.awt.Image;
 
-import javax.swing.ImageIcon;
-
-import org.w3c.dom.Document;
-
-import vo.Area;
 
 public class TeamPO implements Comparable<TeamPO>{
 	private Image image; // 队伍图标

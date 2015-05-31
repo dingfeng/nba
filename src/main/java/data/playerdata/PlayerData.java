@@ -8,11 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-
-import DataFactory.DataFactory;
-import DataFactoryService.NBADataFactory;
 import po.HPlayerPO;
 import po.PlayerHighPO;
 import po.PlayerNormalPO;
@@ -550,7 +545,6 @@ public HPlayerPO[] getHPlayerByIni(String ini) {
 	   String high_school = null;
 	   String university = null;
 	   String num = null;
-	   Image image = null;
 	   while (results.next())
 	   {
 	     name = results.getString("player_name");
@@ -577,7 +571,7 @@ public HPlayerPO[] getHPlayerByIni(String ini) {
 	return players;
 }
 
-  public String[] getTeam(String playerName)
+  private String[] getTeam(String playerName)
   {
 	  String[] teams = new String[2];
 //	  String sql = "select a.teama from match_player a where a.player_name = ? and a.match_id = (select max(m.match_id) from "

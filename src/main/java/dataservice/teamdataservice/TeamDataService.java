@@ -1,8 +1,5 @@
 package dataservice.teamdataservice;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import dataservice.playerdataservice.SeasonType;
 import po.TeamHighPO;
 import po.TeamNormalPO;
