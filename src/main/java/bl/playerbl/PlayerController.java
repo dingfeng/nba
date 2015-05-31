@@ -13,13 +13,10 @@ import po.PlayerNormalPO;
 import po.PlayerPO;
 import vo.Area;
 import vo.HotPlayerTeam;
-import vo.PlayerMatchVO;
 import vo.PlayerSortBy;
 import DataFactory.DataFactory;
 import DataFactoryService.NBADataFactory;
-import bl.matchbl.Match;
 import bl.matchbl.MatchController;
-import bl.matchbl.PlayerQueue;
 import blservice.matchblservice.Matchblservice;
 import blservice.playerblservice.PlayerBlService;
 
@@ -40,38 +37,7 @@ public class PlayerController implements PlayerBlService{
 		matchservice = new MatchController();
     }
 
-	//筛选球员数据  场均  
-	public  synchronized PlayerMatchVO[] screenAvePlayers(int season, String playerPosition,
-			Area playerArea, PlayerSortBy sortBy) {
-		/**
-		Iterator<PlayerMatchVO> itr = player.screenAvePlayers(playerPosition, playerArea, sortBy);
-		ArrayList<PlayerMatchVO> list = new ArrayList<PlayerMatchVO>();
-		while (itr.hasNext())
-		{
-			list.add(itr.next());
-		}
-		PlayerMatchVO[] players = new PlayerMatchVO[list.size()];
-		list.toArray(players);
-		return players;
-		*/
-		return null;
-	}
-	//筛选球员数据  赛季
-	public synchronized PlayerMatchVO[] screenTotalPlayers(int season, String playerPosition,
-			Area playerArea, PlayerSortBy sortBy) {
-		/**
-		Iterator<PlayerMatchVO> itr =  player.screenTotalPlayers(playerPosition, playerArea, sortBy);
-		ArrayList<PlayerMatchVO> list = new ArrayList<PlayerMatchVO>();
-		while (itr.hasNext())
-		{
-			list.add(itr.next());
-		}
-		PlayerMatchVO[] players = new PlayerMatchVO[list.size()];
-		list.toArray(players);
-		return players;
-		*/
-		return null;
-	}
+	
 	public  synchronized HotPlayerTeam[] getDayHotPlayer(String sortBy) {
 		return null;
 	}
@@ -132,17 +98,7 @@ public class PlayerController implements PlayerBlService{
 		return playerService.findPlayer(info);
 	}
 	
-	public synchronized PlayerMatchVO findPlayerMatchAve(int season, String playername) {
-		Match seasonMatch = matchservice.getMatch(season);
-		PlayerQueue playerQ = seasonMatch.getPlayerData(playername);
-		return playerQ.getAvePlayer();
-	}
 	
-	public synchronized PlayerMatchVO findPlayerTotal(int season, String playername) {
-		Match seasonMatch = matchservice.getMatch(season);
-		PlayerQueue playerQ = seasonMatch.getPlayerData(playername);
-		return playerQ.getTotalPlayer();
-	}
 	
 	public synchronized HPlayerPO[] getPlayersWithStart(int season, String start) {
 		String[] playersFit = playerService.fuzzilySearch(start);
@@ -157,37 +113,7 @@ public class PlayerController implements PlayerBlService{
 		return (HPlayerPO[])result.toArray();
 	}
 	
-	public synchronized PlayerMatchVO[] getAvePlayers(int season) {
-		Match seasonMatch = matchservice.getMatch(season);
-		TIntObjectMap<PlayerQueue> players = seasonMatch.getPlayer_map();
-		PlayerQueue thisPlayerQueue;
-		int size = players.size();
-		PlayerMatchVO[] matchVOs = new PlayerMatchVO[size];
-		
-		TIntObjectIterator<PlayerQueue> it = players.iterator();             
-		for(int i = 0; i > size; i++){                  
-			it.advance();
-			thisPlayerQueue = (PlayerQueue) it.value();
-			matchVOs[i] = thisPlayerQueue.getAvePlayer();
-		}
-		return matchVOs;
-	}
 	
-	public synchronized PlayerMatchVO[] getTotalPlayers(int season) {
-		Match seasonMatch = matchservice.getMatch(season);
-		TIntObjectMap<PlayerQueue> players = seasonMatch.getPlayer_map();
-		PlayerQueue thisPlayerQueue;
-		int size = players.size();
-		PlayerMatchVO[] matchVOs = new PlayerMatchVO[size];
-		
-		TIntObjectIterator<PlayerQueue> it = players.iterator();             
-		for(int i = 0; i > size; i++){                  
-			it.advance();
-			thisPlayerQueue = (PlayerQueue) it.value();
-			matchVOs[i] = thisPlayerQueue.getTotalPlayer();
-		}
-		return matchVOs;
-	}
 	
 	public Image getPlayerImage(String name) {
 		HPlayerPO playerP = playerService.findPlayer(name);

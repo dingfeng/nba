@@ -13,11 +13,9 @@ import DataFactoryService.NBADataFactory;
 import blservice.matchblservice.Matchblservice;
 
 public class MatchController implements Matchblservice {
-	MatchContainer matchContainer;
 	MatchDataService matchservice;
 	
 	public MatchController(){
-		matchContainer = MatchContainer.instance();
 		NBADataFactory dataFactory;
 		try {
 			dataFactory = DataFactory.instance();

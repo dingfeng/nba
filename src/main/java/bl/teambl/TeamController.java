@@ -1,25 +1,20 @@
 package bl.teambl;
 
-import java.util.ArrayList;
-
 import dataservice.playerdataservice.PlayerDataService;
 import dataservice.playerdataservice.SeasonType;
 import dataservice.teamdataservice.TeamDataService;
 import po.HPlayerPO;
-import po.PlayerPO;
+import po.PlayerHighPO;
+import po.PlayerNormalPO;
+import po.TeamHighPO;
 import po.TeamNormalPO;
 import po.TeamPO;
 import DataFactory.DataFactory;
 import DataFactoryService.NBADataFactory;
-import bl.matchbl.Match;
 import bl.matchbl.MatchController;
-import bl.matchbl.PlayerQueue;
-import bl.matchbl.TeamQueue;
 import blservice.matchblservice.Matchblservice;
 import blservice.teamblservice.Teamblservice;
 import vo.HotPlayerTeam;
-import vo.PlayerMatchVO;
-import vo.TeamMatchVO;
 
 public class TeamController implements Teamblservice{
 	TeamDataService teamservice;
@@ -89,62 +84,10 @@ public class TeamController implements Teamblservice{
 		return hotTeams;
 	}
 
-	@Override
-	public String[] getPlayers(int season, String team) {
-		Match match = matchservice.getMatch(season);
-		TeamQueue teamQ = match.getTeamData(team);
-		return teamQ.getAllPlayers();
-	}
-
-	@Override
-	public TeamMatchVO getTotalTeam(int season, String teamname) {
-		Match match = matchservice.getMatch(season);
-		TeamQueue teamQ = match.getTeamData(teamname);
-		return teamQ.getTeamvoTotal();
-	}
-
-	@Override
-	public TeamMatchVO getAveTeam(int season, String teamname) {
-		Match match = matchservice.getMatch(season);
-		TeamQueue teamQ = match.getTeamData(teamname);
-		return teamQ.getTeamvoAverage();
-	}
 
 	@Override
 	public TeamPO getTeamData(String team) {
 		return teamservice.findTeam(team);
-	}
-
-	@Override
-	public PlayerMatchVO[] getAllPlayerMatchAve(int season, String teamname) {
-		Match matches = matchservice.getMatch(season);
-		TeamQueue teamQ = matches.getTeamData(teamname);
-		String[] playernames = teamQ.getAllPlayers();
-		ArrayList<PlayerMatchVO> result = new ArrayList<PlayerMatchVO>(25);
-		
-		for(String p : playernames){
-			PlayerQueue playerQ = matches.getPlayerData(p);
-			if(playerQ != null){
-				result.add(playerQ.getAvePlayer());
-			}
-		}
-		return (PlayerMatchVO[])result.toArray();
-	}
-
-	@Override
-	public PlayerMatchVO[] getAllPlayerMatchTotal(int season, String teamname) {
-		Match matches = matchservice.getMatch(season);
-		TeamQueue teamQ = matches.getTeamData(teamname);
-		String[] playernames = teamQ.getAllPlayers();
-		ArrayList<PlayerMatchVO> result = new ArrayList<PlayerMatchVO>(25);
-		
-		for(String p : playernames){
-			PlayerQueue playerQ = matches.getPlayerData(p);
-			if(playerQ != null){
-				result.add(playerQ.getTotalPlayer());
-			}
-		}
-		return (PlayerMatchVO[])result.toArray();
 	}
 
 	@Override
@@ -154,6 +97,88 @@ public class TeamController implements Teamblservice{
 
 	@Override
 	public String[] getTeamNames() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String[] getPlayers(int season, String team) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TeamNormalPO[] getAllTeamTotal(int season, SeasonType type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TeamNormalPO[] getAllTeamAve(int season, SeasonType type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TeamHighPO[] getAllTeamHigh(int season, SeasonType type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TeamNormalPO getTotalTeam(int season, String teamname,
+			SeasonType type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TeamNormalPO getAveTeam(int season, String teamname, SeasonType type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TeamHighPO getHighTeam(int season, String teamname, SeasonType type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PlayerNormalPO[] getAllPlayerMatchAve(int season, String teamname,
+			SeasonType type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PlayerNormalPO[] getAllPlayerMatchTotal(int season, String teamname,
+			SeasonType type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PlayerHighPO[] getAllPlayerHighMatch(int season, String teamname,
+			SeasonType type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TeamNormalPO[] getTeamSeasonNormalTotal(String teama, SeasonType type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TeamNormalPO[] getTeamSeasonNormalAve(String teama, SeasonType type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TeamHighPO[] getTeamSeasonHigh(String teama, SeasonType type) {
 		// TODO Auto-generated method stub
 		return null;
 	}

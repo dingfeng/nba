@@ -2,25 +2,22 @@ package blservice.playerblservice;
 
 
 import java.awt.Image;
-import java.util.Iterator;
 
 import dataservice.playerdataservice.SeasonType;
-import bl.matchbl.Match;
 import po.HPlayerPO;
-import po.MatchPlayerPO;
+import po.PlayerHighPO;
 import po.PlayerNormalPO;
 import po.PlayerPO;
 import vo.Area;
 import vo.HotPlayerTeam;
-import vo.PlayerMatchVO;
-import vo.PlayerSortBy;
-import vo.SortType;
 
 public interface PlayerBlService {
-	//筛选球员 场均数据
-	public PlayerMatchVO[] screenAvePlayers(int season, String playerPosition, Area playerArea, PlayerSortBy sortBy);
-	//筛选球员 赛季数据
-	public PlayerMatchVO[] screenTotalPlayers(int season, String playerPosition, Area playerArea, PlayerSortBy sortBy);
+	//筛选球员 场均数据 低阶
+	public PlayerNormalPO[] screenNormalAvePlayers(int season, String playerPosition, Area playerArea);
+	//筛选球员 赛季数据 低阶
+	public PlayerNormalPO[] screenNormalTotalPlayers(int season, String playerPosition, Area playerArea);
+	//筛选球员 数据 高阶
+	public PlayerHighPO[] screenHighPlayers(int season, String playerPosition, Area playerArea);
 	//获得当天热点球员
 	public HotPlayerTeam[] getDayHotPlayer(String sortby);
 	//获得赛季热点球员
@@ -31,16 +28,28 @@ public interface PlayerBlService {
 	public String[] fuzzilyFind(String info);
 	//查找球员 并获得球员基本信息
     public HPlayerPO findPlayer(String info);
-    //查找球员场均数据
-    public PlayerMatchVO findPlayerMatchAve(int season, String playername);
-    //查找球员赛季数据
-    public PlayerMatchVO findPlayerTotal(int season, String playername);
+    //查找球员场均数据 低阶
+    public PlayerNormalPO findPlayerMatchAve(int season, String playername);
+    //查找球员赛季数据 低阶
+    public PlayerNormalPO findPlayerTotal(int season, String playername);
+    //查找球员高阶数据
+    public PlayerHighPO findPlayerHigh(int season, String playername);
     //获得以字母为开头的球员场均数据
     public HPlayerPO[] getPlayersWithStart(int season, String start);
-    //获得所有球员场均数据
-    public PlayerMatchVO[] getAvePlayers(int season);
-    //获得所有球员所有数据
-    public PlayerMatchVO[] getTotalPlayers(int season);
+    //获得所有球员场均数据 低阶
+    public PlayerNormalPO[] getAveAllPlayers(int season);
+    //获得所有球员所有数据 低阶
+    public PlayerNormalPO[] getTotalAllPlayers(int season);
+    //获得所有球员高阶数据
+    public PlayerHighPO[] getHighAllPlayers(int season);
+    //获得球员的所有赛季总数据
+  	public PlayerNormalPO[] getPlayerAllSeasonsTotal(String playerName, SeasonType type);
+  	//获得球员的赛季场均数据
+  	public PlayerNormalPO[] getPlayerAllSeasonsAve(String playerName, SeasonType type);
+  	//获得球员的所有的赛季高阶数据
+  	public PlayerHighPO[] getPlayerAllSeasons(String playerName, SeasonType type);
+    //得到所有球员数据
+  	public PlayerPO[] getAllActivePlayerData();
     //根据球员的名字得到球员的头像和全身图片
     public Image getPlayerImage(String name);
 }
