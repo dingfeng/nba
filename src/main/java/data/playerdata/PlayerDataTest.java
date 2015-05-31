@@ -27,8 +27,8 @@ public class PlayerDataTest {
 	}
 	@Test
 	public void testGetAllPlayerData() {
-		PlayerPO[] players = player.getAllPlayerData();
-//		print(players);
+		PlayerPO[] players = player.getAllActivePlayerData();
+		print(players);
 		assertEquals(true,true);
 	}
 
@@ -110,6 +110,11 @@ public class PlayerDataTest {
 		assertEquals(true,true);
 	}
 	
+	@Test
+	public void fuzzilySearch()
+	{
+		
+	}
 	public static void print(Object[] objects)
     {
     	for (Object o : objects)

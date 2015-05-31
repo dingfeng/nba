@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import po.HPlayerPO;
 import po.PlayerHighPO;
 import po.PlayerNormalPO;
 import po.PlayerPO;
@@ -21,9 +22,8 @@ public class PlayerData implements PlayerDataService{
 	{
 		this.conn = conn;
 	}
-	@Override
-	public PlayerPO[] getAllPlayerData() {
-		String sql = "select * from player";
+	public PlayerPO[] getAllActivePlayerData() {
+		String sql = "select * from mplayer";
 		ArrayList<PlayerPO> list = new ArrayList<PlayerPO>(3500);
 		PlayerPO[] players = null;
 		try
@@ -65,6 +65,8 @@ public class PlayerData implements PlayerDataService{
 				 birth,  age,  exp,  school);
 		return player;
 	}
+	
+	
 	 public static  Image blobToImage(Blob blob)
 	 {
 		 if (blob == null)
@@ -465,8 +467,94 @@ public class PlayerData implements PlayerDataService{
    }
 @Override
 public String[] fuzzilySearch(String info) {
-	String sql = "";
-	return null;
+	String sql = "select player_name from playerinfo where player_name like '"+info+"%'";
+	ArrayList<String> list = new ArrayList<String>();
+	String[] names = null;
+	try
+	{
+		PreparedStatement statement = conn.prepareStatement(sql);
+		ResultSet results = statement.executeQuery();
+		while (results.next())
+		{
+			list.add(results.getString(1));
+		}
+		names = new String[list.size()];
+		list.toArray(names);
+	}
+	catch (Exception  e)
+	{
+		e.printStackTrace();
+	}
+	return names;
 }
-   
+
+@Override
+public HPlayerPO[] getHPlayerByIni(String ini) {
+	String sql = "select * from playerinfo  where player_name like '"+ini+"%'";
+	ArrayList<HPlayerPO> list = new ArrayList<HPlayerPO>(300);
+	HPlayerPO[] players = null;
+	HPlayerPO player = null;
+	try
+	{
+		PreparedStatement statement = conn.prepareStatement(sql);
+		ResultSet results = statement.executeQuery();
+	   String name = null;
+	   String totalName = null;
+	   String position = null;
+	   String height = null;
+	   String weight = null;
+	   String birthday = null;
+	   String birthCity = null;
+	   String high_school = null;
+	   String university = null;
+	   String num = null;
+	   Image image = null;
+	   while (results.next())
+	   {
+	     name = results.getString("player_name");
+	     totalName = results.getString("total_name");
+	     position = results.getString("position");
+	     height = results.getString("height");
+	     weight = results.getString("weight");
+	     birthday = results.getString("birthday");
+	     birthCity = results.getString("birthcity");
+	     high_school = results.getString("high_school");
+	     image  = getImage(name);
+	     player = new HPlayerPO( name,  totalName,  position,  height,
+	    			 weight,  birthday,  birthCity,  high_school,
+	    			 university,  num,  image);
+	     list.add(player);
+	   }
+	   players = new HPlayerPO[list.size()];
+	   
+	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+	return players;
+}
+
+
+
+  private Image getImage(String playerName)
+  {
+	  String sql = "select photo_portrait from player where player_name = ?";
+	  Image image = null;
+	  try
+	  {
+		  PreparedStatement statement = conn.prepareStatement(sql);
+		  statement.setString(1, playerName);
+		  ResultSet result = statement.executeQuery();
+		  if (result.next())
+		  {
+			  image = blobToImage(result.getBlob(1));
+		  }
+	  }
+	  catch (Exception e)
+	  {
+		  e.printStackTrace();
+	  }
+	  return image;
+  }
 }

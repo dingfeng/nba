@@ -63,29 +63,26 @@ public class MatchDataTest {
 		assertEquals(true,true);
 	}
 
-	@Test
-	public void testGetMatchIdScope() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetPlayerOffMatchId() {
-		fail("Not yet implemented");
-	}
 
 	@Test
 	public void testGetPlayerOffMatches() {
-		fail("Not yet implemented");
+		MatchesPO[] matches = match.getPlayerOffMatches(1994);
+//		print(matches);
+		assertEquals(true,true);
 	}
 
 	@Test
 	public void testGetPlayerOffPlayerMatches() {
-		fail("Not yet implemented");
+		MatchesPO[] matches = match.getPlayerOffPlayerMatches(2008, "Kobe Bryant");
+//		print (matches);
+		assertEquals(true,true);
 	}
 
 	@Test
 	public void testGetPlayerOffTeamMatches() {
-		fail("Not yet implemented");
+		MatchesPO[] matches = match.getPlayerOffTeamMatches(2007, "LAL");
+//		print(matches);
+		assertEquals(true,true);
 	}
 	
 	public static void print(Object[] objects)

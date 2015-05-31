@@ -2,6 +2,7 @@ package dataservice.playerdataservice;
 
 import java.util.HashMap;
 
+import po.HPlayerPO;
 import po.PlayerHighPO;
 import po.PlayerNormalPO;
 import po.PlayerPO;
@@ -9,9 +10,7 @@ import vo.PlayerMatchVO;
 
 public interface PlayerDataService {
 	//得到所有球员数据
-	public PlayerPO[] getAllPlayerData();
-	//球员名查找
-	public PlayerPO findPlayer(String playerName);
+	public PlayerPO[] getAllActivePlayerData();
 	//获得球员某个赛季的高阶数据
 	public PlayerHighPO getPlayerHigh(int season,String playerName,SeasonType type);
 	//高阶数据排序
@@ -30,8 +29,14 @@ public interface PlayerDataService {
 	public PlayerNormalPO[] getPlayerAllSeasonsAve(String playerName, SeasonType type);
 	//获得球员的所有的赛季高阶数据
 	public PlayerHighPO[] getPlayerAllSeasons(String playerName, SeasonType type);
-	//获得所有球员名 
+	//通过首字符获得
+	public HPlayerPO[] getHPlayerByIni(String ini);
+	//模糊查找
 	public String[] fuzzilySearch(String info);
+	//现役球员名查找
+	public PlayerPO findPlayer(String playerName);
+	//
+	//
 	//球员筛选
 //	public PlayerHighPO[] sortPlayerHighHis(String sort,int n);
 //	public PlayerNormalPO[] sortPlayerNormalTotalHis(String sort, int n);
