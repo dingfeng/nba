@@ -6,7 +6,6 @@ import po.HPlayerPO;
 import po.PlayerHighPO;
 import po.PlayerNormalPO;
 import po.PlayerPO;
-import vo.PlayerMatchVO;
 
 public interface PlayerDataService {
 	//得到所有球员数据
@@ -35,10 +34,14 @@ public interface PlayerDataService {
 	public String[] fuzzilySearch(String info);
 	//现役球员名查找
 	public HPlayerPO findPlayer(String playerName);
-	//
-	//
+	//获得某个赛季的所有球员
+	public PlayerNormalPO[] getSeasonPlayerNormalAve(int season,SeasonType type);
+	public PlayerNormalPO[] getSeasonPlayerNormalTotal(int season, SeasonType type);
+	public PlayerHighPO[] getSeasonPlayerHigh(int season, SeasonType type);
+	//获得球队所有球员
+	public PlayerPO[] getPlayersOfTeam(String team);
 	//球员筛选
-//	public PlayerHighPO[] sortPlayerHighHis(String sort,int n);
+	public PlayerPO[] screenPlayer(String sort,String match_area,String postion,int n);
 //	public PlayerNormalPO[] sortPlayerNormalTotalHis(String sort, int n);
 //	public PlayerNormalPO sortPlayerNormalAveHis(String sort, int n);
 }

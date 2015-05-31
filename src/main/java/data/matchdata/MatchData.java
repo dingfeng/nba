@@ -43,7 +43,7 @@ public class MatchData implements MatchDataService{
 		    	team1 = results.getString(2);
 		    	team2 = results.getString(3);
 		    	date  = results.getString(4);
-		    	matchpos.add(new MatchesPO(getMatchTeamPO(matchId,team1,0),getMatchTeamPO(matchId,team2,0),date));
+		    	matchpos.add(new MatchesPO(matchId,getMatchTeamPO(matchId,team1,0),getMatchTeamPO(matchId,team2,0),date));
 		    }
 		    result = new MatchesPO[matchpos.size()];
 		    matchpos.toArray(result);
@@ -224,7 +224,7 @@ public class MatchData implements MatchDataService{
 			}
 			MatchTeamPO teampo1 = getMatchTeamPO(match_id,team1,flag);
 			MatchTeamPO teampo2 = getMatchTeamPO(match_id,team2,flag);
-			MatchesPO matchpo = new MatchesPO(teampo1,teampo2,date);
+			MatchesPO matchpo = new MatchesPO(match_id,teampo1,teampo2,date);
 			return matchpo;
 		}
 		
@@ -392,7 +392,7 @@ public class MatchData implements MatchDataService{
 			    	team1 = results.getString(2);
 			    	team2 = results.getString(3);
 			    	date  = results.getString(4);
-			    	matchpos.add(new MatchesPO(getMatchTeamPO(matchId,team1,0),getMatchTeamPO(matchId,team2,0),date));
+			    	matchpos.add(new MatchesPO(matchId,getMatchTeamPO(matchId,team1,0),getMatchTeamPO(matchId,team2,0),date));
 			    }
 			    result = new MatchesPO[matchpos.size()];
 			    matchpos.toArray(result);

@@ -8,7 +8,8 @@ public class MatchesPO {
        private MatchTeamPO team1;
        private MatchTeamPO team2;
        private String date;
-       public MatchesPO(MatchTeamPO team1,MatchTeamPO team2,
+       private int matchId;
+       public MatchesPO(int matchId,MatchTeamPO team1,MatchTeamPO team2,
     		   String date)
     		   {
     	            this.team1 = team1;
@@ -17,6 +18,10 @@ public class MatchesPO {
     		   }
 	public MatchTeamPO getTeam1() {
 		return team1;
+	}
+	public int getMatchId()
+	{
+		return matchId;
 	}
 	public MatchTeamPO getTeam2() 
 	{

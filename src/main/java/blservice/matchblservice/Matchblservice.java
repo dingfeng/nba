@@ -10,6 +10,7 @@ public interface Matchblservice
 	public void update();
 	public boolean changed();
     public MatchesPO[] getTodayMatches();
+    public MatchesPO[] getPlayerOffMatches(int season);
 	public MatchesPO[] getAllMatches(int season);
 	public MatchesPO[] getRecentPlayerMatches(String playerName, int num);
 	public MatchesPO[] getRecentTeamMatches(String teamName, int num);

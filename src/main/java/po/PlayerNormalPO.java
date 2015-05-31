@@ -41,7 +41,7 @@ public class PlayerNormalPO {
 			double penaltyHandNo, double penaltyHitNo, double penaltyHitRate,
 			double threeHitNo, double threeHandNo, double threeHitRate,
 			double twoPair, double points_uprate, double rebs_uprate,
-			double help_uprate, double scoring_rebound_assist) {
+			double help_uprate, double scoring_rebound_assist,int season) {
 		super();
 		this.name = name;
 		this.team = team;
