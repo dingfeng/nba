@@ -97,8 +97,12 @@ public class TeamController implements Teamblservice{
 
 	@Override
 	public String[] getTeamNames() {
-		// TODO Auto-generated method stub
-		return null;
+		TeamPO[] allTeams = teamservice.getAllTeamData();
+		String[] names = new String[allTeams.length];
+		for(int i = 0; i != allTeams.length; i ++){
+			names[i] = allTeams[i].getName();
+		}
+		return names;
 	}
 
 	@Override

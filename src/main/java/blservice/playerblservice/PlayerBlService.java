@@ -37,11 +37,11 @@ public interface PlayerBlService {
     //获得以字母为开头的球员场均数据
     public HPlayerPO[] getPlayersWithStart(int season, String start);
     //获得所有球员场均数据 低阶
-    public PlayerNormalPO[] getAveAllPlayers(int season);
+    public PlayerNormalPO[] getAveAllPlayers(int season, SeasonType type);
     //获得所有球员所有数据 低阶
-    public PlayerNormalPO[] getTotalAllPlayers(int season);
+    public PlayerNormalPO[] getTotalAllPlayers(int season, SeasonType type);
     //获得所有球员高阶数据
-    public PlayerHighPO[] getHighAllPlayers(int season);
+    public PlayerHighPO[] getHighAllPlayers(int season, SeasonType type);
     //获得球员的所有赛季总数据
   	public PlayerNormalPO[] getPlayerAllSeasonsTotal(String playerName, SeasonType type);
   	//获得球员的赛季场均数据
@@ -52,4 +52,8 @@ public interface PlayerBlService {
   	public PlayerPO[] getAllActivePlayerData();
     //根据球员的名字得到球员的头像和全身图片
     public Image getPlayerImage(String name);
+    //得到球员基本信息的雷达图
+    public Image getRadarImage(String name);
+    //得到两个球员对比的柱状图
+    public Image getCompareImage(String name1, String name2);
 }
