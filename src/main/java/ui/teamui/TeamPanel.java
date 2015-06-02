@@ -98,7 +98,7 @@ public class TeamPanel extends JPanel {
 		teammain.add("contrast",teamcontrastpanel);
 		setHeader();
 		setFind();
-		setMessage();
+
 //		showOne("ATL");
 		this.add(teammain);
 		this.add(find);
@@ -392,6 +392,7 @@ public class TeamPanel extends JPanel {
 		this.add(contrastbutton);
 
 	}
+	
 	void setTeamdata(){
 		card.show(teammain, "data");
 		recentbutton.setSelected(false);
@@ -416,6 +417,7 @@ public class TeamPanel extends JPanel {
 		recentbutton.setSelected(false);
 		pastbutton.setSelected(false);
 	}
+
 	/** 显示场均数据/总数据 */
 	public void showAllData() {
 		
@@ -488,17 +490,7 @@ public class TeamPanel extends JPanel {
 
 	/** 在findPanel上显示一个球队的信息 */
 	void showOne(String teamname) {
-		if (matchpanel && teammatch != null) {
-			this.remove(teammatch);
-			matchpanel = false;
-		}
-		if (matchpanel)
-		{
-			matchpanel = false;
-		}
-		this.remove(welcome);
-		this.remove(teammessage);
-
+		
 		TeamPO teamresult = tc.getTeamData(teamname);
 		image.setIcon(scaleImage(new ImageIcon(teamresult.getImage()),
 				3 * FrameSize.height / 20, 3 * FrameSize.height / 20));
@@ -623,23 +615,6 @@ public class TeamPanel extends JPanel {
 		this.repaint();
 	}
 
-	/** 设置单个球队的panel */
-	void setMessage() {
-		teammessage.setLayout(new GridLayout(9, 6, -1, -1));
-		// teammessage.setBorder(BorderFactory.createLineBorder(Color.white));
-		teammessage.setBackground(FrameSize.backColor);
-		teammessage.setBounds(FrameSize.width / 3, FrameSize.height / 12,
-				2 * FrameSize.width / 3, FrameSize.height * 7 / 8
-						- FrameSize.height / 12);
-		// JTextField[] teamlabel=new UneditableTextField[54];
-		for (int i = 0; i < 54; i++) {
-			teamlabel[i] = new UneditableTextField();
-			teammessage.add(teamlabel[i]);
-			teamlabel[i].setFont(new Font("", Font.PLAIN, 15));
-			teamlabel[i].setBorder(BorderFactory.createLineBorder(Color.white));
-		}
-
-	}
 
 	/** 一个球队信息（右侧） */
 	void TeamMessage(TeamNormalPO str) {
