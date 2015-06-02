@@ -5,11 +5,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Comparator;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -24,25 +21,18 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
+import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 
 import po.TeamNormalPO;
 import po.TeamPO;
 import ui.mainui.FrameSize;
 import ui.mainui.MyButton;
-import ui.mainui.MyComboBox;
 import ui.mainui.MyFrame;
 import ui.mainui.MyTable;
+import ui.mainui.MyToggleButton;
 import ui.mainui.UneditableTextField;
-import vo.SortType;
-import vo.TeamSortBy;
-import bl.matchbl.MatchController;
 import bl.playerbl.PlayerController;
-import bl.teambl.TeamController;
-import dataservice.playerdataservice.SeasonType;
 
 public class TeamPanel extends JPanel {
 
@@ -76,11 +66,11 @@ public class TeamPanel extends JPanel {
 	Vector<String> columnsName = new Vector<String>();
 	JTextField[] teamlabel = new UneditableTextField[54];
 
-	TeamController tc = new TeamController();
-	MatchController mc = new MatchController();
+//	TeamController tc = new TeamController();
+//	MatchController mc = new MatchController();
 
 	public TeamPanel() {
-		String[] teamNames = tc.getTeamNames();
+//		String[] teamNames = tc.getTeamNames();
 //		searchBox = new MyComboBox(teamNames);
 //		AutoCompleteDecorator.decorate(searchBox);
 		this.setLayout(null);
@@ -327,20 +317,25 @@ public class TeamPanel extends JPanel {
 	/** 设置标题 */
 	void setHeader() {
 		
-		MyButton jb1 = new MyButton("数据", Color.darkGray, Color.white);
+		MyToggleButton jb1 = new MyToggleButton("数据", Color.black, Color.gray);
 		jb1.setBounds(0, FrameSize.height / 4, FrameSize.width/4, 50);
 	
 		
-		MyButton jb2 = new MyButton("近期比赛",Color.darkGray, Color.white);
+		MyToggleButton jb2 = new MyToggleButton("近期比赛",Color.black, Color.gray);
 		jb2.setBounds(FrameSize.width / 4, FrameSize.height / 4, FrameSize.width/4, 50);
 		
 		
-		MyButton jb3 = new MyButton("过往查询",Color.darkGray, Color.white);
+		MyToggleButton jb3 = new MyToggleButton("过往查询",Color.black, Color.gray);
 		jb3.setBounds(FrameSize.width / 2, FrameSize.height / 4, FrameSize.width/4, 50);
 		
-		MyButton jb4 = new MyButton("对比",Color.darkGray, Color.white);
+		MyToggleButton jb4 = new MyToggleButton("对比",Color.black, Color.gray);
 		jb4.setBounds(FrameSize.width *3/ 4, FrameSize.height / 4, FrameSize.width/4, 50);
 		
+		jb1.setForeground(Color.white);
+		jb2.setForeground(Color.white);
+		jb3.setForeground(Color.white);
+		jb4.setForeground(Color.white);
+
 		JPopupMenu type = new JPopupMenu();
 		JMenuItem jmi1 = new JMenuItem("基本数据");
 		jmi1.setBackground(FrameSize.bluecolor);
@@ -361,6 +356,7 @@ public class TeamPanel extends JPanel {
 
 		});
 
+		
 		this.add(jb1);
 		this.add(jb2);
 		this.add(jb3);

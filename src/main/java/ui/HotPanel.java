@@ -42,7 +42,7 @@ public class HotPanel extends JPanel {
 	JLabel crown=new JLabel();
 	JButton[] choose=new JButton[8];
 //	TeamController tc = new TeamController(2012);
-	PlayerController pc = new PlayerController();
+//	PlayerController pc = new PlayerController();
 	int hottype = 1;
 
 	HotPanel hotpanel = this;
@@ -68,13 +68,13 @@ public class HotPanel extends JPanel {
 		tag.setBounds(0, 0, FrameSize.width / 6, 11 * FrameSize.height / 12);
 		int height = 11 * FrameSize.height / 12;
 		tag.setBackground(Color.white);
-		JButton today_player = new MyButton("当天热点球员",
+		MyButton today_player = new MyButton("当天热点球员",
 				FrameSize.buttonbackColor, Color.GRAY);
-		JButton season_player = new MyButton("赛季热点球员",
+		MyButton season_player = new MyButton("赛季热点球员",
 				FrameSize.buttonbackColor, Color.GRAY);
-		JButton season_team = new MyButton("赛季热点球队", FrameSize.buttonbackColor,
+		MyButton season_team = new MyButton("赛季热点球队", FrameSize.buttonbackColor,
 				Color.GRAY);
-		JButton fast_player = new MyButton("进步最快球员", FrameSize.buttonbackColor,
+		MyButton fast_player = new MyButton("进步最快球员", FrameSize.buttonbackColor,
 				Color.GRAY);
 
 		today_player.setBounds(10, 40, 150, 50);

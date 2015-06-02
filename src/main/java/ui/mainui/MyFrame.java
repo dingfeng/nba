@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JToggleButton;
 
 import ui.HelpUtil;
 import ui.HotPanel;
@@ -114,30 +115,23 @@ public class MyFrame extends JFrame {
 
 	}
 	
-	JButton index;
-	JButton playerbutton;
-	JButton teambutton;
-	JButton hotbutton;
-	JButton matchbutton;
-	JButton helpbutton;
-	JButton staticsbutton;
+	MyToggleButton index;
+	MyToggleButton playerbutton;
+	MyToggleButton teambutton;
+	MyToggleButton hotbutton;
+	MyToggleButton matchbutton;
+	MyToggleButton helpbutton;
+	MyToggleButton staticsbutton;
 	
 	void setHeadButton() {
 
-		index = new MyButton(new ImageIcon("image/index.png"),
-				FrameSize.bluecolor, FrameSize.darkbluecolor);
-		playerbutton = new MyButton(new ImageIcon("image/player.png"),
-				FrameSize.bluecolor, FrameSize.darkbluecolor);
-		teambutton = new MyButton(new ImageIcon("image/图片1.png"),
-				FrameSize.bluecolor, FrameSize.darkbluecolor);
-		hotbutton = new MyButton(new ImageIcon("image/hot.png"),
-				FrameSize.bluecolor, FrameSize.darkbluecolor);
-		matchbutton = new MyButton(new ImageIcon("image/match.png"),
-				FrameSize.bluecolor, FrameSize.darkbluecolor);
-		helpbutton = new MyButton(new ImageIcon("image/help.png"),
-				FrameSize.bluecolor, FrameSize.darkbluecolor);
-		staticsbutton = new MyButton(new ImageIcon("image/statics.png"),
-				FrameSize.bluecolor, FrameSize.darkbluecolor);
+		index = new MyToggleButton(new ImageIcon("image/index.png"),FrameSize.bluecolor,FrameSize.darkbluecolor);
+		playerbutton = new MyToggleButton(new ImageIcon("image/player.png"),FrameSize.bluecolor,FrameSize.darkbluecolor);
+		teambutton = new MyToggleButton(new ImageIcon("image/图片1.png"),FrameSize.bluecolor,FrameSize.darkbluecolor);
+		hotbutton = new MyToggleButton(new ImageIcon("image/hot.png"),FrameSize.bluecolor,FrameSize.darkbluecolor);
+		matchbutton = new MyToggleButton(new ImageIcon("image/match.png"),FrameSize.bluecolor,FrameSize.darkbluecolor);
+		helpbutton = new MyToggleButton(new ImageIcon("image/help.png"),FrameSize.bluecolor,FrameSize.darkbluecolor);
+		staticsbutton = new MyToggleButton(new ImageIcon("image/statics.png"),FrameSize.bluecolor,FrameSize.darkbluecolor);
 		
 		JPopupMenu staticstype = new JPopupMenu();
 		JMenuItem playeritem = new JMenuItem("球员数据");
@@ -185,6 +179,9 @@ public class MyFrame extends JFrame {
 		helpbutton.setToolTipText("帮助");
 		staticsbutton.setToolTipText("统计");
 		
+		
+		
+		index.setBorder(null);
 
 		index.addActionListener(e -> setIndex());
 		playerbutton.addActionListener(e -> setPlayer());
@@ -193,14 +190,6 @@ public class MyFrame extends JFrame {
 		matchbutton.addActionListener(e -> setMatch());
 		helpbutton.addActionListener(e -> HelpUtil.startHelp());
 		staticsbutton.addActionListener(e->setStatics());
-		
-		index.addMouseListener(new button());
-		playerbutton.addMouseListener(new button());
-		teambutton.addMouseListener(new button());
-		hotbutton.addMouseListener(new button());
-		matchbutton.addMouseListener(new button());
-		helpbutton.addMouseListener(new button());
-		staticsbutton.addMouseListener(new button());
 		
 
 		frame.add(helpbutton);
@@ -212,99 +201,100 @@ public class MyFrame extends JFrame {
 		frame.add(staticsbutton);
 	}
 
-	class button implements MouseListener {
-
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
-//			 ((JButton)e.getSource()).setBackground(FrameSize.bluecolor);
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-//			((JButton) e.getSource()).setBackground(FrameSize.lightbluecolor);
-
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-//			((JButton) e.getSource()).setBackground(FrameSize.bluecolor);
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			((JButton) e.getSource()).setBackground(FrameSize.darkbluecolor);
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			((JButton) e.getSource()).setBackground(FrameSize.darkbluecolor);
-		}
-
-	}
+//	class button implements MouseListener {
+//
+//		@Override
+//		public void mouseClicked(MouseEvent e) {
+//			// TODO Auto-generated method stub
+////			 ((JToggleButton)e.getSource()).setBackground(FrameSize.bluecolor);
+//		}
+//
+//		@Override
+//		public void mouseEntered(MouseEvent e) {
+//			// TODO Auto-generated method stub
+//			((JToggleButton) e.getSource()).setBackground(FrameSize.lightbluecolor);
+//
+//		}
+//
+//		@Override
+//		public void mouseExited(MouseEvent e) {
+//			// TODO Auto-generated method stub
+//			((JToggleButton) e.getSource()).setBackground(FrameSize.bluecolor);
+//		}
+//
+//		@Override
+//		public void mousePressed(MouseEvent e) {
+//			((JToggleButton) e.getSource()).setBackground(FrameSize.darkbluecolor);
+//		}
+//
+//		@Override
+//		public void mouseReleased(MouseEvent e) {
+//			// TODO Auto-generated method stub
+//			((JToggleButton) e.getSource()).setBackground(FrameSize.darkbluecolor);
+//		}
+//
+//	}
 
 	void setIndex() {
 		
 		card.show(mainpanel, "index");
-		playerbutton.setBackground(FrameSize.bluecolor);
-		teambutton.setBackground(FrameSize.bluecolor);
-		hotbutton.setBackground(FrameSize.bluecolor);
-		matchbutton.setBackground(FrameSize.bluecolor);
-		helpbutton.setBackground(FrameSize.bluecolor);
-		staticsbutton.setBackground(FrameSize.bluecolor);
+		
+		playerbutton.setSelected(false);
+		teambutton.setSelected(false);
+		hotbutton.setSelected(false);
+		matchbutton.setSelected(false);
+		helpbutton.setSelected(false);
+		staticsbutton.setSelected(false);
 
 	}
 
 	void setPlayer() {
 		card.show(mainpanel, "player");
-		index.setBackground(FrameSize.bluecolor);
-		teambutton.setBackground(FrameSize.bluecolor);
-		hotbutton.setBackground(FrameSize.bluecolor);
-		matchbutton.setBackground(FrameSize.bluecolor);
-		helpbutton.setBackground(FrameSize.bluecolor);
-		staticsbutton.setBackground(FrameSize.bluecolor);
+		index.setSelected(false);
+		teambutton.setSelected(false);
+		hotbutton.setSelected(false);
+		matchbutton.setSelected(false);
+		helpbutton.setSelected(false);
+		staticsbutton.setSelected(false);
 	}
 
 	public void setTeam() {
 		card.show(mainpanel, "team");
-		index.setBackground(FrameSize.bluecolor);
-		playerbutton.setBackground(FrameSize.bluecolor);
-		hotbutton.setBackground(FrameSize.bluecolor);
-		matchbutton.setBackground(FrameSize.bluecolor);
-		helpbutton.setBackground(FrameSize.bluecolor);
-		staticsbutton.setBackground(FrameSize.bluecolor);
+		index.setSelected(false);
+		playerbutton.setSelected(false);
+		hotbutton.setSelected(false);
+		matchbutton.setSelected(false);
+		helpbutton.setSelected(false);
+		staticsbutton.setSelected(false);
 	}
 
 	void setHot() {
 		card.show(mainpanel, "hot");
-		index.setBackground(FrameSize.bluecolor);
-		playerbutton.setBackground(FrameSize.bluecolor);
-		teambutton.setBackground(FrameSize.bluecolor);
-		matchbutton.setBackground(FrameSize.bluecolor);
-		helpbutton.setBackground(FrameSize.bluecolor);
-		staticsbutton.setBackground(FrameSize.bluecolor);
+		index.setSelected(false);
+		playerbutton.setSelected(false);
+		teambutton.setSelected(false);
+		matchbutton.setSelected(false);
+		helpbutton.setSelected(false);
+		staticsbutton.setSelected(false);
 	}
 
 	void setMatch() {
 		card.show(mainpanel, "match");
-		index.setBackground(FrameSize.bluecolor);
-		playerbutton.setBackground(FrameSize.bluecolor);
-		teambutton.setBackground(FrameSize.bluecolor);
-		hotbutton.setBackground(FrameSize.bluecolor);
-		helpbutton.setBackground(FrameSize.bluecolor);
-		staticsbutton.setBackground(FrameSize.bluecolor);
+		index.setSelected(false);
+		playerbutton.setSelected(false);
+		teambutton.setSelected(false);
+		hotbutton.setSelected(false);
+		helpbutton.setSelected(false);
+		staticsbutton.setSelected(false);
 	}
 
 	void setStatics(){
-		index.setBackground(FrameSize.bluecolor);
-		playerbutton.setBackground(FrameSize.bluecolor);
-		teambutton.setBackground(FrameSize.bluecolor);
-		hotbutton.setBackground(FrameSize.bluecolor);
-		helpbutton.setBackground(FrameSize.bluecolor);
-		matchbutton.setBackground(FrameSize.bluecolor);
+		index.setSelected(false);
+		playerbutton.setSelected(false);
+		teambutton.setSelected(false);
+		hotbutton.setSelected(false);
+		helpbutton.setSelected(false);
+		matchbutton.setSelected(false);
 	}
 	
 	void setExit() {
