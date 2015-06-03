@@ -48,11 +48,12 @@ public class PlayerController implements PlayerBlService{
 		matchservice = new MatchController();
     }
 
-	
+	@Override
 	public  synchronized HotPlayerTeam[] getDayHotPlayer(String sortBy) {
 		return null;
 	}
 	//获得赛季热点球员
+	@Override
 	public synchronized HotPlayerTeam[] getSeasonHotPlayer(int season, String sortby, SeasonType type) {
 		String sortBy = sortby + "desc";
 		PlayerNormalPO[] players = playerService.sortPlayerNormalAven(season, sortBy, 5, type);
@@ -101,6 +102,7 @@ public class PlayerController implements PlayerBlService{
 	}
 	
 	//获得进步最快球员
+	@Override
 	public synchronized HotPlayerTeam[] getPromotePlayer(int season, String sortby) {
 		return null;
 	}
@@ -127,7 +129,7 @@ public class PlayerController implements PlayerBlService{
 	}
 	
 	
-	
+	@Override
 	public Image getPlayerImage(String name) {
 		HPlayerPO playerP = playerService.findPlayer(name);
 		return playerP.getImage();
@@ -143,7 +145,7 @@ public class PlayerController implements PlayerBlService{
 	@Override
 	//筛选球员 场均数据 低阶
 	public PlayerNormalPO[] screenNormalAvePlayers(int season,
-			String playerPosition, Area playerArea) {
+			String playerPosition, Area playerArea, SeasonType type) {
 		String area = new String();
 		switch (playerArea){
 			case ATLANTIC:
@@ -168,7 +170,7 @@ public class PlayerController implements PlayerBlService{
 		PlayerPO[] players = playerService.screenPlayer(null, area, playerPosition, 100);
 		PlayerNormalPO[] result = new PlayerNormalPO[players.length];
 		for(int i = 0; i != players.length; i ++){
-			result[i] = playerService.getPlayerNormalAve(season, players[i].getName(), SeasonType.REGULAR);
+			result[i] = playerService.getPlayerNormalAve(season, players[i].getName(), type);
 		}
 		return result;
 	}
@@ -177,7 +179,7 @@ public class PlayerController implements PlayerBlService{
 	@Override
 	//筛选球员 赛季数据 低阶
 	public PlayerNormalPO[] screenNormalTotalPlayers(int season,
-			String playerPosition, Area playerArea) {
+			String playerPosition, Area playerArea, SeasonType type) {
 		String area = new String();
 		switch (playerArea){
 			case ATLANTIC:
@@ -202,7 +204,7 @@ public class PlayerController implements PlayerBlService{
 		PlayerPO[] players = playerService.screenPlayer(null, area, playerPosition, 100);
 		PlayerNormalPO[] result = new PlayerNormalPO[players.length];
 		for(int i = 0; i != players.length; i ++){
-			result[i] = playerService.getPlayerNormalTotal(season, players[i].getName(), SeasonType.REGULAR);
+			result[i] = playerService.getPlayerNormalTotal(season, players[i].getName(), type);
 		}
 		return result;
 	}
@@ -211,7 +213,7 @@ public class PlayerController implements PlayerBlService{
 	@Override
 	//筛选球员 数据 高阶
 	public PlayerHighPO[] screenHighPlayers(int season, String playerPosition,
-			Area playerArea) {
+			Area playerArea, SeasonType type) {
 		String area = new String();
 		switch (playerArea){
 			case ATLANTIC:
@@ -236,7 +238,7 @@ public class PlayerController implements PlayerBlService{
 		PlayerPO[] players = playerService.screenPlayer(null, area, playerPosition, 100);
 		PlayerHighPO[] result = new PlayerHighPO[players.length];
 		for(int i = 0; i != players.length; i ++){
-			result[i] = playerService.getPlayerHigh(season, players[i].getName(), SeasonType.REGULAR);
+			result[i] = playerService.getPlayerHigh(season, players[i].getName(), type);
 		}
 		return result;
 	}
@@ -315,11 +317,8 @@ public class PlayerController implements PlayerBlService{
 
 	@Override
 	public Image getRadarImage(int season, String name, SeasonType type) {
-		/*
 		PlayerNormalPO player = playerService.getPlayerNormalAve(season, name, type);
 		double[] playerData = {player.getPoints(), player.getRebs(), player.getAssistNo(), player.getStealsNo(), player.getBlockNo()};
-		*/
-		double[] playerData = {11.6,2,3.2,0.7,0.2};
 		double[] allAve = {7,3,1,1,0.4};
 		String toWrite = name + "\n" + "AVE PERF" + "\n" + Double.toString(playerData[0]) + "," + Double.toString(playerData[1]) + "," +
 						Double.toString(playerData[2]) + "," + 	Double.toString(playerData[3]) + "," + 
