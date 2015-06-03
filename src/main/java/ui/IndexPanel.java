@@ -49,6 +49,7 @@ public class IndexPanel extends JPanel {
 			teams[i] = new JLabel();
 			teams[i].setOpaque(true);
 			teams[i].setBackground(Color.red);
+			teams[i].addMouseListener(new listener());
 			background.add(teams[i]);
 		}
 		teams[0].setBounds(FrameSize.width *17/ 120, FrameSize.height * 7 / 160,
@@ -117,8 +118,60 @@ public class IndexPanel extends JPanel {
 				FrameSize.width * 13 / 120, FrameSize.height * 11 / 160);
 		teams[29].setBounds(FrameSize.width *181/240, FrameSize.height  *119/ 160,
 				FrameSize.width * 13 / 120, FrameSize.height * 11 / 160);
+	
+	}
+	
+	void findteam(int index){
+		switch (index){
+		case 0:
+		case 1:
+		case 2:
+		case 8:
+		}
 	}
 
+	class listener implements MouseListener {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {   
+			// TODO Auto-generated method stub
+			JLabel tmp = (JLabel)e.getSource();
+	        int index = 0;
+	        for(int i=0;i<teams.length;i++){
+	            if(teams[i]==tmp){
+	                index = i;
+	            }
+	        }
+	        findteam(index);
+			System.out.println(index);
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	
 	private ImageIcon scaleImage(ImageIcon icon, int iconWidth, int iconHeight) {
 		int width = icon.getIconWidth();
 		int height = icon.getIconHeight();

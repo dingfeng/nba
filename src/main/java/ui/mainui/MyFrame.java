@@ -16,11 +16,11 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.JToggleButton;
 
 import ui.HelpUtil;
 import ui.HotPanel;
 import ui.IndexPanel;
+import ui.LivePanel;
 import ui.MatchPanel;
 import ui.playerui.PlayerPanel;
 import ui.statistics.StatisticsPlayerPanel;
@@ -52,7 +52,7 @@ public class MyFrame extends JFrame {
 	 public static MatchPanel matchpanel = new MatchPanel();
 	public static StatisticsPlayerPanel statisticsPlayerPanel = new StatisticsPlayerPanel();
 	public static StatisticsTeamPanel statisticsTeamPanel = new StatisticsTeamPanel();
-	
+	public static LivePanel livepanel=new LivePanel();
 
 	// MatchController mc = new MatchController();
 
@@ -84,6 +84,7 @@ public class MyFrame extends JFrame {
 		 mainpanel.add(hotpanel, "hot");
 		mainpanel.add(statisticsPlayerPanel, "statisticsPlayer");
 		mainpanel.add(statisticsTeamPanel,"statisticsTeam");
+		mainpanel.add(livepanel,"live");
 		mainpanel.setBackground(Color.white);
 		
 		setExit();
@@ -122,7 +123,7 @@ public class MyFrame extends JFrame {
 	MyToggleButton matchbutton;
 	MyToggleButton helpbutton;
 	MyToggleButton staticsbutton;
-	
+	MyToggleButton livebutton;
 	void setHeadButton() {
 
 		index = new MyToggleButton(new ImageIcon("image/index.png"),FrameSize.bluecolor,FrameSize.darkbluecolor);
@@ -132,6 +133,7 @@ public class MyFrame extends JFrame {
 		matchbutton = new MyToggleButton(new ImageIcon("image/match.png"),FrameSize.bluecolor,FrameSize.darkbluecolor);
 		helpbutton = new MyToggleButton(new ImageIcon("image/help.png"),FrameSize.bluecolor,FrameSize.darkbluecolor);
 		staticsbutton = new MyToggleButton(new ImageIcon("image/statics.png"),FrameSize.bluecolor,FrameSize.darkbluecolor);
+		livebutton=new MyToggleButton(new ImageIcon("image/live.png"),FrameSize.bluecolor,FrameSize.darkbluecolor);
 		
 		JPopupMenu staticstype = new JPopupMenu();
 		JMenuItem playeritem = new JMenuItem("球员数据");
@@ -170,6 +172,7 @@ public class MyFrame extends JFrame {
 		matchbutton.setBounds(290, 3 * FrameSize.height / 80, 50, 50);
 		helpbutton.setBounds(360, 3 * FrameSize.height / 80, 50, 50);
 		staticsbutton.setBounds(430, 3 * FrameSize.height / 80, 50, 50);
+		livebutton.setBounds(500, 3 * FrameSize.height / 80, 50, 50);
 		
 		index.setToolTipText("主页");
 		playerbutton.setToolTipText("球员");
@@ -178,10 +181,8 @@ public class MyFrame extends JFrame {
 		matchbutton.setToolTipText("比赛");
 		helpbutton.setToolTipText("帮助");
 		staticsbutton.setToolTipText("统计");
+		livebutton.setToolTipText("直播");
 		
-		
-		
-		index.setBorder(null);
 
 		index.addActionListener(e -> setIndex());
 		playerbutton.addActionListener(e -> setPlayer());
@@ -190,8 +191,9 @@ public class MyFrame extends JFrame {
 		matchbutton.addActionListener(e -> setMatch());
 		helpbutton.addActionListener(e -> HelpUtil.startHelp());
 		staticsbutton.addActionListener(e->setStatics());
-		
+		livebutton.addActionListener(e->setLive());
 
+		frame.add(livebutton);
 		frame.add(helpbutton);
 		frame.add(index);
 		frame.add(playerbutton);
@@ -201,44 +203,12 @@ public class MyFrame extends JFrame {
 		frame.add(staticsbutton);
 	}
 
-//	class button implements MouseListener {
-//
-//		@Override
-//		public void mouseClicked(MouseEvent e) {
-//			// TODO Auto-generated method stub
-////			 ((JToggleButton)e.getSource()).setBackground(FrameSize.bluecolor);
-//		}
-//
-//		@Override
-//		public void mouseEntered(MouseEvent e) {
-//			// TODO Auto-generated method stub
-//			((JToggleButton) e.getSource()).setBackground(FrameSize.lightbluecolor);
-//
-//		}
-//
-//		@Override
-//		public void mouseExited(MouseEvent e) {
-//			// TODO Auto-generated method stub
-//			((JToggleButton) e.getSource()).setBackground(FrameSize.bluecolor);
-//		}
-//
-//		@Override
-//		public void mousePressed(MouseEvent e) {
-//			((JToggleButton) e.getSource()).setBackground(FrameSize.darkbluecolor);
-//		}
-//
-//		@Override
-//		public void mouseReleased(MouseEvent e) {
-//			// TODO Auto-generated method stub
-//			((JToggleButton) e.getSource()).setBackground(FrameSize.darkbluecolor);
-//		}
-//
-//	}
+
 
 	void setIndex() {
 		
 		card.show(mainpanel, "index");
-		
+		index.setSelected(true);
 		playerbutton.setSelected(false);
 		teambutton.setSelected(false);
 		hotbutton.setSelected(false);
@@ -251,6 +221,7 @@ public class MyFrame extends JFrame {
 	void setPlayer() {
 		card.show(mainpanel, "player");
 		index.setSelected(false);
+		playerbutton.setSelected(true);
 		teambutton.setSelected(false);
 		hotbutton.setSelected(false);
 		matchbutton.setSelected(false);
@@ -263,6 +234,7 @@ public class MyFrame extends JFrame {
 		index.setSelected(false);
 		playerbutton.setSelected(false);
 		hotbutton.setSelected(false);
+		teambutton.setSelected(true);
 		matchbutton.setSelected(false);
 		helpbutton.setSelected(false);
 		staticsbutton.setSelected(false);
@@ -273,9 +245,11 @@ public class MyFrame extends JFrame {
 		index.setSelected(false);
 		playerbutton.setSelected(false);
 		teambutton.setSelected(false);
+		hotbutton.setSelected(true);
 		matchbutton.setSelected(false);
 		helpbutton.setSelected(false);
 		staticsbutton.setSelected(false);
+		livebutton.setSelected(false);
 	}
 
 	void setMatch() {
@@ -283,9 +257,11 @@ public class MyFrame extends JFrame {
 		index.setSelected(false);
 		playerbutton.setSelected(false);
 		teambutton.setSelected(false);
+		matchbutton.setSelected(true);
 		hotbutton.setSelected(false);
 		helpbutton.setSelected(false);
 		staticsbutton.setSelected(false);
+		livebutton.setSelected(false);
 	}
 
 	void setStatics(){
@@ -295,6 +271,21 @@ public class MyFrame extends JFrame {
 		hotbutton.setSelected(false);
 		helpbutton.setSelected(false);
 		matchbutton.setSelected(false);
+		staticsbutton.setSelected(true);
+		livebutton.setSelected(false);
+		
+	}
+	
+	void setLive(){
+		card.show(mainpanel, "live");
+		index.setSelected(false);
+		playerbutton.setSelected(false);
+		teambutton.setSelected(false);
+		hotbutton.setSelected(false);
+		helpbutton.setSelected(false);
+		matchbutton.setSelected(false);
+		staticsbutton.setSelected(false);
+		livebutton.setSelected(true);
 	}
 	
 	void setExit() {
