@@ -395,24 +395,28 @@ public class TeamPanel extends JPanel {
 	
 	void setTeamdata(){
 		card.show(teammain, "data");
+		databutton.setSelected(true);
 		recentbutton.setSelected(false);
 		pastbutton.setSelected(false);
 		contrastbutton.setSelected(false);
 	}
 	void setRecent(){
 		card.show(teammain, "recent");
+		recentbutton.setSelected(true);
 		databutton.setSelected(false);
 		pastbutton.setSelected(false);
 		contrastbutton.setSelected(false);
 	}
 	void setPast(){
 		card.show(teammain, "past");
+		pastbutton.setSelected(true);
 		databutton.setSelected(false);
 		recentbutton.setSelected(false);
 		contrastbutton.setSelected(false);
 	}
 	void setContrast(){
 		card.show(teammain, "contrast");
+		contrastbutton.setSelected(true);
 		databutton.setSelected(false);
 		recentbutton.setSelected(false);
 		pastbutton.setSelected(false);
@@ -506,49 +510,26 @@ public class TeamPanel extends JPanel {
 		manageresult.setText(teamresult.getManage());// 主场
 		foundYearresult.setText(String.valueOf(teamresult.getFoundYear()));// 建立时间
 
-		match = new MyButton("比赛", Color.black, Color.DARK_GRAY);
-		teamplayers = new MyButton("球员", Color.black, Color.DARK_GRAY);
-
-		match.setFont(new Font("幼圆", Font.BOLD, 12));
-		teamplayers.setFont(new Font("幼圆", Font.BOLD, 12));
-
-		match.setForeground(Color.white);
-		teamplayers.setForeground(Color.white);
-
 		image.setOpaque(false);
 
-		teamplayers.setBounds(FrameSize.width / 3 - 60,
-				11 * FrameSize.height / 16, 55, 30);
-		match.setBounds(FrameSize.width / 3 - 130, 11 * FrameSize.height / 16,
-				58, 30);
-		image.setBounds(FrameSize.width / 10, FrameSize.height / 8,
-				FrameSize.width / 4, 3 * FrameSize.height / 20);
-		nameresult.setBounds(FrameSize.width / 20, FrameSize.height / 8 - 50,
-				100, 3 * FrameSize.height / 80);
-		nameAbridgeresult.setBounds(9 * FrameSize.width / 40,
-				FrameSize.height / 8 - 50, 50, 30);
-		addressresult.setBounds(FrameSize.width / 10,
-				FrameSize.height / 8 + 130, FrameSize.width / 8,
-				3 * FrameSize.height / 80);
-		matchArearesult.setBounds(FrameSize.width / 10,
-				FrameSize.height / 8 + 190, FrameSize.width / 8,
-				3 * FrameSize.height / 80);
-		playerArearesult.setBounds(FrameSize.width / 10,
-				FrameSize.height / 8 + 250, FrameSize.width / 8,
-				3 * FrameSize.height / 80);
-		manageresult.setBounds(FrameSize.width / 10,
-				FrameSize.height / 8 + 310, FrameSize.width / 8,
-				3 * FrameSize.height / 80);
-		foundYearresult.setBounds(FrameSize.width / 10,
-				FrameSize.height / 8 + 370, FrameSize.width / 8,
-				3 * FrameSize.height / 80);
+		
+		image.setBounds(10, 10,
+				FrameSize.width / 3, FrameSize.width / 3);
+		nameresult.setBounds(FrameSize.width / 2+50, FrameSize.height / 40,
+				FrameSize.width / 12, 30);
+		nameAbridgeresult.setBounds(FrameSize.width / 2+50,FrameSize.height / 40+30,
+				FrameSize.width / 12, 30);
+		addressresult.setBounds(FrameSize.width / 2+50,FrameSize.height / 40+60,
+				FrameSize.width / 12, 30);
+		matchArearesult.setBounds(FrameSize.width / 2+50,FrameSize.height / 40+90,
+				FrameSize.width / 12, 30);
+		playerArearesult.setBounds(FrameSize.width / 2+50,FrameSize.height / 40+120,
+				FrameSize.width / 12, 30);
+		manageresult.setBounds(FrameSize.width / 2+50,FrameSize.height / 40+150,
+				FrameSize.width / 12, 30);
+		foundYearresult.setBounds(FrameSize.width / 2+50,FrameSize.height / 40+180,
+				FrameSize.width / 12, 30);
 
-		match.addActionListener(e -> setMatch());
-		teamplayers.addActionListener(e -> setTeamPlayers(nameAbridgeresult
-				.getText()));
-
-		find.add(teamplayers);
-		find.add(match);
 		find.add(image);
 		find.add(nameresult);
 		find.add(nameAbridgeresult);

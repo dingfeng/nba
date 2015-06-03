@@ -44,18 +44,12 @@ public class RecentMatchPanel extends JPanel {
 	/** 设置界面提示文字 */
 	void setText() {
 		JLabel recent = new JLabel("近期比赛");
-		JLabel team = new JLabel();
-		team.setText(teamName);
-
-		team.setBounds(80, 20, 50, 50);
 		recent.setBounds(0,0, FrameSize.width, 30);
 		
 		recent.setOpaque(true);
 		recent.setBackground(FrameSize.bluecolor);
 		recent.setForeground(Color.white);
-		team.setForeground(Color.white);
-
-		this.add(team);
+		
 		this.add(recent);
 
 	}
