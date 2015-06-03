@@ -60,7 +60,7 @@ public class MatchPanel extends JPanel {
 		matchPanel.setLayout(null);
 //		MatchesPO [] matches = matchController.getTimeMatches(date);
 		JLabel[] matchLabel = new JLabel[100];
-		for(int i=0;i<100;i++){
+		for(int i=0;i<100;i++){ 
 			matchLabel[i]=new JLabel();
 			matchLabel[i].setBounds(0,i*200,FrameSize.width,200);
 //			JLabel team1 = new JLabel(scaleImage(
