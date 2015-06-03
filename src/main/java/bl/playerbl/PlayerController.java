@@ -1,7 +1,16 @@
 package bl.playerbl;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import dataservice.playerdataservice.PlayerDataService;
 import dataservice.playerdataservice.SeasonType;
@@ -18,11 +27,19 @@ import blservice.matchblservice.Matchblservice;
 import blservice.playerblservice.PlayerBlService;
 
 public class PlayerController implements PlayerBlService{
-	Matchblservice matchservice;
-    PlayerDataService playerService;
+	private String filenameR;
+	private String filenameC;
+	private String imageR;
+	private String imageC;
+	private Matchblservice matchservice;
+    private PlayerDataService playerService;
     //排序球员数据 场均
     public PlayerController()
     {
+    	filenameR = "D:/dataToP";
+    	filenameC = "D:/dataToPC";
+    	imageR = "D:/radar.png";
+    	imageC = "D:/compare.png";
     	NBADataFactory dataFactory;
 		try {
 			dataFactory = DataFactory.instance();
@@ -299,14 +316,36 @@ public class PlayerController implements PlayerBlService{
 
 
 	@Override
-	public Image getRadarImage(String name) {
-		// TODO Auto-generated method stub
+	public Image getRadarImage(int season, String name, SeasonType type) {
+		/*
+		PlayerNormalPO player = playerService.getPlayerNormalAve(season, name, type);
+		double[] playerData = {player.getPoints(), player.getRebs(), player.getAssistNo(), player.getStealsNo(), player.getBlockNo()};
+		*/
+		double[] playerData = {11.6,2,3.2,0.7,0.2};
+		double[] allAve = {7,3,1,1,0.4};
+		String toWrite = name + "\n" + "AVE PERF" + "\n" + Double.toString(playerData[0]) + "," + Double.toString(playerData[1]) + "," +
+						Double.toString(playerData[2]) + "," + 	Double.toString(playerData[3]) + "," + 
+						Double.toString(playerData[4]) + "\n" +  Double.toString(allAve[0]) + "," + 
+						Double.toString(allAve[1]) + "," + Double.toString(allAve[2]) + "," + 	
+						Double.toString(allAve[3]) + "," + Double.toString(allAve[4]);
+		try {
+			BufferedWriter output = new BufferedWriter(new FileWriter(new File(filenameR)));
+			output.write(toWrite);
+			output.close();
+			Process pr = Runtime.getRuntime().exec("python python\\radar.py");
+			pr.waitFor();
+			Image radar = ImageIO.read(new File(imageR));
+			return radar;
+		} catch (IOException | InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 
 	@Override
-	public Image getCompareImage(String name1, String name2) {
+	public Image getCompareImage(int season, String name1, String name2, SeasonType type) {
 		// TODO Auto-generated method stub
 		return null;
 	}

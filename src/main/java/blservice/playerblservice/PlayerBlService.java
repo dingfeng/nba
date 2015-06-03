@@ -50,10 +50,10 @@ public interface PlayerBlService {
   	public PlayerHighPO[] getPlayerAllSeasons(String playerName, SeasonType type);
     //得到所有球员数据
   	public PlayerPO[] getAllActivePlayerData();
-    //根据球员的名字得到球员的头像和全身图片
+    //根据球员的名字得到球员的头像
     public Image getPlayerImage(String name);
     //得到球员基本信息的雷达图
-    public Image getRadarImage(String name);
+    public Image getRadarImage(int season, String name, SeasonType type);
     //得到两个球员对比的柱状图
-    public Image getCompareImage(String name1, String name2);
+    public Image getCompareImage(int season, String name1, String name2, SeasonType type);
 }
