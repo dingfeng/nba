@@ -113,7 +113,6 @@ public class TeamController implements Teamblservice{
 
 	@Override
 	public TeamNormalPO[] getAllTeamTotal(int season, SeasonType type) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
