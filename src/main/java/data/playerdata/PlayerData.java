@@ -8,10 +8,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import po.HPlayerPO;
+import po.MatchPlayerPO;
 import po.PlayerHighPO;
 import po.PlayerNormalPO;
 import po.PlayerPO;
+import data.matchdata.MatchData;
 import dataservice.playerdataservice.PlayerDataService;
 import dataservice.playerdataservice.SeasonType;
 
@@ -725,6 +728,92 @@ public PlayerPO[] screenPlayer(String sort, String match_area, String position,
 	{
 		e.printStackTrace();
 	}
+	return players;
+    }
+
+private MatchPlayerPO toMatchPlayer(ResultSet results) throws Exception
+{
+	MatchPlayerPO matchPlayer = null;
+	String name= null;
+	String location= "";
+	double time=0;
+	int hitNo=0;
+	int handNo=0;
+	int threeHitNo=0;
+	int threeHandNo=0;
+	int penaltyHitNo=0;
+	int penaltyHandNo=0;
+	int offenseRebs=0;
+	int defenceRebs=0;
+	int rebs=0;
+	int help=0;
+	int stealsNo=0;
+	int blockNo=0;
+	int mistakesNo=0;
+	int foulsNo=0;;
+	if (results.next())
+	{
+//		"select player_name,courtTime,hitNo,handNo,threeHitNo,threeHandNo,penaltyHitNo,penaltyHandNo,"
+//    			+ "offenseRebs,defenceRebs,rebs,assist,steal,blockno,mistakeno,fouls,score, "
+//    			+ "from match_player where match_id = ? and teama = ?";
+		name = results.getString(2);
+		time = results.getInt(4);
+		hitNo = results.getInt(5);
+		handNo=results.getInt(6);
+		threeHitNo = results.getInt(7);
+		threeHandNo = results.getInt(8);
+		penaltyHitNo = results.getInt(9);
+		penaltyHandNo = results.getInt(10);
+		offenseRebs = results.getInt(11);
+		defenceRebs = results.getInt(12);
+		rebs = results.getInt(13);
+		help = results.getInt(14);
+		stealsNo = results.getInt(15);
+		blockNo = results.getInt(16);
+		mistakesNo = results.getInt(17);
+		foulsNo = results.getInt(18);
+		matchPlayer = new MatchPlayerPO( name,  location,  time,  hitNo,
+				 handNo,  threeHitNo,  threeHandNo,  penaltyHitNo,
+				 penaltyHandNo,  offenseRebs,  defenceRebs,  rebs,
+				 help,  stealsNo,  blockNo,  mistakesNo,
+				 foulsNo);
+	}
+	return matchPlayer;
+}
+
+public MatchPlayerPO[] getSeasonMatches(int season, String name, SeasonType type) {
+	String sql = "select * from match_player where match_id > ? and match_id < ? and player_name = ?";
+	int[] id_scope = null;
+	MatchPlayerPO[] players;
+	ArrayList<MatchPlayerPO> list = new ArrayList<MatchPlayerPO>();
+	
+	switch (type)
+	{
+	case REGULAR:
+		id_scope = MatchData.getMatchIdScope(season);
+		break;
+	case PLAYOFF:
+		id_scope = MatchData.getPlayerOffMatchId(season);
+		break;
+	}
+	try
+	{
+		PreparedStatement statement = conn.prepareStatement(sql);
+		statement.setInt(1, id_scope[0]);
+		statement.setInt(2, id_scope[1]);
+		statement.setString(3, name);
+		ResultSet results = statement.executeQuery();
+		while (results.next())
+		{
+			list.add(toMatchPlayer(results));
+		}
+	}
+	catch (Exception e)
+	{
+		e.printStackTrace();
+	}
+	players = new MatchPlayerPO[list.size()];
+	list.toArray(players);
 	return players;
 }
 }

@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import po.HPlayerPO;
+import po.MatchPlayerPO;
 import po.PlayerHighPO;
 import po.PlayerNormalPO;
 import po.PlayerPO;
@@ -114,7 +115,7 @@ public class PlayerDataTest {
 	@Test
 	public void getTeamTest()
 	{
-		print(player.getPlayersOfTeam("LAL"));
+//		print(player.getPlayersOfTeam("LAL"));
 	}
 	@Test
 	public void testHplayer()
@@ -125,7 +126,13 @@ public class PlayerDataTest {
 	@Test
 	public void testScreen()
 	{
-		print(player.screenPlayer("player_name desc", "W", "F", 10));
+//		print(player.screenPlayer("player_name desc", "W", "F", 10));
+	}
+	@Test
+	public void testMatchPlayer()
+	{
+		MatchPlayerPO[] players = player.getSeasonMatches(2014, "Kobe Bryant", SeasonType.REGULAR);
+		print (players);
 	}
 	public static void print(Object[] objects)
     {
