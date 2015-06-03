@@ -89,7 +89,6 @@ public class MatchDataTest {
 	{
 		print(match.getRegularTeamMatchesn(2012, "LAL", 10).length);
 	}
-	@Test 
 	public static void print(Object[] objects)
     {
     	for (Object o : objects)
