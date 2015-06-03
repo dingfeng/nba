@@ -30,6 +30,8 @@ public class PlayerPanel extends JPanel {
 	MyTable myAllPlayerTable = new MyTable(allPlayerTable);
 	JScrollPane jAllPlayerScrollPane = new JScrollPane(myAllPlayerTable);
 
+	JPanel onePlayerPanel = new JPanel();
+	
 	public PlayerPanel() {
 		this.setLayout(null);
 		this.setBounds(0, 0, FrameSize.width, FrameSize.height * 7 / 8);
@@ -37,7 +39,8 @@ public class PlayerPanel extends JPanel {
 		this.setOpaque(false);
 		JPanel headerPanel = HeaderPanel();
 		this.add(headerPanel);
-		setAllPlayerTable(null);
+//		setAllPlayerTable(null);
+		setOnePlayerPanel();
 	}
 
 	/** 查找栏 */
@@ -164,4 +167,11 @@ public class PlayerPanel extends JPanel {
 
 	}
 
+	/**显示单个球员的所有信息*/
+	private void setOnePlayerPanel(){
+		onePlayerPanel.removeAll();
+		onePlayerPanel.setBackground(Color.red);
+		onePlayerPanel.setBounds(0,0,FrameSize.width,FrameSize.height*7/8-40);
+		this.add(onePlayerPanel);
+	}
 }
