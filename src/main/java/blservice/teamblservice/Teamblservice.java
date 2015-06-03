@@ -13,8 +13,8 @@ public interface Teamblservice
 {
 	//获得热点球队
 	public HotPlayerTeam[] getHotTeams(int season, String sortby, SeasonType type);
-	//获得该球队的所有球员名
-	public String[] getPlayers(int season, String team);
+	//获得该球队有史以来的所有球员名
+	public String[] getPlayers(String team);
 	//获得赛季所有球队赛季数据 低阶
 	public TeamNormalPO[] getAllTeamTotal(int season, SeasonType type);
 	//获得赛季所有球队场均数据 低阶

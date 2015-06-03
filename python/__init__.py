@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
  
 def getData():
-    file_object = open("D:/dataToP", 'r')
+    file_object = open("D:/dataToPC", 'r')
     try:
          line = file_object.readline()
          parts = line.split(',')

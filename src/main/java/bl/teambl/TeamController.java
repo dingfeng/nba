@@ -1,11 +1,14 @@
 package bl.teambl;
 
+import java.util.ArrayList;
+
 import dataservice.playerdataservice.PlayerDataService;
 import dataservice.playerdataservice.SeasonType;
 import dataservice.teamdataservice.TeamDataService;
 import po.HPlayerPO;
 import po.PlayerHighPO;
 import po.PlayerNormalPO;
+import po.PlayerPO;
 import po.TeamHighPO;
 import po.TeamNormalPO;
 import po.TeamPO;
@@ -106,26 +109,62 @@ public class TeamController implements Teamblservice{
 	}
 
 	@Override
-	public String[] getPlayers(int season, String team) {
-		// TODO Auto-generated method stub
-		return null;
+	//得到该队有史以来所有球员的名字
+	public String[] getPlayers(String team) {
+		PlayerPO[] players = playerservice.getPlayersOfTeam(team);
+		int length = players.length;
+		String[] playernames = new String[players.length];
+		for(int i = 0; i != length; i ++){
+			playernames[i] = players[i].getName();
+		}
+		return playernames;
 	}
 
 	@Override
+	//得到赛季所有球队的所有数据 低阶
 	public TeamNormalPO[] getAllTeamTotal(int season, SeasonType type) {
-		return null;
+		String[] teamNames = this.getTeamNames();
+		int length = teamNames.length;
+		ArrayList<TeamNormalPO> result = new ArrayList<TeamNormalPO>(length);
+		TeamNormalPO thisTeam;
+		for(int i = 0; i != length; i ++){
+			thisTeam = this.getTotalTeam(season, teamNames[i], type);
+			if(thisTeam != null){
+				result.add(thisTeam);
+			}
+		}
+		return (TeamNormalPO[])result.toArray();
 	}
 
 	@Override
+	//得到赛季所有球队的场均数据 低阶
 	public TeamNormalPO[] getAllTeamAve(int season, SeasonType type) {
-		// TODO Auto-generated method stub
-		return null;
+		String[] teamNames = this.getTeamNames();
+		int length = teamNames.length;
+		ArrayList<TeamNormalPO> result = new ArrayList<TeamNormalPO>(length);
+		TeamNormalPO thisTeam;
+		for(int i = 0; i != length; i ++){
+			thisTeam = this.getAveTeam(season, teamNames[i], type);
+			if(thisTeam != null){
+				result.add(thisTeam);
+			}
+		}
+		return (TeamNormalPO[])result.toArray();
 	}
 
 	@Override
 	public TeamHighPO[] getAllTeamHigh(int season, SeasonType type) {
-		// TODO Auto-generated method stub
-		return null;
+		String[] teamNames = this.getTeamNames();
+		int length = teamNames.length;
+		ArrayList<TeamHighPO> result = new ArrayList<TeamHighPO>(length);
+		TeamHighPO thisTeam;
+		for(int i = 0; i != length; i ++){
+			thisTeam = this.getHighTeam(season, teamNames[i], type);
+			if(thisTeam != null){
+				result.add(this.getHighTeam(season, teamNames[i], type));
+			}
+		}
+		return (TeamHighPO[])result.toArray();
 	}
 
 	@Override
@@ -151,23 +190,48 @@ public class TeamController implements Teamblservice{
 	//根据球队简称查找其下的球员的场均数据 低阶
 	public PlayerNormalPO[] getAllPlayerMatchAve(int season, String teamname,
 			SeasonType type) {
-		return null;
+		String[] playernames = this.getPlayers(teamname);
+		ArrayList<PlayerNormalPO> players = new ArrayList<PlayerNormalPO>(playernames.length);
+		PlayerNormalPO thisPlayer;
+		for(String p : playernames){
+			thisPlayer = playerservice.getPlayerNormalAve(season, p, type);
+			if(thisPlayer != null){
+				players.add(thisPlayer);
+			}
+		}
+		return (PlayerNormalPO[])players.toArray();
 	}
 
 	@Override
 	//根据球队简称查找其下的球员的赛季数据 低阶
 	public PlayerNormalPO[] getAllPlayerMatchTotal(int season, String teamname,
 			SeasonType type) {
-		// TODO Auto-generated method stub
-		return null;
+		String[] playernames = this.getPlayers(teamname);
+		ArrayList<PlayerNormalPO> players = new ArrayList<PlayerNormalPO>(playernames.length);
+		PlayerNormalPO thisPlayer;
+		for(String p : playernames){
+			thisPlayer = playerservice.getPlayerNormalTotal(season, p, type);
+			if(thisPlayer != null){
+				players.add(thisPlayer);
+			}
+		}
+		return (PlayerNormalPO[])players.toArray();
 	}
 
 	@Override
 	//根据球队简称查找其下球员的高阶赛季数据
 	public PlayerHighPO[] getAllPlayerHighMatch(int season, String teamname,
 			SeasonType type) {
-		// TODO Auto-generated method stub
-		return null;
+		String[] playernames = this.getPlayers(teamname);
+		ArrayList<PlayerHighPO> players = new ArrayList<PlayerHighPO>(playernames.length);
+		PlayerHighPO thisPlayer;
+		for(String p : playernames){
+			thisPlayer = playerservice.getPlayerHigh(season, p, type);
+			if(thisPlayer != null){
+				players.add(thisPlayer);
+			}
+		}
+		return (PlayerHighPO[])players.toArray();
 	}
 
 	@Override
