@@ -1,13 +1,10 @@
 package bl.playerbl;
 
 import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -57,7 +54,8 @@ public class PlayerController implements PlayerBlService{
 	}
 	//获得赛季热点球员
 	public synchronized HotPlayerTeam[] getSeasonHotPlayer(int season, String sortby, SeasonType type) {
-		PlayerNormalPO[] players = playerService.sortPlayerNormalAven(season, sortby, 5, type);
+		String sortBy = sortby + "desc";
+		PlayerNormalPO[] players = playerService.sortPlayerNormalAven(season, sortBy, 5, type);
 		HotPlayerTeam[] hotPlayers = new HotPlayerTeam[5];
 		double[] data = new double[5];
 		if(sortby.equals("score")){

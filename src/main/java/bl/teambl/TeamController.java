@@ -39,7 +39,8 @@ public class TeamController implements Teamblservice{
 	
 	@Override
 	public HotPlayerTeam[] getHotTeams(int season, String sortby, SeasonType type) {
-		TeamNormalPO[] teams = teamservice.sortTeamNormalTotaln(season, sortby, 5, type);
+		String sortBy = sortby + "desc";
+		TeamNormalPO[] teams = teamservice.sortTeamNormalTotaln(season, sortBy, 5, type);
 		HotPlayerTeam[] hotTeams = new HotPlayerTeam[5];
 		double[] data = new double[5];
 		
