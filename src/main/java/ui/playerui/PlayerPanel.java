@@ -25,6 +25,11 @@ import ui.mainui.MyTable;
 
 public class PlayerPanel extends JPanel {
 
+	
+	DefaultTableModel allPlayerTable = new DefaultTableModel();
+	MyTable myAllPlayerTable = new MyTable(allPlayerTable);
+	JScrollPane jAllPlayerScrollPane = new JScrollPane(myAllPlayerTable);
+
 	public PlayerPanel() {
 		this.setLayout(null);
 		this.setBounds(0, 0, FrameSize.width, FrameSize.height * 7 / 8);
@@ -32,10 +37,7 @@ public class PlayerPanel extends JPanel {
 		this.setOpaque(false);
 		JPanel headerPanel = HeaderPanel();
 		this.add(headerPanel);
-		JScrollPane jScrollPane = TablePanel(null);
-		if (jScrollPane != null) {
-			this.add(jScrollPane);
-		}
+		setAllPlayerTable(null);
 	}
 
 	/** 查找栏 */
@@ -81,7 +83,7 @@ public class PlayerPanel extends JPanel {
 	}
 
 	/** 显示查找到的球员的基本信息 */
-	private JScrollPane TablePanel(HPlayerPO[] playerVOs) {
+	private void setAllPlayerTable(HPlayerPO[] playerVOs) {
 		if (playerVOs != null) {
 			Vector columnsName = new Vector();
 			columnsName.add(" ");
@@ -112,12 +114,13 @@ public class PlayerPanel extends JPanel {
 
 				data.add(rowData);
 			}
-			DefaultTableModel table = new DefaultTableModel(data, columnsName);
-			MyTable myTable = new MyTable(table);
-			JScrollPane jScrollPane = new JScrollPane(myTable);
-			jScrollPane.setBounds(0, 60, FrameSize.width,
+			allPlayerTable = new DefaultTableModel(data, columnsName);
+			myAllPlayerTable = new MyTable(allPlayerTable);
+			jAllPlayerScrollPane = new JScrollPane(myAllPlayerTable);
+			jAllPlayerScrollPane.setBounds(0, 40, FrameSize.width,
 					FrameSize.width * 7 / 8 - 40);
-			return jScrollPane;
+			this.add(jAllPlayerScrollPane);
+			this.repaint();
 		}
 		else{
 			Vector columnsName = new Vector();
@@ -127,10 +130,11 @@ public class PlayerPanel extends JPanel {
 			columnsName.add("球队");
 			columnsName.add("位置");
 			columnsName.add("身高");
+			columnsName.add("体重");
 			columnsName.add("学校");
+			columnsName.add("城市");
 			columnsName.add("生日");
-			columnsName.add("年龄");
-			columnsName.add("球龄");
+			columnsName.add("球衣");
 
 			Vector data = new Vector();
 			for (int i = 0; i < 100; i++) {
@@ -139,23 +143,25 @@ public class PlayerPanel extends JPanel {
 				rowData.add("辣");
 				rowData.add("辣");
 				rowData.add("还");
-				rowData.add(" ");
 				rowData.add("没");
+				rowData.add("有");
 				rowData.add("给");
 				rowData.add("俺");
 				rowData.add("接");
 				rowData.add("口");
+				rowData.add("啊");
 
 				data.add(rowData);
 			}
-			DefaultTableModel table = new DefaultTableModel(data, columnsName);
-			MyTable myTable = new MyTable(table);
-			JScrollPane jScrollPane = new JScrollPane(myTable);
-			jScrollPane.setBounds(0, 40, FrameSize.width,
-					FrameSize.height* 7 / 8 - 40);
-			return jScrollPane;
+			allPlayerTable = new DefaultTableModel(data, columnsName);
+			myAllPlayerTable = new MyTable(allPlayerTable);
+			jAllPlayerScrollPane = new JScrollPane(myAllPlayerTable);
+			jAllPlayerScrollPane.setBounds(0, 40, FrameSize.width,
+					FrameSize.width * 7 / 8 - 40);
+			this.add(jAllPlayerScrollPane);
+			this.repaint();
 		}
-//		return null;
 
 	}
+
 }
