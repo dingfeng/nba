@@ -8,6 +8,7 @@ import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -20,10 +21,11 @@ import ui.mainui.CharacterButton;
 import ui.mainui.EditableTextField;
 import ui.mainui.FrameSize;
 import ui.mainui.MyComboBox;
+import ui.mainui.MyFrame;
 import ui.mainui.MyTable;
 
 
-public class PlayerPanel extends JPanel {
+public class ShowAllPlayerPanel extends JPanel {
 
 	
 	DefaultTableModel allPlayerTable = new DefaultTableModel();
@@ -32,15 +34,14 @@ public class PlayerPanel extends JPanel {
 
 	JPanel onePlayerPanel = new JPanel();
 	
-	public PlayerPanel() {
+	public ShowAllPlayerPanel() {
 		this.setLayout(null);
 		this.setBounds(0, 0, FrameSize.width, FrameSize.height * 7 / 8);
 		this.setBackground(FrameSize.backColor);
 		this.setOpaque(false);
 		JPanel headerPanel = HeaderPanel();
 		this.add(headerPanel);
-//		setAllPlayerTable(null);
-		setOnePlayerPanel();
+		setAllPlayerTable(null);
 	}
 
 	/** 查找栏 */
@@ -163,6 +164,18 @@ public class PlayerPanel extends JPanel {
 					FrameSize.width * 7 / 8 - 40);
 			this.add(jAllPlayerScrollPane);
 			this.repaint();
+			myAllPlayerTable.addMouseListener(new MouseAdapter(){
+				public void mouseClicked(MouseEvent e) {
+					if (e.getClickCount() == 2) {
+						try {
+							
+						} catch (NullPointerException e1) {
+						
+						}
+					}
+				}
+
+			});
 		}
 
 	}
