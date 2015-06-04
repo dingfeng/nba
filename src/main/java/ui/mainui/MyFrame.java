@@ -79,7 +79,7 @@ public class MyFrame extends JFrame {
 		mainpanel.setLayout(card);
 		mainpanel.add(indexpanel, "index");
 		mainpanel.add(playerpanel, "player");
-		mainpanel.add(showteampanel, "team");
+		mainpanel.add(teampanel, "team");
 		 mainpanel.add(matchpanel, "match");
 		 mainpanel.add(hotpanel, "hot");
 		mainpanel.add(statisticsPlayerPanel, "statisticsPlayer");
