@@ -26,6 +26,7 @@ import ui.IndexPanel;
 import ui.LivePanel;
 import ui.MatchPanel;
 import ui.playerui.ShowAllPlayerPanel;
+import ui.playerui.ShowOnePlayerPanel;
 import ui.statistics.StatisticsPlayerPanel;
 import ui.statistics.StatisticsTeamPanel;
 import ui.teamui.ShowAllTeamPanel;
@@ -52,7 +53,7 @@ public class MyFrame extends JFrame {
 	public static ShowAllTeamPanel showteampanel = new ShowAllTeamPanel();
 	public static IndexPanel indexpanel = new IndexPanel();
 	public static TeamPanel teampanel = new TeamPanel();
-	public static ShowAllPlayerPanel playerpanel = new ShowAllPlayerPanel();
+	public static ShowOnePlayerPanel playerpanel = new ShowOnePlayerPanel();
 	 public static HotPanel hotpanel = new HotPanel();
 	 public static MatchPanel matchpanel = new MatchPanel();
 	public static StatisticsPlayerPanel statisticsPlayerPanel = new StatisticsPlayerPanel();
