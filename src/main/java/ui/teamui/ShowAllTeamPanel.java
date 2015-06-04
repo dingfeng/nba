@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import dataservice.playerdataservice.SeasonType;
+import po.TeamNormalPO;
 import po.TeamPO;
 import ui.mainui.FrameSize;
 import vo.SortType;
@@ -18,7 +20,7 @@ import bl.teambl.TeamController;
 
 public class ShowAllTeamPanel extends JPanel {
 
-//	TeamController tc = new TeamController(2013);
+	TeamController tc = new TeamController();
 	JButton[] eastTeam = new JButton[15];
 	JButton[] westTeam = new JButton[15];
 	JPanel eastpanel = new JPanel();
@@ -27,10 +29,11 @@ public class ShowAllTeamPanel extends JPanel {
 	public ShowAllTeamPanel() {
 		this.setBackground(Color.white);
 		this.setLayout(null);
-		this.setBounds(0, 0, FrameSize.width, FrameSize.height * 7 / 8);
+		this.setBounds(0, 0, FrameSize.width/4, FrameSize.height * 3/ 8);
 		setText();
 		setEastTeam();
 		setWestTeam();
+		setTeam();
 		this.repaint();
 	}
 
@@ -114,8 +117,7 @@ public class ShowAllTeamPanel extends JPanel {
 
 	/** 加入信息 */
 	void setTeam() {
-		TeamMatchVO[] teammatch = tc.getSortedAveTeams(TeamSortBy.name,
-				SortType.ASEND);
+		TeamNormalPO[] teammatch = tc.getAllTeamTotal(2013, SeasonType.REGULAR);
 		int Southeast=0;
 		int Central=5;
 		int Atlantic=10;

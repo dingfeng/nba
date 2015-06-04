@@ -22,7 +22,7 @@ import ui.HotPanel;
 import ui.IndexPanel;
 import ui.LivePanel;
 import ui.MatchPanel;
-import ui.playerui.PlayerPanel;
+import ui.playerui.ShowAllPlayerPanel;
 import ui.statistics.StatisticsPlayerPanel;
 import ui.statistics.StatisticsTeamPanel;
 import ui.teamui.ShowAllTeamPanel;
@@ -47,7 +47,7 @@ public class MyFrame extends JFrame {
 	public static ShowAllTeamPanel showteampanel = new ShowAllTeamPanel();
 	public static IndexPanel indexpanel = new IndexPanel();
 	public static TeamPanel teampanel = new TeamPanel();
-	public static PlayerPanel playerpanel = new PlayerPanel();
+	public static ShowAllPlayerPanel playerpanel = new ShowAllPlayerPanel();
 	 public static HotPanel hotpanel = new HotPanel();
 	 public static MatchPanel matchpanel = new MatchPanel();
 	public static StatisticsPlayerPanel statisticsPlayerPanel = new StatisticsPlayerPanel();
@@ -79,7 +79,7 @@ public class MyFrame extends JFrame {
 		mainpanel.setLayout(card);
 		mainpanel.add(indexpanel, "index");
 		mainpanel.add(playerpanel, "player");
-		mainpanel.add(teampanel, "team");
+		mainpanel.add(showteampanel, "team");
 		 mainpanel.add(matchpanel, "match");
 		 mainpanel.add(hotpanel, "hot");
 		mainpanel.add(statisticsPlayerPanel, "statisticsPlayer");
@@ -135,6 +135,18 @@ public class MyFrame extends JFrame {
 		staticsbutton = new MyToggleButton(new ImageIcon("image/statics.png"),FrameSize.bluecolor,FrameSize.darkbluecolor);
 		livebutton=new MyToggleButton(new ImageIcon("image/live.png"),FrameSize.bluecolor,FrameSize.darkbluecolor);
 		
+		JPopupMenu teams = new JPopupMenu();
+		JMenuItem[] normal=new JMenuItem[30];
+		for(int i=0;i<30;i++){
+		normal[i] = new JMenuItem("基本数据");
+		teams.add(normal[i]);
+		}
+		teambutton.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				teams.show(e.getComponent(), 0, 50);
+			}
+
+		});
 		JPopupMenu staticstype = new JPopupMenu();
 		JMenuItem playeritem = new JMenuItem("球员数据");
 		playeritem.setFont(MyFont.font1);
