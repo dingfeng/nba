@@ -126,14 +126,25 @@ public class PlayerController implements PlayerBlService{
 				result.add(playerP);
 			}
 		}
-		return (HPlayerPO[])result.toArray();
+		return (HPlayerPO[])result.toArray(new HPlayerPO[result.size()]);
 	}
 	
 	
 	@Override
 	public Image getPlayerImage(String name) {
 		HPlayerPO playerP = playerService.findPlayer(name);
-		return playerP.getImage();
+		Image result = playerP.getImage();
+		if(result != null){
+			return result;
+		} else{
+			try {
+				return ImageIO.read(new File("image/noimage.png"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
 	}
 
 	@Override
@@ -354,13 +365,13 @@ public class PlayerController implements PlayerBlService{
 			StringBuffer playerData1PTS = new StringBuffer(len1);
 			StringBuffer playerData1REB = new StringBuffer(len1);
 			StringBuffer playerData1AST = new StringBuffer(len1);
-			StringBuffer playerData1STL = new StringBuffer(len1);
-			StringBuffer playerData1BLK = new StringBuffer(len1);
+			StringBuffer playerData1FT = new StringBuffer(len1);
+			StringBuffer playerData13PT = new StringBuffer(len1);
 			StringBuffer playerData2PTS = new StringBuffer(len2);
 			StringBuffer playerData2REB = new StringBuffer(len2);
 			StringBuffer playerData2AST = new StringBuffer(len2);
-			StringBuffer playerData2STL = new StringBuffer(len2);
-			StringBuffer playerData2BLK = new StringBuffer(len2);
+			StringBuffer playerData2FT = new StringBuffer(len2);
+			StringBuffer playerData23PT = new StringBuffer(len2);
 			boolean p1Lagerp2 = (player1Matches.length > player2Matches.length) ? true : false;
 			int loopNo = 0;
 			if(p1Lagerp2){
@@ -372,50 +383,50 @@ public class PlayerController implements PlayerBlService{
 				playerData1PTS.append(player1Matches[i].getPoints() + ",");
 				playerData1REB.append(player1Matches[i].getRebs() + ",");
 				playerData1AST.append(player1Matches[i].getHelp() + ",");
-				playerData1STL.append(player1Matches[i].getStealsNo() + ",");
-				playerData1BLK.append(player1Matches[i].getBlockNo() + ",");
+				playerData1FT.append(player1Matches[i].getPenaltyHandNo() == 0 ? 0 : (100 * player1Matches[i].getPenaltyHitNo()/player1Matches[i].getPenaltyHandNo()) + ",");
+				playerData13PT.append(player1Matches[i].getThreeHandNo() == 0 ? 0 : (100 * player1Matches[i].getThreeHitNo()/player1Matches[i].getThreeHandNo()) + ",");
 				playerData2PTS.append(player2Matches[i].getPoints() + ",");
 				playerData2REB.append(player2Matches[i].getRebs() + ",");
 				playerData2AST.append(player2Matches[i].getHelp() + ",");
-				playerData2STL.append(player2Matches[i].getStealsNo() + ",");
-				playerData2BLK.append(player2Matches[i].getBlockNo() + ",");
+				playerData2FT.append(player2Matches[i].getPenaltyHandNo() == 0 ? 0 : (100 * player2Matches[i].getPenaltyHitNo()/player2Matches[i].getPenaltyHandNo()) + ",");
+				playerData23PT.append(player2Matches[i].getThreeHandNo() == 0 ? 0 : (100 * player2Matches[i].getThreeHitNo()/player2Matches[i].getThreeHandNo()) + ",");
 			}
 			if(p1Lagerp2){
 				playerData2PTS.append(player2Matches[loopNo].getPoints());
 				playerData2REB.append(player2Matches[loopNo].getRebs());
 				playerData2AST.append(player2Matches[loopNo].getHelp());
-				playerData2STL.append(player2Matches[loopNo].getStealsNo());
-				playerData2BLK.append(player2Matches[loopNo].getBlockNo());
+				playerData2FT.append(player2Matches[loopNo].getPenaltyHandNo() == 0 ? 0 : (100 * player2Matches[loopNo].getPenaltyHitNo()/player2Matches[loopNo].getPenaltyHandNo()));
+				playerData23PT.append(player2Matches[loopNo].getThreeHandNo() == 0 ? 0 : (100 * player2Matches[loopNo].getThreeHitNo()/player2Matches[loopNo].getThreeHandNo()));
 				for(int i = loopNo; i != player1Matches.length - 1; i ++){
 					playerData1PTS.append(player1Matches[i].getPoints() + ",");
 					playerData1REB.append(player1Matches[i].getRebs() + ",");
 					playerData1AST.append(player1Matches[i].getHelp() + ",");
-					playerData1STL.append(player1Matches[i].getStealsNo() + ",");
-					playerData1BLK.append(player1Matches[i].getBlockNo() + ",");
+					playerData1FT.append(player1Matches[i].getPenaltyHandNo() == 0 ? 0 : (100 * player1Matches[i].getPenaltyHitNo()/player1Matches[i].getPenaltyHandNo()) + ",");
+					playerData13PT.append(player1Matches[i].getThreeHandNo() == 0 ? 0 : (100 * player1Matches[i].getThreeHitNo()/player1Matches[i].getThreeHandNo()) + ",");
 				}
 				playerData1PTS.append(player1Matches[player1Matches.length - 1].getPoints());
 				playerData1REB.append(player1Matches[player1Matches.length - 1].getRebs());
 				playerData1AST.append(player1Matches[player1Matches.length - 1].getHelp());
-				playerData1STL.append(player1Matches[player1Matches.length - 1].getStealsNo());
-				playerData1BLK.append(player1Matches[player1Matches.length - 1].getBlockNo());
+				playerData1FT.append(player1Matches[player1Matches.length - 1].getPenaltyHandNo() == 0 ? 0 : (100 * player1Matches[player1Matches.length - 1].getPenaltyHitNo()/player1Matches[player1Matches.length - 1].getPenaltyHandNo()));
+				playerData13PT.append(player1Matches[player1Matches.length - 1].getThreeHandNo() == 0 ? 0 : (100 * player1Matches[player1Matches.length - 1].getThreeHitNo()/player1Matches[player1Matches.length - 1].getThreeHandNo()));
 			} else{
 				playerData1PTS.append(player1Matches[loopNo].getPoints());
 				playerData1REB.append(player1Matches[loopNo].getRebs());
 				playerData1AST.append(player1Matches[loopNo].getHelp());
-				playerData1STL.append(player1Matches[loopNo].getStealsNo());
-				playerData1BLK.append(player1Matches[loopNo].getBlockNo());
+				playerData1FT.append(player1Matches[loopNo].getPenaltyHandNo() == 0 ? 0 : (100 * player1Matches[loopNo].getPenaltyHitNo()/player1Matches[loopNo].getPenaltyHandNo()));
+				playerData13PT.append(player1Matches[loopNo].getThreeHandNo() == 0 ? 0 : (100 * player1Matches[loopNo].getThreeHitNo()/player1Matches[loopNo].getThreeHandNo()));
 				for(int i = loopNo; i != player2Matches.length - 1; i ++){
 					playerData2PTS.append(player2Matches[i].getPoints() + ",");
 					playerData2REB.append(player2Matches[i].getRebs() + ",");
 					playerData2AST.append(player2Matches[i].getHelp() + ",");
-					playerData2STL.append(player2Matches[i].getStealsNo() + ",");
-					playerData2BLK.append(player2Matches[i].getBlockNo() + ",");
+					playerData2FT.append(player2Matches[i].getPenaltyHandNo() == 0 ? 0 : (100 * player2Matches[i].getPenaltyHitNo()/player2Matches[i].getPenaltyHandNo()) + ",");
+					playerData23PT.append(player2Matches[i].getThreeHandNo() == 0 ? 0 : (100 * player2Matches[i].getThreeHitNo()/player2Matches[i].getThreeHandNo()) + ",");
 				}
 				playerData2PTS.append(player2Matches[player2Matches.length - 1].getPoints());
 				playerData2REB.append(player2Matches[player2Matches.length - 1].getRebs());
 				playerData2AST.append(player2Matches[player2Matches.length - 1].getHelp());
-				playerData2STL.append(player2Matches[player2Matches.length - 1].getStealsNo());
-				playerData2BLK.append(player2Matches[player2Matches.length - 1].getBlockNo());
+				playerData2FT.append(player2Matches[player2Matches.length - 1].getPenaltyHandNo() == 0 ? 0 : (100 * player2Matches[player2Matches.length - 1].getPenaltyHitNo()/player2Matches[player2Matches.length - 1].getPenaltyHandNo()));
+				playerData23PT.append(player2Matches[player2Matches.length - 1].getThreeHandNo() == 0 ? 0 : (100 * player2Matches[player2Matches.length - 1].getThreeHitNo()/player2Matches[player2Matches.length - 1].getThreeHandNo()));
 			}
 			
 			//将数据写入文件
@@ -430,19 +441,19 @@ public class PlayerController implements PlayerBlService{
 						+ "\n" + playerData2STL.toString() + "\n" + playerData2BLK.toString();
 				*/
 				String data = name1 + "\n" + name2 + "\n" + playerData1PTS.toString() + "\n" + playerData1REB.toString() + "\n"
-						+ playerData1AST.toString() + "\n" + playerData1STL.toString() + "\n" + playerData1BLK.toString() + "\n"
+						+ playerData1AST.toString() + "\n" + playerData1FT.toString() + "\n" + playerData13PT.toString() + "\n"
 						+ playerData2PTS.toString() + "\n" + playerData2REB.toString() + "\n" +playerData2AST.toString() + "\n"
-						+ playerData2STL.toString() + "\n" + playerData2BLK.toString();
+						+ playerData2FT.toString() + "\n" + playerData23PT.toString();
 				output.write(data);
 				output.close();
-			Process pr = Runtime.getRuntime().exec("python python\\__init__.py");
-			
-			} catch (IOException e) {
+				Process pr = Runtime.getRuntime().exec("python python\\__init__.py");
+				pr.waitFor();
+				Image compare = ImageIO.read(new File(imageC));
+				return compare;
+			} catch (IOException | InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
 		}
 		return null;
 	}

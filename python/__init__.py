@@ -6,19 +6,19 @@ def getData():
     try:
          playername1 = file_object.readline()
          playername2 = file_object.readline()
-         AveStd = zeros((2,10));
+         AveStd = np.zeros((10,2));
          for i in range(10):
              line = file_object.readline()
              parts = line.split(',')
              dataSub = [float(P) for P in parts]
              dataNo = len(dataSub)
-             dataSubArray = numpy.array(dataSub)
+             dataSubArray = np.array(dataSub)
              sum1 = dataSubArray.sum()
              sum2 = (dataSubArray * dataSubArray).sum()
              mean = sum1/dataNo
              var = sum2/dataNo - mean ** 2
-             std = sqrt(var);
-             AveStd[i] = array([mean, std])
+             std = np.sqrt(var);
+             AveStd[i] = np.array([mean, std])
          for j in range(5):
              dataSub1Done = (AveStd[0][0], AveStd[1][0], AveStd[2][0], AveStd[3][0], AveStd[4][0])
              dataSub2Done = (AveStd[0][1], AveStd[1][1], AveStd[2][1], AveStd[3][1], AveStd[4][1])
@@ -40,16 +40,16 @@ if __name__ == '__main__':
     width = 0.35  # the width of the bars
  
     fig, ax = plt.subplots()
-    rects1 = ax.bar(ind, player1Means, width, color='b', yerr=player1Std, alpha = 0.4)
+    rects1 = ax.bar(ind, player1Means, width, color=(0.12568, 0.6549, 0.9019, 1), yerr=player1Std, alpha = 1)
  
     #womenMeans = (25, 32, 34, 20, 25)
     #womenStd = (3, 5, 2, 3, 3)
-    rects2 = ax.bar(ind + width, player2Means, width, color='y', yerr=player2Std, alpha = 0.4)
+    rects2 = ax.bar(ind + width, player2Means, width, color=(0.8078, 0.8078, 0.8078, 1), yerr=player2Std, alpha = 1)
  
     # add some
     ax.set_ylabel('Scores')
     ax.set_xticks(ind + width)
-    ax.set_xticklabels(('PTS', 'REB', 'AST', 'STL', 'BLK'))
+    ax.set_xticklabels(('PTS', 'REB', 'AST', 'FT%', '3PT%'))
  
     ax.legend((rects1[0], rects2[0]), (player1name, player2name))
  
@@ -62,5 +62,9 @@ def autolabel(rects):
  
 autolabel(rects1)
 autolabel(rects2)
- 
+
+plt.savefig("D:/compare.png", dpi=70, facecolor='w', edgecolor='w',
+        orientation='portrait', papertype=None, format=None,
+        transparent=True, bbox_inches=None, pad_inches=0.1,
+        frameon=None)
 plt.show()
