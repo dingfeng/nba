@@ -4,11 +4,12 @@ import matplotlib.pyplot as plt
 def getData():
     file_object = open("D:/dataToPC", 'r')
     try:
-         line = file_object.readline()
-         parts = line.split(',')
-         average = [float(P) for P in parts]
-         line = file_object.readline()
-         parts = line.split(',')
+         playername1 = file_object.readline()
+         playername2 = file_object.readline()
+         for i in range(10):
+             line = file_object.readline()
+             parts = line.split(',')
+         
          dataSub1 = [float(P) for P in parts]
          line = file_object.readline()
          parts = line.split(',')
@@ -16,10 +17,13 @@ def getData():
          line = file_object.readline()
          parts = line.split(',')
          dataSub3 = [float(P) for P in parts]
+         line = file_object.readline()
+         parts = line.split(',')
+         dataSub4 = [float(P) for P in parts]
     finally:
         file_object.close()
     
-    return average, dataSub1, dataSub2, dataSub3
+    return playername1, playername2, dataSub1Done, dataSub2Done, dataSub3Done, dataSub4Done
  
 if __name__ == '__main__':
     N = 5
