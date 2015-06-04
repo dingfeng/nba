@@ -13,19 +13,22 @@ import dataservice.matchdataservice.MatchDataService;
 
 public class MatchData implements MatchDataService{
 	   private Connection conn;
-	   private String sql_seasonMatches = "select * from matches where match_id > ? and match_id < ?";
+	   private String sql_seasonMatches = "select * from matches where match_id > ? and match_id < ? ";
+	   private String sql_seasonMatches_r = "select * from matches where match_id > ? and match_id < ? order by match_id desc limit ?,?";
 	   public MatchData(Connection conn)
 	   {
 		 this.conn = conn;
 	   }
 	   
-	   public MatchesPO[] getRegularSeasonMatches(int season) {
+	   public MatchesPO[] getRegularSeasonMatches(int season,int low,int high) {
 		   MatchesPO[] result  = null;
 		   try{
-		    PreparedStatement statement = conn.prepareStatement(sql_seasonMatches);
+		    PreparedStatement statement = conn.prepareStatement(sql_seasonMatches_r);
 		    int[] id_scope = getMatchIdScope(season);
 		    statement.setInt(1, id_scope[0]);
 		    statement.setInt(2, id_scope[1]);
+		    statement.setInt(3, low);
+		    statement.setInt(4, high);
 		    ResultSet results =  statement.executeQuery();
 		    ArrayList<MatchesPO> matchpos = new ArrayList<MatchesPO>(1300);
 		    String date = null;

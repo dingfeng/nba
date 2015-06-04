@@ -345,24 +345,88 @@ public class Live
                 .parse(new InputSource(new StringReader("<a>"+xml+"</a>")));   
         Element root = doc.getDocumentElement();   
         NodeList books = root.getChildNodes(); 
-        itrXml(books);
+        ArrayList<String> list = getDataArray(books);
 	}
 	
-	public static void itrXml(NodeList nodeList)
+	public static ArrayList<String> getDataArray(NodeList nodeList)
 	{
+		ArrayList<String> list = new ArrayList<String>();
+		itrXml(nodeList,null,list);
+		return list;
+	}
+	
+	public static CurrentTeam toCurrentTeam(ArrayList<String> list, int start ,int end)
+	{
+		String line = null;
+		ArrayList<CurrentPlayer> playerList = new ArrayList<CurrentPlayer>();
+		for (int i = start; i <end;++i)
+		{
+			line = list.get(i);
+			if (line.contains("替补"))
+			{
+				continue;
+			}
+			else if (line.contains("统计"))
+			{
+				break;
+			}
+			else 
+			{
+				String[] arrays = line.split(" ");
+				playerList.add(new CurrentPlayer(arrays));
+			}
+		
+		}
+		 CurrentPlayer[] firsts1 = new CurrentPlayer[5];
+		 CurrentPlayer[] benches1 = new CurrentPlayer[playerList.size()-5];
+		 for (int i = 0; i < 5; ++i)
+		 {
+			 firsts1[i] = playerList.get(i);
+		 }
+		 for (int j = 0; j < benches1.length;++j)
+		 {
+			 benches1[j] = playerList.get(j+5);
+		 }
+		 String[] primaryDatas = new String[12];
+		 String[] rateDatas = new String[3];
+		 
+		return null;
+	}
+	
+	public static void itrXml(NodeList nodeList,StringBuilder sb,ArrayList<String> list)
+	{
+		
 		for (int i = 0; i < nodeList.getLength(); i++)
 		{
 			Node node = nodeList.item(i);
 			if (node.hasChildNodes())
 			{
-				itrXml(node.getChildNodes());
+				String nodeName = node.getNodeName();
+				if (nodeName.equals("tr"))
+				{
+					sb = new StringBuilder();
+				}
+				itrXml(node.getChildNodes(),sb,list);
+				if (nodeName.equals("tr"))
+				{
+					
+					print (sb.toString());
+					list.add(sb.toString());
+				}
 			}
 			else 
 			{
-				print(node.getNodeName());
+				String s = node.getNodeValue();
+				if (s != null)
+				{
+			    s = s.replaceAll("\\s*", "");
+				if (!s.equals(""))
+				  sb.append(s+" ");
+				}
 			}
 		}
 	}
+	
 	
 	public static void main(String[] args) throws MalformedURLException, IOException, ScriptException
 	{
@@ -402,11 +466,48 @@ public class Live
 //		}
 		Iterator<String> result = WebTool.getWebCon("http://g.hupu.com/nba/daily/boxscore_150079.html");
 		StringBuilder sb = new StringBuilder();
+		int tableNum = 0;
+		boolean tableList = false;
+		boolean readable = false;
+		String tableListMet = "table_list_live";
+		String tableBegin = "<table>";
+		String tableEnd = "</table>";
+		String line = null;
 		while(result.hasNext())
 		{
-			sb.append(result.next());
+			line = result.next();
+			if (line.contains(tableListMet))
+			{
+				tableList = true;
+			}
+			if (tableList)
+			{
+				
+			  if (line.contains(tableBegin))
+			  {
+				  readable = true;
+				  tableNum += 1;
+			  }
+			  else if (line.contains(tableEnd))
+			  {
+				  line = line.replace("&nbsp", "");
+				  sb.append(line+"\n");
+				  readable = false;
+				  if (tableNum == 2)
+				  {
+					  break;
+				  }
+			  }
+			  if (readable)
+			  {
+				  line = line.replace("&nbsp", "");
+				  sb.append(line+"\n");
+			  }
+			}
+			
 		}
 		String xml = sb.toString();
+//		System.out.println(xml);
 		try {
 			parseDataXml(xml);
 		} catch (Exception e) {

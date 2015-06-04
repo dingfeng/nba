@@ -29,8 +29,8 @@ public class MatchDataTest {
 	
 	@Test
 	public void testGetRegularSeasonMatches() {
-		 MatchesPO[] matches = match.getRegularSeasonMatches(2012);
-//		 print(matches);
+		 MatchesPO[] matches = match.getRegularSeasonMatches(2012,1,10);
+		 print(matches);
 		 assertEquals(true,true);
 	}
 

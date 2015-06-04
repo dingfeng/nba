@@ -5,7 +5,7 @@ import java.util.Date;
 import po.MatchesPO;
 
 public interface MatchDataService {
-	public MatchesPO[] getRegularSeasonMatches(int season);
+	public MatchesPO[] getRegularSeasonMatches(int season,int low,int high);
 	public MatchesPO[] getRegularPlayerMatches(int season, String name);
 	public MatchesPO[] getRegularTeamMatches(int season, String teamName);
 	public MatchesPO[] getPlayerOffMatches(int season);
