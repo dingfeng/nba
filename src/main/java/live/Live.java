@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -16,9 +17,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 
 public class Live
@@ -44,6 +57,8 @@ public class Live
 	String disc2;
 	String win1;
 	String win2;
+	String matchId;
+	static ArrayList<String> list = new ArrayList<String>();
 	public Live()
 	{
 		Date date = new Date();
@@ -53,22 +68,26 @@ public class Live
 		int day = date.getDay();
 		String dateStr = String.valueOf(year)+"-"+String.valueOf(month)+"-"+String.valueOf(day);
 		url += dateStr;
+		url = "http://g.hupu.com/nba/2015-5-20";
+		dealWithIndex(url);
+		matchId = getMatchId(dataUrl);
+	}
+	private   String getMatchId(String u)
+	{
+		Pattern p = Pattern.compile("_(\\d+)\\.html");
+		Matcher m = p.matcher(u);
+		if (m.find())
+		{
+			return m.group(1);
+		}
+		return null;
 	}
 	public  CurrentMatch getCurrentMatch(String url1)
 	{
 		dealWithIndex(url1);
-		
-		
 		return null;
 	}
-	public void dealWithMesage()
-	{
-		
-	}
-	public void dealWithData()
-	{
-		
-	}
+	
 	
 	public  void dealWithIndex(String url0)
 	{
@@ -120,7 +139,7 @@ public class Live
 				if (line.contains("</td>"))
 				{
 					String temp = getPoint(line);
-					print(temp);
+
 					if (temp != null)
 					{
 					 if (team2 ==  null)
@@ -145,13 +164,16 @@ public class Live
 			p2[i] = list2.get(2);
 		}
 		try {
+			if (img1 == null)
 			img1 = ImageIO.read(new URL(imgUrl1));
+			if (img2 == null)
 			img2 = ImageIO.read(new URL(imgUrl2));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 	}
+	
 	
 	public static String getPoint(String line)
 	{
@@ -203,14 +225,106 @@ public class Live
 //		System.out.println(date.getMonth());
 //		System.out.println(date.getDay());
 //	}
-	public static void main(String[] args) throws MalformedURLException, IOException
+	private ArrayList<String> getMessagesArray()
 	{
-//		String s = "                        <td>顶</td>";
-//		print(getPoint(s));
-		new Live().dealWithIndex("http://g.hupu.com/nba/2015-5-21");
+		String messageUrl = null;
+		try {
+			messageUrl = getMessageUrl();
+		} catch (ScriptException e) {
+			e.printStackTrace();
+		}
+		if (messageUrl != null)
+		{
+			ArrayList<String> list = getMessages(messageUrl);
+			return list;
+		}
+		else 
+		{
+			return null;
+		}
 	}
 	
-	public static Image toImage(String url1) throws Exception
+	public ArrayList<String> getNewMessages()
+	{
+		ArrayList<String> newList =  getMessagesArray();
+		ArrayList<String> result = new ArrayList<String>();
+		int margin = newList.size() - list.size();
+		for (int i =0; i < margin; ++i )
+		{
+			result.add(newList.get(i));
+		}
+		list = newList;
+		return result;
+	} 
+	
+	public ArrayList<String> getAllMessages()
+	{
+		return list;
+	}
+	private String getMessageUrl() throws ScriptException
+	{
+		ScriptEngineManager manager = new ScriptEngineManager();   
+		ScriptEngine engine = manager.getEngineByName("javascript"); 
+		String teamCode1 = (String) engine.eval("encodeURIComponent(\""+team1+"\")");
+		String teamCode2 = (String)engine.eval("encodeURIComponent(\""+team2+"\")");
+//		"http://g.hupu.com/node/playbyplay/matchLives?sid=-1&s_count=1&match_id=150105&homeTeamName=%E8%80%81%E9%B9%B0&awayTeamName=%E9%AA%91%E5%A3%AB"
+		String result = "http://g.hupu.com/node/playbyplay/matchLives?sid=-1&s_count=1&match_id="+matchId+"&homeTeamName="+teamCode1+"&awayTeamName="+teamCode2;
+		return result;
+	}
+	private  ArrayList<String> getMessages(String url)
+	{
+		Iterator<String> result = WebTool.getWebCon(url);
+		String xml = null;
+		ArrayList<String> list = new ArrayList<String>();
+		while (result.hasNext())
+			
+		{
+			xml = result.next();
+		}
+		try
+		{
+			DocumentBuilderFactory factory = DocumentBuilderFactory   
+                    .newInstance();   
+            DocumentBuilder builder = factory.newDocumentBuilder();   
+            org.w3c.dom.Document doc = builder   
+                    .parse(new InputSource(new StringReader("<a>"+xml+"</a>")));   
+            Element root = doc.getDocumentElement();   
+            NodeList books = root.getChildNodes(); 
+            showNode(books,null,list);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public static  void showNode(NodeList list,StringBuilder sb,ArrayList<String> messages1)
+	{
+		for (int i = 0; i < list.getLength();i++)
+		{
+			Node book = list.item(i);
+			if (book.hasChildNodes())
+			{
+				if (book.getNodeName().equals("tr"))
+					{
+					sb = new StringBuilder();
+					}
+				showNode(book.getChildNodes(),sb,messages1);
+				if (book.getNodeName().equals("tr"))
+				{
+				messages1.add(sb.toString());
+				}
+			}
+			else
+			{
+				sb.append(book.getNodeValue()+" ");
+			}
+		}
+		
+	}
+	
+	private Image toImage(String url1) throws Exception
 	{
 		URL r = new URL(url1);
 		return ImageIO.read(r);
@@ -219,5 +333,85 @@ public class Live
 	public static void print(String line) 
 	{
 		System.out.println(line);
+	}
+	
+	
+	public static void parseDataXml(String xml) throws Exception
+	{
+		DocumentBuilderFactory factory = DocumentBuilderFactory   
+                .newInstance();   
+        DocumentBuilder builder = factory.newDocumentBuilder();   
+        org.w3c.dom.Document doc = builder   
+                .parse(new InputSource(new StringReader("<a>"+xml+"</a>")));   
+        Element root = doc.getDocumentElement();   
+        NodeList books = root.getChildNodes(); 
+        itrXml(books);
+	}
+	
+	public static void itrXml(NodeList nodeList)
+	{
+		for (int i = 0; i < nodeList.getLength(); i++)
+		{
+			Node node = nodeList.item(i);
+			if (node.hasChildNodes())
+			{
+				itrXml(node.getChildNodes());
+			}
+			else 
+			{
+				print(node.getNodeName());
+			}
+		}
+	}
+	
+	public static void main(String[] args) throws MalformedURLException, IOException, ScriptException
+	{
+//		String s = "                        <td>顶</td>";
+//		print(getPoint(s));
+//		new Live().dealWithIndex("http://g.hupu.com/nba/2015-5-21");
+//		ScriptEngineManager manager = new ScriptEngineManager();   
+//		ScriptEngine engine = manager.getEngineByName("javascript"); 
+//		String encodedStr = (String) engine.eval("encodeURIComponent(\"骑士\")");
+//		System.out.println(encodedStr);
+//		Iterator<String> result = WebTool.getWebCon("http://g.hupu.com/node/playbyplay/matchLives?sid=-1&s_count=1&match_id=150105&homeTeamName=%E8%80%81%E9%B9%B0&awayTeamName=%E9%AA%91%E5%A3%AB");
+//		String xml = null;
+//		while (result.hasNext())
+//		{
+//			xml = result.next();
+//		}
+//		try
+//		{
+//			DocumentBuilderFactory factory = DocumentBuilderFactory   
+//                    .newInstance();   
+//            DocumentBuilder builder = factory.newDocumentBuilder();   
+//            org.w3c.dom.Document doc = builder   
+//                    .parse(new InputSource(new StringReader("<a>"+xml+"</a>")));   
+//            System.out.println(xml);
+//            Element root = doc.getDocumentElement();   
+//            NodeList books = root.getChildNodes(); 
+//		}
+//		catch(Exception e)
+//		{
+//			e.printStackTrace();
+//		}
+//		Live live = new Live();
+//		ArrayList<String> ms = live.getNewMessages();
+//		for (int i = 0; i < ms.size(); i++)
+//		{
+//			System.out.println(ms.get(i));
+//		}
+		Iterator<String> result = WebTool.getWebCon("http://g.hupu.com/nba/daily/boxscore_150079.html");
+		StringBuilder sb = new StringBuilder();
+		while(result.hasNext())
+		{
+			sb.append(result.next());
+		}
+		String xml = sb.toString();
+		try {
+			parseDataXml(xml);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
