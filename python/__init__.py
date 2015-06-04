@@ -6,20 +6,24 @@ def getData():
     try:
          playername1 = file_object.readline()
          playername2 = file_object.readline()
+         AveStd = zeros((2,10));
          for i in range(10):
              line = file_object.readline()
              parts = line.split(',')
-         
-         dataSub1 = [float(P) for P in parts]
-         line = file_object.readline()
-         parts = line.split(',')
-         dataSub2 = [float(P) for P in parts]
-         line = file_object.readline()
-         parts = line.split(',')
-         dataSub3 = [float(P) for P in parts]
-         line = file_object.readline()
-         parts = line.split(',')
-         dataSub4 = [float(P) for P in parts]
+             dataSub = [float(P) for P in parts]
+             dataNo = len(dataSub)
+             dataSubArray = numpy.array(dataSub)
+             sum1 = dataSubArray.sum()
+             sum2 = (dataSubArray * dataSubArray).sum()
+             mean = sum1/dataNo
+             var = sum2/dataNo - mean ** 2
+             std = sqrt(var);
+             AveStd[i] = array([mean, std])
+         for j in range(5):
+             dataSub1Done = (AveStd[0][0], AveStd[1][0], AveStd[2][0], AveStd[3][0], AveStd[4][0])
+             dataSub2Done = (AveStd[0][1], AveStd[1][1], AveStd[2][1], AveStd[3][1], AveStd[4][1])
+             dataSub3Done = (AveStd[5][0], AveStd[6][0], AveStd[7][0], AveStd[8][0], AveStd[9][0])
+             dataSub4Done = (AveStd[5][1], AveStd[6][1], AveStd[7][1], AveStd[8][1], AveStd[9][1])
     finally:
         file_object.close()
     
@@ -27,27 +31,27 @@ def getData():
  
 if __name__ == '__main__':
     N = 5
-    menMeans = (20, 35, 30, 35, 27)
-    menStd = (2, 3, 4, 1, 2)
+    #menMeans = (20, 35, 30, 35, 27)
+    #menStd = (2, 3, 4, 1, 2)
     #menMeans, menStd, womenMeans, womenStd = getData()
+    player1name, player2name, player1Means, player1Std, player2Means, player2Std = getData()
  
     ind = np.arange(N)  # the x locations for the groups
     width = 0.35  # the width of the bars
  
     fig, ax = plt.subplots()
-    rects1 = ax.bar(ind, menMeans, width, color='b', yerr=menStd, alpha = 0.4)
+    rects1 = ax.bar(ind, player1Means, width, color='b', yerr=player1Std, alpha = 0.4)
  
-    womenMeans = (25, 32, 34, 20, 25)
-    womenStd = (3, 5, 2, 3, 3)
-    rects2 = ax.bar(ind + width, womenMeans, width, color='y', yerr=womenStd, alpha = 0.4)
+    #womenMeans = (25, 32, 34, 20, 25)
+    #womenStd = (3, 5, 2, 3, 3)
+    rects2 = ax.bar(ind + width, player2Means, width, color='y', yerr=player2Std, alpha = 0.4)
  
     # add some
     ax.set_ylabel('Scores')
-    ax.set_title('Scores by group and gender')
     ax.set_xticks(ind + width)
-    ax.set_xticklabels(('G1', 'G2', 'G3', 'G4', 'G5'))
+    ax.set_xticklabels(('PTS', 'REB', 'AST', 'STL', 'BLK'))
  
-    ax.legend((rects1[0], rects2[0]), ('Men', 'Women'))
+    ax.legend((rects1[0], rects2[0]), (player1name, player2name))
  
 def autolabel(rects):
     # attach some text labels

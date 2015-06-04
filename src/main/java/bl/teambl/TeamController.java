@@ -104,7 +104,7 @@ public class TeamController implements Teamblservice{
 		TeamPO[] allTeams = teamservice.getAllTeamData();
 		String[] names = new String[allTeams.length];
 		for(int i = 0; i != allTeams.length; i ++){
-			names[i] = allTeams[i].getName();
+			names[i] = allTeams[i].getNameAbridge();
 		}
 		return names;
 	}
@@ -134,7 +134,8 @@ public class TeamController implements Teamblservice{
 				result.add(thisTeam);
 			}
 		}
-		return (TeamNormalPO[])result.toArray();
+		TeamNormalPO[] resultR = (TeamNormalPO[]) result.toArray(new TeamNormalPO[result.size()]);
+		return resultR;
 	}
 
 	@Override
@@ -172,7 +173,8 @@ public class TeamController implements Teamblservice{
 	//根据球队简称查找赛季数据 低阶
 	public TeamNormalPO getTotalTeam(int season, String teamname,
 			SeasonType type) {
-		return teamservice.getTeamNormalTotal(season, teamname, type);
+		TeamNormalPO result = teamservice.getTeamNormalTotal(season, teamname, type);
+		return result;
 	}
 
 	@Override
