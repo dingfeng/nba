@@ -9,7 +9,6 @@ public interface Matchblservice
 {
     public MatchesPO[] getTodayMatches();
     public MatchesPO[] getPlayerOffMatches(int season);
-	public MatchesPO[] getAllMatches(int season);
 	public MatchesPO[] getRegularPlayerMatches(int season, String playername);
 	public MatchesPO[] getPlayerOffPlayerMatches(int season, String playername);
 	public MatchesPO[] getRegularTeamMatches(int season, String teamname);

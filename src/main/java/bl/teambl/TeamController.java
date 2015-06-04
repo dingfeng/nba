@@ -151,7 +151,7 @@ public class TeamController implements Teamblservice{
 				result.add(thisTeam);
 			}
 		}
-		return (TeamNormalPO[])result.toArray();
+		return (TeamNormalPO[])result.toArray(new TeamNormalPO[result.size()]);
 	}
 
 	@Override
@@ -166,7 +166,7 @@ public class TeamController implements Teamblservice{
 				result.add(this.getHighTeam(season, teamNames[i], type));
 			}
 		}
-		return (TeamHighPO[])result.toArray();
+		return (TeamHighPO[])result.toArray(new TeamHighPO[result.size()]);
 	}
 
 	@Override
@@ -202,7 +202,7 @@ public class TeamController implements Teamblservice{
 				players.add(thisPlayer);
 			}
 		}
-		return (PlayerNormalPO[])players.toArray();
+		return (PlayerNormalPO[])players.toArray(new PlayerNormalPO[players.size()]);
 	}
 
 	@Override
@@ -218,7 +218,7 @@ public class TeamController implements Teamblservice{
 				players.add(thisPlayer);
 			}
 		}
-		return (PlayerNormalPO[])players.toArray();
+		return (PlayerNormalPO[])players.toArray(new PlayerNormalPO[players.size()]);
 	}
 
 	@Override
@@ -234,7 +234,7 @@ public class TeamController implements Teamblservice{
 				players.add(thisPlayer);
 			}
 		}
-		return (PlayerHighPO[])players.toArray();
+		return (PlayerHighPO[])players.toArray(new PlayerHighPO[players.size()]);
 	}
 
 	@Override

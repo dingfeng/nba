@@ -26,11 +26,6 @@ public class MatchController implements Matchblservice {
 	public synchronized MatchesPO[] getTodayMatches() {
 		return null;
 	}
-
-	// 获得当前赛季所有的比赛数据
-	public synchronized MatchesPO[] getAllMatches(int season) {
-		return matchservice.getRegularSeasonMatches(season);
-	}
 	
 	//获得当前赛季所有的赛后季比赛数据
 	public synchronized MatchesPO[] getPlayerOffMatches(int season){
