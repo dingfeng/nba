@@ -12,6 +12,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import dataservice.playerdataservice.SeasonType;
+import bl.teambl.TeamController;
+import blservice.teamblservice.Teamblservice;
+import po.TeamHighPO;
+import po.TeamNormalPO;
 import ui.mainui.FrameSize;
 import ui.mainui.MyComboBox;
 import ui.mainui.MyTable;
@@ -26,7 +31,9 @@ public class StatisticsTeamPanel extends JPanel {
 	DefaultTableModel table = new DefaultTableModel(rowimage, columnsName);
 	MyTable mytable = new MyTable(table);
 	JScrollPane jScrollPane=new JScrollPane(mytable);
+	MyComboBox aveOrAll = new MyComboBox(new String[] { "场均", "总数" });
 	
+	Teamblservice tc=new TeamController();
 	public StatisticsTeamPanel() {
 		this.setLayout(null);
 		this.setBounds(0, 0, FrameSize.width, FrameSize.height * 7 / 8);
@@ -55,12 +62,12 @@ public class StatisticsTeamPanel extends JPanel {
 		headerPanel.add(season);
 		
 		// 场均or总数
-		MyComboBox aveOrAll = new MyComboBox(new String[] { "场均", "总数" });
+		
 		aveOrAll.setBounds(600, 5, 150, 30);
 		headerPanel.add(aveOrAll);
 
 		// 低阶or高阶
-		MyComboBox lowOrHigh = new MyComboBox(new String[] { "低阶", "高阶" });
+		MyComboBox lowOrHigh = new MyComboBox(new String[] { "基本", "高阶" });
 		lowOrHigh.setBounds(750, 5, 150, 30);
 		lowOrHigh.addActionListener(e->setLowOrHigh((String)lowOrHigh.getSelectedItem()));
 		headerPanel.add(lowOrHigh);
@@ -72,9 +79,10 @@ public class StatisticsTeamPanel extends JPanel {
 	void setLowTable(){
 		columnsName.removeAllElements();
 		
-		columnsName.add("排名");
+//		columnsName.add("排名");
 		columnsName.add("球队");
 		columnsName.add("得分");
+		columnsName.add("胜率(%)");
 		columnsName.add("篮板");
 		columnsName.add("助攻");
 		columnsName.add("盖帽");
@@ -90,25 +98,41 @@ public class StatisticsTeamPanel extends JPanel {
 //		columnsName.add("比赛场数");
 		
 		rowimage.clear();
+		TeamNormalPO[] team=new TeamNormalPO[30];
+		if(aveOrAll.getSelectedItem().toString().equals("总数")){
+		team=tc.getAllTeamTotal(2013, SeasonType.REGULAR);
+		}else{
+		team=tc.getAllTeamAve(2013, SeasonType.REGULAR);
+		}
 		for (int i = 0; i <30; i++) {
-	
+			TeamNormalPO str = team[i];
 			Vector data = new Vector();
-			data.add(i+1);
-			data.add("球队");
-			data.add("球队");
-			data.add("得分");
-			data.add("篮板");
-			data.add("助攻");
-			data.add("盖帽");
-			data.add("抢断");
-			data.add("犯规");
-			data.add("失误");
-			data.add("投篮命中率");
-			data.add("三分命中率");
-			data.add("罚球命中率");
-			data.add("进攻篮板数");
-			data.add("防守篮板数");
-			data.add("篮板数");
+			data.add(str.getName());
+			data.add(FrameSize.roundForNumber(str.getPoints(), 1));
+			data.add(FrameSize.roundForNumber(str.getWinRate() * 100, 1));
+//			data.add(str.getMatchNo());
+			data.add(FrameSize.roundForNumber(str.getHitNo(), 1));
+			data.add(FrameSize.roundForNumber(str.getRebs(), 1));
+			data.add(FrameSize.roundForNumber(str.getAssistNo(), 1));
+			data.add(FrameSize.roundForNumber(str.getBlockNo(), 1));
+			data.add(FrameSize.roundForNumber(str.getStealsNo(), 1));
+			data.add(FrameSize.roundForNumber(str.getFoulsNo(), 1));
+			data.add(FrameSize.roundForNumber(str.getMistakesNo(), 1));
+			data.add(FrameSize.roundForNumber(str.getThreeHitRate() * 100, 1));
+			data.add(FrameSize.roundForNumber(str.getPenaltyHitRate() * 100, 1));
+			data.add(FrameSize.roundForNumber(str.getOffenseRebs(), 1));
+			data.add(FrameSize.roundForNumber(str.getDefenceRebs(), 1));
+			data.add(FrameSize.roundForNumber(str.getHitRate() * 100, 1));
+			
+			
+//			data.add(FrameSize.roundForNumber(str.getHandNo(), 1));
+//			data.add(FrameSize.roundForNumber(str.getThreeHitNo(), 1));
+//			data.add(FrameSize.roundForNumber(str.getThreeHandNo(), 1));
+//			data.add(FrameSize.roundForNumber(str.getPenaltyHitNo(), 1));
+//			data.add(FrameSize.roundForNumber(str.getPenaltyHandNo(), 1));
+			
+			
+			
 			rowimage.add(data);
 		}
 		table.setDataVector(rowimage, columnsName);
@@ -134,7 +158,7 @@ public class StatisticsTeamPanel extends JPanel {
 	                return 0;  
 	            }  
 	        };  
-	        for (int col = 0; col < mytable.getColumnCount(); col++) {  
+	        for (int col = 1; col < mytable.getColumnCount(); col++) {  
 	            rowSorter.setComparator(col, numberComparator);  
 	        }  
 		
@@ -153,9 +177,9 @@ public class StatisticsTeamPanel extends JPanel {
 	//高阶数据
 	void setHighTable(){
 		columnsName.removeAllElements();
-		columnsName.add("排名");
+//		columnsName.add("排名");
 		columnsName.add("球队");
-		columnsName.add("胜率(%)");
+		
 		columnsName.add("进攻回合");
 		columnsName.add("进攻效率");
 		columnsName.add("防守效率");
@@ -165,19 +189,18 @@ public class StatisticsTeamPanel extends JPanel {
 		columnsName.add("助攻效率");
 		
 		rowimage.clear();
+		TeamHighPO[] team=tc.getAllTeamHigh(2013, SeasonType.REGULAR);
 		for (int i = 0; i <30; i++) {
-	
+			TeamHighPO str=team[i];
 			Vector data = new Vector();
-			data.add(i+1);
-			data.add("球队");
-			data.add("胜率(%)");
-			data.add("进攻回合");
-			data.add("进攻效率");
-			data.add("防守效率");
-			data.add("进攻篮板效率");
-			data.add("防守篮板效率");
-			data.add("抢断效率");
-			data.add("助攻率");
+			data.add(str.getName());
+			data.add(FrameSize.roundForNumber(str.getOffenseRound(), 1));
+			data.add(FrameSize.roundForNumber(str.getOffenseEfficiency(), 1));
+			data.add(FrameSize.roundForNumber(str.getDefenceEfficiency(), 1));
+			data.add(FrameSize.roundForNumber(str.getOrebsEfficiency(), 1));
+			data.add(FrameSize.roundForNumber(str.getDrebsEfficiency(), 1));
+			data.add(FrameSize.roundForNumber(str.getStealsEfficiency(), 1));
+			data.add(FrameSize.roundForNumber(str.getAssistEfficiency(), 1));
 			rowimage.add(data);
 		}
 		table.setDataVector(rowimage, columnsName);
@@ -204,7 +227,7 @@ public class StatisticsTeamPanel extends JPanel {
 	                return 0;  
 	            }  
 	        };  
-	        for (int col = 0; col < mytable.getColumnCount(); col++) {  
+	        for (int col = 1; col < mytable.getColumnCount(); col++) {  
 	            rowSorter.setComparator(col, numberComparator);  
 	        }  
 		

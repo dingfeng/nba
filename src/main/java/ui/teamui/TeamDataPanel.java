@@ -30,7 +30,6 @@ public class TeamDataPanel extends JPanel{
 		this.setBackground(Color.white);
 		setText();
 		setMessage();
-		TeamMessage(null);
 		this.repaint();
 	}
 	public void setText(){
@@ -47,14 +46,16 @@ public class TeamDataPanel extends JPanel{
 	}
 	
 	void showall(){
+		alldata.setSelected(true);
 		avedata.setSelected(false);
 		showData();
 	}
 	void showave(){
+		avedata.setSelected(true);
 		alldata.setSelected(false);
 		showData();
 	}
-	void showData(){
+	public void showData(){
 		if(alldata.isSelected()){
 			System.out.println("all");
 		}else if(avedata.isSelected()){
@@ -80,8 +81,14 @@ public class TeamDataPanel extends JPanel{
 	}
 
 	/** 一个球队信息（右侧） */
-	public void TeamMessage(String  teamname) {
-
+	public void TeamMessage(String teamname) {
+		TeamHighPO high=tc.getHighTeam(2013, teamname,SeasonType.REGULAR);;
+		TeamNormalPO str=null;
+//		if(alldata.isSelected()){
+			 str=tc.getTotalTeam(2013, teamname,SeasonType.REGULAR);
+//		}else if(avedata.isSelected()){
+//			str=tc.getAveTeam(2013, teamname,SeasonType.REGULAR);
+//		}
 		teamlabel[0].setText("比赛场数");
 		teamlabel[2].setText("比赛得分");
 		teamlabel[4].setText("胜率(%)");
@@ -109,7 +116,7 @@ public class TeamDataPanel extends JPanel{
 		teamlabel[48].setText("防守篮板效率");
 		teamlabel[50].setText("抢断效率");
 		teamlabel[52].setText("助攻率");
-		TeamNormalPO str=tc.getTotalTeam(2013, teamname,SeasonType.REGULAR);
+		
 		teamlabel[1].setText(str.getMatchNo() + "");
 		teamlabel[3].setText(String.format("%.1f", str.getPoints()));
 		teamlabel[5].setText(String.format("%.1f", str.getWinRate() * 100));
@@ -132,7 +139,7 @@ public class TeamDataPanel extends JPanel{
 		teamlabel[35].setText(String.format("%.1f", str.getBlockNo()));
 		teamlabel[37].setText(String.format("%.1f", str.getMistakesNo()));
 		teamlabel[39].setText(String.format("%.1f", str.getFoulsNo()));
-		TeamHighPO high=tc.getHighTeam(2013, teamname,SeasonType.REGULAR);
+		
 		teamlabel[41].setText(String.format("%.1f", high.getOffenseRound()));
 		teamlabel[43]
 				.setText(String.format("%.1f", high.getOffenseEfficiency()));

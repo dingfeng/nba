@@ -71,7 +71,7 @@ public class TeamPanel extends JPanel {
 	public static PastMatchPanel pastmatchpanel = new PastMatchPanel();
 	public static RecentMatchPanel recentmatchpanel = new RecentMatchPanel("");
 	public static TeamContrastPanel teamcontrastpanel = new TeamContrastPanel();
-//	public static TeamDataPanel teamdatapanel = new TeamDataPanel();
+	public static TeamDataPanel teamdatapanel = new TeamDataPanel();
 
 	MyToggleButton databutton;
 	MyToggleButton recentbutton;
@@ -97,7 +97,7 @@ public class TeamPanel extends JPanel {
 		teammain.setBounds(0, FrameSize.height / 4 + 50, FrameSize.width,
 				FrameSize.height * 3 / 4 - 50);
 		teammain.setLayout(card);
-//		teammain.add("data", teamdatapanel);
+		teammain.add("data", teamdatapanel);
 		teammain.add("past", pastmatchpanel);
 		teammain.add("recent", recentmatchpanel);
 		teammain.add("contrast", teamcontrastpanel);
@@ -399,7 +399,7 @@ public class TeamPanel extends JPanel {
 
 	void setTeamdata() {
 		card.show(teammain, "data");
-//		teamdatapanel.TeamMessage(nameAbridgeresult.getText());
+		teamdatapanel.TeamMessage(nameAbridgeresult.getText());
 		databutton.setSelected(true);
 		recentbutton.setSelected(false);
 		pastbutton.setSelected(false);
