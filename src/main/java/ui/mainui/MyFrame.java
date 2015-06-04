@@ -3,6 +3,7 @@ package ui.mainui;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
@@ -17,6 +18,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
+import po.TeamNormalPO;
+import po.TeamPO;
 import ui.HelpUtil;
 import ui.HotPanel;
 import ui.IndexPanel;
@@ -27,6 +30,8 @@ import ui.statistics.StatisticsPlayerPanel;
 import ui.statistics.StatisticsTeamPanel;
 import ui.teamui.ShowAllTeamPanel;
 import ui.teamui.TeamPanel;
+import bl.teambl.TeamController;
+import dataservice.playerdataservice.SeasonType;
 //import bl.matchbl.MatchController;
 //import bl.matchbl.MatchController;
 
@@ -54,6 +59,7 @@ public class MyFrame extends JFrame {
 	public static StatisticsTeamPanel statisticsTeamPanel = new StatisticsTeamPanel();
 	public static LivePanel livepanel=new LivePanel();
 
+	TeamController tc=new TeamController();
 	// MatchController mc = new MatchController();
 
 	public MyFrame() {
@@ -91,6 +97,7 @@ public class MyFrame extends JFrame {
 		setMini();
 		setTitle();
 		setHeadButton();
+		setTeambutton();
 		int screenWidth = (int) Toolkit.getDefaultToolkit().getScreenSize()
 				.getWidth();
 		int screenHeight = (int) Toolkit.getDefaultToolkit().getScreenSize()
@@ -124,6 +131,7 @@ public class MyFrame extends JFrame {
 	MyToggleButton helpbutton;
 	MyToggleButton staticsbutton;
 	MyToggleButton livebutton;
+	JPopupMenu teams = new JPopupMenu();
 	void setHeadButton() {
 
 		index = new MyToggleButton(new ImageIcon("image/index.png"),FrameSize.bluecolor,FrameSize.darkbluecolor);
@@ -135,12 +143,7 @@ public class MyFrame extends JFrame {
 		staticsbutton = new MyToggleButton(new ImageIcon("image/statics.png"),FrameSize.bluecolor,FrameSize.darkbluecolor);
 		livebutton=new MyToggleButton(new ImageIcon("image/live.png"),FrameSize.bluecolor,FrameSize.darkbluecolor);
 		
-		JPopupMenu teams = new JPopupMenu();
-		JMenuItem[] normal=new JMenuItem[30];
-		for(int i=0;i<30;i++){
-		normal[i] = new JMenuItem("基本数据");
-		teams.add(normal[i]);
-		}
+		
 		teambutton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				teams.show(e.getComponent(), 0, 50);
@@ -215,7 +218,70 @@ public class MyFrame extends JFrame {
 		frame.add(staticsbutton);
 	}
 
+	void setTeambutton() {
 
+		
+		teams.setLayout(new GridLayout(15,2));
+		JMenuItem[] normal=new JMenuItem[30];
+		for(int i=0;i<30;i++){
+		normal[i] = new JMenuItem();
+		normal[i].setBackground(Color.white);
+		normal[i].addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				teampanel.showOne(((JMenuItem)e.getSource()).getText());
+				card.show(mainpanel, "team");
+			}
+		});
+		teams.add(normal[i]);
+		}
+		TeamNormalPO[] teammatch = tc.getAllTeamTotal(2013, SeasonType.REGULAR);
+		int Southeast=0;
+		int Central=5;
+		int Atlantic=10;
+		int Pacific=15;
+		int Northwest=20;
+		int Southwest=25;
+		for (int i = 0; i < teammatch.length; i++) {
+			TeamPO team = tc.getTeamData(teammatch[i].getName());
+			String playerArea = team.getPlayerArea();
+			
+			switch (playerArea) {
+			case "Southeast":
+				normal[Southeast].setText(team.getName());
+				normal[Southeast].setIcon(FrameSize.scaleImage(new ImageIcon(team.getImage()),40,40));
+				Southeast++;
+				break;
+
+			case "Central":
+				normal[Central].setText(team.getName());
+				normal[Central].setIcon(FrameSize.scaleImage(new ImageIcon(team.getImage()),40,40));
+				Central++;
+				break;
+			case "Atlantic":
+				normal[Atlantic].setText(team.getName());
+				normal[Atlantic].setIcon(FrameSize.scaleImage(new ImageIcon(team.getImage()),40,40));
+				Atlantic++;
+				break;
+			case "Pacific":
+				normal[Pacific].setText(team.getName());
+				normal[Pacific].setIcon(FrameSize.scaleImage(new ImageIcon(team.getImage()),40,40));
+				Pacific++;
+				break;
+			case "Southwest":
+				normal[Southwest].setText(team.getName());
+				normal[Southwest].setIcon(FrameSize.scaleImage(new ImageIcon(team.getImage()),40,40));
+				Southwest++;
+				break;
+
+			case "Northwest":
+				normal[Northwest].setText(team.getName());
+				normal[Northwest].setIcon(FrameSize.scaleImage(new ImageIcon(team.getImage()),40,40));
+				Northwest++;
+				break;
+			}
+
+		}
+	}
 
 	void setIndex() {
 		

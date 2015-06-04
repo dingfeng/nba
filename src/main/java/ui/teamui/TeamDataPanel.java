@@ -8,13 +8,18 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import dataservice.playerdataservice.SeasonType;
+import po.TeamHighPO;
 import po.TeamNormalPO;
 import ui.mainui.FrameSize;
 import ui.mainui.MyToggleButton;
 import ui.mainui.UneditableTextField;
+import bl.teambl.TeamController;
+import blservice.teamblservice.Teamblservice;
 
 public class TeamDataPanel extends JPanel{
 
+	Teamblservice tc=new TeamController();
 	MyToggleButton alldata;
 	MyToggleButton avedata;
 	JTextField[] teamlabel=new UneditableTextField[54];
@@ -67,7 +72,7 @@ public class TeamDataPanel extends JPanel{
 		for (int i = 0; i < 54; i++) {
 			teamlabel[i] = new UneditableTextField();
 			teamdata.add(teamlabel[i]);
-			teamlabel[i].setText("第"+i);
+//			teamlabel[i].setText("第"+i);
 			teamlabel[i].setFont(new Font("", Font.PLAIN, 15));
 			teamlabel[i].setBorder(BorderFactory.createLineBorder(Color.white));
 		}
@@ -75,7 +80,7 @@ public class TeamDataPanel extends JPanel{
 	}
 
 	/** 一个球队信息（右侧） */
-	void TeamMessage(TeamNormalPO str) {
+	public void TeamMessage(String  teamname) {
 
 		teamlabel[0].setText("比赛场数");
 		teamlabel[2].setText("比赛得分");
@@ -104,5 +109,39 @@ public class TeamDataPanel extends JPanel{
 		teamlabel[48].setText("防守篮板效率");
 		teamlabel[50].setText("抢断效率");
 		teamlabel[52].setText("助攻率");
+		TeamNormalPO str=tc.getTotalTeam(2013, teamname,SeasonType.REGULAR);
+		teamlabel[1].setText(str.getMatchNo() + "");
+		teamlabel[3].setText(String.format("%.1f", str.getPoints()));
+		teamlabel[5].setText(String.format("%.1f", str.getWinRate() * 100));
+		teamlabel[7].setText(String.format("%.1f", str.getHitNo()));
+		teamlabel[9].setText(String.format("%.1f", str.getHandNo()));
+		teamlabel[11].setText(String.format("%.1f", str.getHitRate() * 100));
+		teamlabel[13].setText(String.format("%.1f", str.getThreeHitNo()));
+		teamlabel[15].setText(String.format("%.1f", str.getThreeHandNo()));
+		teamlabel[17]
+				.setText(String.format("%.1f", str.getThreeHitRate() * 100));
+		teamlabel[19].setText(String.format("%.1f", str.getPenaltyHitNo()));
+		teamlabel[21].setText(String.format("%.1f", str.getPenaltyHandNo()));
+		teamlabel[23].setText(String.format("%.1f",
+				str.getPenaltyHitRate() * 100));
+		teamlabel[25].setText(String.format("%.1f", str.getOffenseRebs()));
+		teamlabel[27].setText(String.format("%.1f", str.getDefenceRebs()));
+		teamlabel[29].setText(String.format("%.1f", str.getRebs()));
+		teamlabel[31].setText(String.format("%.1f", str.getAssistNo()));
+		teamlabel[33].setText(String.format("%.1f", str.getStealsNo()));
+		teamlabel[35].setText(String.format("%.1f", str.getBlockNo()));
+		teamlabel[37].setText(String.format("%.1f", str.getMistakesNo()));
+		teamlabel[39].setText(String.format("%.1f", str.getFoulsNo()));
+		TeamHighPO high=tc.getHighTeam(2013, teamname,SeasonType.REGULAR);
+		teamlabel[41].setText(String.format("%.1f", high.getOffenseRound()));
+		teamlabel[43]
+				.setText(String.format("%.1f", high.getOffenseEfficiency()));
+		teamlabel[45]
+				.setText(String.format("%.1f", high.getDefenceEfficiency()));
+		teamlabel[47].setText(String.format("%.1f", high.getOrebsEfficiency()));
+		teamlabel[49].setText(String.format("%.1f", high.getDrebsEfficiency()));
+		teamlabel[51].setText(String.format("%.1f", high.getStealsEfficiency()));
+		teamlabel[53].setText(String.format("%.1f", high.getAssistEfficiency()));
+		this.repaint();
 	}
 }

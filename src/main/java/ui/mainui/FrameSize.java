@@ -1,8 +1,11 @@
 package ui.mainui;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.math.BigDecimal;
+
+import javax.swing.ImageIcon;
 
 public class FrameSize {
 	static int screenWidth = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
@@ -19,4 +22,17 @@ public class FrameSize {
         double f = bg.setScale(num, BigDecimal.ROUND_HALF_UP).doubleValue();
         return f;
     }
+	public static ImageIcon scaleImage(ImageIcon icon, int iconWidth, int iconHeight) {
+			int width = icon.getIconWidth();
+			int height = icon.getIconHeight();
+
+			if (width == iconWidth && height == iconHeight) {
+				return icon;
+			}
+			Image image = icon.getImage();
+			image = image.getScaledInstance(iconWidth, iconHeight,
+					Image.SCALE_DEFAULT);
+
+			return new ImageIcon(image);
+		}
 }

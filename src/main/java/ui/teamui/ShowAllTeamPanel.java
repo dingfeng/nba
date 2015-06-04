@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import dataservice.playerdataservice.SeasonType;
 import po.TeamNormalPO;
@@ -87,10 +88,11 @@ public class ShowAllTeamPanel extends JPanel {
 		eastpanel.setOpaque(false);
 		for (int i = 0; i < 15; i++) {
 			eastTeam[i] = new JButton();
-//			eastTeam[i].setBorder(null);
+			eastTeam[i].setBorder(null);
 			eastTeam[i].setBackground(Color.white);
 			eastTeam[i].setIconTextGap(2);
 			eastTeam[i].setFocusPainted(false);
+			eastTeam[i].setHorizontalAlignment(SwingConstants.LEFT );
 			eastpanel.add(eastTeam[i]);
 		}
 		this.add(eastpanel);
@@ -106,10 +108,11 @@ public class ShowAllTeamPanel extends JPanel {
 		westpanel.setOpaque(false);
 		for (int i = 0; i < 15; i++) {
 			westTeam[i] = new JButton();
-//			westTeam[i].setBorder(null);
+			westTeam[i].setBorder(null);
 			westTeam[i].setBackground(Color.white);
 			westTeam[i].setIconTextGap(2);
 			westTeam[i].setFocusPainted(false);
+			westTeam[i].setHorizontalAlignment(SwingConstants.LEFT);
 			westpanel.add(westTeam[i]);
 		}
 		this.add(westpanel);
@@ -131,34 +134,34 @@ public class ShowAllTeamPanel extends JPanel {
 			switch (playerArea) {
 			case "Southeast":
 				eastTeam[Southeast].setText(team.getName());
-				eastTeam[Southeast].setIcon(scaleImage(new ImageIcon(team.getImage()),30,30));
+				eastTeam[Southeast].setIcon(scaleImage(new ImageIcon(team.getImage()),40,40));
 				Southeast++;
 				break;
 
 			case "Central":
 				eastTeam[Central].setText(team.getName());
-				eastTeam[Central].setIcon(scaleImage(new ImageIcon(team.getImage()),30,30));
+				eastTeam[Central].setIcon(scaleImage(new ImageIcon(team.getImage()),40,40));
 				Central++;
 				break;
 			case "Atlantic":
 				eastTeam[Atlantic].setText(team.getName());
-				eastTeam[Atlantic].setIcon(scaleImage(new ImageIcon(team.getImage()),30,30));
+				eastTeam[Atlantic].setIcon(scaleImage(new ImageIcon(team.getImage()),40,40));
 				Atlantic++;
 				break;
 			case "Pacific":
 				westTeam[Pacific].setText(team.getName());
-				westTeam[Pacific].setIcon(scaleImage(new ImageIcon(team.getImage()),30,30));
+				westTeam[Pacific].setIcon(scaleImage(new ImageIcon(team.getImage()),40,40));
 				Pacific++;
 				break;
 			case "Southwest":
 				westTeam[Southwest].setText(team.getName());
-				westTeam[Southwest].setIcon(scaleImage(new ImageIcon(team.getImage()),30,30));
+				westTeam[Southwest].setIcon(scaleImage(new ImageIcon(team.getImage()),40,40));
 				Southwest++;
 				break;
 
 			case "Northwest":
 				westTeam[Northwest].setText(team.getName());
-				westTeam[Northwest].setIcon(scaleImage(new ImageIcon(team.getImage()),30,30));
+				westTeam[Northwest].setIcon(scaleImage(new ImageIcon(team.getImage()),40,40));
 				Northwest++;
 				break;
 			}
