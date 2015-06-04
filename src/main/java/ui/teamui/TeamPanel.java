@@ -71,7 +71,7 @@ public class TeamPanel extends JPanel {
 	public static PastMatchPanel pastmatchpanel = new PastMatchPanel();
 	public static RecentMatchPanel recentmatchpanel = new RecentMatchPanel("");
 	public static TeamContrastPanel teamcontrastpanel = new TeamContrastPanel();
-	public static TeamDataPanel teamdatapanel = new TeamDataPanel();
+//	public static TeamDataPanel teamdatapanel = new TeamDataPanel();
 
 	MyToggleButton databutton;
 	MyToggleButton recentbutton;
