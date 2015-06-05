@@ -29,7 +29,7 @@ public class MatchDataTest {
 	
 	@Test
 	public void testGetRegularSeasonMatches() {
-		 MatchesPO[] matches = match.getRegularSeasonMatches(2012,1,10);
+		 MatchesPO[] matches = match.getRegularSeasonMatches(2012,1,1000);
 		 print(matches);
 		 assertEquals(true,true);
 	}
