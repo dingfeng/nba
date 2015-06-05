@@ -23,9 +23,14 @@ public class MatchPlayerPO implements Comparable<MatchPlayerPO>
 	private boolean dirty;  //脏数据
 	private String teamnameAbridge; //球队缩写名
 	private double data;//热点球队排序的依据
+	private boolean first = false;//是否为首发
+	private String date; //日期
+	private String vsTeam; //对手
+	int matchId = -1;
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
+		sb.append(matchId+" ");
 		sb.append(name + " ");// 球员名称
 		sb.append(location+" ");//位置
 		sb.append(time+" ");// 在场时间
@@ -43,7 +48,10 @@ public class MatchPlayerPO implements Comparable<MatchPlayerPO>
 		sb.append(blockNo+" ");// 盖帽数
 		sb.append(mistakesNo+" ");// 失误数
 		sb.append(foulsNo+" ");// 犯规数
-		sb.append(points+"\n");// 得分
+		sb.append(points+" ");// 得分
+		sb.append(date+" "); //日期
+		sb.append(vsTeam+" ");//对手
+		sb.append(teamnameAbridge +" \n");
 		return sb.toString();
 	}
 	public MatchPlayerPO(String name, String location, double time, int hitNo,
@@ -71,6 +79,38 @@ public class MatchPlayerPO implements Comparable<MatchPlayerPO>
 		this.mistakesNo = mistakesNo;
 		this.foulsNo = foulsNo;
 		this.points = (hitNo-threeHitNo) * 2+threeHitNo * 3 +penaltyHitNo;
+	}
+	public int getMatchId()
+	{
+		return matchId;
+	}
+	public void setMatchId(int matchId)
+	{
+		this.matchId = matchId;
+	}
+	public String getDate()
+	{
+		return date;
+	}
+	public String getVSTeam()
+	{
+		return vsTeam;
+	}
+	public void setDate(String date)
+	{
+		this.date = date;
+	}
+	public void setVSTeam(String vsTeam)
+	{
+		this.vsTeam = vsTeam;
+	}
+	public boolean isFirst()
+	{
+		return first;
+	}
+	public void setFirst()
+	{
+		first = true;
 	}
    public MatchPlayerPO setPoints(int point)
    {

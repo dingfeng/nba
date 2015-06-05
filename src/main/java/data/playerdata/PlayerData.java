@@ -580,7 +580,7 @@ public HPlayerPO[] getHPlayerByIni(String ini) {
 //	  String sql = "select a.teama from match_player a where a.player_name = ? and a.match_id = (select max(m.match_id) from "
 //	  		+ " match_player m where m.player_name = ? group by m.player_name)";
 //	  String s1 = "select match_area from team where name_abr = ?";
-	  String sql = "select teama,match_area from player_team where player_name = ?";
+	  String sql = "select t.name_abr,t.match_area from team t where t.name_abr = (select a.team  from hplayerinfo a where a.player_name = ?)";
 	  try
 	  {
 		  PreparedStatement statement = conn.prepareStatement(sql);
@@ -751,11 +751,13 @@ private MatchPlayerPO toMatchPlayer(ResultSet results) throws Exception
 	int blockNo=0;
 	int mistakesNo=0;
 	int foulsNo=0;;
-	if (results.next())
-	{
+	int first = 0;
+	int matchId = -1;
+	String teama = null;
 //		"select player_name,courtTime,hitNo,handNo,threeHitNo,threeHandNo,penaltyHitNo,penaltyHandNo,"
 //    			+ "offenseRebs,defenceRebs,rebs,assist,steal,blockno,mistakeno,fouls,score, "
 //    			+ "from match_player where match_id = ? and teama = ?";
+	    matchId = results.getInt(1);
 		name = results.getString(2);
 		time = results.getInt(4);
 		hitNo = results.getInt(5);
@@ -772,17 +774,55 @@ private MatchPlayerPO toMatchPlayer(ResultSet results) throws Exception
 		blockNo = results.getInt(16);
 		mistakesNo = results.getInt(17);
 		foulsNo = results.getInt(18);
+		teama = results.getString(20);
+		first = results.getInt(21);
 		matchPlayer = new MatchPlayerPO( name,  location,  time,  hitNo,
 				 handNo,  threeHitNo,  threeHandNo,  penaltyHitNo,
 				 penaltyHandNo,  offenseRebs,  defenceRebs,  rebs,
 				 help,  stealsNo,  blockNo,  mistakesNo,
 				 foulsNo);
-	}
+		if (first == 1)
+		{
+			matchPlayer.setFirst();
+		}
+		matchPlayer.setTeamnameAbridge(teama);
+		matchPlayer.setMatchId(matchId);
+		
 	return matchPlayer;
 }
 
+ private String[] getMatchInfo(int matchId)
+ {
+	 String sql = "select team_host,team_guest,match_date from matches where match_id = ?";
+	 String[] results = null;
+	 try
+	 {
+		 PreparedStatement statement = conn.prepareStatement(sql);
+		 statement.setInt(1, matchId);
+		 ResultSet result = statement.executeQuery();
+		 String teamHost = null;
+		 String teamGuest = null;
+		 String date = null;
+		 if (result.next())
+		 {
+			 teamHost =  result.getString("team_host");
+			 teamGuest = result.getString("team_guest");
+			 date = result.getString("match_date");
+		 }
+		 results = new String[3];
+		 results[0] = teamHost;
+		 results[1] = teamGuest;
+		 results[2] =  date;
+	 }
+	 catch(Exception e)
+	 {
+		 e.printStackTrace();
+	 }
+	 return results;
+ }
+
 public MatchPlayerPO[] getSeasonMatches(int season, String name, SeasonType type) {
-	String sql = "select * from match_player where match_id > ? and match_id < ? and player_name = ?";
+	String sql = "select * from nba.match_player where match_id > ? and match_id < ? and player_name = ?";
 	int[] id_scope = null;
 	MatchPlayerPO[] players;
 	ArrayList<MatchPlayerPO> list = new ArrayList<MatchPlayerPO>();
@@ -803,9 +843,19 @@ public MatchPlayerPO[] getSeasonMatches(int season, String name, SeasonType type
 		statement.setInt(2, id_scope[1]);
 		statement.setString(3, name);
 		ResultSet results = statement.executeQuery();
+		MatchPlayerPO player = null;
+		String[] matchInfo = null;
+		String team = null;
+		String vsTeam = null;
 		while (results.next())
 		{
-			list.add(toMatchPlayer(results));
+			player = toMatchPlayer(results);
+			list.add(player);
+			matchInfo = this.getMatchInfo(player.getMatchId());
+			team = player.getTeamnameAbridge();
+			vsTeam = matchInfo[0].equals(team) ? matchInfo[1] : matchInfo[0];
+			player.setDate(matchInfo[2]);
+			player.setVSTeam(vsTeam);
 		}
 	}
 	catch (Exception e)
