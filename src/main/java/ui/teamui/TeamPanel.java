@@ -132,7 +132,7 @@ public class TeamPanel extends JPanel {
 		pastbutton.setForeground(Color.white);
 		contrastbutton.setForeground(Color.white);
 
-		databutton.addActionListener(e -> setTeamdata());
+//		databutton.addActionListener(e -> setTeamdata());
 		recentbutton.addActionListener(e -> setRecent());
 		pastbutton.addActionListener(e -> setPast());
 		contrastbutton.addActionListener(e -> setContrast());
@@ -142,7 +142,7 @@ public class TeamPanel extends JPanel {
 		normal.setBackground(Color.white);
 		normal.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				System.out.print("?");
+				setTeamdata(false);
 			}
 
 		});
@@ -150,7 +150,7 @@ public class TeamPanel extends JPanel {
 		higher.setBackground(Color.white);
 		higher.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				System.out.print("?？");
+				setTeamdata(true);
 			}
 
 		});
@@ -173,9 +173,9 @@ public class TeamPanel extends JPanel {
 
 	}
 
-	void setTeamdata() {
+	void setTeamdata(boolean high) {
 		card.show(teammain, "data");
-		teamdatapanel.TeamMessage(nameAbridgeresult.getText());
+		teamdatapanel.setTable(nameAbridgeresult.getText(),high);
 		databutton.setSelected(true);
 		recentbutton.setSelected(false);
 		pastbutton.setSelected(false);
@@ -331,6 +331,7 @@ public class TeamPanel extends JPanel {
 		this.validate();
 		image.setVisible(true);
 		image.repaint();
+		setTeamdata(false);
 
 	}
 
@@ -396,18 +397,6 @@ public class TeamPanel extends JPanel {
 
 	}
 
-	/** 点击查看比赛按钮 */
-	void setMatch() {
-		if (matchpanel && teammatch != null) {
-			this.remove(teammatch);
-		}
-		this.remove(teammessage);
-		matchpanel = true;
-		teammatch = new RecentMatchPanel(nameAbridgeresult.getText());
-		this.remove(jScrollPane);
-		this.add(teammatch);
-		this.repaint();
-	}
 
 	private void resizeTable(boolean bool, JScrollPane jsp, JTable table) {
 		Dimension containerwidth = null;

@@ -309,7 +309,7 @@ public class MyFrame extends JFrame {
 	}
 
 	public void setTeam() {
-		card.show(mainpanel, "team");
+//		card.show(mainpanel, "team");
 		index.setSelected(false);
 		playerbutton.setSelected(false);
 		hotbutton.setSelected(false);
