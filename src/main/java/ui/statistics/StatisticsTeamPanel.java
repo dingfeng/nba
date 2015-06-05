@@ -32,7 +32,9 @@ public class StatisticsTeamPanel extends JPanel {
 	MyTable mytable = new MyTable(table);
 	JScrollPane jScrollPane=new JScrollPane(mytable);
 	MyComboBox aveOrAll = new MyComboBox(new String[] { "场均", "总数" });
-	
+	MyComboBox lowOrHigh;
+	MyComboBox season;
+	MyComboBox SeasonTypebox;
 	Teamblservice tc=new TeamController();
 	public StatisticsTeamPanel() {
 		this.setLayout(null);
@@ -40,7 +42,7 @@ public class StatisticsTeamPanel extends JPanel {
 		this.setBackground(FrameSize.backColor);
 		this.setOpaque(false);
 		JPanel headerPanel = HeaderPanel();
-		setLowTable();
+		setTable();
 //		setHighTable();
 		this.add(headerPanel);
 	}
@@ -51,32 +53,39 @@ public class StatisticsTeamPanel extends JPanel {
 		headerPanel.setBounds(0, 0, FrameSize.width, 40);
 		headerPanel.setBackground(new Color(87, 89, 91));
 
-		MyComboBox screenPlayerAccordingLocation = new MyComboBox("球队联盟",
-				new String[] { "东部", "西部" });
-		screenPlayerAccordingLocation.setBounds(0, 5, 150, 30);
-		headerPanel.add(screenPlayerAccordingLocation);
+		SeasonTypebox= new MyComboBox(
+				new String[] { "常规赛", "季后赛" });
+		SeasonTypebox.setBounds(0, 5, 150, 30);
+		SeasonTypebox.addActionListener(e->setTable());
+		headerPanel.add(SeasonTypebox);
 
 		//赛季
-		MyComboBox season = new MyComboBox(new String[] { "赛季", "12-13" });
+		String[] seasons=new String[20];
+		for(int i=0;i<20;i++){
+			seasons[i]=2014-i+"";
+		}
+		season = new MyComboBox(seasons);
 		season.setBounds(150, 5, 150, 30);
+		season.addActionListener(e->setTable());
 		headerPanel.add(season);
 		
 		// 场均or总数
 		
 		aveOrAll.setBounds(600, 5, 150, 30);
+		aveOrAll.addActionListener(e->setTable());
 		headerPanel.add(aveOrAll);
 
 		// 低阶or高阶
-		MyComboBox lowOrHigh = new MyComboBox(new String[] { "基本", "高阶" });
+		lowOrHigh = new MyComboBox(new String[] { "基本", "高阶" });
 		lowOrHigh.setBounds(750, 5, 150, 30);
-		lowOrHigh.addActionListener(e->setLowOrHigh((String)lowOrHigh.getSelectedItem()));
+		lowOrHigh.addActionListener(e->setTable());
 		headerPanel.add(lowOrHigh);
 
 		return headerPanel;
 	}
 	
 	//低阶数据
-	void setLowTable(){
+	void setLowTable(TeamNormalPO[] team){
 		columnsName.removeAllElements();
 		
 //		columnsName.add("排名");
@@ -98,13 +107,8 @@ public class StatisticsTeamPanel extends JPanel {
 //		columnsName.add("比赛场数");
 		
 		rowimage.clear();
-		TeamNormalPO[] team=new TeamNormalPO[30];
-		if(aveOrAll.getSelectedItem().toString().equals("总数")){
-		team=tc.getAllTeamTotal(2013, SeasonType.REGULAR);
-		}else{
-		team=tc.getAllTeamAve(2013, SeasonType.REGULAR);
-		}
-		for (int i = 0; i <30; i++) {
+		
+		for (int i = 0; i <team.length; i++) {
 			TeamNormalPO str = team[i];
 			Vector data = new Vector();
 			data.add(str.getName());
@@ -175,7 +179,7 @@ public class StatisticsTeamPanel extends JPanel {
 	}
 	
 	//高阶数据
-	void setHighTable(){
+	void setHighTable(TeamHighPO[] team){
 		columnsName.removeAllElements();
 //		columnsName.add("排名");
 		columnsName.add("球队");
@@ -189,8 +193,7 @@ public class StatisticsTeamPanel extends JPanel {
 		columnsName.add("助攻效率");
 		
 		rowimage.clear();
-		TeamHighPO[] team=tc.getAllTeamHigh(2013, SeasonType.REGULAR);
-		for (int i = 0; i <30; i++) {
+		for (int i = 0; i <team.length; i++) {
 			TeamHighPO str=team[i];
 			Vector data = new Vector();
 			data.add(str.getName());
@@ -236,11 +239,24 @@ public class StatisticsTeamPanel extends JPanel {
 		this.repaint();
 	}
 	
-	void setLowOrHigh(String type){
-		if(type.equals("低阶")){
-			setLowTable();
-		}else{
-			setHighTable();
+	void setTable(){
+		TeamNormalPO[] team=new TeamNormalPO[30];
+		TeamHighPO[] teamhigh=new TeamHighPO[30];
+		SeasonType type=SeasonType.REGULAR;
+		if(((String)SeasonTypebox.getSelectedItem()).equals("常规赛")){
+			type=SeasonType.REGULAR;
+		}else if(((String)SeasonTypebox.getSelectedItem()).equals("季后赛")){
+			type=SeasonType.PLAYOFF;
+		}
+		if(((String)aveOrAll.getSelectedItem()).equals("场均")&&((String)lowOrHigh.getSelectedItem()).equals("基本")){
+			team=tc.getAllTeamAve(Integer.parseInt((String)season.getSelectedItem()), type);
+			setLowTable(team);
+		}else if(((String)aveOrAll.getSelectedItem()).equals("总数")&&((String)lowOrHigh.getSelectedItem()).equals("基本")){
+			team=tc.getAllTeamTotal(Integer.parseInt((String)season.getSelectedItem()), type);
+			setLowTable(team);
+		}else if(((String)lowOrHigh.getSelectedItem()).equals("高阶")){
+			teamhigh=tc.getAllTeamHigh(Integer.parseInt((String)season.getSelectedItem()), type);
+			setHighTable(teamhigh);
 		}
 	}
 }
