@@ -75,7 +75,7 @@ public class CurrentLive {
 		int day = date.getDay();
 		String dateStr = String.valueOf(year)+"-"+String.valueOf(month)+"-"+String.valueOf(day);
 		indexUrl += dateStr;
-//		indexUrl = "http://g.hupu.com/nba/2015-5-27";
+		indexUrl = "http://g.hupu.com/nba/2015-5-11";
 		Iterator<String> itr = WebTool.getWebCon(indexUrl);
 		initUrls(itr);
     }
@@ -85,11 +85,11 @@ public class CurrentLive {
      while (xmlItr.hasNext())
      { 
     	line = xmlItr.next();
-    	if (line.contains("<s></s>文字直播</a>"))
+    	if (line.contains("<s></s>文字实录</a>"))
     	{
     		liveUrls.add(getPref(line));
     	}
-    	else if (line.contains("<s></s>数据直播</a>"))
+    	else if (line.contains("<s></s>数据统计</a>"))
     	{
     		dataUrls.add(getPref(line));
     	}
@@ -378,16 +378,17 @@ public class CurrentLive {
 			rate1[i] = temp1[i+3];
 			rate2[i] = temp2[i+3];
 		}
-		String[] points_temp = new String[points1.size()-8];
+		String[] points_temp = new String[points1.size()-9];
 		String totalScores_temp = null;
 		for (int i = 0; i < points_temp.length; i++)
 		{
-			points_temp[i] = points1.get(i+7);
+			points_temp[i] = points1.get(i+8);
 		}
 		totalScores_temp = points1.get(points1.size()-1);
 		
 		CurrentTeam team1 = new CurrentTeam(playersf1, playerst1,primaryDatas1,rate1
 	    		  ,totalScores_temp,points_temp ,teams[0],img1,team_info[0], win[0]);
+//		print(points_temp);
 	    points_temp = new String[points2.size()-1];
 		for (int i = 0; i < points_temp.length; i++)
 		{
@@ -397,6 +398,7 @@ public class CurrentLive {
 		
 		CurrentTeam team2 = new CurrentTeam(playersf2,playerst2,primaryDatas2,rate2
 				,totalScores_temp,points_temp,teams[1],img2,team_info[1],win[1]);
+//		print(points_temp);
 //		String time_f = null;
 //    	String consumTime = null;
 //    	String arena = null;

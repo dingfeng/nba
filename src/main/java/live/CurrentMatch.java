@@ -11,12 +11,11 @@ public class CurrentMatch
   String gym;
   String audience;
   String matchId;
- public  static ArrayList<String> messages = new ArrayList<String>();
- public  static int index =-1;
- public static int size;
+  ArrayList<String> messages;
   public CurrentMatch(String matchId,CurrentTeam team1, CurrentTeam team2,
 		  String date,String time,String gym,String audience)
 		  {
+	      this.matchId = matchId;
 	      this.team1 = team1;
 	      this.team2 = team2;
 	      this.date = date;
@@ -35,6 +34,10 @@ public class CurrentMatch
 	  sb.append("team2 : \n"+team2.toString()+"\n");
 	  sb.append("文字直播 ："+ messages.get(0));
 	  return sb.toString();
+  }
+  public int getMatchId()
+  {
+	  return Integer.parseInt(matchId);
   }
   public void setMessages(ArrayList<String> mess)
   {

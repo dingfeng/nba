@@ -32,7 +32,7 @@ public class CurrentTeam {
     		  ,String totalScores,String points[] ,String teamName,Image img,String disc,String win)
        {
     	   this.disc = disc;
-    	   
+    	   this.win = win;
     	   this.firsts = firsts1;
     	   this.benches = benches1;
     	   shot = primaryDatas1[0];
@@ -67,7 +67,14 @@ public class CurrentTeam {
     	   sb.append("points : "+Arrays.toString(points)+"\n");
     	   return sb.toString();
        }
-       public String[] getPoints()
+       
+       public String getDisc() {
+		return disc;
+	}
+	public String getWin() {
+		return win;
+	}
+	public String[] getPoints()
        {
     	   return points;
        }
