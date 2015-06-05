@@ -1,6 +1,7 @@
 package live;
 
 import java.awt.Image;
+import java.util.Arrays;
 
 public class CurrentTeam {
 	   String teamName;       //球队名称
@@ -54,6 +55,17 @@ public class CurrentTeam {
     	   this.teamName = teamName;
     	   this.totalScores = totalScores;
     	   this.points = points;
+       }
+       public String toString()
+       {
+    	   StringBuilder sb = new StringBuilder();
+    	   sb.append("teamName : "+teamName+"\n");
+    	   sb.append("first : "+Arrays.toString(firsts)+" \n ");
+    	   sb.append("benches : "+Arrays.toString(benches)+" \n");
+    	   sb.append("primaryDatas : "+Arrays.toString(primaryDatas)+" \n");
+    	   sb.append("rates : "+Arrays.toString(rates)+"\n");
+    	   sb.append("points : "+Arrays.toString(points)+"\n");
+    	   return sb.toString();
        }
        public String[] getPoints()
        {

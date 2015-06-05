@@ -10,11 +10,11 @@ public class CurrentMatch
   String time;
   String gym;
   String audience;
-  
+  String matchId;
  public  static ArrayList<String> messages = new ArrayList<String>();
  public  static int index =-1;
  public static int size;
-  public CurrentMatch(CurrentTeam team1, CurrentTeam team2,
+  public CurrentMatch(String matchId,CurrentTeam team1, CurrentTeam team2,
 		  String date,String time,String gym,String audience)
 		  {
 	      this.team1 = team1;
@@ -24,6 +24,26 @@ public class CurrentMatch
 	      this.gym = gym;
 	      this.audience = audience;
 		  }
+  public String toString()
+  {
+	  StringBuilder sb = new StringBuilder();
+	  sb.append("date : "+date+"\n");
+	  sb.append("time : "+time+"\n");
+	  sb.append("gym : "+gym+"\n");
+	  sb.append("audience : "+gym+"\n");
+	  sb.append("team1 : \n"+team1.toString()+"\n");
+	  sb.append("team2 : \n"+team2.toString()+"\n");
+	  sb.append("文字直播 ："+ messages.get(0));
+	  return sb.toString();
+  }
+  public void setMessages(ArrayList<String> mess)
+  {
+	  messages = mess;
+  }
+  public ArrayList<String> getMessages()
+  {
+	  return messages;
+  }
 public CurrentTeam getTeam1() {
 	return team1;
 }
@@ -43,25 +63,4 @@ public String getAudience() {
 	return audience;
 }
 
- public static void update(String[] ne)
- {
-	for (String s : ne)
-	{
-		messages.add(s);
-	}
-	size = messages.size();
- }
- public static int getIndex()
- {
-	 return index;
- }
- public static String[] getNewMessages()
- {
-	 String[] newMessages = new String[size - index -1];
-	 for (int i =0; i < newMessages.length;++i)
-	 {
-		 newMessages[i] = messages.get(++index);
-	 }
-	 return newMessages;
- }
 }

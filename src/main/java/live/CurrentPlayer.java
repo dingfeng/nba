@@ -1,5 +1,7 @@
 package live;
 
+import java.util.Arrays;
+
 public class CurrentPlayer {
 	  String name;    //姓名
       String position;//位置
@@ -37,6 +39,10 @@ public class CurrentPlayer {
     	scores = datas1[14];
     	efficiency = datas1[15];
     	datas = datas1;
+    }
+    public String toString()
+    {
+    	return Arrays.toString(datas);
     }
     public String[] getDatas()
     {

@@ -34,7 +34,7 @@ public class TeamDataTest {
 
 	@Test
 	public void testFindTeam() {
-		TeamPO team = teamData.findTeam("ATL");
+		TeamPO team = teamData.findTeam("Hawks");
 		System.out.println(team);
 		assertEquals(true,true);
 	}

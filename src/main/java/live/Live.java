@@ -175,6 +175,8 @@ public class Live
 	}
 	
 	
+	
+	
 	public static String getPoint(String line)
 	{
 		Pattern p = Pattern.compile("<td>(\\d+)</td>");
@@ -277,7 +279,6 @@ public class Live
 		String xml = null;
 		ArrayList<String> list = new ArrayList<String>();
 		while (result.hasNext())
-			
 		{
 			xml = result.next();
 		}
@@ -355,6 +356,7 @@ public class Live
 		return list;
 	}
 	
+
 	public static CurrentTeam toCurrentTeam(ArrayList<String> list, int start ,int end)
 	{
 		String line = null;
