@@ -39,7 +39,7 @@ public class StatisticsPlayerPanel extends JPanel {
 		this.setOpaque(false);
 		JPanel headerPanel = HeaderPanel();
 		this.add(headerPanel);
-//		setTable(null,null,SeasonType.REGULAR,2014,"场均","基本");
+		setTable(null,null,SeasonType.REGULAR,2014,"场均","基本");
 	}
 
 	/** 筛选栏 */
@@ -209,7 +209,7 @@ public class StatisticsPlayerPanel extends JPanel {
 	/**判断分区*/
 	private Area chooseArea(String zone){
 		if(zone.equals("EAST")){
-			//辣辣
+			return Area.EASTERN;
 		}
 		else if(zone.equals("E-ATLANTIC")){
 			return Area.ATLANTIC;
@@ -221,7 +221,7 @@ public class StatisticsPlayerPanel extends JPanel {
 			return Area.SOUTHEAST;
 		}
 		else if(zone.equals("WEST")){
-			//辣辣
+			return Area.WESTERN;
 		}
 		else if(zone.equals("W-PACIFIC")){
 			return Area.PACIFIC;
