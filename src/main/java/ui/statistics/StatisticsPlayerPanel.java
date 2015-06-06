@@ -39,7 +39,7 @@ public class StatisticsPlayerPanel extends JPanel {
 		this.setOpaque(false);
 		JPanel headerPanel = HeaderPanel();
 		this.add(headerPanel);
-		setLowTable(null);
+//		setTable(null,null,SeasonType.REGULAR,2014,"场均","基本");
 	}
 
 	/** 筛选栏 */
@@ -70,8 +70,8 @@ public class StatisticsPlayerPanel extends JPanel {
 		headerPanel.add(seasonType);
 		
 		// 根据赛季筛选
-		String[] seasons = new String[20];
-		for(int i=0;i<20;i++){
+		String[] seasons = new String[70];
+		for(int i=0;i<70;i++){
 			seasons[i]=String.valueOf(2014-i);
 		}
 		screenPlayerAccordingSeason = new MyComboBox(seasons);
@@ -160,37 +160,6 @@ public class StatisticsPlayerPanel extends JPanel {
 				data.add(rowData);
 			}
 			setScrollPane();
-		} else {
-			columnsName.removeAllElements();
-//			/* 00排名 */columnsName.add("排名");
-			/* 01球员 */columnsName.add("球员");
-			/* 02姓名 */columnsName.add("姓名");
-			/* 03球队 */columnsName.add("球队");
-			/* 04场数 */columnsName.add("场数");
-			/* 05篮板 */columnsName.add("篮板");
-			/* 06助攻 */columnsName.add("助攻");
-			/* 07分钟 */columnsName.add("分钟");
-			/* 08效率 */columnsName.add("效率");
-			/* 09三分命中率 */columnsName.add("三分%");
-			/* 10罚球命中率 */columnsName.add("罚球%");
-			/* 11投篮命中率 */columnsName.add("投篮%");
-			/* 12进攻 */columnsName.add("进攻");
-			/* 13防守 */columnsName.add("防守");
-			/* 14抢断 */columnsName.add("抢断");
-			/* 15盖帽 */columnsName.add("盖帽");
-			/* 16失误 */columnsName.add("失误");
-			/* 17犯规 */columnsName.add("犯规");
-			/* 18两双 */columnsName.add("两双");
-			/* 19得分 */columnsName.add("得分");
-
-			data.clear();
-			for (int i = 0; i < 100; i++) {
-				Vector rowData = new Vector();
-				for (int j = 0; j < 20; j++)
-					rowData.add(100);
-				data.add(rowData);
-			}
-			setScrollPane();
 		}
 	}
 
@@ -234,33 +203,7 @@ public class StatisticsPlayerPanel extends JPanel {
 				data.add(rowData);
 			}
 			setScrollPane();
-		} else {
-			columnsName.removeAllElements();
-//			/* 00排名 */columnsName.add("排名");
-			/* 01球员 */columnsName.add("球员");
-			/* 02姓名 */columnsName.add("姓名");
-			/* 03球队 */columnsName.add("球队");
-			columnsName.add("效率");
-			/* 04真实命中率 */columnsName.add("真实命中率");
-			/* 05GmSc */columnsName.add("GmSc");
-			/* 06投篮命中率 */columnsName.add("投篮%");
-			/* 08进攻篮板率 */columnsName.add("进攻%");
-			/* 09防守篮板率 */columnsName.add("防守%");
-			/* 10助攻率 */columnsName.add("助攻%");
-			/* 11抢断率 */columnsName.add("抢断%");
-			/* 12盖帽率 */columnsName.add("盖帽%");
-			/* 13失误率 */columnsName.add("失误%");
-			/* 14使用率 */columnsName.add("使用%");
-
-			data.clear();
-			for (int i = 0; i < 100; i++) {
-				Vector rowData = new Vector();
-				for (int j = 0; j < 15; j++)
-					rowData.add(100);
-				data.add(rowData);
-			}
-			setScrollPane();
-		}	
+		} 
 	}
 
 	/**判断分区*/
