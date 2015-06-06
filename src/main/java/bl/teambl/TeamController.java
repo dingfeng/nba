@@ -44,7 +44,7 @@ public class TeamController implements Teamblservice{
 		HotPlayerTeam[] hotTeams = new HotPlayerTeam[5];
 		double[] data = new double[5];
 		
-		if(sortby.equals("score")){
+		if(sortby.equals("points")){
 			for(int i = 0; i != 5; i ++){
 				data[i] = teams[i].getPoints();
 			}
@@ -52,15 +52,15 @@ public class TeamController implements Teamblservice{
 			for(int i = 0; i != 5; i ++){
 				data[i] = teams[i].getRebs();
 			}
-		} else if(sortby.equals("assist")){
+		} else if(sortby.equals("assistNo")){
 			for(int i = 0; i != 5; i ++){
 				data[i] = teams[i].getAssistNo();
 			}
-		} else if(sortby.equals("blockno")){
+		} else if(sortby.equals("blockNo")){
 			for(int i = 0; i != 5; i ++){
 				data[i] = teams[i].getBlockNo();
 			}
-		} else if(sortby.equals("steal")){
+		} else if(sortby.equals("stealsNo")){
 			for(int i = 0; i != 5; i ++){
 				data[i] = teams[i].getStealsNo();
 			}

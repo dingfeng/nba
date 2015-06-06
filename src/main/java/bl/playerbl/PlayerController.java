@@ -63,7 +63,7 @@ public class PlayerController implements PlayerBlService {
 				sortBy, 5, type);
 		HotPlayerTeam[] hotPlayers = new HotPlayerTeam[5];
 		double[] data = new double[5];
-		if (sortby.equals("score")) {
+		if (sortby.equals("points")) {
 			for (int i = 0; i != 5; i++) {
 				data[i] = players[i].getPoints();
 			}
@@ -71,15 +71,15 @@ public class PlayerController implements PlayerBlService {
 			for (int i = 0; i != 5; i++) {
 				data[i] = players[i].getRebs();
 			}
-		} else if (sortby.equals("assist")) {
+		} else if (sortby.equals("assistNo")) {
 			for (int i = 0; i != 5; i++) {
 				data[i] = players[i].getAssistNo();
 			}
-		} else if (sortby.equals("blockno")) {
+		} else if (sortby.equals("blockNo")) {
 			for (int i = 0; i != 5; i++) {
 				data[i] = players[i].getBlockNo();
 			}
-		} else if (sortby.equals("steal")) {
+		} else if (sortby.equals("stealsNo")) {
 			for (int i = 0; i != 5; i++) {
 				data[i] = players[i].getStealsNo();
 			}
