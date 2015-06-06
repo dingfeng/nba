@@ -34,30 +34,30 @@ public class TeamDataPanel extends JPanel {
 	JScrollPane jScrollPane = new JScrollPane(mytable);
 
 	Teamblservice tc = new TeamController();
-	MyToggleButton alldata;
-	MyToggleButton avedata;
+//	MyToggleButton alldata;
+//	MyToggleButton avedata;
 	boolean ave = true;
 	JTextField[] teamlabel = new UneditableTextField[54];
 
 	public TeamDataPanel() {
 		this.setLayout(null);
 		this.setBounds(0, 30, FrameSize.width, FrameSize.height * 3 / 4 - 80);
-		this.setBackground(Color.white);
+		this.setOpaque(false);
 		setText();
 		this.repaint();
 	}
 
 	public void setText() {
-		alldata = new MyToggleButton("总数", FrameSize.bluecolor,
-				FrameSize.darkbluecolor);
-		avedata = new MyToggleButton("场均", FrameSize.bluecolor,
-				FrameSize.darkbluecolor);
-		alldata.setBounds(FrameSize.width - 100, 0, 50, 30);
-		avedata.setBounds(FrameSize.width - 50, 0, 50, 30);
-		alldata.addActionListener(e -> showall());
-		avedata.addActionListener(e -> showave());
-		alldata.setForeground(Color.white);
-		avedata.setForeground(Color.white);
+//		alldata = new MyToggleButton("总数", FrameSize.bluecolor,
+//				FrameSize.darkbluecolor);
+//		avedata = new MyToggleButton("场均", FrameSize.bluecolor,
+//				FrameSize.darkbluecolor);
+//		alldata.setBounds(FrameSize.width - 100, 0, 50, 30);
+//		avedata.setBounds(FrameSize.width - 50, 0, 50, 30);
+//		alldata.addActionListener(e -> showall());
+//		avedata.addActionListener(e -> showave());
+//		alldata.setForeground(Color.white);
+//		avedata.setForeground(Color.white);
 		jScrollPane
 				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		jScrollPane
@@ -66,21 +66,21 @@ public class TeamDataPanel extends JPanel {
 				FrameSize.height * 7 / 8 - 30);
 		jScrollPane.setBackground(Color.white);
 		jScrollPane.getViewport().setOpaque(false);
-		this.add(alldata);
-		this.add(avedata);
+//		this.add(alldata);
+//		this.add(avedata);
 	}
 
-	void showall() {
-		alldata.setSelected(true);
-		avedata.setSelected(false);
-		ave = false;
-	}
-
-	void showave() {
-		avedata.setSelected(true);
-		alldata.setSelected(false);
-		ave = true;
-	}
+//	void showall() {
+//		alldata.setSelected(true);
+//		avedata.setSelected(false);
+//		ave = false;
+//	}
+//
+//	void showave() {
+//		avedata.setSelected(true);
+//		alldata.setSelected(false);
+//		ave = true;
+//	}
 
 	// 低阶数据
 	void setLowTable(TeamNormalPO[] team) {
@@ -110,7 +110,6 @@ public class TeamDataPanel extends JPanel {
 			TeamNormalPO str = team[i];
 			Vector data = new Vector();
 			data.add(2014 - i + "");
-			System.out.println(str.getPoints());
 			data.add(FrameSize.roundForNumber(str.getPoints(), 1));
 			data.add(FrameSize.roundForNumber(str.getWinRate() * 100, 1));
 			// data.add(str.getMatchNo());
@@ -228,8 +227,8 @@ public class TeamDataPanel extends JPanel {
 	public void setTable(String teamname, boolean high) {
 
 		showave();
-		TeamNormalPO[] team = new TeamNormalPO[20];
-		TeamHighPO[] teamhigh = new TeamHighPO[20];
+		TeamNormalPO[] team = new TeamNormalPO[70];
+		TeamHighPO[] teamhigh = new TeamHighPO[70];
 		SeasonType type = SeasonType.REGULAR;
 		// if(((String)SeasonTypebox.getSelectedItem()).equals("常规赛")){
 		// type=SeasonType.REGULAR;
@@ -237,19 +236,14 @@ public class TeamDataPanel extends JPanel {
 		// type=SeasonType.PLAYOFF;
 		// }
 		if (avedata.isSelected() && !high) {
-			for (int i = 0; i < 20; i++) {
-				team[i] = tc.getAveTeam(2014 - i, teamname, type);
-			}
+			team=tc.getTeamSeasonNormalAve(teamname,type);
+			
 			setLowTable(team);
 		} else if (alldata.isSelected() && !high) {
-			for (int i = 0; i < 20; i++) {
-				team[i] = tc.getTotalTeam(2014 - i, teamname, type);
-			}
+			team=tc.getTeamSeasonNormalTotal(teamname,type);
 			setLowTable(team);
 		} else if (high) {
-			for (int i = 0; i < 20; i++) {
-				teamhigh[i] = tc.getHighTeam(2014 - i, teamname, type);
-			}
+			teamhigh = tc.getTeamSeasonHigh(teamname, type);
 			setHighTable(teamhigh);
 		}
 	}

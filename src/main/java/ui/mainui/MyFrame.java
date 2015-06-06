@@ -56,7 +56,7 @@ public class MyFrame extends JFrame {
 	public static ShowOnePlayerPanel playerpanel = new ShowOnePlayerPanel();
 	 public static HotPanel hotpanel = new HotPanel();
 	 public static MatchPanel matchpanel = new MatchPanel();
-	public static StatisticsPlayerPanel statisticsPlayerPanel = new StatisticsPlayerPanel();
+//	public static StatisticsPlayerPanel statisticsPlayerPanel = new StatisticsPlayerPanel();
 	public static StatisticsTeamPanel statisticsTeamPanel = new StatisticsTeamPanel();
 	public static LivePanel livepanel=new LivePanel();
 
@@ -89,7 +89,7 @@ public class MyFrame extends JFrame {
 		mainpanel.add(teampanel, "team");
 		 mainpanel.add(matchpanel, "match");
 		 mainpanel.add(hotpanel, "hot");
-		mainpanel.add(statisticsPlayerPanel, "statisticsPlayer");
+//		mainpanel.add(statisticsPlayerPanel, "statisticsPlayer");
 		mainpanel.add(statisticsTeamPanel,"statisticsTeam");
 		mainpanel.add(livepanel,"live");
 		mainpanel.setBackground(Color.white);

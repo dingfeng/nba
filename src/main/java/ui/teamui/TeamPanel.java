@@ -77,6 +77,8 @@ public class TeamPanel extends JPanel {
 	MyToggleButton recentbutton;
 	MyToggleButton pastbutton;
 	MyToggleButton contrastbutton;
+	MyToggleButton alldata;
+	MyToggleButton avedata;
 	TeamController tc = new TeamController();
 
 	// MatchController mc = new MatchController();
@@ -166,6 +168,17 @@ public class TeamPanel extends JPanel {
 
 		});
 
+		alldata = new MyToggleButton("总数", FrameSize.bluecolor,
+				FrameSize.darkbluecolor);
+		avedata = new MyToggleButton("场均", FrameSize.bluecolor,
+				FrameSize.darkbluecolor);
+		alldata.setBounds(FrameSize.width - 100, 0, 50, 30);
+		avedata.setBounds(FrameSize.width - 50, 0, 50, 30);
+		alldata.addActionListener(e -> showall());
+		avedata.addActionListener(e -> showave());
+		alldata.setForeground(Color.white);
+		avedata.setForeground(Color.white);
+		
 		this.add(databutton);
 		this.add(recentbutton);
 		this.add(pastbutton);
@@ -173,6 +186,18 @@ public class TeamPanel extends JPanel {
 
 	}
 
+	void showall() {
+		alldata.setSelected(true);
+		avedata.setSelected(false);
+		
+	}
+
+	void showave() {
+		avedata.setSelected(true);
+		alldata.setSelected(false);
+
+	}
+	
 	void setTeamdata(boolean high) {
 		card.show(teammain, "data");
 		teamdatapanel.setTable(nameAbridgeresult.getText(),high);
