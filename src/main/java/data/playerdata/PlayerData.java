@@ -822,7 +822,7 @@ private MatchPlayerPO toMatchPlayer(ResultSet results) throws Exception
  }
 
 public MatchPlayerPO[] getSeasonMatches(int season, String name, SeasonType type) {
-	String sql = "select * from nba.match_player where match_id > ? and match_id < ? and player_name = ?";
+	String sql = "select * from nba.match_player where match_id > ? and match_id < ? and player_name = ? order by match_id desc";
 	int[] id_scope = null;
 	MatchPlayerPO[] players;
 	ArrayList<MatchPlayerPO> list = new ArrayList<MatchPlayerPO>();
