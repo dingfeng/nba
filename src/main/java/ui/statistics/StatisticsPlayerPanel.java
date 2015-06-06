@@ -13,11 +13,15 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import dataservice.playerdataservice.SeasonType;
+import bl.playerbl.PlayerController;
+import blservice.playerblservice.PlayerBlService;
 import po.PlayerHighPO;
 import po.PlayerNormalPO;
 import ui.mainui.FrameSize;
 import ui.mainui.MyComboBox;
 import ui.mainui.MyTable;
+import vo.Area;
 
 public class StatisticsPlayerPanel extends JPanel {
 
@@ -27,6 +31,7 @@ public class StatisticsPlayerPanel extends JPanel {
 	MyTable mytable = new MyTable(table);
 	JScrollPane jScrollPane = new JScrollPane(mytable);
 
+	PlayerBlService playerController = new PlayerController();
 	public StatisticsPlayerPanel() {
 		this.setLayout(null);
 		this.setBounds(0, 0, FrameSize.width, FrameSize.height * 7 / 8);
@@ -44,46 +49,65 @@ public class StatisticsPlayerPanel extends JPanel {
 		headerPanel.setBounds(0, 0, FrameSize.width, 40);
 		headerPanel.setBackground(new Color(87, 89, 91));
 
+		MyComboBox screenPlayerAccordingLocation,screenPlayerAccordingZone,seasonType,screenPlayerAccordingSeason,aveOrAll,lowOrHigh;
 		// 根据球员位置筛选
-		MyComboBox screenPlayerAccordingLocation = new MyComboBox("球员位置",
+		screenPlayerAccordingLocation = new MyComboBox("球员位置",
 				new String[] { "F", "C", "G" });
 		screenPlayerAccordingLocation.setBounds(0, 5, 150, 30);
 		headerPanel.add(screenPlayerAccordingLocation);
 
 		// 根据球员联盟筛选
-		MyComboBox screenPlayerAccordingZone = new MyComboBox("球员联盟",
+		screenPlayerAccordingZone = new MyComboBox("球员联盟",
 				new String[] { "EAST", "E-ATLANTIC", "E-CENTRAL",
 						"E-SOUTHEAST", "WEST", "W-PACIFIC", "W-SOUTHWEST",
-						"W-SOUTHEAST" });
+						"W-NORTHWEST" });
 		screenPlayerAccordingZone.setBounds(150, 5, 150, 30);
 		headerPanel.add(screenPlayerAccordingZone);
 
+		//常规赛or季后赛
+		seasonType = new MyComboBox(new String[]{"常规赛","季后赛"});
+		seasonType.setBounds(300,5,150,30);
+		headerPanel.add(seasonType);
+		
 		// 根据赛季筛选
-		MyComboBox screenPlayerAccordingSeason = new MyComboBox("赛季",
-				new String[] { "2013-2014", "2014-2015" });
+		String[] seasons = new String[20];
+		for(int i=0;i<20;i++){
+			seasons[i]=String.valueOf(2014-i);
+		}
+		screenPlayerAccordingSeason = new MyComboBox(seasons);
 		screenPlayerAccordingSeason.setBounds(450, 5, 150, 30);
 		headerPanel.add(screenPlayerAccordingSeason);
 
+		
 		// 场均or总数
-		MyComboBox aveOrAll = new MyComboBox(new String[] { "场均", "总数" });
+		aveOrAll = new MyComboBox(new String[] { "场均", "总数" });
 		aveOrAll.setBounds(600, 5, 150, 30);
 		headerPanel.add(aveOrAll);
 
 		// 低阶or高阶
-		MyComboBox lowOrHigh = new MyComboBox(new String[] { "低阶", "高阶" });
+		lowOrHigh = new MyComboBox(new String[] { "基本", "高阶" });
 		lowOrHigh.setBounds(750, 5, 150, 30);
-		lowOrHigh.addActionListener(e->setLowOrHigh((String)lowOrHigh.getSelectedItem()));
 		headerPanel.add(lowOrHigh);
+
+		screenPlayerAccordingLocation.addActionListener(e->setTable(((String)screenPlayerAccordingLocation.getSelectedItem()),chooseArea((String)screenPlayerAccordingZone.getSelectedItem()),chooseType((String)seasonType.getSelectedItem()),Integer.parseInt((String)screenPlayerAccordingSeason.getSelectedItem()),(String)aveOrAll.getSelectedItem(),(String)lowOrHigh.getSelectedItem()));
+		screenPlayerAccordingZone.addActionListener(e->setTable(((String)screenPlayerAccordingLocation.getSelectedItem()),chooseArea((String)screenPlayerAccordingZone.getSelectedItem()),chooseType((String)seasonType.getSelectedItem()),Integer.parseInt((String)screenPlayerAccordingSeason.getSelectedItem()),(String)aveOrAll.getSelectedItem(),(String)lowOrHigh.getSelectedItem()));
+		seasonType.addActionListener(e->setTable(((String)screenPlayerAccordingLocation.getSelectedItem()),chooseArea((String)screenPlayerAccordingZone.getSelectedItem()),chooseType((String)seasonType.getSelectedItem()),Integer.parseInt((String)screenPlayerAccordingSeason.getSelectedItem()),(String)aveOrAll.getSelectedItem(),(String)lowOrHigh.getSelectedItem()));
+		screenPlayerAccordingSeason.addActionListener(e->setTable(((String)screenPlayerAccordingLocation.getSelectedItem()),chooseArea((String)screenPlayerAccordingZone.getSelectedItem()),chooseType((String)seasonType.getSelectedItem()),Integer.parseInt((String)screenPlayerAccordingSeason.getSelectedItem()),(String)aveOrAll.getSelectedItem(),(String)lowOrHigh.getSelectedItem()));
+		aveOrAll.addActionListener(e->setTable(((String)screenPlayerAccordingLocation.getSelectedItem()),chooseArea((String)screenPlayerAccordingZone.getSelectedItem()),chooseType((String)seasonType.getSelectedItem()),Integer.parseInt((String)screenPlayerAccordingSeason.getSelectedItem()),(String)aveOrAll.getSelectedItem(),(String)lowOrHigh.getSelectedItem()));
+		lowOrHigh.addActionListener(e->setTable(((String)screenPlayerAccordingLocation.getSelectedItem()),chooseArea((String)screenPlayerAccordingZone.getSelectedItem()),chooseType((String)seasonType.getSelectedItem()),Integer.parseInt((String)screenPlayerAccordingSeason.getSelectedItem()),(String)aveOrAll.getSelectedItem(),(String)lowOrHigh.getSelectedItem()));
 
 		return headerPanel;
 	}
 
-	/**低阶高阶表格转换*/
-	private void setLowOrHigh(String type) {
-		if(type.equals("低阶")){
-			setLowTable(null);
+	/**设置表格*/
+	private void setTable(String location,Area zone,SeasonType seasonType,int season,String aveOrAll,String lowOrHigh) {
+
+		if(lowOrHigh.equals("基本")){
+			PlayerNormalPO[] playerNormal = playerController.screenNormalAvePlayers(season, location, zone, seasonType);
+			setLowTable(playerNormal);
 		}else{
-			setHighTable(null);
+			PlayerHighPO[] playerHigh = playerController.screenHighPlayers(season, location, zone, seasonType);
+			setHighTable(playerHigh);
 		}
 	}
 
@@ -91,7 +115,7 @@ public class StatisticsPlayerPanel extends JPanel {
 	private void setLowTable(PlayerNormalPO[] playerMatchVOs) {
 		if (playerMatchVOs != null) {
 			columnsName.removeAllElements();
-			/* 00排名 */columnsName.add("排名");
+//			/* 00排名 */columnsName.add("排名");
 			/* 01球员 */columnsName.add("球员");
 			/* 02姓名 */columnsName.add("姓名");
 			/* 03球队 */columnsName.add("球队");
@@ -138,7 +162,7 @@ public class StatisticsPlayerPanel extends JPanel {
 			setScrollPane();
 		} else {
 			columnsName.removeAllElements();
-			/* 00排名 */columnsName.add("排名");
+//			/* 00排名 */columnsName.add("排名");
 			/* 01球员 */columnsName.add("球员");
 			/* 02姓名 */columnsName.add("姓名");
 			/* 03球队 */columnsName.add("球队");
@@ -174,7 +198,7 @@ public class StatisticsPlayerPanel extends JPanel {
 	private void setHighTable(PlayerHighPO[] playerMatchVOs) {
 		if (playerMatchVOs != null) {
 			columnsName.removeAllElements();
-			/* 00排名 */columnsName.add("排名");
+//			/* 00排名 */columnsName.add("排名");
 			/* 01球员 */columnsName.add("球员");
 			/* 02姓名 */columnsName.add("姓名");
 			/* 03球队 */columnsName.add("球队");
@@ -192,7 +216,7 @@ public class StatisticsPlayerPanel extends JPanel {
 			data.clear();
 			for (int i = 0; i < playerMatchVOs.length; i++) {
 				Vector rowData = new Vector();
-				/* 00排名 */rowData.add(i+1);
+//				/* 00排名 */rowData.add(i+1);
 				/* 01球员 */rowData.add("图片");
 				/* 02姓名 */rowData.add(playerMatchVOs[i].getPlayerName());
 				/* 03球队 */rowData.add(playerMatchVOs[i].getTeamName());
@@ -212,7 +236,7 @@ public class StatisticsPlayerPanel extends JPanel {
 			setScrollPane();
 		} else {
 			columnsName.removeAllElements();
-			/* 00排名 */columnsName.add("排名");
+//			/* 00排名 */columnsName.add("排名");
 			/* 01球员 */columnsName.add("球员");
 			/* 02姓名 */columnsName.add("姓名");
 			/* 03球队 */columnsName.add("球队");
@@ -239,8 +263,50 @@ public class StatisticsPlayerPanel extends JPanel {
 		}	
 	}
 
+	/**判断分区*/
+	private Area chooseArea(String zone){
+		if(zone.equals("EAST")){
+			//辣辣
+		}
+		else if(zone.equals("E-ATLANTIC")){
+			return Area.ATLANTIC;
+		}
+		else if(zone.equals("E-CENTRAL")){
+			return Area.CENTRAL;
+		}
+		else if(zone.equals("E-SOUTHEAST")){
+			return Area.SOUTHEAST;
+		}
+		else if(zone.equals("WEST")){
+			//辣辣
+		}
+		else if(zone.equals("W-PACIFIC")){
+			return Area.PACIFIC;
+		}
+		else if(zone.equals("W-SOUTHWEST")){
+			return Area.SOUTHWEST;
+		}
+		else if(zone.equals("W-NORTHWEST")){
+			return Area.NORTHWEST;
+		}
+		else{
+			return null;
+		}
+		return null;
+	}
+	
+	/**判断常规赛or季后赛*/
+	private SeasonType chooseType(String seasonType){
+		if(seasonType.equals("常规赛")){
+			return SeasonType.REGULAR;
+		}
+		else{
+			return SeasonType.PLAYOFF;
+		}
+	}
+
 	/** 设置jScrollPanel */
-	private void setScrollPane() {
+ 	private void setScrollPane() {
 		table.setDataVector(data, columnsName);
 		mytable.updateUI();
 		jScrollPane
