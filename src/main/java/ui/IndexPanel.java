@@ -47,8 +47,8 @@ public class IndexPanel extends JPanel {
 	void setChart() {
 		for (int i = 0; i < 30; i++) {
 			teams[i] = new JLabel();
-			teams[i].setOpaque(true);
-			teams[i].setBackground(Color.red);
+//			teams[i].setOpaque(true);
+//			teams[i].setBackground(Color.red);
 			teams[i].addMouseListener(new listener());
 			background.add(teams[i]);
 		}
@@ -122,12 +122,69 @@ public class IndexPanel extends JPanel {
 	}
 	
 	void findteam(int index){
-		switch (index){
-		case 0:
-		case 1:
-		case 2:
-		case 8:
-		}
+		 switch(index){
+		 case 0:MyFrame.teampanel.showOne("GSW");
+		 break;
+		 case 1:MyFrame.teampanel.showOne("NOP");
+		 break;
+		 case 2:MyFrame.teampanel.showOne("POR");
+		 break;
+		 case 3:MyFrame.teampanel.showOne("MEM");
+		 break;
+		 case 4:MyFrame.teampanel.showOne("HOU");
+		 break;
+		 case 5:MyFrame.teampanel.showOne("DAL");
+		 break;
+		 case 6:MyFrame.teampanel.showOne("LAC");
+		 break;
+		 case 7:MyFrame.teampanel.showOne("SAS");
+		 break;
+		 case 8:MyFrame.teampanel.showOne("GSW");
+		 break;
+		 case 9:MyFrame.teampanel.showOne("MEM");
+		 break;
+		 case 10:MyFrame.teampanel.showOne("HOU");
+		 break;
+		 case 11:MyFrame.teampanel.showOne("LAC");
+		 break;
+		 case 12:MyFrame.teampanel.showOne("GSW");
+		 break;
+		 case 13:MyFrame.teampanel.showOne("HOU");
+		 break;
+		 case 14:MyFrame.teampanel.showOne("GSW");
+		 break;
+		 case 15:MyFrame.teampanel.showOne("CLE");
+		 break;
+		 case 16:MyFrame.teampanel.showOne("ATL");
+		 break;
+		 case 17:MyFrame.teampanel.showOne("CLE");
+		 break;
+		 case 18:MyFrame.teampanel.showOne("ATL");
+		 break;
+		 case 19:MyFrame.teampanel.showOne("WAS");
+		 break;
+		 case 20:MyFrame.teampanel.showOne("CLE");
+		 break;
+		 case 21:MyFrame.teampanel.showOne("CHI");
+		 break;
+		 case 22:MyFrame.teampanel.showOne("ATL");
+		 break;
+		 case 23:MyFrame.teampanel.showOne("BKN");
+		 break;
+		 case 24:MyFrame.teampanel.showOne("TOR");
+		 break;
+		 case 25:MyFrame.teampanel.showOne("WAS");
+		 break;
+		 case 26:MyFrame.teampanel.showOne("CLE");
+		 break;
+		 case 27:MyFrame.teampanel.showOne("BOS");
+		 break;
+		 case 28:MyFrame.teampanel.showOne("CHI");
+		 break;
+		 case 29:MyFrame.teampanel.showOne("MIL");
+		 break;
+		 }
+		 MyFrame.card.show(MyFrame.mainpanel, "team");
 	}
 
 	class listener implements MouseListener {

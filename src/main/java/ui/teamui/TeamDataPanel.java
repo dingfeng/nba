@@ -106,10 +106,11 @@ public class TeamDataPanel extends JPanel {
 
 		rowimage.clear();
 
-		for (int i = 0; i < team.length; i++) {
+		for (int i = 1; i < team.length; i++) {
 			TeamNormalPO str = team[i];
 			Vector data = new Vector();
 			data.add(2014 - i + "");
+			System.out.println(str.getPoints());
 			data.add(FrameSize.roundForNumber(str.getPoints(), 1));
 			data.add(FrameSize.roundForNumber(str.getWinRate() * 100, 1));
 			// data.add(str.getMatchNo());
