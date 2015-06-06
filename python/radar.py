@@ -1,15 +1,26 @@
 # -*- coding: cp936 -*-
 import numpy as np
 import matplotlib.pyplot as plt
+from numpy.lib.function_base import average
 
 def getData():
     file_object = open("D:/dataToP", 'r')
     try:
          playername1 = file_object.readline()
          playername2 = file_object.readline()
-         line = file_object.readline()
-         parts = line.split(',')
-         average = [float(P) for P in parts]
+         #Calculate average performance
+         average = np.zeros(5);
+         for i in range(5):
+             line = file_object.readline()
+             parts = line.split(',')
+             dataSub = [float(P) for P in parts]
+             dataNo = len(dataSub)
+             dataSubArray = np.array(dataSub)
+             sum1 = dataSubArray.sum()
+             mean = sum1/dataNo
+             AveStd[i] = mean
+             
+         #player1data
          line = file_object.readline()
          parts = line.split(',')
          dataSub1 = [float(P) for P in parts]
@@ -17,6 +28,7 @@ def getData():
          max1 = max(dataSub1Done)
          line = file_object.readline()
          if line:
+             #player2data
              parts = line.split(',')
              dataSub2 = [float(P) for P in parts]
              dataSub2Done = [dataSub2[0]/average[0], dataSub2[1]/average[1], dataSub2[2]/average[2], dataSub2[3]/average[3], dataSub2[4]/average[4]]
@@ -48,7 +60,7 @@ if __name__ == '__main__':
 
     data, maximum, player1, player2 = getData()
     spoke_labels = data.pop('column names')
-    colors = ['b', 'r']
+    colors = [(0.12568, 0.6549, 0.9019, 1), (0.8078, 0.8078, 0.8078, 1)]
 
     angles = np.linspace(0, 2*np.pi, N, endpoint=False)
     angles = np.concatenate((angles, [angles[0]])) # 闭合

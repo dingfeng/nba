@@ -173,4 +173,11 @@ public interface PlayerBlService {
      * @return	两个球员相应赛季场均数据的对比柱状图
      */
     public Image getCompareImage(int season, String name1, String name2, SeasonType type);
+    /**
+     * 得到某球员赛季近10场比赛数据 以及预估下场比赛数据
+     * @param season		赛季
+     * @param playername	球员名称
+     * @return	相应预估折线图
+     */
+    public Image getLineChartImage(int season, String playername);
 }
