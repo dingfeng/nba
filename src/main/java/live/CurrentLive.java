@@ -75,7 +75,7 @@ public class CurrentLive {
 		int day = date.getDay();
 		String dateStr = String.valueOf(year)+"-"+String.valueOf(month)+"-"+String.valueOf(day);
 		indexUrl += dateStr;
-		indexUrl = "http://g.hupu.com/nba/2015-5-11";
+		indexUrl = "http://g.hupu.com/nba/2015-6-5";
 		Iterator<String> itr = WebTool.getWebCon(indexUrl);
 		initUrls(itr);
     }

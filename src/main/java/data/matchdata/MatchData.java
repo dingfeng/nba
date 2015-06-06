@@ -302,7 +302,7 @@ public class MatchData implements MatchDataService{
         {
         	String sql = "select player_name,courtTime,hitNo,handNo,threeHitNo,threeHandNo,penaltyHitNo,penaltyHandNo,"
         			+ "offenseRebs,defenceRebs,rebs,assist,steal,blockno,mistakeno,fouls"
-        			+ " from match_player where match_id = ? and teama = ?";
+        			+ " from match_player where match_id = ? and teama = ? order by first desc,score desc";
         	PreparedStatement statement = conn.prepareStatement(sql);
         	statement.setInt(1, matchId);
         	statement.setString(2, teamName);

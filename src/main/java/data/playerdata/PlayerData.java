@@ -668,8 +668,8 @@ public PlayerHighPO[] getSeasonPlayerHigh(int season, SeasonType type) {
 }
 @Override
 public PlayerPO[] getPlayersOfTeam(String team) {
-	String sql = "select a.player_id,a.player_name,a.num,a.position,a.heightfeet,a.heightinch,a.weight,a.birth,a.age,a.exp,a.school from mplayer a"
-			+ " where exists(select m.teama from player_team m where m.player_name = a.player_name and  m.teama = ?)";
+	String sql = "select a.player_id,a.player_name,a.num,a.position,a.heightfeet,a.heightinch,a.weight,a.birth,a.age,a.exp,a.school from mplayer a "
+			+ " where a.team = ?";
 		ArrayList<PlayerPO> list = new ArrayList<PlayerPO>(3500);
 		PlayerPO[] players = null;
 		

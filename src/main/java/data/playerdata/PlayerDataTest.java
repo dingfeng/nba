@@ -42,6 +42,13 @@ public class PlayerDataTest {
 	}
 
 	@Test
+	public void testGetPlayerOfTeam()
+	{
+		PlayerPO[] players = player.getPlayersOfTeam("LAL");
+		print(players);
+	}
+	
+	@Test
 	public void testGetPlayerHigh() {
 		PlayerHighPO players = player.getPlayerHigh(2012, "Kobe Bryant", SeasonType.REGULAR);
 //		print(players);
@@ -132,7 +139,7 @@ public class PlayerDataTest {
 	public void testMatchPlayer()
 	{
 		MatchPlayerPO[] players = player.getSeasonMatches(2014, "Kobe Bryant", SeasonType.REGULAR);
-		print (players);
+//		print (players);
 	}
 	public static void print(Object[] objects)
     {
