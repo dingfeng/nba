@@ -18,6 +18,7 @@ import ui.mainui.MyFrame;
 import vo.HotPlayerTeam;
 import vo.TeamSortBy;
 import bl.playerbl.PlayerController;
+import bl.teambl.TeamController;
 import dataservice.playerdataservice.SeasonType;
 
 public class HotPanel extends JPanel {
@@ -39,10 +40,10 @@ public class HotPanel extends JPanel {
 	JLabel score_4 = new JLabel();
 	JLabel score_5 = new JLabel();
 
-	JLabel crown=new JLabel();
-	JButton[] choose=new JButton[8];
-//	TeamController tc = new TeamController(2012);
-//	PlayerController pc = new PlayerController();
+	JLabel crown = new JLabel();
+	JButton[] choose = new JButton[8];
+	TeamController tc = new TeamController();
+	PlayerController pc = new PlayerController();
 	int hottype = 1;
 
 	HotPanel hotpanel = this;
@@ -72,10 +73,10 @@ public class HotPanel extends JPanel {
 				FrameSize.buttonbackColor, Color.GRAY);
 		MyButton season_player = new MyButton("赛季热点球员",
 				FrameSize.buttonbackColor, Color.GRAY);
-		MyButton season_team = new MyButton("赛季热点球队", FrameSize.buttonbackColor,
-				Color.GRAY);
-		MyButton fast_player = new MyButton("进步最快球员", FrameSize.buttonbackColor,
-				Color.GRAY);
+		MyButton season_team = new MyButton("赛季热点球队",
+				FrameSize.buttonbackColor, Color.GRAY);
+		MyButton fast_player = new MyButton("进步最快球员",
+				FrameSize.buttonbackColor, Color.GRAY);
 
 		today_player.setBounds(10, 40, 150, 50);
 		season_player.setBounds(10, 40 + height / 4, 150, 50);
@@ -91,11 +92,11 @@ public class HotPanel extends JPanel {
 		season_player.setForeground(Color.white);
 		season_team.setForeground(Color.white);
 		fast_player.setForeground(Color.white);
-		
-		today_player.setFont(new Font("微软雅黑",Font.PLAIN,18));
-		season_player.setFont(new Font("微软雅黑",Font.PLAIN,18));
-		season_team.setFont(new Font("微软雅黑",Font.PLAIN,18));
-		fast_player.setFont(new Font("微软雅黑",Font.PLAIN,18));
+
+		today_player.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		season_player.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		season_team.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		fast_player.setFont(new Font("微软雅黑", Font.PLAIN, 18));
 
 		today_player.addActionListener(e -> showchoose(1));
 		season_player.addActionListener(e -> showchoose(2));
@@ -114,9 +115,9 @@ public class HotPanel extends JPanel {
 		show.setBackground(Color.white);
 		show.setBounds(FrameSize.width / 6, 0, 5 * FrameSize.width / 6,
 				11 * FrameSize.height / 12);
-		for(int i=0;i<8;i++){
-		choose[i]=new JButton();
-		choose[i].setBackground(Color.gray);
+		for (int i = 0; i < 8; i++) {
+			choose[i] = new JButton();
+			choose[i].setBackground(Color.gray);
 		}
 		for (int i = 0; i < 5; i++) {
 			name[i] = new JLabel();
@@ -148,10 +149,10 @@ public class HotPanel extends JPanel {
 		score_4.setForeground(Color.white);
 		score_5.setForeground(Color.white);
 
-		
-		crown.setBounds(FrameSize.width / 3 - 185, FrameSize.height / 15, 72, 72);
+		crown.setBounds(FrameSize.width / 3 - 185, FrameSize.height / 15, 72,
+				72);
 		crown.setIcon(new ImageIcon("image/crown.png"));
-		
+
 		show.add(score_1);
 		show.add(score_2);
 		show.add(score_3);
@@ -164,7 +165,7 @@ public class HotPanel extends JPanel {
 	/** 设置选择 */
 	void showchoose(int type) {
 		hottype = type;
-//		choose.setVisible(false);
+		// choose.setVisible(false);
 		switch (type) {
 		case 3:
 			choose[0].setText("得分");
@@ -175,34 +176,31 @@ public class HotPanel extends JPanel {
 			choose[5].setText("三分%");
 			choose[6].setText("%");
 			choose[7].setText("罚球%");
-			for(int i=0;i<8;i++){
-				choose[i].setBounds(FrameSize.width*5/48*i,0,FrameSize.width*5/48 , 50);
+			for (int i = 0; i < 8; i++) {
+				choose[i].setBounds(FrameSize.width * 5 / 48 * i, 0,
+						FrameSize.width * 5 / 48, 50);
 				show.add(choose[i]);
-				String sortBy=choose[i].getText();
-//				choose[i].addActionListener(e -> showMessage_team(sortBy));
+				String sortBy = choose[i].getText();
+				choose[i].addActionListener(e -> showMessage_team(sortBy));
 			}
-			
-			
-			
 
-//			showMessage_team();
-//			choose.addActionListener(e -> showMessage_team());
+			// showMessage_team();
+			// choose.addActionListener(e -> showMessage_team());
 			break;
 		case 4:
 			choose[0].setText("得分提升率");
 			choose[1].setText("篮板提升率");
 			choose[2].setText("助攻提升率");
-			for(int i=0;i<8;i++){
-				choose[i].setBounds(FrameSize.width*5/18*i,0,FrameSize.width*5/18 , 50);
-				String sortBy=choose[i].getText();
-//				choose[i].addActionListener(e -> showMessage_player(sortBy));
+			for (int i = 0; i < 8; i++) {
+				choose[i].setBounds(FrameSize.width * 5 / 18 * i, 0,
+						FrameSize.width * 5 / 18, 50);
+				String sortBy = choose[i].getText();
+				choose[i].addActionListener(e -> showMessage_player(sortBy));
 				show.add(choose[i]);
 			}
-			
-			
 
-//			showMessage_player("得分提升率");
-//			choose.addActionListener(e -> showMessage_player());
+			// showMessage_player("得分提升率");
+			// choose.addActionListener(e -> showMessage_player());
 			break;
 		default:
 			choose[0].setText("得分");
@@ -210,45 +208,44 @@ public class HotPanel extends JPanel {
 			choose[2].setText("助攻");
 			choose[3].setText("盖帽");
 			choose[4].setText("抢断");
-			for(int i=0;i<8;i++){
-				choose[i].setBounds(FrameSize.width/6*i,0,FrameSize.width/6 , 50);
-				String sortBy=choose[i].getText();
-//				choose[i].addActionListener(e -> showMessage_player(sortBy));
+			for (int i = 0; i < 8; i++) {
+				choose[i].setBounds(FrameSize.width / 6 * i, 0,
+						FrameSize.width / 6, 50);
+				String sortBy = choose[i].getText();
+	
+				choose[i].addActionListener(e -> showMessage_player(sortBy));
 				show.add(choose[i]);
 			}
-			
 
-//			showMessage_player("得分");
-//			choose.addActionListener(e -> showMessage_player());
+			// showMessage_player("得分");
+			// choose.addActionListener(e -> showMessage_player());
 
 			break;
 
 		}
 
-		
 		show.repaint();
 		this.repaint();
 	}
 
 	/** 热点球员 */
 	void showMessage_player(String sort) {
-
-		String sortBy=sortby(sort);
+		System.out.print(sort);
+		String sortBy = sortby(sort);
 		HotPlayerTeam[] players = new HotPlayerTeam[5];
 		switch (hottype) {
 		case 1:
 			players = pc.getDayHotPlayer(sortBy);
 			break;
 		case 2:
-			players = pc.getSeasonHotPlayer(2012,sortBy,SeasonType.REGULAR);
+			players = pc.getSeasonHotPlayer(2012, sortBy, SeasonType.REGULAR);
 			break;
 		case 4:
-			players = pc.getPromotePlayer(2012,sortBy);
+			players = pc.getPromotePlayer(2012, sortBy);
 		}
 		try {
 			portrait_1.setIcon(scaleImage(
-					new ImageIcon(pc.findPlayer(players[0].getName())
-							.getPortrait()), 115, 92));
+					new ImageIcon(players[0].getAction()), 115, 92));
 		} catch (Exception e) {
 			portrait_1.setIcon(scaleImage(new ImageIcon(Toolkit
 					.getDefaultToolkit().getImage("image/noimage.png")), 115,
@@ -259,8 +256,7 @@ public class HotPanel extends JPanel {
 				185, 123);
 		try {
 			portrait_2.setIcon(scaleImage(
-					new ImageIcon(pc.findPlayer(players[1].getName())
-							.getPortrait()), 69, 55));
+					new ImageIcon(players[1].getAction()), 69, 55));
 		} catch (Exception e) {
 			portrait_2
 					.setIcon(scaleImage(
@@ -271,8 +267,7 @@ public class HotPanel extends JPanel {
 				2 * FrameSize.height / 7, 69, 55);
 		try {
 			portrait_3.setIcon(scaleImage(
-					new ImageIcon(pc.findPlayer(players[2].getName())
-							.getPortrait()), 69, 55));
+					new ImageIcon(players[2].getAction()), 69, 55));
 		} catch (Exception e) {
 			portrait_3
 					.setIcon(scaleImage(
@@ -283,8 +278,7 @@ public class HotPanel extends JPanel {
 				3 * FrameSize.height / 7, 69, 55);
 		try {
 			portrait_4.setIcon(scaleImage(
-					new ImageIcon(pc.findPlayer(players[3].getName())
-							.getPortrait()), 69, 55));
+					new ImageIcon(players[3].getAction()), 69, 55));
 		} catch (Exception e) {
 			portrait_4
 					.setIcon(scaleImage(
@@ -295,8 +289,7 @@ public class HotPanel extends JPanel {
 				4 * FrameSize.height / 7, 69, 55);
 		try {
 			portrait_5.setIcon(scaleImage(
-					new ImageIcon(pc.findPlayer(players[4].getName())
-							.getPortrait()), 69, 55));
+					new ImageIcon(players[4].getAction()), 69, 55));
 		} catch (Exception e) {
 			portrait_5
 					.setIcon(scaleImage(
@@ -307,6 +300,7 @@ public class HotPanel extends JPanel {
 				5 * FrameSize.height / 7, 69, 55);
 
 		for (int i = 0; i < 5; i++) {
+			System.out.println(players[i].getName());
 			name[i].setText(players[i].getName());
 			// name[i].addMouseListener(new showPlayer());
 		}
@@ -329,65 +323,27 @@ public class HotPanel extends JPanel {
 
 	/** 热点球队 */
 	void showMessage_team(String sortby) {
-		TeamSortBy teamSortBy = null;
-		
-		if (sortby.equals("比赛场数")) {
-			teamSortBy = TeamSortBy.matchNo;
-		} else if (sortby.equals("投篮命中数")) {
-			teamSortBy = TeamSortBy.hitNo;
-		} else if (sortby.equals("投篮出手次数")) {
-			teamSortBy = TeamSortBy.handNo;
-		} else if (sortby.equals("三分命中数")) {
-			teamSortBy = TeamSortBy.threeHitNo;
-		} else if (sortby.equals("三分出手数")) {
-			teamSortBy = TeamSortBy.threeHandNo;
-		} else if (sortby.equals("罚球命中数")) {
-			teamSortBy = TeamSortBy.penaltyHitNo;
-		} else if (sortby.equals("罚球出手数")) {
-			teamSortBy = TeamSortBy.penaltyHandNo;
-		} else if (sortby.equals("进攻篮板数")) {
-			teamSortBy = TeamSortBy.offenseRebs;
-		} else if (sortby.equals("防守篮板数")) {
-			teamSortBy = TeamSortBy.defenceRebs;
-		} else if (sortby.equals("篮板数")) {
-			teamSortBy = TeamSortBy.rebs;
-		} else if (sortby.equals("助攻数")) {
-			teamSortBy = TeamSortBy.assistNo;
-		} else if (sortby.equals("抢断数")) {
-			teamSortBy = TeamSortBy.stealsNo;
-		} else if (sortby.equals("盖帽数")) {
-			teamSortBy = TeamSortBy.blockNo;
-		} else if (sortby.equals("失误数")) {
-			teamSortBy = TeamSortBy.mistakesNo;
-		} else if (sortby.equals("犯规数")) {
-			teamSortBy = TeamSortBy.foulsNo;
-		} else if (sortby.equals("比赛得分")) {
-			teamSortBy = TeamSortBy.points;
+		String teamSortBy = null;
+		if (sortby.equals("得分")) {
+			teamSortBy = "score";
+		} else if (sortby.equals("篮板")) {
+			teamSortBy = "rebs";
+		} else if (sortby.equals("助攻")) {
+			teamSortBy = "assist";
+		} else if (sortby.equals("抢断")) {
+			teamSortBy = "steals";
+		} else if (sortby.equals("盖帽")) {
+			teamSortBy = "blockno";
 		} else if (sortby.equals("投篮命中率")) {
-			teamSortBy = TeamSortBy.hitRate;
+			teamSortBy = "hitRate";
 		} else if (sortby.equals("三分命中率")) {
-			teamSortBy = TeamSortBy.threeHitRate;
+			teamSortBy = "threeHitRate";
 		} else if (sortby.equals("罚球命中率")) {
-			teamSortBy = TeamSortBy.penaltyHitRate;
-		} else if (sortby.equals("胜率")) {
-			teamSortBy = TeamSortBy.winRate;
-		} else if (sortby.equals("进攻回合")) {
-			teamSortBy = TeamSortBy.offenseRound;
-		} else if (sortby.equals("进攻效率")) {
-			teamSortBy = TeamSortBy.offenseEfficiency;
-		} else if (sortby.equals("防守效率")) {
-			teamSortBy = TeamSortBy.defenceEfficiency;
-		} else if (sortby.equals("进攻篮板效率")) {
-			teamSortBy = TeamSortBy.drebsEfficiency;
-		} else if (sortby.equals("防守篮板效率")) {
-			teamSortBy = TeamSortBy.orebsEfficiency;
-		} else if (sortby.equals("抢断效率")) {
-			teamSortBy = TeamSortBy.stealsEfficiency;
-		} else if (sortby.equals("助攻率")) {
-			teamSortBy = TeamSortBy.assistEfficiency;
+			teamSortBy = "penaltyHitRate";
 		}
 
-		TeamMatchVO[] hotteam = tc.getHotTeams(teamSortBy);
+		HotPlayerTeam[] hotteam = tc.getHotTeams(2014, teamSortBy,
+				SeasonType.REGULAR);
 
 		for (int i = 0; i < 5; i++) {
 			name[i].setText(tc.getTeamData(hotteam[i].getName()).getName()
@@ -451,11 +407,12 @@ public class HotPanel extends JPanel {
 			String info = ((JLabel) e.getSource()).getText();
 			switch (hottype) {
 			case 3:
-//				MyFrame.teampanel.findClick(info.substring(info.length() - 3));
+				// MyFrame.teampanel.findClick(info.substring(info.length() -
+				// 3));
 				MyFrame.card.show(MyFrame.mainpanel, "team");
 				break;
 			default:
-//				MyFrame.playerpanel.findPlayerClick(info);
+				// MyFrame.playerpanel.findPlayerClick(info);
 				MyFrame.card.show(MyFrame.mainpanel, "player");
 			}
 
@@ -497,39 +454,21 @@ public class HotPanel extends JPanel {
 		String playerSortBy = null;
 
 		if (sortBy.equals("得分")) {
-			playerSortBy = "points";
+			playerSortBy = "score";
 		} else if (sortBy.equals("篮板")) {
 			playerSortBy = "rebs";
 		} else if (sortBy.equals("助攻")) {
 			playerSortBy = "assist";
-		} else if (sortBy.equals("得分/篮板/助攻")) {
-			playerSortBy = "scoring_rebound_assist";
-		} else if (sortBy.equals("盖帽")) {
-			playerSortBy = "block";
 		} else if (sortBy.equals("抢断")) {
-			playerSortBy = "steal";
-		} else if (sortBy.equals("犯规")) {
-			playerSortBy = "foul";
-		} else if (sortBy.equals("失误")) {
-			playerSortBy = "mistake";
-		} else if (sortBy.equals("分钟")) {
-			playerSortBy = "minute";
-		} else if (sortBy.equals("效率")) {
-			playerSortBy = "efficiency";
-		} else if (sortBy.equals("投篮")) {
-			playerSortBy = "shot";
-		} else if (sortBy.equals("三分")) {
-			playerSortBy = "three_points";
-		} else if (sortBy.equals("罚球")) {
-			playerSortBy = "freeThrow";
-		} else if (sortBy.equals("两双")) {
-			playerSortBy = "twoPair";
-		} else if (sortBy.equals("得分提升率")) {
-			playerSortBy = "points_uprate";
-		} else if (sortBy.equals("篮板提升率")) {
-			playerSortBy = "rebs_uprate";
-		} else if (sortBy.equals("助攻提升率")) {
-			playerSortBy = "help_uprate";
+			playerSortBy = "steals";
+		} else if (sortBy.equals("盖帽")) {
+			playerSortBy = "blockno";
+		} else if (sortBy.equals("投篮命中率")) {
+			playerSortBy = "hitRate";
+		} else if (sortBy.equals("三分命中率")) {
+			playerSortBy = "threeHitRate";
+		} else if (sortBy.equals("罚球命中率")) {
+			playerSortBy = "penaltyHitRate";
 		}
 		return playerSortBy;
 
