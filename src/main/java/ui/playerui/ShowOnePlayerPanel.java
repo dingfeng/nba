@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -21,6 +22,12 @@ public class ShowOnePlayerPanel extends JPanel{
 	public static PlayerContrastPanel playerContrastPanel = new PlayerContrastPanel();
 	public static PlayerDataPanel playerDataPanel = new PlayerDataPanel();
 
+	MyToggleButton dataButton = new MyToggleButton("数据", Color.black, Color.gray);
+	MyToggleButton recentButton = new MyToggleButton("近期比赛", Color.black, Color.gray);
+	MyToggleButton pastButton = new MyToggleButton("过往查询", Color.black, Color.gray);
+	MyToggleButton contrastButton = new MyToggleButton("对比", Color.black, Color.gray);
+
+	
 	JPanel findPanel = new JPanel();
 
 	
@@ -31,7 +38,7 @@ public class ShowOnePlayerPanel extends JPanel{
 		this.setBounds(0,0,FrameSize.width,FrameSize.height*7/8);
 		this.setOpaque(false);
 		setPlayerMain();
-//		setHeader();
+		setHeader();
 //		setFind();
 		
 		this.add(playermain);
@@ -43,6 +50,7 @@ public class ShowOnePlayerPanel extends JPanel{
 	
 	private void setPlayerMain(){
 		playermain.setBounds(0,FrameSize.height*7/8/4+50,FrameSize.width,FrameSize.height*7/8*3/4-50);
+		playermain.setBackground(Color.red);
 		playermain.setLayout(card);
 		playermain.add("data",playerDataPanel);
 		playermain.add("past",pastMatchPanel);
@@ -50,12 +58,9 @@ public class ShowOnePlayerPanel extends JPanel{
 		playermain.add("contrast",playerContrastPanel);
 	}
 	
-	private void setheaderPanel(){
+	private void setHeader(){
 		JPanel headerPanel = new JPanel();
-		MyToggleButton dataButton = new MyToggleButton("数据", Color.black, Color.gray);
-		MyToggleButton recentButton = new MyToggleButton("近期比赛", Color.black, Color.gray);
-		MyToggleButton pastButton = new MyToggleButton("过往查询", Color.black, Color.gray);
-		MyToggleButton contrastButton = new MyToggleButton("对比", Color.black, Color.gray);
+		headerPanel.setLayout(null);
 		
 		dataButton.setBounds(0, 0, FrameSize.width/4, 50);
 		recentButton.setBounds(FrameSize.width / 4, 0, FrameSize.width/4, 50);
@@ -67,7 +72,7 @@ public class ShowOnePlayerPanel extends JPanel{
 		pastButton.setForeground(Color.white);
 		contrastButton.setForeground(Color.white);
 		
-		dataButton.addActionListener(e->setTeamdata());
+		dataButton.addActionListener(e->setPlayerdata());
 		recentButton.addActionListener(e->setRecent());
 		pastButton.addActionListener(e->setPast());
 		contrastButton.addActionListener(e->setContrast());
@@ -110,23 +115,35 @@ public class ShowOnePlayerPanel extends JPanel{
 		this.add(headerPanel);
 	}
 
-	private Object setContrast() {
-		// TODO Auto-generated method stub
-		return null;
+	private void setContrast() {
+		card.show(playermain, "contrast");
+		contrastButton.setSelected(true);
+		dataButton.setSelected(false);
+		recentButton.setSelected(false);
+		pastButton.setSelected(false);
 	}
 
-	private Object setPast() {
-		// TODO Auto-generated method stub
-		return null;
+	private void setPast() {
+		card.show(playermain, "past");
+		contrastButton.setSelected(false);
+		dataButton.setSelected(false);
+		recentButton.setSelected(false);
+		pastButton.setSelected(true);
 	}
 
-	private Object setRecent() {
-		// TODO Auto-generated method stub
-		return null;
+	private void setRecent() {
+		card.show(playermain, "recent");
+		contrastButton.setSelected(false);
+		dataButton.setSelected(false);
+		recentButton.setSelected(true);
+		pastButton.setSelected(false);
 	}
 
-	private Object setTeamdata() {
-		// TODO Auto-generated method stub
-		return null;
+	private void setPlayerdata() {
+		card.show(playermain, "data");
+		contrastButton.setSelected(false);
+		dataButton.setSelected(true);
+		recentButton.setSelected(false);
+		pastButton.setSelected(false);
 	}
 }

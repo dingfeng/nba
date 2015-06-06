@@ -20,12 +20,12 @@ public class PlayerDataPanel extends JPanel{
 	JTextField[] playerlabel=new UneditableTextField[54];
 	public PlayerDataPanel(){
 		this.setLayout(null);
-		this.setBounds(0, 30,
-				 FrameSize.width , FrameSize.height * 3 / 4-80);
+		this.setBounds(0, 0,
+				 FrameSize.width , FrameSize.height*7/8*3/4-50);
 		this.setBackground(Color.white);
 		setText();
 		setMessage();
-		TeamMessage(null);
+//		TeamMessage(null);
 		this.repaint();
 	}
 	public void setText(){
@@ -59,22 +59,23 @@ public class PlayerDataPanel extends JPanel{
 
 	/** 设置单个球队的panel */
 	void setMessage() {
-		JPanel teamdata=new JPanel();
-		teamdata.setLayout(new GridLayout(9, 6, -1, -1));
-		teamdata.setBounds(0, 30, FrameSize.width, FrameSize.height*3/4-180);
+		JPanel playerdata=new JPanel();
+		playerdata.setLayout(new GridLayout(9, 6, -1, -1));
+		playerdata.setBounds(0, 30, FrameSize.width, FrameSize.height*7/8*3/4-180);
 		// teammessage.setBorder(BorderFactory.createLineBorder(Color.white));
 		// JTextField[] playerlabel=new UneditableTextField[54];
 		for (int i = 0; i < 54; i++) {
 			playerlabel[i] = new UneditableTextField();
-			teamdata.add(playerlabel[i]);
+			playerdata.add(playerlabel[i]);
 			playerlabel[i].setText("第"+i);
 			playerlabel[i].setFont(new Font("", Font.PLAIN, 15));
 			playerlabel[i].setBorder(BorderFactory.createLineBorder(Color.white));
 		}
-		this.add(teamdata);
+		this.add(playerdata);
 	}
 
-	/** 一个球队信息（右侧） */
+	/*
+	/** 一个球队信息（右侧） 
 	void TeamMessage(TeamNormalPO str) {
 
 		playerlabel[0].setText("比赛场数");
@@ -105,4 +106,5 @@ public class PlayerDataPanel extends JPanel{
 		playerlabel[50].setText("抢断效率");
 		playerlabel[52].setText("助攻率");
 	}
+	*/
 }
