@@ -32,9 +32,26 @@ public interface Matchblservice
 	 * @return	相应赛季相应球员所有季后赛比赛数据
 	 */
 	public MatchesPO[] getPlayerOffPlayerMatches(int season, String playername);
+	/**
+	 * 需要相应赛季相应球队所有常规赛比赛数据
+	 * @param season	赛季
+	 * @param teamname	球队名称
+	 * @return	相应赛季相应球队所有常规赛比赛数据
+	 */
 	public MatchesPO[] getRegularTeamMatches(int season, String teamname);
+	/**
+	 * 得到相应赛季相应球队所有赛后季比赛数据
+	 * @param season	赛季
+	 * @param teamname	球队名称
+	 * @return 相应赛季相应球队所有赛后季比赛数据
+	 */
 	public MatchesPO[] getPlayerOffTeamMatches(int season, String teamname);
-    public MatchesPO[] getTimeMatches(Date date);
+    /**
+     * 得到相应日期的所有比赛
+     * @param date	日期
+     * @return 相应日期的所有比赛
+     */
+	public MatchesPO[] getTimeMatches(Date date);
     /**
      * 得到球员某赛季最近5场常规赛比赛
      * @param season	赛季
