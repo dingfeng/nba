@@ -617,26 +617,28 @@ public class PlayerController implements PlayerBlService {
 					nowP ++;
 				}
 			}
-		
+			StringBuffer Date = new StringBuffer(60);
 			StringBuffer PTS = new StringBuffer(44);
 			StringBuffer REB = new StringBuffer(44);
 			StringBuffer AST = new StringBuffer(44);
 			StringBuffer FT = new StringBuffer(44);
 			StringBuffer PT3 = new StringBuffer(44);
-			for(int i = 10 - nowP; i != 9; i ++){
+			for(int i = 10 - nowP; i != nowP - 1; i ++){
+				Date.append(newest[i].getDate() + ",");
 				PTS.append(newest[i].getPoints() + ",");
 				REB.append(newest[i].getRebs() + ",");
 				AST.append(newest[i].getHelp() + ",");
 				FT.append(newest[i].getPenaltyHandNo() != 0 ? newest[i].getPenaltyHitNo()/newest[i].getPenaltyHandNo()*100 : 0 + ",");
 				PT3.append(newest[i].getThreeHandNo() != 0? newest[i].getThreeHitNo()/newest[i].getThreeHandNo()*100 : 0 + ",");
 			}
-			PTS.append(newest[10].getPoints());
-			REB.append(newest[10].getRebs());
-			AST.append(newest[10].getHelp());
-			FT.append(newest[10].getPenaltyHandNo() != 0 ? newest[10].getPenaltyHitNo()/newest[10].getPenaltyHandNo()*100 : 0);
-			PT3.append(newest[10].getThreeHandNo() != 0? newest[10].getThreeHitNo()/newest[10].getThreeHandNo()*100 : 0);
+			Date.append(newest[nowP - 1].getDate() + "," + "future");
+			PTS.append(newest[nowP - 1].getPoints());
+			REB.append(newest[nowP - 1].getRebs());
+			AST.append(newest[nowP - 1].getHelp());
+			FT.append(newest[nowP - 1].getPenaltyHandNo() != 0 ? newest[10].getPenaltyHitNo()/newest[10].getPenaltyHandNo()*100 : 0);
+			PT3.append(newest[nowP - 1].getThreeHandNo() != 0? newest[10].getThreeHitNo()/newest[10].getThreeHandNo()*100 : 0);
 		
-			String toWrite = Integer.toString(nowP) + '\n' + PTS.toString() + '\n' + REB.toString() + '\n' + AST.toString() + '\n'
+			String toWrite = Integer.toString(nowP) + '\n' + Date.toString() + '\n' + PTS.toString() + '\n' + REB.toString() + '\n' + AST.toString() + '\n'
 					+ FT.toString() + '\n' + PT3.toString();
 			BufferedWriter output;
 

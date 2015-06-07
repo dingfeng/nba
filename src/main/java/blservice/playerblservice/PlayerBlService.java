@@ -180,4 +180,5 @@ public interface PlayerBlService {
      * @return	相应预估折线图
      */
     public Image getLineChartImage(int season, String playername);
+    
 }

@@ -51,7 +51,7 @@ if __name__ == '__main__':
     ax.set_xticks(ind + width)
     ax.set_xticklabels(('PTS', 'REB', 'AST', 'FT%', '3PT%'))
  
-    ax.legend((rects1[0], rects2[0]), (player1name, player2name))
+    ax.legend((player1name, player2name), fontsize = 11)
  
 def autolabel(rects):
     # attach some text labels
