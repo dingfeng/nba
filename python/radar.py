@@ -18,7 +18,7 @@ def getData():
              dataSubArray = np.array(dataSub)
              sum1 = dataSubArray.sum()
              mean = sum1/dataNo
-             AveStd[i] = mean
+             average[i] = mean
              
          #player1data
          line = file_object.readline()

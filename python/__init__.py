@@ -31,9 +31,6 @@ def getData():
  
 if __name__ == '__main__':
     N = 5
-    #menMeans = (20, 35, 30, 35, 27)
-    #menStd = (2, 3, 4, 1, 2)
-    #menMeans, menStd, womenMeans, womenStd = getData()
     player1name, player2name, player1Means, player1Std, player2Means, player2Std = getData()
  
     ind = np.arange(N)  # the x locations for the groups
@@ -41,9 +38,6 @@ if __name__ == '__main__':
  
     fig, ax = plt.subplots()
     rects1 = ax.bar(ind, player1Means, width, color=(0.12568, 0.6549, 0.9019, 1), yerr=player1Std, alpha = 1)
- 
-    #womenMeans = (25, 32, 34, 20, 25)
-    #womenStd = (3, 5, 2, 3, 3)
     rects2 = ax.bar(ind + width, player2Means, width, color=(0.8078, 0.8078, 0.8078, 1), yerr=player2Std, alpha = 1)
  
     # add some
