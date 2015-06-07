@@ -1,25 +1,30 @@
 package ui.statistics;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.util.Comparator;
 import java.util.Vector;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-import dataservice.playerdataservice.SeasonType;
-import bl.teambl.TeamController;
-import blservice.teamblservice.Teamblservice;
 import po.TeamHighPO;
 import po.TeamNormalPO;
 import ui.mainui.FrameSize;
 import ui.mainui.MyComboBox;
 import ui.mainui.MyTable;
+import bl.teambl.TeamController;
+import blservice.teamblservice.Teamblservice;
+import dataservice.playerdataservice.SeasonType;
 
 
 public class StatisticsTeamPanel extends JPanel {
@@ -29,7 +34,7 @@ public class StatisticsTeamPanel extends JPanel {
 	Vector<String> columnsName = new Vector<String>();
 	Vector rowimage = new Vector();
 	DefaultTableModel table = new DefaultTableModel(rowimage, columnsName);
-	MyTable mytable = new MyTable(table);
+	JTable mytable = new MyTable(table);
 	JScrollPane jScrollPane=new JScrollPane(mytable);
 	MyComboBox aveOrAll = new MyComboBox(new String[] { "场均", "总数" });
 	MyComboBox lowOrHigh;
@@ -83,12 +88,23 @@ public class StatisticsTeamPanel extends JPanel {
 
 		return headerPanel;
 	}
-	
+//	class ImageRenderer   implements TableCellRenderer{
+//			 
+//			@Override
+//			public Component getTableCellRendererComponent(JTable table, Object value,  
+//			        boolean isSelected, boolean hasFocus, int row, int column) { 
+//			            //根据column判断是不是需要显示图片的列，是的话就根据value生成ImageIcon，返回相应的JLabel
+//			            
+//			                return new JLabel(new ImageIcon((String) value));
+//			            
+//			        
+//			    }  
+//}
 	//低阶数据
 	void setLowTable(TeamNormalPO[] team){
 		columnsName.removeAllElements();
 		
-//		columnsName.add("排名");
+//		columnsName.add("图标");
 		columnsName.add("球队");
 		columnsName.add("得分");
 		columnsName.add("胜率(%)");
@@ -110,7 +126,9 @@ public class StatisticsTeamPanel extends JPanel {
 		
 		for (int i = 0; i <team.length; i++) {
 			TeamNormalPO str = team[i];
+			
 			Vector data = new Vector();
+//			data.add(tc.getTeamImage(str.getName()));
 			data.add(str.getName());
 			data.add(FrameSize.roundForNumber(str.getPoints(), 1));
 			data.add(FrameSize.roundForNumber(str.getWinRate() * 100, 1));
@@ -141,6 +159,8 @@ public class StatisticsTeamPanel extends JPanel {
 		}
 		table.setDataVector(rowimage, columnsName);
 		mytable.setRowSorter(new TableRowSorter<TableModel>(table));
+//		TableCellRenderer myRenderer = new ImageRenderer();
+//		mytable.getColumnModel().getColumn(0).setCellRenderer(myRenderer);
 		mytable.updateUI();
 
 		TableRowSorter rowSorter = (TableRowSorter) mytable.getRowSorter();  

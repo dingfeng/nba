@@ -42,7 +42,7 @@ public class TeamDataPanel extends JPanel {
 	public TeamDataPanel() {
 		this.setLayout(null);
 		this.setBounds(0, 30, FrameSize.width, FrameSize.height * 3 / 4 - 80);
-		this.setOpaque(false);
+		this.setBackground(Color.white);
 		setText();
 		this.repaint();
 	}
@@ -224,9 +224,9 @@ public class TeamDataPanel extends JPanel {
 		this.repaint();
 	}
 
-	public void setTable(String teamname, boolean high) {
+	public void setTable(String teamname, boolean high,boolean all) {
 
-		showave();
+		
 		TeamNormalPO[] team = new TeamNormalPO[70];
 		TeamHighPO[] teamhigh = new TeamHighPO[70];
 		SeasonType type = SeasonType.REGULAR;
@@ -235,11 +235,11 @@ public class TeamDataPanel extends JPanel {
 		// }else if(((String)SeasonTypebox.getSelectedItem()).equals("季后赛")){
 		// type=SeasonType.PLAYOFF;
 		// }
-		if (avedata.isSelected() && !high) {
+		if (!all&&!high) {
 			team=tc.getTeamSeasonNormalAve(teamname,type);
 			
 			setLowTable(team);
-		} else if (alldata.isSelected() && !high) {
+		} else if (all&&!high) {
 			team=tc.getTeamSeasonNormalTotal(teamname,type);
 			setLowTable(team);
 		} else if (high) {

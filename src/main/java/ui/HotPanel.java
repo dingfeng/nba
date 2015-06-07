@@ -123,6 +123,7 @@ public class HotPanel extends JPanel {
 		for (int i = 0; i < 8; i++) {
 			choose[i] = new JButton();
 			choose[i].setBackground(Color.gray);
+			choose[i].addActionListener(e -> showMessage());
 		}
 		for (int i = 0; i < 5; i++) {
 			name[i] = new JLabel();
@@ -190,8 +191,6 @@ public class HotPanel extends JPanel {
 				choose[i].setBounds(FrameSize.width * 5 / 48 * i, 0,
 						FrameSize.width * 5 / 48, 50);
 				show.add(choose[i]);
-				String sortBy = choose[i].getText();
-				choose[i].addActionListener(e -> showMessage_team(sortBy));
 			}
 
 			// showMessage_team();
@@ -208,9 +207,6 @@ public class HotPanel extends JPanel {
 			for (int i = 0; i < 8; i++) {
 				choose[i].setBounds(FrameSize.width * 5 / 18 * i, 0,
 						FrameSize.width * 5 / 18, 50);
-				String sortBy = choose[i].getText();
-				choose[i].addActionListener(e -> showMessage_player(sortBy));
-				show.add(choose[i]);
 			}
 
 			// showMessage_player("得分提升率");
@@ -225,10 +221,6 @@ public class HotPanel extends JPanel {
 			for (int i = 0; i < 8; i++) {
 				choose[i].setBounds(FrameSize.width / 6 * i, 0,
 						FrameSize.width / 6, 50);
-				String sortBy = choose[i].getText();
-	
-				choose[i].addActionListener(e -> showMessage_player(sortBy));
-				show.add(choose[i]);
 			}
 			if(hottype==1){
 				today_player.setSelected(true);
@@ -252,6 +244,9 @@ public class HotPanel extends JPanel {
 		this.repaint();
 	}
 
+	void showMessage(){
+		
+	}
 	/** 热点球员 */
 	void showMessage_player(String sort) {
 		System.out.print(sort);
@@ -349,7 +344,7 @@ public class HotPanel extends JPanel {
 	void showMessage_team(String sortby) {
 		String teamSortBy = null;
 		if (sortby.equals("得分")) {
-			teamSortBy = "score";
+			teamSortBy = "points";
 		} else if (sortby.equals("篮板")) {
 			teamSortBy = "rebs";
 		} else if (sortby.equals("助攻")) {
@@ -366,7 +361,7 @@ public class HotPanel extends JPanel {
 			teamSortBy = "penaltyHitRate";
 		}
 
-		HotPlayerTeam[] hotteam = tc.getHotTeams(2014, teamSortBy,
+		HotPlayerTeam[] hotteam = tc.getHotTeams(2013, teamSortBy,
 				SeasonType.REGULAR);
 
 		for (int i = 0; i < 5; i++) {

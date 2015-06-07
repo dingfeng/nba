@@ -79,6 +79,7 @@ public class TeamPanel extends JPanel {
 	MyToggleButton contrastbutton;
 	MyToggleButton alldata;
 	MyToggleButton avedata;
+	boolean high=false;
 	TeamController tc = new TeamController();
 
 	// MatchController mc = new MatchController();
@@ -144,7 +145,8 @@ public class TeamPanel extends JPanel {
 		normal.setBackground(Color.white);
 		normal.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				setTeamdata(false);
+				high=false;
+				setTeamdata();
 			}
 
 		});
@@ -152,7 +154,8 @@ public class TeamPanel extends JPanel {
 		higher.setBackground(Color.white);
 		higher.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				setTeamdata(true);
+				high=true;
+				setTeamdata();
 			}
 
 		});
@@ -178,7 +181,9 @@ public class TeamPanel extends JPanel {
 		avedata.addActionListener(e -> showave());
 		alldata.setForeground(Color.white);
 		avedata.setForeground(Color.white);
-		
+		alldata.setSelected(true);
+		teamdatapanel.add(alldata);
+		teamdatapanel.add(avedata);
 		this.add(databutton);
 		this.add(recentbutton);
 		this.add(pastbutton);
@@ -189,18 +194,18 @@ public class TeamPanel extends JPanel {
 	void showall() {
 		alldata.setSelected(true);
 		avedata.setSelected(false);
-		
+		setTeamdata();
 	}
 
 	void showave() {
 		avedata.setSelected(true);
 		alldata.setSelected(false);
-
+		setTeamdata();
 	}
 	
-	void setTeamdata(boolean high) {
+	void setTeamdata() {
 		card.show(teammain, "data");
-		teamdatapanel.setTable(nameAbridgeresult.getText(),high);
+		teamdatapanel.setTable(nameAbridgeresult.getText(),high,showAllData());
 		databutton.setSelected(true);
 		recentbutton.setSelected(false);
 		pastbutton.setSelected(false);
@@ -236,21 +241,13 @@ public class TeamPanel extends JPanel {
 	}
 
 	/** 显示场均数据/总数据 */
-	public void showAllData() {
-
-		jScrollPane.setVisible(false);
-		if (dataType.getText().equals("赛季总数据")) {
-			// setTable(tc.getSortedTotalTeams(TeamSortBy.name,
-			// SortType.ASEND));
+	public boolean showAllData() {
+		if (alldata.isSelected()) {
+			return true;
 		} else {
-			// setTable(tc.getSortedAveTeams(TeamSortBy.name, SortType.ASEND));
+			return false;
 		}
 
-		jScrollPane.repaint();
-		jScrollPane.setVisible(true);
-		this.add(jScrollPane);
-
-		this.repaint();
 
 	}
 
@@ -356,7 +353,7 @@ public class TeamPanel extends JPanel {
 		this.validate();
 		image.setVisible(true);
 		image.repaint();
-		setTeamdata(false);
+		setTeamdata();
 
 	}
 
