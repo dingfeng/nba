@@ -96,8 +96,8 @@ public class TeamDataTest {
 
 	@Test
 	public void testGetTeamSeasonNormalAve() {
-           TeamNormalPO[] teams = teamData.getTeamSeasonNormalAve("ATL", SeasonType.REGULAR);
-//           print (teams);
+           TeamNormalPO[] teams = teamData.getTeamSeasonNormalAve("NOP", SeasonType.REGULAR);
+           print (teams);
            assertEquals(true,true);
 	}
 

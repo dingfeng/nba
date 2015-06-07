@@ -16,7 +16,7 @@ public class PlayerNormalPO {
 	private double foulsNo;// 犯规数
 	private double points;// 得分
 	private double minute;//分钟
-	
+	private int season;//赛季
 	private double hitNo; // 投篮命中数
     private double handNo;//投篮出手数
 	private double hitRate;// 投篮命中率
@@ -72,6 +72,7 @@ public class PlayerNormalPO {
 		this.rebs_uprate = rebs_uprate;
 		this.help_uprate = help_uprate;
 		this.scoring_rebound_assist = scoring_rebound_assist;
+		this.season = season;
 	}
 	public String toString()
 	{
@@ -136,6 +137,10 @@ public class PlayerNormalPO {
 		sb.append(  scoring_rebound_assist);
 		return sb.toString();
 		
+	}
+	public int getSeason()
+	{
+		return season;
 	}
 	public String getName() {
 		return name;

@@ -15,6 +15,7 @@ public class PlayerHighPO {
 	private double blockEfficiency;// 盖帽率
 	private double mistakeEfficiency;// 失误率
 	private double useEfficiency;// 使用率
+	private int season;//赛季名
 	public PlayerHighPO(String playerName, String teamName, double efficiency,
 			double gmScEfficiency, double trueHitRate, double hitEfficiency,
 			double rebEfficiency, double offenseRebsEfficiency,
@@ -36,6 +37,7 @@ public class PlayerHighPO {
 		this.blockEfficiency = blockEfficiency;
 		this.mistakeEfficiency = mistakeEfficiency;
 		this.useEfficiency = useEfficiency;
+		this.season = season;
 	}
 	public String toString()
 	{
@@ -69,6 +71,10 @@ public class PlayerHighPO {
 		sb.append("\tuseEfficiency\t");
 		sb.append(useEfficiency);
 		return sb.toString();
+	}
+	public int getSeason()
+	{
+		return season;
 	}
 	public String getPlayerName()
 	{

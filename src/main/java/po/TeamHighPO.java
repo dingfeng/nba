@@ -9,10 +9,11 @@ public class TeamHighPO {
 	private double drebsEfficiency;// 防守篮板效率
 	private double stealsEfficiency;// 抢断效率
 	private double assistEfficiency;// 助攻率
+	private int season;//赛季名
 	public TeamHighPO(String name,double offenseRound, double offenseEfficiency,
 			double defenceEfficiency, double orebsEfficiency,
 			double drebsEfficiency, double stealsEfficiency,
-			double assistEfficiency) {
+			double assistEfficiency,int season) {
 		super();
 		this.name = name;
 		this.offenseRound = offenseRound;
@@ -22,6 +23,7 @@ public class TeamHighPO {
 		this.drebsEfficiency = drebsEfficiency;
 		this.stealsEfficiency = stealsEfficiency;
 		this.assistEfficiency = assistEfficiency;
+		this.season = season;
 	}
 	public String toString()
 	{
@@ -44,6 +46,10 @@ public class TeamHighPO {
 		sb.append(assistEfficiency);
 		sb.append("\n");
 		return sb.toString();
+	}
+	public int getSeason()
+	{
+		return season;
 	}
 	public String getName()
 	{

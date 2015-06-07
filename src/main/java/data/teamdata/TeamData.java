@@ -133,12 +133,13 @@ public class TeamData implements TeamDataService{
 		double threeHitRate = result.getDouble(21);
 		double penaltyHitRate = result.getDouble(22);  
 		double winRate = result.getDouble(23);
+		int season = result.getInt("season");
 		TeamNormalPO team = new TeamNormalPO( name,  matchNo,  hitNo,  handNo,
 				 threeHitNo,  threeHandNo,  penaltyHitNo,
 				 penaltyHandNo,  offenseRebs,  defenceRebs,
 				 rebs,  assistNo,  stealsNo,  blockNo,
 				 mistakesNo,  foulsNo,  points,  hitRate,
-				 threeHitRate,  penaltyHitRate,  winRate);
+				 threeHitRate,  penaltyHitRate,  winRate,season);
 		return team;
 	}
 	private TeamHighPO toTeamHigh(ResultSet result) throws Exception
@@ -151,10 +152,11 @@ public class TeamData implements TeamDataService{
 		double drebsEfficiency = result.getDouble(7);
 		double stealsEfficiency = result.getDouble(8);
 		double assistEfficiency = result.getDouble(9);
+		int season = result.getInt("season");
 		TeamHighPO team = new TeamHighPO( name, offenseRound,  offenseEfficiency,
 				 defenceEfficiency,  orebsEfficiency,
 				 drebsEfficiency,  stealsEfficiency,
-				 assistEfficiency);
+				 assistEfficiency,season);
 		return team;
 	}
 	@Override

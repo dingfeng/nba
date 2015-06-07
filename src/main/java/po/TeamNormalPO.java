@@ -22,12 +22,13 @@ public class TeamNormalPO {
 	private double threeHitRate;// 三分命中率
 	private double penaltyHitRate;// 罚球命中率
 	private double winRate; // 胜率
+	private int season;//赛季名
 	public TeamNormalPO(String name, int matchNo, double hitNo, double handNo,
 			double threeHitNo, double threeHandNo, double penaltyHitNo,
 			double penaltyHandNo, double offenseRebs, double defenceRebs,
 			double rebs, double assistNo, double stealsNo, double blockNo,
 			double mistakesNo, double foulsNo, double points, double hitRate,
-			double threeHitRate, double penaltyHitRate, double winRate) {
+			double threeHitRate, double penaltyHitRate, double winRate,int season) {
 		super();
 		this.name = name;
 		this.matchNo = matchNo;
@@ -50,6 +51,7 @@ public class TeamNormalPO {
 		this.threeHitRate = threeHitRate;
 		this.penaltyHitRate = penaltyHitRate;
 		this.winRate = winRate;
+		this.season = season;
 	}
 	public String toString()
 	{
@@ -97,6 +99,10 @@ public class TeamNormalPO {
 	 sb.append("\twinRate\t");
 	 sb.append(winRate);
 	 return sb.toString();
+	}
+	public int getSeason()
+	{
+		return season;
 	}
 	public String getName() {
 		return name;
