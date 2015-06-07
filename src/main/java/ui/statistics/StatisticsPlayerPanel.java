@@ -235,7 +235,6 @@ public class StatisticsPlayerPanel extends JPanel {
 		else{
 			return null;
 		}
-		return null;
 	}
 	
 	/**判断常规赛or季后赛*/
