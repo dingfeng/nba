@@ -162,34 +162,38 @@ public class PlayerController implements PlayerBlService {
 	public PlayerNormalPO[] screenNormalAvePlayers(int season,
 			String playerPosition, Area playerArea, SeasonType type) {
 		String area = new String();
-		switch (playerArea) {
-		case EASTERN:
-			area = "EASTERN";
-			break;
-		case WESTERN:
-			area = "WESTERN";
-			break;
-		case ATLANTIC:
-			area = "ATLANTIC";
-			break;
-		case CENTRAL:
-			area = "CENTRAL";
-			break;
-		case SOUTHEAST:
-			area = "SOUTHEAST";
-			break;
-		case SOUTHWEST:
-			area = "SOUTHWEST";
-			break;
-		case NORTHWEST:
-			area = "NORTHWEST";
-			break;
-		case PACIFIC:
-			area = "PACIFIC";
-			break;
-		default:
+		if (playerArea == null) {
 			area = null;
-			break;
+		} else {
+			switch (playerArea) {
+			case EASTERN:
+				area = "EASTERN";
+				break;
+			case WESTERN:
+				area = "WESTERN";
+				break;
+			case ATLANTIC:
+				area = "ATLANTIC";
+				break;
+			case CENTRAL:
+				area = "CENTRAL";
+				break;
+			case SOUTHEAST:
+				area = "SOUTHEAST";
+				break;
+			case SOUTHWEST:
+				area = "SOUTHWEST";
+				break;
+			case NORTHWEST:
+				area = "NORTHWEST";
+				break;
+			case PACIFIC:
+				area = "PACIFIC";
+				break;
+			default:
+				area = null;
+				break;
+			}
 		}
 		PlayerPO[] players = playerService.screenPlayer(null, area,
 				playerPosition, 100);
@@ -206,35 +210,40 @@ public class PlayerController implements PlayerBlService {
 	public PlayerNormalPO[] screenNormalTotalPlayers(int season,
 			String playerPosition, Area playerArea, SeasonType type) {
 		String area = new String();
-		switch (playerArea) {
-		case EASTERN:
-			area = "EASTERN";
-			break;
-		case WESTERN:
-			area = "WESTERN";
-			break;
-		case ATLANTIC:
-			area = "ATLANTIC";
-			break;
-		case CENTRAL:
-			area = "CENTRAL";
-			break;
-		case SOUTHEAST:
-			area = "SOUTHEAST";
-			break;
-		case SOUTHWEST:
-			area = "SOUTHWEST";
-			break;
-		case NORTHWEST:
-			area = "NORTHWEST";
-			break;
-		case PACIFIC:
-			area = "PACIFIC";
-			break;
-		default:
+		if (playerArea == null) {
 			area = null;
-			break;
+		} else {
+			switch (playerArea) {
+			case EASTERN:
+				area = "EASTERN";
+				break;
+			case WESTERN:
+				area = "WESTERN";
+				break;
+			case ATLANTIC:
+				area = "ATLANTIC";
+				break;
+			case CENTRAL:
+				area = "CENTRAL";
+				break;
+			case SOUTHEAST:
+				area = "SOUTHEAST";
+				break;
+			case SOUTHWEST:
+				area = "SOUTHWEST";
+				break;
+			case NORTHWEST:
+				area = "NORTHWEST";
+				break;
+			case PACIFIC:
+				area = "PACIFIC";
+				break;
+			default:
+				area = null;
+				break;
+			}
 		}
+
 		PlayerPO[] players = playerService.screenPlayer(null, area,
 				playerPosition, 100);
 		PlayerNormalPO[] result = new PlayerNormalPO[players.length];
@@ -250,35 +259,40 @@ public class PlayerController implements PlayerBlService {
 	public PlayerHighPO[] screenHighPlayers(int season, String playerPosition,
 			Area playerArea, SeasonType type) {
 		String area = new String();
-		switch (playerArea) {
-		case EASTERN:
-			area = "EASTERN";
-			break;
-		case WESTERN:
-			area = "WESTERN";
-			break;
-		case ATLANTIC:
-			area = "ATLANTIC";
-			break;
-		case CENTRAL:
-			area = "CENTRAL";
-			break;
-		case SOUTHEAST:
-			area = "SOUTHEAST";
-			break;
-		case SOUTHWEST:
-			area = "SOUTHWEST";
-			break;
-		case NORTHWEST:
-			area = "NORTHWEST";
-			break;
-		case PACIFIC:
-			area = "PACIFIC";
-			break;
-		default:
+		if (playerArea == null) {
 			area = null;
-			break;
+		} else {
+			switch (playerArea) {
+			case EASTERN:
+				area = "EASTERN";
+				break;
+			case WESTERN:
+				area = "WESTERN";
+				break;
+			case ATLANTIC:
+				area = "ATLANTIC";
+				break;
+			case CENTRAL:
+				area = "CENTRAL";
+				break;
+			case SOUTHEAST:
+				area = "SOUTHEAST";
+				break;
+			case SOUTHWEST:
+				area = "SOUTHWEST";
+				break;
+			case NORTHWEST:
+				area = "NORTHWEST";
+				break;
+			case PACIFIC:
+				area = "PACIFIC";
+				break;
+			default:
+				area = null;
+				break;
+			}
 		}
+
 		PlayerPO[] players = playerService.screenPlayer(null, area,
 				playerPosition, 100);
 		PlayerHighPO[] result = new PlayerHighPO[players.length];
@@ -599,22 +613,24 @@ public class PlayerController implements PlayerBlService {
 	@Override
 	public Image getLineChartImage(int season, String playername) {
 		MatchPlayerPO[] newest = new MatchPlayerPO[10];
-		MatchPlayerPO[] regularP = playerService.getSeasonMatches(season, playername, SeasonType.REGULAR);
-		MatchPlayerPO[] playeroffP = playerService.getSeasonMatches(season, playername, SeasonType.PLAYOFF);
+		MatchPlayerPO[] regularP = playerService.getSeasonMatches(season,
+				playername, SeasonType.REGULAR);
+		MatchPlayerPO[] playeroffP = playerService.getSeasonMatches(season,
+				playername, SeasonType.PLAYOFF);
 		int nowP = 0;
-		if(regularP == null && playeroffP == null){
+		if (regularP == null && playeroffP == null) {
 			return null;
-		} else{
-			if(playeroffP != null && playeroffP.length != 0){
-				for(int i = 0; i != playeroffP.length && nowP != 10; i ++){
+		} else {
+			if (playeroffP != null && playeroffP.length != 0) {
+				for (int i = 0; i != playeroffP.length && nowP != 10; i++) {
 					newest[9 - nowP] = playeroffP[i];
-					nowP ++;
+					nowP++;
 				}
 			}
-			if(regularP != null && nowP != 10 && regularP.length != 0){
-				for(int i = 0; i != regularP.length && nowP != 10; i ++){
+			if (regularP != null && nowP != 10 && regularP.length != 0) {
+				for (int i = 0; i != regularP.length && nowP != 10; i++) {
 					newest[9 - nowP] = regularP[i];
-					nowP ++;
+					nowP++;
 				}
 			}
 			StringBuffer Date = new StringBuffer(60);
@@ -623,23 +639,32 @@ public class PlayerController implements PlayerBlService {
 			StringBuffer AST = new StringBuffer(44);
 			StringBuffer FT = new StringBuffer(44);
 			StringBuffer PT3 = new StringBuffer(44);
-			for(int i = 10 - nowP; i != nowP - 1; i ++){
+			for (int i = 10 - nowP; i != nowP - 1; i++) {
 				Date.append(newest[i].getDate() + ",");
 				PTS.append(newest[i].getPoints() + ",");
 				REB.append(newest[i].getRebs() + ",");
 				AST.append(newest[i].getHelp() + ",");
-				FT.append(newest[i].getPenaltyHandNo() != 0 ? newest[i].getPenaltyHitNo()/newest[i].getPenaltyHandNo()*100 : 0 + ",");
-				PT3.append(newest[i].getThreeHandNo() != 0? newest[i].getThreeHitNo()/newest[i].getThreeHandNo()*100 : 0 + ",");
+				FT.append(newest[i].getPenaltyHandNo() != 0 ? newest[i]
+						.getPenaltyHitNo() / newest[i].getPenaltyHandNo() * 100
+						: 0 + ",");
+				PT3.append(newest[i].getThreeHandNo() != 0 ? newest[i]
+						.getThreeHitNo() / newest[i].getThreeHandNo() * 100
+						: 0 + ",");
 			}
 			Date.append(newest[nowP - 1].getDate() + "," + "future");
 			PTS.append(newest[nowP - 1].getPoints());
 			REB.append(newest[nowP - 1].getRebs());
 			AST.append(newest[nowP - 1].getHelp());
-			FT.append(newest[nowP - 1].getPenaltyHandNo() != 0 ? newest[10].getPenaltyHitNo()/newest[10].getPenaltyHandNo()*100 : 0);
-			PT3.append(newest[nowP - 1].getThreeHandNo() != 0? newest[10].getThreeHitNo()/newest[10].getThreeHandNo()*100 : 0);
-		
-			String toWrite = Integer.toString(nowP) + '\n' + Date.toString() + '\n' + PTS.toString() + '\n' + REB.toString() + '\n' + AST.toString() + '\n'
-					+ FT.toString() + '\n' + PT3.toString();
+			FT.append(newest[nowP - 1].getPenaltyHandNo() != 0 ? newest[10]
+					.getPenaltyHitNo() / newest[10].getPenaltyHandNo() * 100
+					: 0);
+			PT3.append(newest[nowP - 1].getThreeHandNo() != 0 ? newest[10]
+					.getThreeHitNo() / newest[10].getThreeHandNo() * 100 : 0);
+
+			String toWrite = Integer.toString(nowP) + '\n' + Date.toString()
+					+ '\n' + PTS.toString() + '\n' + REB.toString() + '\n'
+					+ AST.toString() + '\n' + FT.toString() + '\n'
+					+ PT3.toString();
 			BufferedWriter output;
 
 			try {
