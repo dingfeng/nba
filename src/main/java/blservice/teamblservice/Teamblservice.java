@@ -1,5 +1,7 @@
 package blservice.teamblservice;
 
+import java.awt.Image;
+
 import dataservice.playerdataservice.SeasonType;
 import po.HPlayerPO;
 import po.PlayerHighPO;
@@ -132,4 +134,10 @@ public interface Teamblservice
 	 * @return	得到所有赛季类型的相应队伍所有赛季的高阶数据
 	 */
 	public TeamHighPO[] getTeamSeasonHigh(String teama,SeasonType type);
+	/**
+	 * 得到球队的图标
+	 * @param name	球队简称
+	 * @return	球队图标
+	 */
+	public Image getTeamImage(String name);
 }

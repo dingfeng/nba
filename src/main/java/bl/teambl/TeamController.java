@@ -1,5 +1,6 @@
 package bl.teambl;
 
+import java.awt.Image;
 import java.util.ArrayList;
 
 import dataservice.playerdataservice.PlayerDataService;
@@ -253,6 +254,12 @@ public class TeamController implements Teamblservice{
 	//获得某个球员所有赛季的高阶数据
 	public TeamHighPO[] getTeamSeasonHigh(String teama, SeasonType type) {
 		return teamservice.getTeamSeasonHigh(teama, type);
+	}
+
+	@Override
+	public Image getTeamImage(String name) {
+		TeamPO team = this.getTeamData(name);
+		return team.getImage();
 	}
     
 }
