@@ -6,6 +6,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import live.CurrentMatch;
+import live.SimpleMatchLive;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,7 +33,7 @@ public class MatchDataTest {
 	@Test
 	public void testGetRegularSeasonMatches() {
 		 MatchesPO[] matches = match.getRegularSeasonMatches(2012,1,1000);
-		 print(matches);
+//		 print(matches);
 		 assertEquals(true,true);
 	}
 
@@ -87,8 +90,30 @@ public class MatchDataTest {
 	@Test
 	public void testGetPlayerOffTeamMatchesN()
 	{
-		print(match.getRegularTeamMatchesn(2012, "LAL", 10).length);
+//		print(match.getRegularTeamMatchesn(2012, "LAL", 10).length);
 	}
+	@Test 
+	public void testMatchLive()
+	{
+		SimpleMatchLive[] matches = match.getAllLiveMatches();
+//		print (matches);
+	}
+	@Test
+	public void testMatchLiveIdFind()
+	{
+		CurrentMatch m = match.getLiveMatchesById(150119);
+		int matchId = -1;
+		CurrentMatch  s = null;
+		SimpleMatchLive[] matches = match.getAllLiveMatches();
+		for (SimpleMatchLive l : matches)
+		{
+			matchId = l.getMatchId();
+			s = match.getLiveMatchesById(matchId);
+			print (s);
+		}
+//		print(m);
+	}
+	
 	public static void print(Object[] objects)
     {
     	for (Object o : objects)

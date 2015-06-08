@@ -1,7 +1,10 @@
 package dataservice.matchdataservice;
 
+import java.awt.Image;
 import java.util.Date;
 
+import live.CurrentMatch;
+import live.SimpleMatchLive;
 import po.MatchesPO;
 
 public interface MatchDataService {
@@ -18,4 +21,7 @@ public interface MatchDataService {
 	public MatchesPO[] getRegularTeamMatchesn(int season, String teamName,int n);
 	public MatchesPO[] getPlayerOffPlayerMatchesn(int season, String name,int n);
 	public MatchesPO[] getPlayerOffTeamMatchesn(int season, String teamName,int n);
+	public SimpleMatchLive[] getAllLiveMatches();
+	public CurrentMatch getLiveMatchesById(int matchId);
+	public Image getLiveTeamImg(String teamName);
 }

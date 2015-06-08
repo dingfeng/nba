@@ -39,8 +39,7 @@ public class CurrentLive {
 		for (int i = 0;i < list.size();++i)
 		{
 			print(list.get(i));
-		}
-		try {
+		}	try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -69,13 +68,13 @@ public class CurrentLive {
     public void init()
     {
     	Date date = new Date();
-		SimpleDateFormat format  = null;
-		int year = date.getYear() + 1900;
-		int month = date.getMonth()+1;
-		int day = date.getDay();
-		String dateStr = String.valueOf(year)+"-"+String.valueOf(month)+"-"+String.valueOf(day);
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		String dateStr = format.format(date);
+		String[] dateArray = dateStr.split("-");
+		dateStr = dateArray[0]+"-"+String.valueOf(Integer.parseInt(dateArray[1]))+"-"+String.valueOf(Integer.parseInt(dateArray[2]));
 		indexUrl += dateStr;
-		indexUrl = "http://g.hupu.com/nba/2015-6-5";
+		print(indexUrl);
+//		indexUrl = "http://g.hupu.com/nba/2015-6-8";
 		Iterator<String> itr = WebTool.getWebCon(indexUrl);
 		initUrls(itr);
     }
@@ -85,11 +84,11 @@ public class CurrentLive {
      while (xmlItr.hasNext())
      { 
     	line = xmlItr.next();
-    	if (line.contains("<s></s>文字实录</a>"))
+    	if (line.contains("<s></s>文字直播</a>"))
     	{
     		liveUrls.add(getPref(line));
     	}
-    	else if (line.contains("<s></s>数据统计</a>"))
+    	else if (line.contains("<s></s>数据直播</a>"))
     	{
     		dataUrls.add(getPref(line));
     	}
