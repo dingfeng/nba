@@ -23,37 +23,38 @@ public class teamTest {
 	@Test
 	public void testTeamCompare(){
 		String[] teamnames = teamservice.getTeamNames();
-		Image image = teamservice.getTeamCompare(2014, teamnames[0], teamnames[1], SeasonType.REGULAR);
+		Image image = teamservice.getTeamCompare(2014, teamnames[3], teamnames[6], SeasonType.PLAYOFF);
+	
 		assertEquals(true, true);
 	}
 	
-	@Test
+	//@Test
 	public void testTeamBar(){
 		String[] teamnames = teamservice.getTeamNames();
-		Image image = teamservice.getTeamBar(2014, teamnames[0], SeasonType.REGULAR);
+		Image image = teamservice.getTeamBar(2014, teamnames[7], SeasonType.PLAYOFF);
 		assertEquals(true, true);
 	}
 	
-	@Test
+	//@Test
 	public void testAllTeamHigh(){
 		TeamHighPO[] result = teamservice.getAllTeamHigh(2014, SeasonType.PLAYOFF);
 		assertEquals(true, true);
 	}
 	
-	@Test
+	//@Test
 	public void testGetTeamData(){
 		String[] teamnames = teamservice.getTeamNames();
 		TeamPO team = teamservice.getTeamData(teamnames[0]);
 		assertNotNull(team);
 	}
 	
-	@Test
+	//@Test
 	public void testAllTeamTotal() {
 		TeamNormalPO[] result = teamservice.getAllTeamTotal(2014, SeasonType.REGULAR);
 		assertEquals(true, true);
 	}
 	
-	@Test
+	//@Test
 	public void testAllTeamAve(){
 		TeamNormalPO[] result2 = teamservice.getAllTeamAve(2014, SeasonType.REGULAR);
 		assertEquals(true, true);

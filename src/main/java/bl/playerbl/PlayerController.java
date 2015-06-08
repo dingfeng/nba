@@ -26,9 +26,11 @@ public class PlayerController implements PlayerBlService {
 	private String filenameR;
 	private String filenameC;
 	private String filenameL;
+	private String filenameB;
 	private String imageR;
 	private String imageC;
 	private String imageL;
+	private String imageB;
 	private PlayerDataService playerService;
 
 	// 排序球员数据 场均
@@ -36,9 +38,11 @@ public class PlayerController implements PlayerBlService {
 		filenameR = "D:/dataToP";
 		filenameC = "D:/dataToPC";
 		filenameL = "D:/dataToPL";
+		filenameB = "D:/playerBar";
 		imageR = "D:/radar.png";
 		imageC = "D:/compare.png";
 		imageL = "D:/line.png";
+		imageB = "D:/playerData.png";
 		NBADataFactory dataFactory;
 		try {
 			dataFactory = DataFactory.instance();
@@ -371,8 +375,15 @@ public class PlayerController implements PlayerBlService {
 	public Image getRadarImage(int season, String name, SeasonType type) {
 		PlayerNormalPO player = playerService.getPlayerNormalAve(season, name,
 				type);
-		double[] playerData = { player.getPoints(), player.getRebs(),
-				player.getAssistNo(), player.getStealsNo(), player.getBlockNo() };
+		double[] playerData = { 0, 0, 0, 0, 0 };
+		if (player != null) {
+			playerData[0] = player.getPoints();
+			playerData[1] = player.getRebs();
+			playerData[2] = player.getAssistNo();
+			playerData[3] = player.getStealsNo();
+			playerData[4] = player.getBlockNo();
+		}
+
 		PlayerNormalPO[] allPlayers = playerService.getSeasonPlayerNormalAve(
 				season, type);
 		int len = allPlayers.length;
@@ -398,14 +409,17 @@ public class PlayerController implements PlayerBlService {
 		AST.trimToSize();
 		STL.trimToSize();
 		BLK.trimToSize();
-		String toWrite = name + "\n" + "AVE PERF" + "\n" + PTS.toString()
-				+ '\n' + REB.toString() + '\n' + AST.toString() + '\n'
-				+ STL.toString() + '\n' + BLK.toString() + '\n'
-				+ Double.toString(playerData[0]) + ","
-				+ Double.toString(playerData[1]) + ","
-				+ Double.toString(playerData[2]) + ","
-				+ Double.toString(playerData[3]) + ","
-				+ Double.toString(playerData[4]);
+		String toWrite = "";
+		if (playerData != null) {
+			toWrite = name + "\n" + "AVE PERF" + "\n" + PTS.toString() + '\n'
+					+ REB.toString() + '\n' + AST.toString() + '\n'
+					+ STL.toString() + '\n' + BLK.toString() + '\n'
+					+ Double.toString(playerData[0]) + ","
+					+ Double.toString(playerData[1]) + ","
+					+ Double.toString(playerData[2]) + ","
+					+ Double.toString(playerData[3]) + ","
+					+ Double.toString(playerData[4]);
+		}
 		try {
 			BufferedWriter output = new BufferedWriter(new FileWriter(new File(
 					filenameR)));
@@ -422,6 +436,8 @@ public class PlayerController implements PlayerBlService {
 		return null;
 	}
 
+	
+	
 	@Override
 	public Image getCompareImage(int season, String name1, String name2,
 			SeasonType type) {
@@ -429,21 +445,110 @@ public class PlayerController implements PlayerBlService {
 				name1, type);
 		MatchPlayerPO[] player2Matches = playerService.getSeasonMatches(season,
 				name2, type);
-		if (player1Matches == null || player2Matches == null) {
-			return null;
+		int len1 = player1Matches.length * 5;
+		int len2 = player2Matches.length * 5;
+		StringBuffer playerData1PTS = new StringBuffer(len1);
+		StringBuffer playerData1REB = new StringBuffer(len1);
+		StringBuffer playerData1AST = new StringBuffer(len1);
+		StringBuffer playerData1FT = new StringBuffer(len1);
+		StringBuffer playerData13PT = new StringBuffer(len1);
+		StringBuffer playerData2PTS = new StringBuffer(len2);
+		StringBuffer playerData2REB = new StringBuffer(len2);
+		StringBuffer playerData2AST = new StringBuffer(len2);
+		StringBuffer playerData2FT = new StringBuffer(len2);
+		StringBuffer playerData23PT = new StringBuffer(len2);
+
+		if (player1Matches.length == 0 && player2Matches.length == 0) {
+			playerData1PTS.append("0");
+			playerData1REB.append("0");
+			playerData1AST.append("0");
+			playerData1FT.append("0");
+			playerData13PT.append("0");
+			playerData2PTS.append("0");
+			playerData2REB.append("0");
+			playerData2AST.append("0");
+			playerData2FT.append("0");
+			playerData23PT.append("0");
+		} else if (player1Matches.length == 0) {
+			playerData2PTS.append("0");
+			playerData2REB.append("0");
+			playerData2AST.append("0");
+			playerData2FT.append("0");
+			playerData23PT.append("0");
+			for (int i = 0; i != player1Matches.length - 1; i++) {
+				playerData1PTS.append(player1Matches[i].getPoints() + ",");
+				playerData1REB.append(player1Matches[i].getRebs() + ",");
+				playerData1AST.append(player1Matches[i].getHelp() + ",");
+				playerData1FT
+						.append(player1Matches[i].getPenaltyHandNo() == 0 ? 0
+								: (100 * player1Matches[i]
+										.getPenaltyHitNo() / player1Matches[i]
+										.getPenaltyHandNo())
+										+ ",");
+				playerData13PT
+						.append(player1Matches[i].getThreeHandNo() == 0 ? 0
+								: (100 * player1Matches[i].getThreeHitNo() / player1Matches[i]
+										.getThreeHandNo()) + ",");
+			}
+			playerData1PTS.append(player1Matches[player1Matches.length - 1]
+					.getPoints());
+			playerData1REB.append(player1Matches[player1Matches.length - 1]
+					.getRebs());
+			playerData1AST.append(player1Matches[player1Matches.length - 1]
+					.getHelp());
+			playerData1FT
+					.append(player1Matches[player1Matches.length - 1]
+							.getPenaltyHandNo() == 0 ? 0
+							: (100 * player1Matches[player1Matches.length - 1]
+									.getPenaltyHitNo() / player1Matches[player1Matches.length - 1]
+									.getPenaltyHandNo()));
+			playerData13PT
+					.append(player1Matches[player1Matches.length - 1]
+							.getThreeHandNo() == 0 ? 0
+							: (100 * player1Matches[player1Matches.length - 1]
+									.getThreeHitNo() / player1Matches[player1Matches.length - 1]
+									.getThreeHandNo()));
+
+		} else if (player2Matches.length == 0) {
+			playerData1PTS.append("0");
+			playerData1REB.append("0");
+			playerData1AST.append("0");
+			playerData1FT.append("0");
+			playerData13PT.append("0");
+			for (int i = 0; i != player2Matches.length - 1; i++) {
+				playerData2PTS.append(player2Matches[i].getPoints() + ",");
+				playerData2REB.append(player2Matches[i].getRebs() + ",");
+				playerData2AST.append(player2Matches[i].getHelp() + ",");
+				playerData2FT
+						.append(player2Matches[i].getPenaltyHandNo() == 0 ? 0
+								: (100 * player2Matches[i]
+										.getPenaltyHitNo() / player2Matches[i]
+										.getPenaltyHandNo())
+										+ ",");
+				playerData23PT
+						.append(player2Matches[i].getThreeHandNo() == 0 ? 0
+								: (100 * player2Matches[i].getThreeHitNo() / player2Matches[i]
+										.getThreeHandNo()) + ",");
+			}
+			playerData2PTS.append(player2Matches[player2Matches.length - 1]
+					.getPoints());
+			playerData2REB.append(player2Matches[player2Matches.length - 1]
+					.getRebs());
+			playerData2AST.append(player2Matches[player2Matches.length - 1]
+					.getHelp());
+			playerData2FT
+					.append(player2Matches[player2Matches.length - 1]
+							.getPenaltyHandNo() == 0 ? 0
+							: (100 * player2Matches[player2Matches.length - 1]
+									.getPenaltyHitNo() / player2Matches[player2Matches.length - 1]
+									.getPenaltyHandNo()));
+			playerData23PT
+					.append(player2Matches[player2Matches.length - 1]
+							.getThreeHandNo() == 0 ? 0
+							: (100 * player2Matches[player2Matches.length - 1]
+									.getThreeHitNo() / player2Matches[player2Matches.length - 1]
+									.getThreeHandNo()));
 		} else {
-			int len1 = player1Matches.length * 5;
-			int len2 = player2Matches.length * 5;
-			StringBuffer playerData1PTS = new StringBuffer(len1);
-			StringBuffer playerData1REB = new StringBuffer(len1);
-			StringBuffer playerData1AST = new StringBuffer(len1);
-			StringBuffer playerData1FT = new StringBuffer(len1);
-			StringBuffer playerData13PT = new StringBuffer(len1);
-			StringBuffer playerData2PTS = new StringBuffer(len2);
-			StringBuffer playerData2REB = new StringBuffer(len2);
-			StringBuffer playerData2AST = new StringBuffer(len2);
-			StringBuffer playerData2FT = new StringBuffer(len2);
-			StringBuffer playerData23PT = new StringBuffer(len2);
 			boolean p1Lagerp2 = (player1Matches.length > player2Matches.length) ? true
 					: false;
 			int loopNo = 0;
@@ -569,43 +674,33 @@ public class PlayerController implements PlayerBlService {
 										.getThreeHitNo() / player2Matches[player2Matches.length - 1]
 										.getThreeHandNo()));
 			}
+		}
 
-			// 将数据写入文件
-			BufferedWriter output;
-			try {
-				output = new BufferedWriter(new FileWriter(new File(filenameC)));
-				/*
-				 * String names = name1 + "\n" + name2 + "\n"; String Data1 =
-				 * playerData1PTS.toString() + "\n" + playerData1REB.toString()
-				 * + "\n" +playerData1AST.toString() + "\n" +
-				 * playerData1STL.toString() + "\n" + playerData1BLK.toString()
-				 * + "\n"; String Data2 = playerData2PTS.toString() + "\n" +
-				 * playerData2REB.toString() + "\n" +playerData2AST.toString() +
-				 * "\n" + playerData2STL.toString() + "\n" +
-				 * playerData2BLK.toString();
-				 */
-				String data = name1 + "\n" + name2 + "\n"
-						+ playerData1PTS.toString() + "\n"
-						+ playerData1REB.toString() + "\n"
-						+ playerData1AST.toString() + "\n"
-						+ playerData1FT.toString() + "\n"
-						+ playerData13PT.toString() + "\n"
-						+ playerData2PTS.toString() + "\n"
-						+ playerData2REB.toString() + "\n"
-						+ playerData2AST.toString() + "\n"
-						+ playerData2FT.toString() + "\n"
-						+ playerData23PT.toString();
-				output.write(data);
-				output.close();
-				Process pr = Runtime.getRuntime().exec(
-						"python python\\__init__.py");
-				pr.waitFor();
-				Image compare = ImageIO.read(new File(imageC));
-				return compare;
-			} catch (IOException | InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		// 将数据写入文件
+		BufferedWriter output;
+		try {
+			output = new BufferedWriter(new FileWriter(new File(filenameC)));
+			String data = name1 + "\n" + name2 + "\n"
+					+ playerData1PTS.toString() + "\n"
+					+ playerData1REB.toString() + "\n"
+					+ playerData1AST.toString() + "\n"
+					+ playerData1FT.toString() + "\n"
+					+ playerData13PT.toString() + "\n"
+					+ playerData2PTS.toString() + "\n"
+					+ playerData2REB.toString() + "\n"
+					+ playerData2AST.toString() + "\n"
+					+ playerData2FT.toString() + "\n"
+					+ playerData23PT.toString();
+			output.write(data);
+			output.close();
+			Process pr = Runtime.getRuntime()
+					.exec("python python\\__init__.py");
+			pr.waitFor();
+			Image compare = ImageIO.read(new File(imageC));
+			return compare;
+		} catch (IOException | InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -685,5 +780,70 @@ public class PlayerController implements PlayerBlService {
 			}
 			return null;
 		}
+	}
+
+	@Override
+	public Image getPlayerBar(int season, String name, SeasonType type) {
+		PlayerNormalPO player = playerService.getPlayerNormalAve(season, name,
+				type);
+		double[] playerData = { 0, 0, 0, 0, 0 };
+		if (player != null) {
+			playerData[0] = player.getPoints();
+			playerData[1] = player.getRebs();
+			playerData[2] = player.getAssistNo();
+			playerData[3] = player.getPenaltyHitRate();
+			playerData[4] = player.getThreeHitRate();
+		}
+
+		PlayerNormalPO[] allPlayers = playerService.getSeasonPlayerNormalAve(
+				season, type);
+		int len = allPlayers.length;
+		StringBuffer PTS = new StringBuffer(len * 4);
+		StringBuffer REB = new StringBuffer(len * 4);
+		StringBuffer AST = new StringBuffer(len * 4);
+		StringBuffer FT = new StringBuffer(len * 4);
+		StringBuffer PT3 = new StringBuffer(len * 4);
+		for (int i = 0; i != len - 1; i++) {
+			PTS.append(allPlayers[i].getPoints() + ",");
+			REB.append(allPlayers[i].getRebs() + ",");
+			AST.append(allPlayers[i].getAssistNo() + ",");
+			FT.append(allPlayers[i].getStealsNo() + ",");
+			PT3.append(allPlayers[i].getBlockNo() + ",");
+		}
+		PTS.append(allPlayers[len - 1].getPoints());
+		REB.append(allPlayers[len - 1].getRebs());
+		AST.append(allPlayers[len - 1].getAssistNo());
+		FT.append(allPlayers[len - 1].getStealsNo());
+		PT3.append(allPlayers[len - 1].getBlockNo());
+		PTS.trimToSize();
+		REB.trimToSize();
+		AST.trimToSize();
+		FT.trimToSize();
+		PT3.trimToSize();
+		String toWrite = "";
+		if (playerData != null) {
+			toWrite = name + "\n" + "AVE PERF" + "\n" + PTS.toString() + '\n'
+					+ REB.toString() + '\n' + AST.toString() + '\n'
+					+ FT.toString() + '\n' + PT3.toString() + '\n'
+					+ Double.toString(playerData[0]) + ","
+					+ Double.toString(playerData[1]) + ","
+					+ Double.toString(playerData[2]) + ","
+					+ Double.toString(playerData[3]) + ","
+					+ Double.toString(playerData[4]);
+		}
+		try {
+			BufferedWriter output = new BufferedWriter(new FileWriter(new File(
+					filenameB)));
+			output.write(toWrite);
+			output.close();
+			Process pr = Runtime.getRuntime().exec("python python\\playerBar.py");
+			pr.waitFor();
+			Image bar = ImageIO.read(new File(imageB));
+			return bar;
+		} catch (IOException | InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

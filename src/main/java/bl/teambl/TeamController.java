@@ -304,12 +304,21 @@ public class TeamController implements Teamblservice {
 		AST.append(allteams[len - 1].getAssistNo());
 		STL.append(allteams[len - 1].getStealsNo());
 		BLK.append(allteams[len - 1].getBlockNo());
-		String toWrite = teamname + "\n" + PTS.toString() + "\n"
+		String toWrite = "";
+		if(team != null){
+			toWrite = teamname + "\n" + PTS.toString() + "\n"
 				+ REB.toString() + "\n" + AST.toString() + "\n"
 				+ STL.toString() + "\n" + BLK.toString() + "\n"
 				+ team.getPoints() + "," + team.getRebs() + ","
 				+ team.getAssistNo() + "," + team.getStealsNo() + ","
 				+ team.getBlockNo();
+		} else{
+			toWrite = teamname + "\n" + PTS.toString() + "\n"
+					+ REB.toString() + "\n" + AST.toString() + "\n"
+					+ STL.toString() + "\n" + BLK.toString() + "\n"
+					+ "0,0,0,0,0";
+		}
+		
 		BufferedWriter output;
 		try {
 			output = new BufferedWriter(new FileWriter(new File(filenameB)));
@@ -335,13 +344,33 @@ public class TeamController implements Teamblservice {
 		TeamNormalPO team1 = teamservice.getTeamNormalAve(season, teamname1, type);
 		TeamNormalPO team2 = teamservice.getTeamNormalAve(season, teamname2, type);
 		BufferedWriter output;
-		String toWrite = teamname1 + "\n" + teamname2 + "\n" + Double.toString(team1.getPoints()) + "," +
+		StringBuffer toWriteBuffer = new StringBuffer(100);
+		toWriteBuffer.append(teamname1 + "\n" + teamname2 + "\n");
+		if(team1 != null && team2 != null){
+			toWriteBuffer.append(Double.toString(team1.getPoints()) + "," +
 				Double.toString(team1.getRebs()) + "," + Double.toString(team1.getAssistNo()) + "," + 
 				Double.toString(team1.getPenaltyHandNo() == 0 ? 0 : team1.getPenaltyHitNo()/team1.getPenaltyHandNo()*100) + "," + 
 				Double.toString(team1.getThreeHandNo() == 0 ? 0 : team1.getThreeHitNo()/team1.getThreeHandNo()*100) + "\n" +
 				Double.toString(team2.getPoints()) + "," + Double.toString(team2.getRebs()) + "," + Double.toString(team2.getAssistNo()) + "," + 
 				Double.toString(team2.getPenaltyHandNo() == 0 ? 0 : team2.getPenaltyHitNo()/team2.getPenaltyHandNo()*100) + "," + 
-				Double.toString(team2.getThreeHandNo() == 0 ? 0 : team2.getThreeHitNo()/team2.getThreeHandNo()*100);
+				Double.toString(team2.getThreeHandNo() == 0 ? 0 : team2.getThreeHitNo()/team2.getThreeHandNo()*100));
+		} else if(team1 != null){
+			toWriteBuffer.append(Double.toString(team1.getPoints()) + "," +
+					Double.toString(team1.getRebs()) + "," + Double.toString(team1.getAssistNo()) + "," + 
+					Double.toString(team1.getPenaltyHandNo() == 0 ? 0 : team1.getPenaltyHitNo()/team1.getPenaltyHandNo()*100) + "," + 
+					Double.toString(team1.getThreeHandNo() == 0 ? 0 : team1.getThreeHitNo()/team1.getThreeHandNo()*100) + "\n" +
+					"0,0,0,0,0");
+		} else if(team2 != null){
+			toWriteBuffer.append("0,0,0,0,0" + "\n" +
+					Double.toString(team2.getPoints()) + "," + Double.toString(team2.getRebs()) + "," + Double.toString(team2.getAssistNo()) + "," + 
+					Double.toString(team2.getPenaltyHandNo() == 0 ? 0 : team2.getPenaltyHitNo()/team2.getPenaltyHandNo()*100) + "," + 
+					Double.toString(team2.getThreeHandNo() == 0 ? 0 : team2.getThreeHitNo()/team2.getThreeHandNo()*100));
+		} else{
+			toWriteBuffer.append("0,0,0,0,0\n0,0,0,0,0");
+		}
+		
+		String toWrite = toWriteBuffer.toString();
+		
 		try {
 			output = new BufferedWriter(new FileWriter(new File(
 					filenameC)));

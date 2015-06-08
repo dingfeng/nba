@@ -180,5 +180,13 @@ public interface PlayerBlService {
      * @return	相应预估折线图
      */
     public Image getLineChartImage(int season, String playername);
+    /**
+     * 得到球员与所有球员当前赛季平均水平比较的柱状图
+     * @param season	赛季
+     * @param name		球员名称
+     * @param type		赛季类型
+     * @return	返回相应球员与所有球员当前赛季平均水平比较的柱状图
+     */
+    public Image getPlayerBar(int season, String name, SeasonType type);
     
 }
