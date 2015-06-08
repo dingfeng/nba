@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
  
 def getData():
-    file_object = open("D:/teamBar", 'r')
+    file_object = open("D:/playerBar", 'r')
     try:
          playername = file_object.readline()
          #average performance
