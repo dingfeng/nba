@@ -28,6 +28,7 @@ public class CurrentTeam {
        String points[];
        String disc;
        String win;
+       Image img = null;
        public CurrentTeam(CurrentPlayer[] firsts1,CurrentPlayer[] benches1,String[] primaryDatas1,String[] rates1
     		  ,String totalScores,String points[] ,String teamName,Image img,String disc,String win)
        {
@@ -55,6 +56,7 @@ public class CurrentTeam {
     	   this.teamName = teamName;
     	   this.totalScores = totalScores;
     	   this.points = points;
+    	   this.img = img;
        }
        public String toString()
        {
@@ -68,9 +70,14 @@ public class CurrentTeam {
     	   return sb.toString();
        }
        
-       public String getDisc() {
-		return disc;
-	}
+   public Image getImg()
+   {
+	   return  img;
+   }
+   public String getDisc() 
+   {
+	return disc;
+   }
 	public String getWin() {
 		return win;
 	}
@@ -78,6 +85,15 @@ public class CurrentTeam {
        {
     	   return points;
        }
+	public void changePoints(int size)
+	{
+		String[] pts = new String[size];
+		for (int i = 0; i < size; ++i)
+		{
+			pts[i] = points[i];
+		}
+		points = pts;
+	}
       public String getTotalScores()
       {
     	  return totalScores;

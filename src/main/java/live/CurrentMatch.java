@@ -32,6 +32,7 @@ public class CurrentMatch
 	  sb.append("audience : "+gym+"\n");
 	  sb.append("team1 : \n"+team1.toString()+"\n");
 	  sb.append("team2 : \n"+team2.toString()+"\n");
+	  if (messages != null)
 	  sb.append("文字直播 ："+ messages.get(0));
 	  return sb.toString();
   }
@@ -65,5 +66,19 @@ public String getGym() {
 public String getAudience() {
 	return audience;
 }
-
+public void adjustTeamPoints()
+{
+	String[] pts1 = team1.getPoints();
+	String[] pts2 = team2.getPoints();
+	int i = 0;
+	for (; i < pts1.length; ++i)
+	{
+		if (pts1[i]==null && pts2[i]==null)
+		{
+		 break;
+		}
+	}
+	team1.changePoints(i);
+	team2.changePoints(i);
+}
 }

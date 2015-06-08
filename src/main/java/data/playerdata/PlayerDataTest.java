@@ -30,7 +30,8 @@ public class PlayerDataTest {
 	@Test
 	public void testGetAllPlayerData() {
 		PlayerPO[] players = player.getAllActivePlayerData();
-//		print(players);
+		
+		print(players);
 		assertEquals(true,true);
 	}
 

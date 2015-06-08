@@ -1,14 +1,22 @@
 package data.matchdata;
 
+import java.awt.Image;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import live.CurrentMatch;
+import live.CurrentPlayer;
+import live.CurrentTeam;
+import live.SimpleMatchLive;
 import po.MatchPlayerPO;
 import po.MatchTeamPO;
 import po.MatchesPO;
+import data.playerdata.PlayerData;
 import dataservice.matchdataservice.MatchDataService;
 
 public class MatchData implements MatchDataService{
@@ -621,5 +629,188 @@ public class MatchData implements MatchDataService{
 			matchpos = new MatchesPO[matchList.size()];
 			matchList.toArray(matchpos);
 			return matchpos;
+		}
+
+		public SimpleMatchLive[] getAllLiveMatches() {
+			String sql = "select matchId,host_team,guest_team from livematch";
+			SimpleMatchLive[] games = null;
+			try
+			{
+				PreparedStatement statement = conn.prepareStatement(sql);
+				ResultSet results = statement.executeQuery();
+				ArrayList<SimpleMatchLive> list = new ArrayList<SimpleMatchLive>();
+				int matchId = -1;
+				String host_team = null;
+				String guest_team = null;
+				while(results.next())
+				{
+					matchId = results.getInt(1);
+					host_team = results.getString(2);
+					guest_team = results.getString(3);
+					list.add(new  SimpleMatchLive(matchId,host_team,guest_team));
+				}
+				games = new SimpleMatchLive[list.size()];
+				list.toArray(games);
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			return games;
+		}
+
+		@Override
+		public CurrentMatch getLiveMatchesById(int matchId) {
+		    String sql_match  = "select *  from livematch where matchId = ?";
+		    CurrentMatch match = null;
+		    try
+		    {
+		    	String host_team = null;
+		    	String guest_team = null;
+		    	String live_date = null;
+		    	String live_time = null;
+		    	String gym  = null;
+		    	String audience = null;
+		    	CurrentTeam team1 = null;
+		    	CurrentTeam team2 = null;
+		    	PreparedStatement statement  = conn.prepareStatement(sql_match);
+		    	statement.setInt(1, matchId);
+		    	ResultSet results = statement.executeQuery();
+		    	if (results.next())
+		    	{
+		    		host_team = results.getString("host_team");
+		    		guest_team = results.getString("guest_team");
+		    		live_date = results.getString("live_date");
+		    		live_time = results.getString("live_time");
+		    		gym = results.getString("gym");
+		    		audience = results.getString("audience");
+		    	}
+		    	team1 = getCurrentTeam(matchId,host_team);
+		    	team2 = getCurrentTeam(matchId,guest_team);
+		    	match = new CurrentMatch( String.valueOf(matchId), team1,  team2,
+		    			   live_date, live_time, gym, audience);
+		    	match.adjustTeamPoints();
+		    }
+		    catch (Exception e)
+		    {
+		    	e.printStackTrace();
+		    }
+			return match;
+		}
+		
+		public  CurrentTeam getCurrentTeam(int matchId, String teamName)
+		{
+		    String sql = "select * from live_team where matchId = ? and teamName = ?";
+		    CurrentPlayer[] firsts = null;
+		    CurrentPlayer[] benches = null;
+		    CurrentTeam team = null;
+		    try
+		    {
+		     	String[] primaryDatas = new String[12];
+		     	String[] rates = new String[3];
+		     	String totalScores = null;
+		     	String disc = null;
+		     	String win = null;
+		     	String[] pts = new String[8];
+		     	PreparedStatement statement = conn.prepareStatement(sql);
+                statement.setInt(1, matchId);
+                statement.setString(2, teamName);
+                ResultSet results = statement.executeQuery();
+                if (results.next())
+                {
+                	for (int i = 0; i < primaryDatas.length; ++i)
+                	{
+                	 primaryDatas[i] = results.getString(3+i);	
+                	}
+                	for (int i = 0; i < rates.length; ++i)
+                	{
+                		rates[i] = results.getString(3+primaryDatas.length+i);
+                	}
+                	totalScores = results.getString("totalScores");
+                	disc = results.getString("disc");
+                	win = results.getString("win");
+                	for (int i = 0; i < pts.length ; ++i)
+                	{
+                		pts[i] = results.getString(6+primaryDatas.length+rates.length + i);
+                	}
+                	CurrentPlayer[] players = getCurrentPlayers(matchId,teamName);
+                	firsts = new CurrentPlayer[5];
+                	benches = new CurrentPlayer[players.length-5];
+                	for (int i = 0; i < 5; ++i)
+                	{
+                		firsts[i]  = players[i];
+                	}
+                    for (int i = 0 ; i < benches.length; ++i)
+                    {
+                    	benches[i] = players[5+i];
+                    }
+                    Image img = getLiveTeamImg(teamName);
+                    team = new CurrentTeam( firsts,benches,primaryDatas,rates
+                  		  ,totalScores,pts,teamName,img,disc,win);
+                }
+		    }
+		    catch (Exception e)
+		    {
+		    	e.printStackTrace();
+		    }
+			return team;
+		}
+		
+		private CurrentPlayer[] getCurrentPlayers(int matchId, String teamName)
+		{
+			String sql = "select * from live_player where match_id = ? and teama = ? order by isFirst desc";
+			CurrentPlayer[] players = null;
+			try
+			{
+				ArrayList<CurrentPlayer> list  = new ArrayList<CurrentPlayer>();
+				PreparedStatement statement = conn.prepareStatement(sql);
+                statement.setInt(1, matchId);
+                statement.setString(2, teamName);
+                ResultSet results = statement.executeQuery();
+                String[] datas = new String[16];
+                while (results.next())
+                {
+                	for (int i = 1; i < 16; ++i)
+                	{
+                		datas[i] = results.getString(4+i);
+                	}
+                	datas[0] = results.getString(1);
+                   list.add(new CurrentPlayer(datas));
+                   
+                }
+                players = new CurrentPlayer[list.size()];
+                list.toArray(players);
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			return players;
+		}
+
+		@Override
+		public Image getLiveTeamImg(String teamName) {
+			String sql = "select img from live_team_img where teamName = ?";
+			Image img = null;
+			try
+			{
+				PreparedStatement statement = conn.prepareStatement(sql);
+				statement.setString(1, teamName);
+				Blob blob = null;
+				ResultSet result = statement.executeQuery();
+				if (result.next())
+				{
+					blob = result.getBlob("img");
+					if (blob != null)
+					{
+						img = PlayerData.blobToImage(blob);
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			return img;
 		}
 }
