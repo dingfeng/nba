@@ -2,6 +2,8 @@ package bl.teambl;
 
 import static org.junit.Assert.*;
 
+import java.awt.Image;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,6 +18,20 @@ public class teamTest {
 	@Before
 	public void setUp(){
 		teamservice = new TeamController();
+	}
+	
+	@Test
+	public void testTeamCompare(){
+		String[] teamnames = teamservice.getTeamNames();
+		Image image = teamservice.getTeamCompare(2014, teamnames[0], teamnames[1], SeasonType.REGULAR);
+		assertEquals(true, true);
+	}
+	
+	@Test
+	public void testTeamBar(){
+		String[] teamnames = teamservice.getTeamNames();
+		Image image = teamservice.getTeamBar(2014, teamnames[0], SeasonType.REGULAR);
+		assertEquals(true, true);
 	}
 	
 	@Test

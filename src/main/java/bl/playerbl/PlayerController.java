@@ -382,11 +382,11 @@ public class PlayerController implements PlayerBlService {
 		StringBuffer STL = new StringBuffer(len * 4);
 		StringBuffer BLK = new StringBuffer(len * 4);
 		for (int i = 0; i != len - 1; i++) {
-			PTS.append(allPlayers[i].getPoints() + ',');
-			REB.append(allPlayers[i].getRebs() + ',');
-			AST.append(allPlayers[i].getAssistNo() + ',');
-			STL.append(allPlayers[i].getStealsNo() + ',');
-			BLK.append(allPlayers[i].getBlockNo() + ',');
+			PTS.append(allPlayers[i].getPoints() + ",");
+			REB.append(allPlayers[i].getRebs() + ",");
+			AST.append(allPlayers[i].getAssistNo() + ",");
+			STL.append(allPlayers[i].getStealsNo() + ",");
+			BLK.append(allPlayers[i].getBlockNo() + ",");
 		}
 		PTS.append(allPlayers[len - 1].getPoints());
 		REB.append(allPlayers[len - 1].getRebs());
