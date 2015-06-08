@@ -27,20 +27,25 @@ public class PlayerBlTest {
 		return names;
 	}
 	
+	//@Test
+	public void radarTest(){
+		String[] playerNames = this.getPlayernames();
+		Image result = playerservice.getRadarImage(2014, playerNames[0], SeasonType.REGULAR);
+		assertEquals(true, true);
+	}
+	
 	@Test
 	public void compareTest(){
 		String[] playerNames = this.getPlayernames();
-		Image result = playerservice.getCompareImage(2014, playerNames[0], playerNames[0], SeasonType.REGULAR);
-		assertNull(result);
+		Image result = playerservice.getCompareImage(2014, playerNames[0], playerNames[1], SeasonType.REGULAR);
+		assertEquals(true, true);
 	}
 	
-	/*
 	@Test
 	public void test() {
 		String[] playernames = this.getPlayernames();
 		Image image = playerservice.getPlayerImage(playernames[0]);
 		assertNotNull(image);
 	}
-	*/
 
 }

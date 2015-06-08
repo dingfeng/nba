@@ -140,4 +140,22 @@ public interface Teamblservice
 	 * @return	球队图标
 	 */
 	public Image getTeamImage(String name);
+	/**
+	 * 得到球队与当前赛季所有球队平均数据的对比柱状图
+	 * @param season		赛季
+	 * @param teamname		球队名称
+	 * @param type			赛季类型
+	 * @return	该球队当前赛季和所有球队平均数据对比的柱状图
+	 */
+	public Image getTeamBar(int season, String teamname, SeasonType type);
+	/**
+	 * 得到两个球队对比的柱状图
+	 * @param season		赛季
+	 * @param teamname1		球队1名称
+	 * @param teamname2		球队2名称
+	 * @param type			赛季类型
+	 * @return 两个球队对比的柱状图
+	 */
+	public Image getTeamCompare(int season, String teamname1, String teamname2, SeasonType type);
+	
 }
