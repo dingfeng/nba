@@ -58,29 +58,46 @@ public class MatchPanel extends JPanel {
 		todatyMatchScrollPane.getViewport().removeAll();
 		JPanel matchPanel = new JPanel();
 		matchPanel.setLayout(null);
-//		MatchesPO [] matches = matchController.getTimeMatches(date);
-		JLabel[] matchLabel = new JLabel[100];
-		for(int i=0;i<100;i++){ 
+		MatchesPO [] matches = matchController.getTimeMatches(date);
+		JLabel[] matchLabel = new JLabel[matches.length];
+		for(int i=0;i<matches.length;i++){ 
 			matchLabel[i]=new JLabel();
 			matchLabel[i].setBounds(0,i*200,FrameSize.width,200);
-//			JLabel team1 = new JLabel(scaleImage(
-//					new ImageIcon(teamController.getTeamData(matches[i].getTeam1().getName())
-//							.getImage()),150,150));
-			JLabel team1 = new JLabel();
-			team1.setOpaque(true);
-			team1.setBackground(Color.red);
+			JLabel team1 = new JLabel(scaleImage(
+					new ImageIcon(teamController.getTeamData(matches[i].getTeam1().getName())
+							.getImage()),150,150));
+//			JLabel team1 = new JLabel();
+//			team1.setOpaque(true);
+//			team1.setBackground(Color.red);
 			team1.setBounds(200,25,150,150);
-//			JLabel team2 = new JLabel(scaleImage(
-//					new ImageIcon(teamController.getTeamData(matches[i].getTeam2().getName())
-//							.getImage()),150,150));
-			JLabel team2 = new JLabel();
-			team2.setOpaque(true);
-			team2.setBackground(Color.blue);
+			JLabel team2 = new JLabel(scaleImage(
+					new ImageIcon(teamController.getTeamData(matches[i].getTeam2().getName())
+							.getImage()),150,150));
+//			JLabel team2 = new JLabel();
+//			team2.setOpaque(true);
+//			team2.setBackground(Color.blue);
 			team2.setBounds(FrameSize.width-350,25,150,150);
-			team1.setText("1-"+String.valueOf(i));
-			team2.setText("2-"+String.valueOf(i));
+//			team1.setText("1-"+String.valueOf(i));
+//			team2.setText("2-"+String.valueOf(i));
 			matchLabel[i].add(team1);
 			matchLabel[i].add(team2);
+			
+			JLabel [][] scores = new JLabel[3][4];
+			for(int j=0;j<4;j++){
+				scores[0][j]=new JLabel(String.valueOf(j+1));
+				scores[1][j]=new JLabel(String.valueOf(matches[i].getTeam1().getScores()[j]));
+				scores[2][j]=new JLabel(String.valueOf(matches[i].getTeam2().getScores()[j]));
+				if(matches[i].getTeam1().getScores()[j]>matches[i].getTeam2().getScores()[j]){
+					scores[1][j].setForeground(Color.red);
+				}else{
+					scores[2][j].setForeground(Color.red);
+				}
+				for(int k=0;k<3;k++){
+					scores[k][j].setBounds(200+(FrameSize.width-300-120)*(j+1)/5+j*30,40+k*50,30,30);
+					matchLabel[i].add(scores[k][j]);
+				}
+				
+			}
 			matchPanel.add(matchLabel[i]);
 		}
 		matchPanel.setOpaque(false);
