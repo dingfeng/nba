@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -22,8 +23,11 @@ import ui.mainui.FrameSize;
 public class MatchPanel extends JPanel {
 	Matchblservice matchController = new MatchController();
 	Teamblservice teamController = new TeamController();
-	JScrollPane todatyMatchScrollPane = new JScrollPane();
-
+	static JScrollPane todatyMatchScrollPane = new JScrollPane();
+	static JScrollPane oneMatchScrollPane = new JScrollPane();
+	static CardLayout card = new CardLayout();
+	static JPanel matchmain = new JPanel();
+	
 	public MatchPanel() {
 		this.setLayout(null);
 		this.setBounds(0, 0, FrameSize.width, FrameSize.height * 7 / 8);
@@ -31,6 +35,12 @@ public class MatchPanel extends JPanel {
 		this.setOpaque(false);
 		JPanel headerPanel = HeaderPanel();
 		this.add(headerPanel);
+		matchmain.setLayout(card);
+		matchmain.setBounds(0,40,FrameSize.width,FrameSize.height*7/8-40);
+		matchmain.add("all",todatyMatchScrollPane);
+		matchmain.add("one",oneMatchScrollPane);
+		card.show(matchmain, "all");
+		this.add(matchmain);
 		setTodayMatches(null);
 //		test();
 	}
@@ -93,7 +103,7 @@ public class MatchPanel extends JPanel {
 					scores[2][j].setForeground(Color.red);
 				}
 				for(int k=0;k<3;k++){
-					scores[k][j].setBounds(200+(FrameSize.width-300-120)*(j+1)/5+j*30,40+k*50,30,30);
+					scores[k][j].setBounds(350+(FrameSize.width-700-120)*(j+1)/5+j*30,40+k*50,30,30);
 					matchLabel[i].add(scores[k][j]);
 				}
 				
@@ -103,14 +113,16 @@ public class MatchPanel extends JPanel {
 		matchPanel.setOpaque(false);
 		todatyMatchScrollPane.getViewport().add(matchPanel);
 		matchPanel.setPreferredSize(new Dimension(FrameSize.width,100*130));
-		todatyMatchScrollPane.setBounds(0,40,FrameSize.width,FrameSize.height*7/8-40);
+		todatyMatchScrollPane.setBounds(0,0,FrameSize.width,FrameSize.height*7/8-40);
 		todatyMatchScrollPane.setOpaque(false);
 		todatyMatchScrollPane.getViewport().setOpaque(false);
 		todatyMatchScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		todatyMatchScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		this.add(todatyMatchScrollPane);
+//		this.add(todatyMatchScrollPane);
+		card.show(matchmain,"all");
 		this.repaint();
 		}
+	
 	
 	private void test(){
 		JLabel[] jLabel = new JLabel[100];
