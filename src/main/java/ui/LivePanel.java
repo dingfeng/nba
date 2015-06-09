@@ -1,6 +1,8 @@
 package ui;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.Timer;
@@ -57,6 +59,10 @@ public class LivePanel extends JPanel {
 	
 	DefaultTableModel pointModel = new DefaultTableModel(rowimage, columnsName);
 	MyTable pointsTable = new MyTable(pointModel);
+	{
+		pointsTable.setRowHeight(40);
+		pointsTable.getTableHeader().setPreferredSize(new Dimension(1,28));;
+	}
 	JScrollPane jScrollPane_points = new JScrollPane(pointsTable);
 	String[] tableHeads = {"一","二","三","四","五","六","七","八","九"};
 	
@@ -71,46 +77,86 @@ public class LivePanel extends JPanel {
 		setData();
 		setLive();
 		initComponent();
-		
+		setPoints();
 	}
 	
 	private void initComponent()
 	{
+		int w = FrameSize.width;
+		int h = FrameSize.height;
+		Font f1 = new Font("Blackoak Std",Font.BOLD,30);
+		Font f2 = new Font("宋体",Font.BOLD,20);
+		Font f3 = new Font("宋体",Font.PLAIN,13);
 		JLabel guestTeamImage = new JLabel("guestTeamImage");;
+		guestTeamImage.setBounds((int)((990-150)/1200.0 * w), 0, (int)(150/1200.0 * w), (int)(150/800.0 * h));
 		guestTeamImage.setOpaque(true);
-		JLabel guestTeamName = new JLabel("guestTeamName");
+		JLabel guestTeamName = new JLabel("骑士（1）");
+		guestTeamName.setBounds((int)((990-300)/1200.0 *w), (int)(75/800.0 * h), (int)(150/1200.0 * w), (int)(37/800.0 * h));
 		guestTeamName.setOpaque(true);
-		JLabel guestTeamInfo = new JLabel("guestTeamInfo");
+		guestTeamName.setFont(f2);
+		JLabel guestTeamInfo = new JLabel("客队（53胜29负）");
+		guestTeamInfo.setBounds((int)((990-300) / 1200.0 * w),(int) ((75 + 37) / 800.0 * h), (int)(150/1200.0 * w), (int)(37/800.0 * h));
 		guestTeamInfo.setOpaque(true);
-		JLabel guestTeamScores = new JLabel("guestTeamScores");
+		guestTeamInfo.setFont(f3);
+		JLabel guestTeamScores = new JLabel("100");
+		guestTeamScores.setBounds((int)((990-300)/1200.0 * w), 0, (int)(150/800.0 * h), (int)(75/1200.0 * w));
 		guestTeamScores.setOpaque(true);
+		guestTeamScores.setFont(f1);
 		JLabel hostTeamImage = new JLabel("hostTeamImage");
-		hostTeamImage.setBounds(0, 0, 150, 150);
+		hostTeamImage.setBounds(0, 0, (int)(150/1200.0 * w), (int)(150/800.0 * h));
 		hostTeamImage.setOpaque(true);
-		JLabel hostTeamName = new JLabel("hostTeamName");
+		JLabel hostTeamName = new JLabel("勇士（1）");
+		hostTeamName.setBounds((int)(150/1200.0 * w), (int)(75/800.0 * h),(int)(150/1200.0 * w), (int)(37/800.0 * h));
 		hostTeamName.setOpaque(true);
-		JLabel hostTeamInfo = new JLabel("hostTeamInfo");
+		hostTeamName.setFont(f2);
+		JLabel hostTeamInfo = new JLabel("主队（67胜15负）");
+		hostTeamInfo.setBounds((int)(150/1200.0 * w), (int)((75+37)/800.0 * h), (int)(150/1200.0 * w),(int) (37/800.0 * h));
 		hostTeamInfo.setOpaque(true);
-		JLabel hostTeamScores = new JLabel("hostTeamScores");
-		hostTeamSocres.
-		JLabel gameDate = new JLabel("gameDate");
-		JLabel gameTime = new JLabel("gameTime");
-		JLabel gameGym = new JLabel("gameGym");
-		JLabel gameAudience = new JLabel("gameAudience");
-		 guestTeamImage.setBackground(Color.BLACK);;
-		 guestTeamName.setBackground(Color.BLACK);
-		 guestTeamInfo.setBackground(Color.BLACK);
-		 guestTeamScores.setBackground(Color.BLACK);
-		 hostTeamImage.setBackground(Color.BLACK) ;
-		 hostTeamName.setBackground(Color.BLACK);
-		 hostTeamInfo.setBackground(Color.BLACK);
-		 hostTeamScores.setBackground(Color.BLACK);
-		 gameDate.setBackground(Color.BLACK);
-		 gameTime.setBackground(Color.BLACK);
-		 gameGym.setBackground(Color.blue);
-		 gameAudience.setBackground(Color.blue);
-		 
-		 gameGym.setBounds(100, 0, 110, 100);
+		hostTeamInfo.setFont(f3);
+		JLabel hostTeamScores = new JLabel("108");
+		hostTeamScores.setBounds((int)(150/1200.0 * w), 0, (int)(150/1200.0 * w), (int)(75/800.0 * h));
+		hostTeamScores.setOpaque(true);
+		hostTeamScores.setFont(f1);
+		JLabel gameDate = new JLabel("2015年6月5日 9：00");
+		gameDate.setBounds((int)(300/1200.0 * w), 0, (int)((390/4+40) / 1200.0 * w),(int)( 37/800.0 * h ));
+		gameDate.setOpaque(true);
+		gameDate.setFont(f3);
+		JLabel gameTime = new JLabel("2：41");
+		gameTime.setBounds((int)((300+390/4+40) /1200.0 * w), 0, (int)((390/4-40) / 1200.0 * w), (int)(37/800.0 * h));
+		gameTime.setOpaque(true);
+		gameTime.setFont(f3);
+		JLabel gameGym = new JLabel("甲骨文球馆");
+		gameGym.setBounds((int)((300+390/4+390/4)/ 1200.0 * w), 0,(int) (390/4/1200.0 * w), (int)(37/800.0 * h));
+		gameGym.setOpaque(true);
+		gameGym.setFont(f3);
+		JLabel gameAudience = new JLabel("19596人");
+		gameAudience.setBounds((int)((300+390/4 * 3)/1200.0 * w), 0, (int)(390/4/1200.0 * w), (int)(37/800.0 * h));
+		gameAudience.setOpaque(true);
+		gameAudience.setFont(f3);
+		 guestTeamImage.setBackground(Color.white);;
+		 guestTeamName.setBackground(Color.white);
+		 guestTeamInfo.setBackground(Color.white);
+		 guestTeamScores.setBackground(Color.white);
+		 hostTeamImage.setBackground(Color.white) ;
+		 hostTeamName.setBackground(Color.white);
+		 hostTeamInfo.setBackground(Color.white);
+		 hostTeamScores.setBackground(Color.white);
+		 gameDate.setBackground(Color.white);
+		 gameTime.setBackground(Color.white);
+		 gameGym.setBackground(Color.white);
+		 gameAudience.setBackground(Color.white);
+		 guestTeamImage.setHorizontalAlignment(JLabel.CENTER);
+		 guestTeamName.setHorizontalAlignment(JLabel.CENTER);
+		 guestTeamInfo.setHorizontalAlignment(JLabel.CENTER);
+		 guestTeamScores.setHorizontalAlignment(JLabel.CENTER);
+		 hostTeamImage.setHorizontalAlignment(JLabel.CENTER);
+		 hostTeamName.setHorizontalAlignment(JLabel.CENTER);
+		 hostTeamInfo.setHorizontalAlignment(JLabel.CENTER);
+		 hostTeamScores.setHorizontalAlignment(JLabel.CENTER);
+		 gameDate.setHorizontalAlignment(JLabel.CENTER);
+		 gameTime.setHorizontalAlignment(JLabel.CENTER);
+		 gameGym.setHorizontalAlignment(JLabel.CENTER);
+		 gameAudience.setHorizontalAlignment(JLabel.CENTER);
 		this.add(guestTeamImage);
 		this.add(guestTeamName);
 		this.add(guestTeamInfo);
@@ -295,6 +341,17 @@ public class LivePanel extends JPanel {
 		this.add(jScrollPane_data2);
 		
 		jScrollPane_data2.setVisible(false);
+		jScrollPane_data2
+				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		jScrollPane_points
+				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		int w = FrameSize.width;
+		int h = FrameSize.height;
+		jScrollPane_points.setBounds((int)(300/1200.0 * w), (int)(37/800.0 * h), (int)(390/1200.0 * w),
+				 (int)((150-37)/800.0 * h));
+		jScrollPane_points.setBackground(Color.BLACK);
+		jScrollPane_points.getViewport().setOpaque(false);
+		this.add(jScrollPane_points);
 		this.repaint();
 	}
 
@@ -306,7 +363,7 @@ public class LivePanel extends JPanel {
 		columnsName.add("球队");
 		columnsName.add("事件");
 		columnsName.add("比分");
-		rowimage.clear();
+		rowimage = new Vector();
 		liveModel.setDataVector(rowimage, columnsName);
 		this.repaint();
 
@@ -329,7 +386,7 @@ public class LivePanel extends JPanel {
 		columnsName.add("封盖");
 		columnsName.add("得分");
 		columnsName.add("+/-");
-		rowimage.clear();
+		rowimage = new Vector();
 	    dataModel1.setDataVector(rowimage, columnsName);
 	    dataModel2.setDataVector(rowimage, columnsName);
 		this.repaint();
@@ -341,6 +398,34 @@ public class LivePanel extends JPanel {
 		this.jScrollPane_data1.setVisible(false);
 		this.jScrollPane_data2.setVisible(false);
 		this.jScrollPane_live.setVisible(true);
+	}
+	void setPoints()
+	{
+		columnsName.removeAllElements();
+        columnsName.add(" ");
+		columnsName.add("一");
+		columnsName.add("二");
+		columnsName.add("三");
+		columnsName.add("四");
+		columnsName.add("总分");
+		rowimage = new Vector();
+		Vector v  = new Vector();
+		v.add("骑士");
+		v.add("23");
+		v.add("23");
+		v.add("23");
+		v.add("24");
+		v.add("95");
+		rowimage.add(v);
+		v = new Vector();
+		v.add("勇士");
+		v.add("23");
+		v.add("23");
+		v.add("23");
+		v.add("24");
+		v.add("93");
+		rowimage.add(v);
+		pointModel.setDataVector(rowimage, columnsName);
 	}
 	void showData()
 	{
