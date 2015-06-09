@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 import dataservice.playerdataservice.PlayerDataService;
 import dataservice.playerdataservice.SeasonType;
@@ -427,7 +428,8 @@ public class PlayerController implements PlayerBlService {
 			output.close();
 			Process pr = Runtime.getRuntime().exec("python python\\radar.py");
 			pr.waitFor();
-			Image radar = ImageIO.read(new File(imageR));
+			ImageIcon imageIcon = new ImageIcon(imageR);    
+			Image radar = imageIcon.getImage();
 			return radar;
 		} catch (IOException | InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -696,7 +698,8 @@ public class PlayerController implements PlayerBlService {
 			Process pr = Runtime.getRuntime()
 					.exec("python python\\__init__.py");
 			pr.waitFor();
-			Image compare = ImageIO.read(new File(imageC));
+			ImageIcon imageIcon = new ImageIcon(imageC);    
+			Image compare = imageIcon.getImage(); 
 			return compare;
 		} catch (IOException | InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -769,7 +772,8 @@ public class PlayerController implements PlayerBlService {
 				Process pr = Runtime.getRuntime().exec(
 						"python python\\errorbar.py");
 				pr.waitFor();
-				Image line = ImageIO.read(new File(imageL));
+				ImageIcon imageIcon = new ImageIcon(imageL);    
+				Image line = imageIcon.getImage(); 
 				return line;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
