@@ -3,9 +3,11 @@ package dataservice.matchdataservice;
 import java.awt.Image;
 import java.util.Date;
 
+import dataservice.playerdataservice.SeasonType;
 import live.CurrentMatch;
 import live.SimpleMatchLive;
 import po.MatchesPO;
+import po.OldMatch;
 
 public interface MatchDataService {
 	public MatchesPO[] getRegularSeasonMatches(int season,int low,int high);
@@ -24,4 +26,7 @@ public interface MatchDataService {
 	public SimpleMatchLive[] getAllLiveMatches();
 	public CurrentMatch getLiveMatchesById(int matchId);
 	public Image getLiveTeamImg(String teamName);
+	//<=1984赛季
+	public OldMatch[] getOldMatch(int season, int low, int high, SeasonType seasonType);
+	public OldMatch getOldMatchInfo(int matchId);
 }

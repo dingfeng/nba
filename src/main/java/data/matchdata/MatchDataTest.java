@@ -13,9 +13,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import po.MatchesPO;
+import po.OldMatch;
 import DataFactory.DataFactory;
 import DataFactoryService.NBADataFactory;
 import dataservice.matchdataservice.MatchDataService;
+import dataservice.playerdataservice.SeasonType;
 
 public class MatchDataTest {
     MatchDataService match;
@@ -113,7 +115,17 @@ public class MatchDataTest {
 		}
 //		print(m);
 	}
-	
+	@Test
+	public void testOldMatch()
+	{
+		OldMatch[] matches = match.getOldMatch(1966, 1, 12, SeasonType.REGULAR);
+		for (int i = 0; i < matches.length; ++i)
+		{
+			int matchId = matches[i].getMatchId();
+			OldMatch m = match.getOldMatchInfo(matchId);
+			print(m);
+		}
+	}
 	public static void print(Object[] objects)
     {
     	for (Object o : objects)

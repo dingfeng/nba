@@ -5,6 +5,7 @@ import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,8 +17,10 @@ import live.SimpleMatchLive;
 import po.MatchPlayerPO;
 import po.MatchTeamPO;
 import po.MatchesPO;
+import po.OldMatch;
 import data.playerdata.PlayerData;
 import dataservice.matchdataservice.MatchDataService;
+import dataservice.playerdataservice.SeasonType;
 
 public class MatchData implements MatchDataService{
 	   private Connection conn;
@@ -813,4 +816,157 @@ public class MatchData implements MatchDataService{
 			}
 			return img;
 		}
+
+		@Override
+		public OldMatch[] getOldMatch(int season, int low, int high, SeasonType seasonType) {
+			String sql = "select * from oldmatch where match_id > ? and match_id < ? order by match_id limit ?,?";
+			int[] seasonScope = getMatchIdScope(season);
+			seasonScope[0] -= 10000;
+			seasonScope[1] -= 10000;
+			OldMatch[] matches = null;
+			ArrayList<OldMatch> list = new ArrayList<OldMatch>();
+			if (seasonType == SeasonType.PLAYOFF)
+			{
+				seasonScope[0] += 1000000;
+				seasonScope[1] += 1000000;
+			}
+			try
+			{
+				PreparedStatement statement  = conn.prepareStatement(sql);
+				statement.setInt(1, seasonScope[0]);
+				statement.setInt(2, seasonScope[1]);
+				statement.setInt(3, low);
+				statement.setInt(4, high);
+				ResultSet results = statement.executeQuery();
+				while (results.next())
+				{
+					list.add(toOldMatch(results));
+     			}
+				matches = new OldMatch[list.size()];
+				list.toArray(matches);
+				}catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			return matches;
+		}
+        
+		private OldMatch toOldMatch(ResultSet result) throws Exception
+		{
+			String guest_team = result.getString("guestTeam");
+			String host_team = result.getString("hostTeam");
+			String date = result.getString("date");
+			int matchId = result.getInt("match_id");
+			OldMatch oldMatch = new OldMatch(matchId,host_team,guest_team,date);
+			return oldMatch;
+		}
+		@Override
+		public OldMatch getOldMatchInfo(int matchId) {
+			String sql_match = "select guestTeam,hostTeam,date from oldmatch where match_id = ?";
+			String sql_team = "select teamName,totalScores,p1,p2,p3,p4,p5,p6,p7,p8 from oldmatchteam where matchId = ?";
+			String sql_img = "select infoimg from oldmatchimg where matchId = ?";
+			PreparedStatement statement = null;
+			ResultSet results = null;
+			OldMatch oldMatch = null;
+			try
+			{
+				statement = conn.prepareStatement(sql_match);
+				statement.setInt(1, matchId);
+				results = statement.executeQuery();
+				String guestTeam = null;
+				String hostTeam = null;
+				String date = null;
+				if (results.next())
+				{
+					guestTeam = results.getString(1);
+					hostTeam = results.getString(2);
+					date = results.getString(3);
+				}
+				statement = conn.prepareStatement(sql_team);
+				statement.setInt(1, matchId);
+				results = statement.executeQuery();
+				String team1 = null;
+				String team2 = null;
+				String totalScores1 = null;
+				String totalScores2 = null;
+				String[] pts1 = new String[8];
+				String[] pts2 = new String[8];
+				if (results.next())
+				{
+					team1 = results.getString(1);
+					totalScores1 = results.getString(2);
+					for (int i = 0; i < 8; ++i)
+					{
+						pts1[i] = results.getString(i+3);
+					}
+				}
+				if (results.next())
+				{
+					team2 = results.getString(1);
+					totalScores2 = results.getString(2);
+					for (int i = 0; i < 8; ++i)
+					{
+						pts2[i] = results.getString(i+3);
+					}
+				}
+				int len = 0;
+				for (len= 0; len < pts2.length; ++len)
+				{
+					if (pts2[len] == null)
+					{
+						break;
+					}
+				}
+				String[]  ptsr1 = new String[len+1];
+				String[] ptsr2 = new String[len+1];
+				for (int i = 0; i < ptsr1.length-1; ++i)
+				{
+					ptsr1[i] = pts1[i];
+					ptsr2[i] = pts2[i];
+				}
+				ptsr1[ptsr1.length-1] = totalScores1;
+				ptsr2[ptsr2.length-1] = totalScores2;
+				Image img = getImageInfo(matchId);
+				if (team1.equals(hostTeam))
+				{
+					oldMatch = new OldMatch( matchId,  hostTeam,  guestTeam, ptsr1,  ptsr2 , img, date);
+				}
+				else 
+				{
+					oldMatch = new OldMatch( matchId,  hostTeam,  guestTeam, ptsr2,  ptsr1 , img, date);
+
+				}
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			return oldMatch;
+		}
+		private Image getImageInfo(int matchId)
+		{
+			String sql = "select infoimg from oldmatchimg where matchId = ?";
+			Image img = null;
+			try
+			{
+				PreparedStatement statement = conn.prepareStatement(sql);
+				statement.setInt(1, matchId);
+				ResultSet results = statement.executeQuery();
+				Blob blob = null;
+				if (results.next())
+				{
+					blob = results.getBlob(1);
+				}
+				if (blob != null)
+				{
+					img = PlayerData.blobToImage(blob);
+				}
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			return img;
+		}
+
 }
