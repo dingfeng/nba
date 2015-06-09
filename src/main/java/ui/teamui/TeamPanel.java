@@ -25,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import dataservice.playerdataservice.SeasonType;
 import po.TeamNormalPO;
 import po.TeamPO;
 import ui.mainui.FrameSize;
@@ -116,8 +117,8 @@ public class TeamPanel extends JPanel {
 	}
 
 	/** 设置标题 */
-	void setHeader() {
-
+	void setHeader() {	
+		
 		databutton = new MyToggleButton("数据", Color.black, Color.gray);
 		databutton.setBounds(0, FrameSize.height / 4, FrameSize.width / 5, 50);
 
@@ -245,6 +246,7 @@ public class TeamPanel extends JPanel {
 	}
 
 	void setContrast() {
+		teamcontrastpanel.setChart();
 		card.show(teammain, "contrast");
 		contrastbutton.setSelected(true);
 		databutton.setSelected(false);
@@ -380,67 +382,6 @@ public class TeamPanel extends JPanel {
 
 	}
 
-	/** 点击查找按钮 */
-	void findClick(String teamname) {
-		try {
-			showOne(teamname);
-		} catch (NullPointerException e1) {
-			JOptionPane.showMessageDialog(null, "未找到该球队的基本信息", "查找失败",
-					JOptionPane.ERROR_MESSAGE);
-
-			return;
-		}
-
-		TeamNormalPO teamresult;
-
-		find.setVisible(false);
-
-		showOne(teamname);
-		try {
-			if (dataType.getSelectedItem().equals("赛季总数据")) {
-				teamresult = tc.getTotalTeam(teamname);
-			} else {
-				teamresult = tc.getAveTeam(teamname);
-			}
-		} catch (Exception e) {
-			TeamPO teamresult1 = tc.getTeamData(teamname);
-			teamname = teamresult1.getNameAbridge();
-			if (teamname.equals("NOP")) {
-				teamname = "NOH";
-			}
-			if (dataType.getSelectedItem().equals("赛季总数据")) {
-				teamresult = tc.getTotalTeam(teamname);
-			} else {
-				teamresult = tc.getAveTeam(teamname);
-			}
-		}
-		try {
-			TeamMessage(teamresult);
-		} catch (NullPointerException e1) {
-			JOptionPane.showMessageDialog(null, "未找到该球队的比赛数据", "查找失败",
-					JOptionPane.ERROR_MESSAGE);
-
-			return;
-		}
-		this.remove(jScrollPane);
-		this.add(teammessage);
-		this.repaint();
-	}
-
-
-	/** 查看该球队队员 */
-	void setTeamPlayers(String team) {
-		String[] playernames = tc.getPlayers(team);
-		PlayerController pc = new PlayerController();
-		PlayerMatchVO[] players = new PlayerMatchVO[playernames.length];
-		for (int i = 0; i < playernames.length; i++) {
-			// players[i] = pc.findPlayerMatchAve(playernames[i]);
-		}
-		// MyFrame.playerpanel.showTeamPlayers(players);
-
-		MyFrame.card.show(MyFrame.mainpanel, "player");
-
-	}
 
 
 	private void resizeTable(boolean bool, JScrollPane jsp, JTable table) {

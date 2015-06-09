@@ -41,7 +41,7 @@ public class PlayerBlTest {
 		assertEquals(true, true);
 	}
 	
-	@Test
+	//@Test
 	public void test() {
 		String[] playernames = this.getPlayernames();
 		Image image = playerservice.getPlayerImage(playernames[0]);

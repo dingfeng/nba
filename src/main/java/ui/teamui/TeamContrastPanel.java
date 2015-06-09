@@ -8,27 +8,35 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import ui.mainui.FrameSize;
+import ui.mainui.MyFrame;
 import bl.teambl.TeamController;
 import blservice.teamblservice.Teamblservice;
 import dataservice.playerdataservice.SeasonType;
 
 public class TeamContrastPanel extends JPanel{
 	Teamblservice tc=new TeamController();
+	JLabel imagelabel=new JLabel();
 	
 	public TeamContrastPanel(){
 	this.setLayout(null);
 	this.setBounds(0, 0,
 			 FrameSize.width , FrameSize.height * 3 / 4);
 	this.setBackground(Color.white);
-//	setChart();
 	this.repaint();
 	}
 	
-	void setChart(){
-		Image image=tc.getTeamBar(2013, "ATL", SeasonType.REGULAR);
-		JLabel imagelabel=new JLabel(new ImageIcon(image));
-		imagelabel.setBounds(0, 0, 100, 100);
-		imagelabel.setOpaque(true);
+	public void setChart(){
+		String teamname=MyFrame.teampanel.nameAbridgeresult.getText();
+		Image image=tc.getTeamBar(2014, teamname, SeasonType.REGULAR);
+		
+		imagelabel.setIcon(new ImageIcon(image));
+		imagelabel.setBounds((FrameSize.width-560)/2, 30, 560, 420);
+		imagelabel.setOpaque(false);		
+		imagelabel.repaint();
 		this.add(imagelabel);
+		this.repaint();
+		this.validate();
+		imagelabel.setVisible(true);
+		imagelabel.repaint();
 	}
 }
