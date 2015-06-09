@@ -78,8 +78,7 @@ if __name__ == '__main__':
     ax.grid(True)
     ax.legend((player1, player2), loc=(0.9, .85), labelspacing=0.005)
 	
-    plt.savefig("D:/radar.png", dpi=70, facecolor='w', edgecolor='w',
+    plt.savefig("D:/radar.png", dpi=30, facecolor='w', edgecolor='w',
         orientation='portrait', papertype=None, format=None,
         transparent=True, bbox_inches=None, pad_inches=0.1,
         frameon=None)
-    plt.show()
