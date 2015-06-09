@@ -4,6 +4,8 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Date;
 
 import javax.swing.ImageIcon;
@@ -41,7 +43,7 @@ public class MatchPanel extends JPanel {
 		matchmain.add("one",oneMatchScrollPane);
 		card.show(matchmain, "all");
 		this.add(matchmain);
-		setTodayMatches(null);
+//		setTodayMatches(null);
 //		test();
 	}
 
@@ -108,6 +110,12 @@ public class MatchPanel extends JPanel {
 				}
 				
 			}
+			
+			matchLabel[i].addMouseListener(new MouseAdapter(){
+				public void mouseClicked(MouseEvent e){
+					setOneMatch();
+				}
+			});
 			matchPanel.add(matchLabel[i]);
 		}
 		matchPanel.setOpaque(false);
@@ -123,7 +131,12 @@ public class MatchPanel extends JPanel {
 		this.repaint();
 		}
 	
-	
+
+	/**一场比赛的具体信息*/
+	public void setOneMatch(){
+		oneMatchScrollPane.getViewport().removeAll();
+		
+	}
 	private void test(){
 		JLabel[] jLabel = new JLabel[100];
 		JScrollPane jScrollPane = new JScrollPane();
