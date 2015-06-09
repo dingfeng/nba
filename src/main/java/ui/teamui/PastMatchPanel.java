@@ -74,7 +74,7 @@ public class PastMatchPanel extends JPanel{
 		pastjScrollPane = new JScrollPane(mytable);
 		pastjScrollPane
 				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		pastjScrollPane.setBounds(0, 30, FrameSize.width,FrameSize.height -180);
+		pastjScrollPane.setBounds(0, 30, FrameSize.width,FrameSize.height*3/4 -180);
 		pastjScrollPane.setOpaque(false);
 		pastjScrollPane.getViewport().setOpaque(false);
 

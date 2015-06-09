@@ -48,16 +48,7 @@ public class TeamDataPanel extends JPanel {
 	}
 
 	public void setText() {
-//		alldata = new MyToggleButton("总数", FrameSize.bluecolor,
-//				FrameSize.darkbluecolor);
-//		avedata = new MyToggleButton("场均", FrameSize.bluecolor,
-//				FrameSize.darkbluecolor);
-//		alldata.setBounds(FrameSize.width - 100, 0, 50, 30);
-//		avedata.setBounds(FrameSize.width - 50, 0, 50, 30);
-//		alldata.addActionListener(e -> showall());
-//		avedata.addActionListener(e -> showave());
-//		alldata.setForeground(Color.white);
-//		avedata.setForeground(Color.white);
+
 		jScrollPane
 				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		jScrollPane
@@ -66,21 +57,7 @@ public class TeamDataPanel extends JPanel {
 				FrameSize.height * 7 / 8 - 30);
 		jScrollPane.setBackground(Color.white);
 		jScrollPane.getViewport().setOpaque(false);
-//		this.add(alldata);
-//		this.add(avedata);
 	}
-
-//	void showall() {
-//		alldata.setSelected(true);
-//		avedata.setSelected(false);
-//		ave = false;
-//	}
-//
-//	void showave() {
-//		avedata.setSelected(true);
-//		alldata.setSelected(false);
-//		ave = true;
-//	}
 
 	// 低阶数据
 	void setLowTable(TeamNormalPO[] team) {

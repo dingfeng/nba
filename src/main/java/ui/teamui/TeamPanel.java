@@ -54,7 +54,7 @@ public class TeamPanel extends JPanel {
 	MyButton dataType;
 	JLabel image = new JLabel();// 图片
 	JTextField nameresult = new UneditableTextField();// 队伍名称
-	JTextField nameAbridgeresult = new UneditableTextField();// 名称缩写
+	public JTextField nameAbridgeresult = new UneditableTextField();// 名称缩写
 	JTextField addressresult = new UneditableTextField();// 所在地
 	JTextField matchArearesult = new UneditableTextField();// 赛区
 	JTextField playerArearesult = new UneditableTextField();// 分区
@@ -72,11 +72,13 @@ public class TeamPanel extends JPanel {
 	public static RecentMatchPanel recentmatchpanel = new RecentMatchPanel();
 	public static TeamContrastPanel teamcontrastpanel = new TeamContrastPanel();
 	public static TeamDataPanel teamdatapanel = new TeamDataPanel();
-
+	public static TeamPlayerPanel teamplayerpanel=new TeamPlayerPanel();
+	
 	MyToggleButton databutton;
 	MyToggleButton recentbutton;
 	MyToggleButton pastbutton;
 	MyToggleButton contrastbutton;
+	MyToggleButton playerbutton;
 	MyToggleButton alldata;
 	MyToggleButton avedata;
 	boolean high=false;
@@ -104,6 +106,7 @@ public class TeamPanel extends JPanel {
 		teammain.add("past", pastmatchpanel);
 		teammain.add("recent", recentmatchpanel);
 		teammain.add("contrast", teamcontrastpanel);
+		teammain.add("player",teamplayerpanel);
 		setHeader();
 		setFind();
 		this.add(teammain);
@@ -116,26 +119,31 @@ public class TeamPanel extends JPanel {
 	void setHeader() {
 
 		databutton = new MyToggleButton("数据", Color.black, Color.gray);
-		databutton.setBounds(0, FrameSize.height / 4, FrameSize.width / 4, 50);
+		databutton.setBounds(0, FrameSize.height / 4, FrameSize.width / 5, 50);
 
 		recentbutton = new MyToggleButton("近期比赛", Color.black, Color.gray);
-		recentbutton.setBounds(FrameSize.width / 4, FrameSize.height / 4,
-				FrameSize.width / 4, 50);
+		recentbutton.setBounds(FrameSize.width / 5, FrameSize.height / 4,
+				FrameSize.width / 5, 50);
 
 		pastbutton = new MyToggleButton("过往查询", Color.black, Color.gray);
-		pastbutton.setBounds(FrameSize.width / 2, FrameSize.height / 4,
-				FrameSize.width / 4, 50);
+		pastbutton.setBounds(FrameSize.width *2/ 5, FrameSize.height / 4,
+				FrameSize.width / 5, 50);
 
 		contrastbutton = new MyToggleButton("对比", Color.black, Color.gray);
-		contrastbutton.setBounds(FrameSize.width * 3 / 4, FrameSize.height / 4,
-				FrameSize.width / 4, 50);
+		contrastbutton.setBounds(FrameSize.width * 3 / 5, FrameSize.height / 4,
+				FrameSize.width / 5, 50);
+		
+		playerbutton = new MyToggleButton("队员", Color.black, Color.gray);
+		playerbutton.setBounds(FrameSize.width * 4 / 5, FrameSize.height / 4,
+				FrameSize.width / 5, 50);
 
+		playerbutton.setForeground(Color.white);
 		databutton.setForeground(Color.white);
 		recentbutton.setForeground(Color.white);
 		pastbutton.setForeground(Color.white);
 		contrastbutton.setForeground(Color.white);
 
-//		databutton.addActionListener(e -> setTeamdata());
+		playerbutton.addActionListener(e -> setPlayer());
 		recentbutton.addActionListener(e -> setRecent());
 		pastbutton.addActionListener(e -> setPast());
 		contrastbutton.addActionListener(e -> setContrast());
@@ -184,6 +192,7 @@ public class TeamPanel extends JPanel {
 		alldata.setSelected(true);
 		teamdatapanel.add(alldata);
 		teamdatapanel.add(avedata);
+		this.add(playerbutton);
 		this.add(databutton);
 		this.add(recentbutton);
 		this.add(pastbutton);
@@ -210,6 +219,7 @@ public class TeamPanel extends JPanel {
 		recentbutton.setSelected(false);
 		pastbutton.setSelected(false);
 		contrastbutton.setSelected(false);
+		playerbutton.setSelected(false);
 	}
 
 	void setRecent() {
@@ -220,6 +230,7 @@ public class TeamPanel extends JPanel {
 		databutton.setSelected(false);
 		pastbutton.setSelected(false);
 		contrastbutton.setSelected(false);
+		playerbutton.setSelected(false);
 	}
 
 	void setPast() {
@@ -230,6 +241,7 @@ public class TeamPanel extends JPanel {
 		databutton.setSelected(false);
 		recentbutton.setSelected(false);
 		contrastbutton.setSelected(false);
+		playerbutton.setSelected(false);
 	}
 
 	void setContrast() {
@@ -238,6 +250,17 @@ public class TeamPanel extends JPanel {
 		databutton.setSelected(false);
 		recentbutton.setSelected(false);
 		pastbutton.setSelected(false);
+		playerbutton.setSelected(false);
+	}
+	
+	void setPlayer(){
+		teamplayerpanel.setTable();
+		card.show(teammain, "player");
+		contrastbutton.setSelected(false);
+		databutton.setSelected(false);
+		recentbutton.setSelected(false);
+		pastbutton.setSelected(false);
+		playerbutton.setSelected(true);
 	}
 
 	/** 显示场均数据/总数据 */
@@ -408,7 +431,7 @@ public class TeamPanel extends JPanel {
 	/** 查看该球队队员 */
 	void setTeamPlayers(String team) {
 		String[] playernames = tc.getPlayers(team);
-		PlayerController pc = new PlayerController(2012);
+		PlayerController pc = new PlayerController();
 		PlayerMatchVO[] players = new PlayerMatchVO[playernames.length];
 		for (int i = 0; i < playernames.length; i++) {
 			// players[i] = pc.findPlayerMatchAve(playernames[i]);
