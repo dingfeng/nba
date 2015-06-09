@@ -46,7 +46,7 @@ public class HotPanel extends JPanel {
 	MyToggleButton fast_player;
 	
 	JLabel crown = new JLabel();
-	JButton[] choose = new JButton[8];
+	MyToggleButton[] choose = new MyToggleButton[8];
 	TeamController tc = new TeamController();
 	PlayerController pc = new PlayerController();
 	int hottype = 1;
@@ -60,7 +60,7 @@ public class HotPanel extends JPanel {
 
 		setTag();
 		setShow();
-		showchoose(1);
+		showchoose(3);
 		this.add(tag);
 		this.add(show);
 		this.repaint();
@@ -87,11 +87,6 @@ public class HotPanel extends JPanel {
 		season_player.setBounds(10, 40 + height / 4, 150, 50);
 		season_team.setBounds(10, 40 + height / 2, 150, 50);
 		fast_player.setBounds(10, 40 + 3 * height / 4, 150, 50);
-
-		today_player.setBackground(FrameSize.buttonbackColor);
-		season_player.setBackground(FrameSize.buttonbackColor);
-		season_team.setBackground(FrameSize.buttonbackColor);
-		fast_player.setBackground(FrameSize.buttonbackColor);
 
 		today_player.setForeground(Color.white);
 		season_player.setForeground(Color.white);
@@ -121,15 +116,15 @@ public class HotPanel extends JPanel {
 		show.setBounds(FrameSize.width / 6, 0, 5 * FrameSize.width / 6,
 				11 * FrameSize.height / 12);
 		for (int i = 0; i < 8; i++) {
-			choose[i] = new JButton();
-			choose[i].setBackground(Color.gray);
-			choose[i].addActionListener(e -> showMessage());
+			choose[i] = new MyToggleButton("", Color.black, Color.gray);
+			choose[i].setForeground(Color.white);
+			choose[i].addMouseListener(new showMessage());
 		}
 		for (int i = 0; i < 5; i++) {
 			name[i] = new JLabel();
 			name[i].setBounds(FrameSize.width / 3, (i + 1) * FrameSize.height
 					/ 7, FrameSize.width / 6, FrameSize.height / 16);
-			name[i].setForeground(Color.white);
+			name[i].setForeground(Color.black);
 			name[i].setFont(new Font("Comic Sans MS", Font.BOLD, 14));
 			name[i].addMouseListener(new show());
 			show.add(name[i]);
@@ -149,11 +144,11 @@ public class HotPanel extends JPanel {
 		score_5.setBounds(FrameSize.width / 3 + 250, 5 * FrameSize.height / 7,
 				80, 80);
 
-		score_1.setForeground(Color.white);
-		score_2.setForeground(Color.white);
-		score_3.setForeground(Color.white);
-		score_4.setForeground(Color.white);
-		score_5.setForeground(Color.white);
+		score_1.setForeground(Color.black);
+		score_2.setForeground(Color.black);
+		score_3.setForeground(Color.black);
+		score_4.setForeground(Color.black);
+		score_5.setForeground(Color.black);
 
 		crown.setBounds(FrameSize.width / 3 - 185, FrameSize.height / 15, 72,
 				72);
@@ -244,9 +239,44 @@ public class HotPanel extends JPanel {
 		this.repaint();
 	}
 
-	void showMessage(){
+	class showMessage implements MouseListener{
 		
+
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			if(season_team.isSelected()){
+				showMessage_team(((MyToggleButton)arg0.getSource()).getText());
+			}else{
+				showMessage_player(((MyToggleButton)arg0.getSource()).getText());
+			}
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
+	
 	/** 热点球员 */
 	void showMessage_player(String sort) {
 		System.out.print(sort);
@@ -257,10 +287,10 @@ public class HotPanel extends JPanel {
 			players = pc.getDayHotPlayer(sortBy);
 			break;
 		case 2:
-			players = pc.getSeasonHotPlayer(2012, sortBy, SeasonType.REGULAR);
+			players = pc.getSeasonHotPlayer(2013, sortBy, SeasonType.REGULAR);
 			break;
 		case 4:
-			players = pc.getPromotePlayer(2012, sortBy);
+			players = pc.getPromotePlayer(2013, sortBy);
 		}
 		try {
 			portrait_1.setIcon(scaleImage(
