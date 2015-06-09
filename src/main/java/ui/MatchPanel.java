@@ -41,7 +41,7 @@ public class MatchPanel extends JPanel {
 		matchmain.add("one",oneMatchScrollPane);
 		card.show(matchmain, "all");
 		this.add(matchmain);
-//		setTodayMatches(null);
+		setTodayMatches(null);
 //		test();
 	}
 
@@ -123,12 +123,7 @@ public class MatchPanel extends JPanel {
 		this.repaint();
 		}
 	
-
-	/**一场比赛的具体信息*/
-	public void setOneMatch(){
-		oneMatchScrollPane.getViewport().removeAll();
-		
-	}
+	
 	private void test(){
 		JLabel[] jLabel = new JLabel[100];
 		JScrollPane jScrollPane = new JScrollPane();
