@@ -142,6 +142,12 @@ public class PlayerDataTest {
 		MatchPlayerPO[] players = player.getSeasonMatches(2014, "Kobe Bryant", SeasonType.REGULAR);
 //		print (players);
 	}
+	@Test 
+	public void testSeasonTeamPlayer()
+	{
+		PlayerNormalPO[] players = player.getSeasonPlayerNormalOfTeam(1999, SeasonType.PLAYOFF, "LAL");
+		print (players);
+	}
 	public static void print(Object[] objects)
     {
     	for (Object o : objects)

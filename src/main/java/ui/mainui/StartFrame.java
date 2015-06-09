@@ -33,6 +33,8 @@ public class StartFrame extends JFrame{
 				// 当鼠标按下的时候获得窗口当前的位置
 				origin.x = e.getX();
 				origin.y = e.getY();
+				System.out.println("x : "+e.getX());
+				System.out.println("y : "+e.getY());
 			}
 		});
 		my.addMouseMotionListener(new MouseMotionAdapter()

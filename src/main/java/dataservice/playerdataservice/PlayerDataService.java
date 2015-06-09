@@ -186,6 +186,8 @@ public interface PlayerDataService {
 	 * @return			该球员在该赛季的每场比赛的数据
 	 */
 	public MatchPlayerPO[] getSeasonMatches(int season, String name, SeasonType type);
+	//获得某个赛季球队球员的数据
+	public PlayerNormalPO[] getSeasonPlayerNormalOfTeam(int season, SeasonType type,String teamName);
 //	public PlayerNormalPO[] sortPlayerNormalTotalHis(String sort, int n);
 //	public PlayerNormalPO sortPlayerNormalAveHis(String sort, int n);
 }

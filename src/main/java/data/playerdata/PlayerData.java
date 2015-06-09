@@ -866,4 +866,38 @@ public MatchPlayerPO[] getSeasonMatches(int season, String name, SeasonType type
 	list.toArray(players);
 	return players;
 }
+@Override
+public PlayerNormalPO[] getSeasonPlayerNormalOfTeam(int season, SeasonType type,
+		String teamName) {
+	String sql = null;
+	PlayerNormalPO[] result = null;
+	switch (type)
+	{
+	case REGULAR:
+		sql =  "select * from player_season_normal where season = ? and team = ?";
+		break;
+	case PLAYOFF:
+		sql = "select * from player_season_normal_playoff where season = ? and team =?";
+		break;
+	}
+	try
+	{
+		ArrayList<PlayerNormalPO> list = new  ArrayList<PlayerNormalPO>();
+		PreparedStatement statement = conn.prepareStatement(sql);
+		statement.setInt(1, season);
+		statement.setString(2, teamName);
+		ResultSet results = statement.executeQuery();
+		while (results.next())
+		{
+			list.add(this.toPlayerNormal(results));
+		}
+		result = new PlayerNormalPO[list.size()];
+		list.toArray(result);
+	}
+	catch (Exception e)
+	{
+		e.printStackTrace();
+	}
+	return result;
+}
 }

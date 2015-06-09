@@ -1,8 +1,10 @@
 package ui;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.util.Timer;
+import java.util.TimerTask;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -12,6 +14,8 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 
+import dataservice.matchdataservice.MatchDataService;
+import DataFactory.DataFactory;
 import live.CurrentMatch;
 import live.CurrentTeam;
 import ui.mainui.FrameSize;
@@ -62,26 +66,98 @@ public class LivePanel extends JPanel {
 		this.setBackground(Color.white);
 		this.setLayout(null);
 		this.setBounds(0, 0, FrameSize.width, FrameSize.height * 7 / 8);
+		System.out.println("width : "+FrameSize.width + " height : "+FrameSize.height);
 		setText();
 		setData();
 		setLive();
+		initComponent();
+		
+	}
+	
+	private void initComponent()
+	{
+		JLabel guestTeamImage = new JLabel("guestTeamImage");;
+		guestTeamImage.setOpaque(true);
+		JLabel guestTeamName = new JLabel("guestTeamName");
+		guestTeamName.setOpaque(true);
+		JLabel guestTeamInfo = new JLabel("guestTeamInfo");
+		guestTeamInfo.setOpaque(true);
+		JLabel guestTeamScores = new JLabel("guestTeamScores");
+		guestTeamScores.setOpaque(true);
+		JLabel hostTeamImage = new JLabel("hostTeamImage");
+		hostTeamImage.setBounds(0, 0, 150, 150);
+		hostTeamImage.setOpaque(true);
+		JLabel hostTeamName = new JLabel("hostTeamName");
+		hostTeamName.setOpaque(true);
+		JLabel hostTeamInfo = new JLabel("hostTeamInfo");
+		hostTeamInfo.setOpaque(true);
+		JLabel hostTeamScores = new JLabel("hostTeamScores");
+		hostTeamSocres.
+		JLabel gameDate = new JLabel("gameDate");
+		JLabel gameTime = new JLabel("gameTime");
+		JLabel gameGym = new JLabel("gameGym");
+		JLabel gameAudience = new JLabel("gameAudience");
+		 guestTeamImage.setBackground(Color.BLACK);;
+		 guestTeamName.setBackground(Color.BLACK);
+		 guestTeamInfo.setBackground(Color.BLACK);
+		 guestTeamScores.setBackground(Color.BLACK);
+		 hostTeamImage.setBackground(Color.BLACK) ;
+		 hostTeamName.setBackground(Color.BLACK);
+		 hostTeamInfo.setBackground(Color.BLACK);
+		 hostTeamScores.setBackground(Color.BLACK);
+		 gameDate.setBackground(Color.BLACK);
+		 gameTime.setBackground(Color.BLACK);
+		 gameGym.setBackground(Color.blue);
+		 gameAudience.setBackground(Color.blue);
+		 
+		 gameGym.setBounds(100, 0, 110, 100);
+		this.add(guestTeamImage);
+		this.add(guestTeamName);
+		this.add(guestTeamInfo);
+		this.add(guestTeamScores);
+		this.add(hostTeamImage);
+		this.add(hostTeamName);
+		this.add(hostTeamInfo);
+		this.add(hostTeamScores);
+		this.add(gameDate);
+		this.add(gameTime);
+		this.add(gameGym);
+		this.add(gameAudience);
 	}
 	
 	public void setMatchId(int matchId)
 	{
-		init(matchId);
+		if (matchId != this.matchId)
+		{
+		 update(matchId);
+		 this.matchId = matchId;
+		}
 	}
-	private void init(int matchId)
+	
+	private void update(int matchId)
 	{
 		if (updateTimer != null)
 		{
-	      updateTimer.cancel();		
+			updateTimer.cancel();
 		}
-		
-	}
-	private void update(int matchId)
-	{
-		
+		updateTimer = new Timer();
+		TimerTask task = new TimerTask()
+		{
+
+			public void run() {
+				try {
+					DataFactory factory = (DataFactory) DataFactory.instance();
+					MatchDataService matchData = factory.getMatchData();
+					CurrentMatch match = matchData.getLiveMatchesById(matchId);
+					updateGameInfo(match);
+					updateGameTable(match);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
+			
+		};
 	}
     
 	private void updateGameInfo(CurrentMatch match)
@@ -217,6 +293,7 @@ public class LivePanel extends JPanel {
 		jScrollPane_data2.setBackground(Color.white);
 		jScrollPane_data2.getViewport().setOpaque(false);
 		this.add(jScrollPane_data2);
+		
 		jScrollPane_data2.setVisible(false);
 		this.repaint();
 	}
