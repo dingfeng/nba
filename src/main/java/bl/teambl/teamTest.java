@@ -21,7 +21,7 @@ public class teamTest {
 		teamservice = new TeamController();
 	}
 	
-	@Test
+	//@Test
 	public void testHot(){
 		HotPlayerTeam[] hot = teamservice.getHotTeams(2014, "points", SeasonType.REGULAR);
 		HotPlayerTeam[] hot2 = teamservice.getHotTeams(2014, "assistNo", SeasonType.REGULAR);
@@ -41,7 +41,7 @@ public class teamTest {
 		assertEquals(true, true);
 	}
 	
-	//@Test
+	@Test
 	public void testTeamBar(){
 		String[] teamnames = teamservice.getTeamNames();
 		Image image = teamservice.getTeamBar(2014, teamnames[7], SeasonType.PLAYOFF);

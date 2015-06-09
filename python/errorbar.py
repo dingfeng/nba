@@ -72,4 +72,3 @@ if __name__ == '__main__':
         orientation='portrait', papertype=None, format=None,
         transparent=True, bbox_inches=None, pad_inches=0.1,
         frameon=None)
-	plt.show()

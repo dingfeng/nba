@@ -327,7 +327,7 @@ public class TeamController implements Teamblservice {
 			output.close();
 			Process pr = Runtime.getRuntime().exec("python python\\teamBar.py");
 			pr.waitFor();
-			ImageIcon imageIcon = new ImageIcon(ImageB);    // Icon由图片文件形成
+			ImageIcon imageIcon = new ImageIcon(ImageB);    
 			Image bar = imageIcon.getImage(); 
 			return bar;
 		} catch (IOException e) {
@@ -380,7 +380,8 @@ public class TeamController implements Teamblservice {
 			output.close();
 			Process pr = Runtime.getRuntime().exec("python python\\teamCompare.py");
 			pr.waitFor();
-			Image compare = ImageIO.read(new File(ImageC));
+			ImageIcon imageIcon = new ImageIcon(ImageC);    
+			Image compare = imageIcon.getImage(); 
 			return compare;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

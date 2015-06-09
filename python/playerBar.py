@@ -52,4 +52,3 @@ plt.savefig("D:/playerData.png", dpi=70, facecolor='w', edgecolor='w',
         orientation='portrait', papertype=None, format=None,
         transparent=True, bbox_inches=None, pad_inches=0.1,
         frameon=None)
-plt.show()
