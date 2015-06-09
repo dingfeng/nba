@@ -10,6 +10,7 @@ import org.junit.Test;
 import po.TeamHighPO;
 import po.TeamNormalPO;
 import po.TeamPO;
+import vo.HotPlayerTeam;
 import dataservice.playerdataservice.SeasonType;
 import blservice.teamblservice.Teamblservice;
 
@@ -21,6 +22,18 @@ public class teamTest {
 	}
 	
 	@Test
+	public void testHot(){
+		HotPlayerTeam[] hot = teamservice.getHotTeams(2014, "points", SeasonType.REGULAR);
+		HotPlayerTeam[] hot2 = teamservice.getHotTeams(2014, "assistNo", SeasonType.REGULAR);
+		HotPlayerTeam[] hot3 = teamservice.getHotTeams(2014, "blockNo", SeasonType.REGULAR);
+		HotPlayerTeam[] hot4 = teamservice.getHotTeams(2014, "stealsNo", SeasonType.REGULAR);
+		HotPlayerTeam[] hot5 = teamservice.getHotTeams(2014, "threeHitRate", SeasonType.REGULAR);
+		HotPlayerTeam[] hot6 = teamservice.getHotTeams(2014, "hitRate", SeasonType.REGULAR);
+		HotPlayerTeam[] hot7 = teamservice.getHotTeams(2014, "penaltyHitRate", SeasonType.REGULAR);
+		assertEquals(true, true);
+	}
+	
+	//@Test
 	public void testTeamCompare(){
 		String[] teamnames = teamservice.getTeamNames();
 		Image image = teamservice.getTeamCompare(2014, teamnames[3], teamnames[6], SeasonType.PLAYOFF);

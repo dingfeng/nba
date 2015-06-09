@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 import dataservice.playerdataservice.PlayerDataService;
 import dataservice.playerdataservice.SeasonType;
@@ -326,7 +327,8 @@ public class TeamController implements Teamblservice {
 			output.close();
 			Process pr = Runtime.getRuntime().exec("python python\\teamBar.py");
 			pr.waitFor();
-			Image bar = ImageIO.read(new File(ImageB));
+			ImageIcon imageIcon = new ImageIcon(ImageB);    // Icon由图片文件形成
+			Image bar = imageIcon.getImage(); 
 			return bar;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
