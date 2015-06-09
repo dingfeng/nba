@@ -16,7 +16,7 @@ public class DataFactory implements NBADataFactory{
     private static PlayerDataService playerData;
 //	private String usr = "root";
 //	private String password = "root";
-	private String url = "jdbc:mysql://127.0.0.1:3306/nba?useUnicode=true&characterEncoding=utf8";
+	private String url = "jdbc:mysql://dingfeng:3306/nba?useUnicode=true&characterEncoding=utf8";
 //	String url = "jdbc:mysql://dingfeng:3306/nba";
 //	private String url = "jdbc:mysql://127.0.0.1:3306/nba";
 //	String url = "jdbc:mysql://dingfeng:3306/nba";
