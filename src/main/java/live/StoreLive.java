@@ -220,7 +220,7 @@ public class StoreLive {
 		  temp = str_temp.split(" ");
 		  if (temp.length == 4)
 		  {
-			  statement.setInt(1,messSize- i);
+			  statement.setInt(1,messSize+ i);
 			  statement.setInt(2, matchId);
 			  statement.setString(3, temp[0]);
 			  statement.setString(4, temp[1]);
@@ -231,7 +231,7 @@ public class StoreLive {
 		  }
 		  else 
 		  {
-			  statement.setInt(1,messSize- i);
+			  statement.setInt(1,messSize+ i);
 			  statement.setInt(2, matchId);
 			  statement.setNull(3,Types.NVARCHAR);
 			  statement.setNull(4, Types.NVARCHAR);
@@ -241,6 +241,7 @@ public class StoreLive {
 			  statement.execute();
 		   }
 	  }
+	  
 	  }
 	  catch(Exception e)
 	  {
@@ -391,7 +392,7 @@ public class StoreLive {
   public static void main(String[] args)
   {
 	  StoreLive storeLive = new StoreLive();
-//	  storeLive.storeLive();
+	  storeLive.storeLive();
 	  storeLive.beginUpdate();
   }
 }

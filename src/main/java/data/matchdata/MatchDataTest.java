@@ -111,7 +111,7 @@ public class MatchDataTest {
 		{
 			matchId = l.getMatchId();
 			s = match.getLiveMatchesById(matchId);
-			print (s);
+//			print (s);
 		}
 //		print(m);
 	}
@@ -123,7 +123,7 @@ public class MatchDataTest {
 		{
 			int matchId = matches[i].getMatchId();
 			OldMatch m = match.getOldMatchInfo(matchId);
-			print(m);
+//			print(m);
 		}
 	}
 	public static void print(Object[] objects)

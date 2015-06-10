@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import live.CurrentMatch;
@@ -692,6 +693,8 @@ public class MatchData implements MatchDataService{
 		    	team2 = getCurrentTeam(matchId,guest_team);
 		    	match = new CurrentMatch( String.valueOf(matchId), team1,  team2,
 		    			   live_date, live_time, gym, audience);
+		    	ArrayList<String> messages = getMessages(matchId);
+		    	match.setMessages(messages);
 		    	match.adjustTeamPoints();
 		    }
 		    catch (Exception e)
@@ -699,6 +702,51 @@ public class MatchData implements MatchDataService{
 		    	e.printStackTrace();
 		    }
 			return match;
+		}
+		
+		private ArrayList<String> getMessages(int matchId)
+		{
+			String sql = "select time,team,event,ptop,type from match_messages where match_id = ? order by messId asc";
+			ArrayList<String> list = new ArrayList<String>();
+			try
+			{
+				PreparedStatement statement = conn.prepareStatement(sql);
+				statement.setInt(1, matchId);
+				ResultSet results = statement.executeQuery();
+				while (results.next())
+				{
+					list.add(toOneLineMessages(results));
+				}
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			return list;
+		}
+		private String toOneLineMessages(ResultSet results) throws SQLException
+		{
+			String time = results.getString("time");
+			String team = results.getString("team");
+			String event = results.getString("event");
+			String ptop = results.getString("ptop");
+			int  type = results.getInt("type");
+		    StringBuilder sb = new StringBuilder();
+		    if (type == 0)
+		    {
+		    	sb.append(time);
+		    	sb.append(" ");
+		    	sb.append(team);
+		    	sb.append(" ");
+		    	sb.append(event);
+		    	sb.append(" ");
+		    	sb.append(ptop);
+		    }
+		    else 
+		    {
+		    	sb.append(event);
+		    }
+		    return sb.toString();
 		}
 		
 		public  CurrentTeam getCurrentTeam(int matchId, String teamName)
@@ -770,16 +818,16 @@ public class MatchData implements MatchDataService{
                 statement.setInt(1, matchId);
                 statement.setString(2, teamName);
                 ResultSet results = statement.executeQuery();
-                String[] datas = new String[16];
+                String[] datas = null;
                 while (results.next())
                 {
+                	datas = new String[16];
                 	for (int i = 1; i < 16; ++i)
                 	{
                 		datas[i] = results.getString(4+i);
                 	}
                 	datas[0] = results.getString(1);
                    list.add(new CurrentPlayer(datas));
-                   
                 }
                 players = new CurrentPlayer[list.size()];
                 list.toArray(players);

@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Vector;
@@ -16,10 +18,14 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 
+import po.SimpleMatchPO;
 import dataservice.matchdataservice.MatchDataService;
 import DataFactory.DataFactory;
+import DataFactoryService.NBADataFactory;
 import live.CurrentMatch;
+import live.CurrentPlayer;
 import live.CurrentTeam;
+import live.SimpleMatchLive;
 import ui.mainui.FrameSize;
 import ui.mainui.MyTable;
 import ui.mainui.MyToggleButton;
@@ -43,8 +49,6 @@ public class LivePanel extends JPanel {
 	JLabel gameGym;
 	JLabel gameAudience;
 	
-	
-	
 	Vector<String> columnsName = new Vector<String>();
 	Vector rowimage = new Vector();
 	DefaultTableModel liveModel = new DefaultTableModel(rowimage, columnsName);
@@ -66,6 +70,8 @@ public class LivePanel extends JPanel {
 	JScrollPane jScrollPane_points = new JScrollPane(pointsTable);
 	String[] tableHeads = {"一","二","三","四","五","六","七","八","九"};
 	
+	NBADataFactory factory ;
+	 MatchDataService matchData;
     int matchId;
     Timer updateTimer;
 	public LivePanel() {
@@ -78,6 +84,22 @@ public class LivePanel extends JPanel {
 		setLive();
 		initComponent();
 		setPoints();
+		update();
+	}
+	
+	public void update()
+	{
+		try {
+			factory = DataFactory.instance();
+			matchData = factory.getMatchData();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		SimpleMatchLive[] matches = matchData.getAllLiveMatches();
+		if (matches != null && matches.length != 0)
+		{
+			setMatchId(matches[0].getMatchId());
+		}
 	}
 	
 	private void initComponent()
@@ -87,52 +109,53 @@ public class LivePanel extends JPanel {
 		Font f1 = new Font("Blackoak Std",Font.BOLD,30);
 		Font f2 = new Font("宋体",Font.BOLD,20);
 		Font f3 = new Font("宋体",Font.PLAIN,13);
-		JLabel guestTeamImage = new JLabel("guestTeamImage");;
+		Font f4 = new Font("宋体",Font.PLAIN,13);
+		 guestTeamImage = new JLabel("guestTeamImage");;
 		guestTeamImage.setBounds((int)((990-150)/1200.0 * w), 0, (int)(150/1200.0 * w), (int)(150/800.0 * h));
 		guestTeamImage.setOpaque(true);
-		JLabel guestTeamName = new JLabel("骑士（1）");
+		 guestTeamName = new JLabel("骑士（1）");
 		guestTeamName.setBounds((int)((990-300)/1200.0 *w), (int)(75/800.0 * h), (int)(150/1200.0 * w), (int)(37/800.0 * h));
 		guestTeamName.setOpaque(true);
 		guestTeamName.setFont(f2);
-		JLabel guestTeamInfo = new JLabel("客队（53胜29负）");
+		 guestTeamInfo = new JLabel("客队（53胜29负）");
 		guestTeamInfo.setBounds((int)((990-300) / 1200.0 * w),(int) ((75 + 37) / 800.0 * h), (int)(150/1200.0 * w), (int)(37/800.0 * h));
 		guestTeamInfo.setOpaque(true);
 		guestTeamInfo.setFont(f3);
-		JLabel guestTeamScores = new JLabel("100");
+		 guestTeamScores = new JLabel("100");
 		guestTeamScores.setBounds((int)((990-300)/1200.0 * w), 0, (int)(150/800.0 * h), (int)(75/1200.0 * w));
 		guestTeamScores.setOpaque(true);
 		guestTeamScores.setFont(f1);
-		JLabel hostTeamImage = new JLabel("hostTeamImage");
+		 hostTeamImage = new JLabel("hostTeamImage");
 		hostTeamImage.setBounds(0, 0, (int)(150/1200.0 * w), (int)(150/800.0 * h));
 		hostTeamImage.setOpaque(true);
-		JLabel hostTeamName = new JLabel("勇士（1）");
+		 hostTeamName = new JLabel("勇士（1）");
 		hostTeamName.setBounds((int)(150/1200.0 * w), (int)(75/800.0 * h),(int)(150/1200.0 * w), (int)(37/800.0 * h));
 		hostTeamName.setOpaque(true);
 		hostTeamName.setFont(f2);
-		JLabel hostTeamInfo = new JLabel("主队（67胜15负）");
+		 hostTeamInfo = new JLabel("主队（67胜15负）");
 		hostTeamInfo.setBounds((int)(150/1200.0 * w), (int)((75+37)/800.0 * h), (int)(150/1200.0 * w),(int) (37/800.0 * h));
 		hostTeamInfo.setOpaque(true);
 		hostTeamInfo.setFont(f3);
-		JLabel hostTeamScores = new JLabel("108");
+		 hostTeamScores = new JLabel("108");
 		hostTeamScores.setBounds((int)(150/1200.0 * w), 0, (int)(150/1200.0 * w), (int)(75/800.0 * h));
 		hostTeamScores.setOpaque(true);
 		hostTeamScores.setFont(f1);
-		JLabel gameDate = new JLabel("2015年6月5日 9：00");
+		 gameDate = new JLabel("2015年6月5日 9：00");
 		gameDate.setBounds((int)(300/1200.0 * w), 0, (int)((390/4+40) / 1200.0 * w),(int)( 37/800.0 * h ));
 		gameDate.setOpaque(true);
-		gameDate.setFont(f3);
-		JLabel gameTime = new JLabel("2：41");
+		gameDate.setFont(f4);
+		 gameTime = new JLabel("2：41");
 		gameTime.setBounds((int)((300+390/4+40) /1200.0 * w), 0, (int)((390/4-40) / 1200.0 * w), (int)(37/800.0 * h));
 		gameTime.setOpaque(true);
-		gameTime.setFont(f3);
-		JLabel gameGym = new JLabel("甲骨文球馆");
+		gameTime.setFont(f4);
+		 gameGym = new JLabel("甲骨文球馆");
 		gameGym.setBounds((int)((300+390/4+390/4)/ 1200.0 * w), 0,(int) (390/4/1200.0 * w), (int)(37/800.0 * h));
 		gameGym.setOpaque(true);
-		gameGym.setFont(f3);
-		JLabel gameAudience = new JLabel("19596人");
+		gameGym.setFont(f4);
+		 gameAudience = new JLabel("19596人");
 		gameAudience.setBounds((int)((300+390/4 * 3)/1200.0 * w), 0, (int)(390/4/1200.0 * w), (int)(37/800.0 * h));
 		gameAudience.setOpaque(true);
-		gameAudience.setFont(f3);
+		gameAudience.setFont(f4);
 		 guestTeamImage.setBackground(Color.white);;
 		 guestTeamName.setBackground(Color.white);
 		 guestTeamInfo.setBackground(Color.white);
@@ -171,6 +194,7 @@ public class LivePanel extends JPanel {
 		this.add(gameAudience);
 	}
 	
+	
 	public void setMatchId(int matchId)
 	{
 		if (matchId != this.matchId)
@@ -192,11 +216,11 @@ public class LivePanel extends JPanel {
 
 			public void run() {
 				try {
-					DataFactory factory = (DataFactory) DataFactory.instance();
-					MatchDataService matchData = factory.getMatchData();
 					CurrentMatch match = matchData.getLiveMatchesById(matchId);
 					updateGameInfo(match);
 					updateGameTable(match);
+					updateLiveTable(match.getMessages());
+					updateData(match);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -204,8 +228,69 @@ public class LivePanel extends JPanel {
 			}
 			
 		};
+		updateTimer.schedule(task, 0,5000);
 	}
     
+	public void updateData(CurrentMatch match)
+	{
+		CurrentTeam team1 = match.getTeam1();
+		CurrentTeam team2 = match.getTeam2();
+		updateDataTable(team1,dataModel1);
+		updateDataTable(team2,dataModel2);
+	}
+	private void updateDataTable(CurrentTeam team, DefaultTableModel model)
+	{
+		CurrentPlayer[] firsts1 = team.getFirsts();
+		CurrentPlayer[] benches = team.getBenches();
+		String teamName = team.getTeamName();
+		String[] teamPrimaryDatas = team.getPrimaryDatas();
+		String[] rates = team.getRates();
+		if (model.getRowCount() == 0)
+		{
+			for (int i  = 0; i < firsts1.length; ++i)
+			{
+				model.addRow(getPlayerRow(firsts1[i],teamName,"是"));
+			}
+			for (int i  = 0; i < benches.length; ++i)
+			{
+				model.addRow(getPlayerRow(benches[i],teamName,"否"));
+			}
+		}
+		else 
+		{
+			for (int i  = 0; i < firsts1.length; ++i)
+			{
+				String[] temp = getPlayerRow(firsts1[i],teamName,"是");
+				for ( int j  = 0 ; j < temp.length ; ++j)
+				{
+					model.setValueAt(temp[j], i, j);
+				}
+			}
+			for (int i  = 0; i < benches.length; ++i)
+			{
+				String[] temp = getPlayerRow(benches[i],teamName,"否");
+				for (int j = 0; j < temp.length; ++j)
+				{
+					model.setValueAt(temp[j],i+firsts1.length,j);
+				}
+			}
+		}
+	}
+	
+	private String[] getPlayerRow(CurrentPlayer player,String teamName,String first)
+	{
+		String[] datas = player.getDatas();
+		String[] result = new String[datas.length+2];
+		result[0] = teamName;
+		result[1] = datas[0];
+		result[2] = first;
+		for (int i =0 ; i < datas.length - 1; ++i)
+		{
+			result[3+i] = datas[i+1];
+		}
+		return result;
+	}
+	
 	private void updateGameInfo(CurrentMatch match)
 	{
 		  String date = match.getDate();
@@ -224,18 +309,19 @@ public class LivePanel extends JPanel {
 		  String win2 = team2.getWin();
 		  Image teamImg1 = team1.getImg();
 		  Image teamImg2 = team2.getImg();
-		  hostTeamImage.setIcon(new ImageIcon(teamImg1));;
+//		  hostTeamImage.setIcon(new ImageIcon(teamImg1));;
 		  hostTeamName.setText(teamName1+" "+win1);;
 		  hostTeamInfo.setText(teamInfo1);;
 		  hostTeamScores.setText(totalScores1);;
-		  guestTeamImage.setIcon(new ImageIcon(teamImg2));;
+//		  guestTeamImage.setIcon(new ImageIcon(teamImg2));;
 		 guestTeamName.setText(teamName2+" "+win2);;
 		 guestTeamInfo.setText(teamInfo2);
 		 guestTeamScores.setText(totalScores2);;
-		 gameDate.setText(date);;
-		 gameTime.setText(time);;
-		 gameGym.setText(gym);;
-		 gameAudience.setText(audience);
+		 gameGym.setText(gym.replace("球馆：",""));;
+		 gameDate.setText(date.replace("开赛：", ""));;
+		 gameTime.setText(time.replace("耗时：", ""));;
+		 gameGym.setText( gym.replace("球馆：",""));;
+		 gameAudience.setText(audience.replace("上座：", ""));
 		  
 	}
 	int pointsSize = 0;
@@ -266,7 +352,7 @@ public class LivePanel extends JPanel {
 			}
 			t.add(totalScores1);
 			rowimage.add(t);
-			t.clear();
+			t = new Vector();
 			t.add(team2.getTeamName());
 			for (int i = 0; i < pts2.length; ++i)
 			{
@@ -295,6 +381,30 @@ public class LivePanel extends JPanel {
 		}
 	}
 	
+	
+	void updateLiveTable(ArrayList<String> messages)
+	{
+		int rowNum = this.liveModel.getRowCount();
+		int messagesSize = messages.size();
+		int margin = messagesSize - rowNum;
+		String[] tempArray = null;
+		String temp = null ;
+		for (int i = 0; i < margin; ++i)
+		{
+			temp = messages.get(i);
+			tempArray = temp.split(" ");
+			if (tempArray.length == 4)
+			{
+				this.liveModel.addRow(tempArray);;
+			}
+			else 
+			{
+			  String[] s =new  String[]{" ", " "," ", " "};
+			  s[2] = temp;
+			  this.liveModel.addRow(s);;
+			}
+		}
+	}
 	void setText() {
 		livebutton = new MyToggleButton(new ImageIcon("image/live1.png"),
 				Color.white, Color.white);
@@ -358,7 +468,7 @@ public class LivePanel extends JPanel {
 	void setLive() {
 		livebutton.setSelected(true);
 		databutton.setSelected(false);
-		columnsName.removeAllElements();
+		columnsName = new Vector();
 		columnsName.add("时间");
 		columnsName.add("球队");
 		columnsName.add("事件");
@@ -370,9 +480,11 @@ public class LivePanel extends JPanel {
 	}
 
 	void setData() {
-		columnsName.removeAllElements();
+		columnsName = new Vector();
         columnsName.add("球队");
+        columnsName.add("球员");
 		columnsName.add("首发");
+		columnsName.add("位置");
 		columnsName.add("时间");
 		columnsName.add("投篮");
 		columnsName.add("三分");
@@ -383,12 +495,12 @@ public class LivePanel extends JPanel {
 		columnsName.add("助攻");
 		columnsName.add("犯规");
 		columnsName.add("抢断");
+		columnsName.add("失误");
 		columnsName.add("封盖");
 		columnsName.add("得分");
 		columnsName.add("+/-");
-		rowimage = new Vector();
-	    dataModel1.setDataVector(rowimage, columnsName);
-	    dataModel2.setDataVector(rowimage, columnsName);
+	    dataModel1.setDataVector(new Vector(), columnsName);
+	    dataModel2.setDataVector(new Vector(), columnsName);
 		this.repaint();
 	}
 	void showLive()
@@ -401,7 +513,7 @@ public class LivePanel extends JPanel {
 	}
 	void setPoints()
 	{
-		columnsName.removeAllElements();
+		columnsName = new Vector();
         columnsName.add(" ");
 		columnsName.add("一");
 		columnsName.add("二");

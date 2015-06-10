@@ -84,11 +84,11 @@ public class CurrentLive {
      while (xmlItr.hasNext())
      { 
     	line = xmlItr.next();
-    	if (line.contains("<s></s>文字直播</a>"))
+    	if (line.contains("<s></s>文字实录</a>") || line.contains("<s></s>文字直播</a>"))
     	{
     		liveUrls.add(getPref(line));
     	}
-    	else if (line.contains("<s></s>数据直播</a>"))
+    	else if (line.contains("<s></s>数据统计</a>")||line.contains("<s></s>数据直播</a>"))
     	{
     		dataUrls.add(getPref(line));
     	}
