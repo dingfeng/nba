@@ -233,43 +233,44 @@ public class PlayerController implements PlayerBlService {
 	// 筛选球员 场均数据 低阶
 	public PlayerNormalPO[] screenNormalAvePlayers(int season,
 			String playerPosition, Area playerArea, SeasonType type) {
-		String area = new String();
+		String matcharea = null;
+		String playerarea = null;
 		if (playerArea == null) {
-			area = null;
 		} else {
 			switch (playerArea) {
 			case EASTERN:
-				area = "EASTERN";
+				matcharea = "E";
 				break;
 			case WESTERN:
-				area = "WESTERN";
+				matcharea = "W";
 				break;
 			case ATLANTIC:
-				area = "ATLANTIC";
+				playerarea = "Atlantic";
 				break;
 			case CENTRAL:
-				area = "CENTRAL";
+				playerarea = "Central";
 				break;
 			case SOUTHEAST:
-				area = "SOUTHEAST";
+				playerarea = "Southeast";
 				break;
 			case SOUTHWEST:
-				area = "SOUTHWEST";
+				playerarea = "Southwest";
 				break;
 			case NORTHWEST:
-				area = "NORTHWEST";
+				playerarea = "Northwest";
 				break;
 			case PACIFIC:
-				area = "PACIFIC";
+				playerarea = "Pacific";
 				break;
 			default:
-				area = null;
+				matcharea = null;
+				playerarea = null;
 				break;
 			}
 		}
 		PlayerPO[] players;
 		try {
-			players = playerService.screenPlayer(null, area, playerPosition,
+			players = playerService.screenPlayer(null, matcharea, playerarea, playerPosition,
 					100);
 			PlayerNormalPO[] result = new PlayerNormalPO[players.length];
 			for (int i = 0; i != players.length; i++) {
@@ -288,44 +289,44 @@ public class PlayerController implements PlayerBlService {
 	// 筛选球员 赛季数据 低阶
 	public PlayerNormalPO[] screenNormalTotalPlayers(int season,
 			String playerPosition, Area playerArea, SeasonType type) {
-		String area = new String();
+		String matcharea = null;
+		String playerarea = null;
 		if (playerArea == null) {
-			area = null;
 		} else {
 			switch (playerArea) {
 			case EASTERN:
-				area = "EASTERN";
+				matcharea = "E";
 				break;
 			case WESTERN:
-				area = "WESTERN";
+				matcharea = "W";
 				break;
 			case ATLANTIC:
-				area = "ATLANTIC";
+				playerarea = "Atlantic";
 				break;
 			case CENTRAL:
-				area = "CENTRAL";
+				playerarea = "Central";
 				break;
 			case SOUTHEAST:
-				area = "SOUTHEAST";
+				playerarea = "Southeast";
 				break;
 			case SOUTHWEST:
-				area = "SOUTHWEST";
+				playerarea = "Southwest";
 				break;
 			case NORTHWEST:
-				area = "NORTHWEST";
+				playerarea = "Northwest";
 				break;
 			case PACIFIC:
-				area = "PACIFIC";
+				playerarea = "Pacific";
 				break;
 			default:
-				area = null;
+				matcharea = null;
+				playerarea = null;
 				break;
 			}
 		}
-
 		PlayerPO[] players;
 		try {
-			players = playerService.screenPlayer(null, area, playerPosition,
+			players = playerService.screenPlayer(null, matcharea, playerarea, playerPosition,
 					100);
 			PlayerNormalPO[] result = new PlayerNormalPO[players.length];
 			for (int i = 0; i != players.length; i++) {
@@ -344,44 +345,44 @@ public class PlayerController implements PlayerBlService {
 	// 筛选球员 数据 高阶
 	public PlayerHighPO[] screenHighPlayers(int season, String playerPosition,
 			Area playerArea, SeasonType type) {
-		String area = new String();
+		String matcharea = null;
+		String playerarea = null;
 		if (playerArea == null) {
-			area = null;
 		} else {
 			switch (playerArea) {
 			case EASTERN:
-				area = "EASTERN";
+				matcharea = "E";
 				break;
 			case WESTERN:
-				area = "WESTERN";
+				matcharea = "W";
 				break;
 			case ATLANTIC:
-				area = "ATLANTIC";
+				playerarea = "Atlantic";
 				break;
 			case CENTRAL:
-				area = "CENTRAL";
+				playerarea = "Central";
 				break;
 			case SOUTHEAST:
-				area = "SOUTHEAST";
+				playerarea = "Southeast";
 				break;
 			case SOUTHWEST:
-				area = "SOUTHWEST";
+				playerarea = "Southwest";
 				break;
 			case NORTHWEST:
-				area = "NORTHWEST";
+				playerarea = "Northwest";
 				break;
 			case PACIFIC:
-				area = "PACIFIC";
+				playerarea = "Pacific";
 				break;
 			default:
-				area = null;
+				matcharea = null;
+				playerarea = null;
 				break;
 			}
 		}
-
 		PlayerPO[] players;
 		try {
-			players = playerService.screenPlayer(null, area, playerPosition,
+			players = playerService.screenPlayer(null, matcharea, playerarea, playerPosition,
 					100);
 			PlayerHighPO[] result = new PlayerHighPO[players.length];
 			for (int i = 0; i != players.length; i++) {
@@ -1060,21 +1061,5 @@ public class PlayerController implements PlayerBlService {
 			e.printStackTrace();
 		}
 		return false;
-	}
-
-	@Override
-	public HPlayerPO[] getAllActiveHPlayerPO() {
-		try {
-			PlayerPO[] players = playerService.getAllActivePlayerData();
-			int length = players.length;
-			HPlayerPO[] hplayers = new HPlayerPO[length];
-			for(int i = 0; i != length; i ++){
-				//hplayers[i] = new HPlayerPO(players[i]);
-			}
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
 	}
 }

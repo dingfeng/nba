@@ -189,9 +189,4 @@ public interface PlayerBlService {
      * @return	返回相应球员与所有球员当前赛季平均水平比较的柱状图
      */
     public Image getPlayerBar(int season, String name, SeasonType type);
-    /**
-     * 得到所有现役球员的HPlayerPO对象
-     * @return
-     */
-    public HPlayerPO[] getAllActiveHPlayerPO();
 }
