@@ -158,6 +158,13 @@ public class PlayerDataTest {
 		PlayerNormalPO[] players = player.getSeasonPlayerNormalOfTeam(1999, SeasonType.REGULAR, "LAL");
 		print(players);
 	}
+	@Test
+	public void testScreen1() throws RemoteException
+	{
+		PlayerPO[] players = player.screenPlayer("age desc", "W", "Northwest", "F", 10);
+		print("sdfsdf");
+		print(players);
+	}
 	public static void print(Object[] objects)
     {
     	for (Object o : objects)

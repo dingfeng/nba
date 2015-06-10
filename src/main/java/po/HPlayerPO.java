@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 import tool.ImageTool;
 
-public class HPlayerPO implements Serializable, PlayerPOInterface{
+public class HPlayerPO implements Serializable{
 	String name;
 	String totalName;
 	String position;
@@ -126,32 +126,4 @@ public class HPlayerPO implements Serializable, PlayerPOInterface{
 		return name;
 	}
 
-	@Override
-	public String getTeamA() {
-		return this.teama;
-	}
-
-	@Override
-	public String getSchool() {
-		if(this.university != null){
-			return this.university;
-		} else{
-			return this.high_school;
-		}
-	}
-
-	@Override
-	public String getCity() {
-		return this.birthCity;
-	}
-
-	@Override
-	public String getBirth() {
-		return this.birthday;
-	}
-
-	@Override
-	public String getNumber() {
-		return this.num;
-	}
 }
