@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Timer;
@@ -18,14 +19,10 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 
-import po.SimpleMatchPO;
+import po.*;
 import dataservice.matchdataservice.MatchDataService;
 import DataFactory.DataFactory;
 import DataFactoryService.NBADataFactory;
-import live.CurrentMatch;
-import live.CurrentPlayer;
-import live.CurrentTeam;
-import live.SimpleMatchLive;
 import ui.mainui.FrameSize;
 import ui.mainui.MyTable;
 import ui.mainui.MyToggleButton;
@@ -95,7 +92,12 @@ public class LivePanel extends JPanel {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		SimpleMatchLive[] matches = matchData.getAllLiveMatches();
+		SimpleMatchLive[] matches = null;
+		try {
+			matches = matchData.getAllLiveMatches();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 		if (matches != null && matches.length != 0)
 		{
 			setMatchId(matches[0].getMatchId());
