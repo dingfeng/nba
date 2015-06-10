@@ -1,8 +1,11 @@
 package po;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.Arrays;
+
+import tool.ImageTool;
 
 public class CurrentTeam implements Serializable{
 	   String teamName;       //球队名称
@@ -29,7 +32,7 @@ public class CurrentTeam implements Serializable{
        String points[];
        String disc;
        String win;
-       Image img = null;
+       byte[] img = null;
        public CurrentTeam(CurrentPlayer[] firsts1,CurrentPlayer[] benches1,String[] primaryDatas1,String[] rates1
     		  ,String totalScores,String points[] ,String teamName,Image img,String disc,String win)
        {
@@ -57,7 +60,7 @@ public class CurrentTeam implements Serializable{
     	   this.teamName = teamName;
     	   this.totalScores = totalScores;
     	   this.points = points;
-    	   this.img = img;
+    	   this.img = ImageTool.imageToBytes_player(img, "jpg", BufferedImage.TYPE_INT_RGB);
        }
        public String toString()
        {
@@ -73,7 +76,7 @@ public class CurrentTeam implements Serializable{
        
    public Image getImg()
    {
-	   return  img;
+	   return  ImageTool.bytesToImage(img);
    }
    public String getDisc() 
    {

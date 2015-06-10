@@ -1,10 +1,13 @@
 package po;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
+import tool.ImageTool;
 
-public class PlayerPO implements Comparable<PlayerPO>, Serializable, PlayerPOInterface{
+
+public class PlayerPO implements Comparable<PlayerPO>, Serializable{
 
 	private String name;// 姓名
 	private int number;// 球衣号码
@@ -18,7 +21,7 @@ public class PlayerPO implements Comparable<PlayerPO>, Serializable, PlayerPOInt
 	private String school;// 毕业学校
 	private String teama;//球队缩写
 	private String gameArea;//赛区
-	private Image image;
+	private byte[] image;
     //private String teamnameAbridge; //球队
 	
 	public PlayerPO( String name, int number,
@@ -37,11 +40,12 @@ public class PlayerPO implements Comparable<PlayerPO>, Serializable, PlayerPOInt
 		this.school = school;
 		this.teama = teama;
 		this.gameArea = gameArea;
+		this.image = ImageTool.imageToBytes_player(image, "png", BufferedImage.TYPE_INT_ARGB);
 	}
 
 	public Image getImage()
 	{
-		return image;
+		return ImageTool.bytesToImage(image);
 	}
 //	public String getTeamnameAbridge()
 //	{
@@ -61,8 +65,8 @@ public class PlayerPO implements Comparable<PlayerPO>, Serializable, PlayerPOInt
 		return name;
 	}
 
-	public String getNumber() {
-		return Integer.toString(number);
+	public int getNumber() {
+		return number;
 	}
 
 	public String getPosition() {
@@ -75,6 +79,10 @@ public class PlayerPO implements Comparable<PlayerPO>, Serializable, PlayerPOInt
 
 	public int getHeightinch() {
 		return heightinch;
+	}
+
+	public int getWeight() {
+		return weight;
 	}
 
 	public String getBirth() {
@@ -111,22 +119,5 @@ public class PlayerPO implements Comparable<PlayerPO>, Serializable, PlayerPOInt
 	@Override
 	public int compareTo(PlayerPO e) {
 		return name.compareTo(e.getName());
-	}
-
-	@Override
-	public String getHeight() {
-		String heistr = this.heightfeet + "ft" + this.heightinch + "in";
-		return heistr;
-	}
-
-	@Override
-	public String getWeight() {
-		String weistr = this.weight + "lb";
-		return weistr;
-	}
-
-	@Override
-	public String getCity() {
-		return null;
 	}
 }
