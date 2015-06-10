@@ -60,7 +60,7 @@ public class HotPanel extends JPanel {
 
 		setTag();
 		setShow();
-		showchoose(3);
+		showchoose(2);
 		this.add(tag);
 		this.add(show);
 		this.repaint();
@@ -115,6 +115,21 @@ public class HotPanel extends JPanel {
 		show.setBackground(Color.white);
 		show.setBounds(FrameSize.width / 6, 0, 5 * FrameSize.width / 6,
 				11 * FrameSize.height / 12);
+		JLabel[] num=new JLabel[5];
+		for(int i=0;i<5;i++){
+			num[i]=new JLabel();
+			num[i].setBounds(FrameSize.width*3/20,(i + 1) * FrameSize.height
+					/ 7+20 , 30, 30);
+			num[i].setText(i+1+"");
+			num[i].setFont(new Font("Comic Sans MS", Font.BOLD, 14));
+			num[i].setBackground(Color.white);
+			num[i].setForeground(Color.black);
+			show.add(num[i]);
+		}
+		num[0].setIcon(new ImageIcon("image/first.png"));
+		num[0].setText("");
+		num[0].setBounds(FrameSize.width*3/20-10, FrameSize.height
+					/ 7+20 , 65, 65);
 		for (int i = 0; i < 8; i++) {
 			choose[i] = new MyToggleButton("", Color.black, Color.gray);
 			choose[i].setForeground(Color.white);
@@ -150,7 +165,7 @@ public class HotPanel extends JPanel {
 		score_4.setForeground(Color.black);
 		score_5.setForeground(Color.black);
 
-		crown.setBounds(FrameSize.width / 3 - 185, FrameSize.height / 15, 72,
+		crown.setBounds(FrameSize.width / 3 - 107, FrameSize.height / 15, 72,
 				72);
 		crown.setIcon(new ImageIcon("image/crown.png"));
 
@@ -187,8 +202,7 @@ public class HotPanel extends JPanel {
 						FrameSize.width * 5 / 48, 50);
 				show.add(choose[i]);
 			}
-
-			// showMessage_team();
+			 showMessage_team("得分");
 			// choose.addActionListener(e -> showMessage_team());
 			break;
 		case 4:
@@ -202,9 +216,10 @@ public class HotPanel extends JPanel {
 			for (int i = 0; i < 8; i++) {
 				choose[i].setBounds(FrameSize.width * 5 / 18 * i, 0,
 						FrameSize.width * 5 / 18, 50);
+				show.add(choose[i]);
 			}
 
-			// showMessage_player("得分提升率");
+			 showMessage_player("得分提升率");
 			// choose.addActionListener(e -> showMessage_player());
 			break;
 		default:
@@ -216,6 +231,7 @@ public class HotPanel extends JPanel {
 			for (int i = 0; i < 8; i++) {
 				choose[i].setBounds(FrameSize.width / 6 * i, 0,
 						FrameSize.width / 6, 50);
+				show.add(choose[i]);
 			}
 			if(hottype==1){
 				today_player.setSelected(true);
@@ -228,7 +244,7 @@ public class HotPanel extends JPanel {
 				season_team.setSelected(false);
 				fast_player.setSelected(false);
 			}
-			// showMessage_player("得分");
+			 showMessage_player("得分");
 			// choose.addActionListener(e -> showMessage_player());
 
 			break;
@@ -250,6 +266,10 @@ public class HotPanel extends JPanel {
 			}else{
 				showMessage_player(((MyToggleButton)arg0.getSource()).getText());
 			}
+			for(int i=0;i<8;i++){
+				choose[i].setSelected(false);
+			}
+			((MyToggleButton)arg0.getSource()).setSelected(true);
 		}
 
 		@Override
@@ -279,7 +299,6 @@ public class HotPanel extends JPanel {
 	
 	/** 热点球员 */
 	void showMessage_player(String sort) {
-		System.out.print(sort);
 		String sortBy = sortby(sort);
 		HotPlayerTeam[] players = new HotPlayerTeam[5];
 		switch (hottype) {
@@ -301,7 +320,7 @@ public class HotPanel extends JPanel {
 					92));
 		}
 
-		portrait_1.setBounds(FrameSize.width / 3 - 228, FrameSize.height / 10,
+		portrait_1.setBounds(FrameSize.width / 3 - 150, FrameSize.height / 10,
 				185, 123);
 		try {
 			portrait_2.setIcon(scaleImage(
@@ -378,16 +397,16 @@ public class HotPanel extends JPanel {
 		} else if (sortby.equals("篮板")) {
 			teamSortBy = "rebs";
 		} else if (sortby.equals("助攻")) {
-			teamSortBy = "assist";
+			teamSortBy = "assistNo";
 		} else if (sortby.equals("抢断")) {
-			teamSortBy = "steals";
+			teamSortBy = "stealsNo";
 		} else if (sortby.equals("盖帽")) {
-			teamSortBy = "blockno";
-		} else if (sortby.equals("投篮命中率")) {
+			teamSortBy = "blockNo";
+		} else if (sortby.equals("%")) {
 			teamSortBy = "hitRate";
-		} else if (sortby.equals("三分命中率")) {
+		} else if (sortby.equals("三分%")) {
 			teamSortBy = "threeHitRate";
-		} else if (sortby.equals("罚球命中率")) {
+		} else if (sortby.equals("罚球%")) {
 			teamSortBy = "penaltyHitRate";
 		}
 
@@ -456,8 +475,8 @@ public class HotPanel extends JPanel {
 			String info = ((JLabel) e.getSource()).getText();
 			switch (hottype) {
 			case 3:
-				// MyFrame.teampanel.findClick(info.substring(info.length() -
-				// 3));
+				 MyFrame.teampanel.showOne(info.substring(info.length() -
+				 3));
 				MyFrame.card.show(MyFrame.mainpanel, "team");
 				break;
 			default:
@@ -503,20 +522,26 @@ public class HotPanel extends JPanel {
 		String playerSortBy = null;
 
 		if (sortBy.equals("得分")) {
-			playerSortBy = "score";
+			playerSortBy = "points";
 		} else if (sortBy.equals("篮板")) {
 			playerSortBy = "rebs";
 		} else if (sortBy.equals("助攻")) {
-			playerSortBy = "assist";
+			playerSortBy = "assistNo";
 		} else if (sortBy.equals("抢断")) {
-			playerSortBy = "steals";
+			playerSortBy = "stealsNo";
 		} else if (sortBy.equals("盖帽")) {
-			playerSortBy = "blockno";
+			playerSortBy = "blockNo";
 		} else if (sortBy.equals("投篮命中率")) {
 			playerSortBy = "hitRate";
 		} else if (sortBy.equals("三分命中率")) {
 			playerSortBy = "threeHitRate";
 		} else if (sortBy.equals("罚球命中率")) {
+			playerSortBy = "penaltyHitRate";
+		}else if (sortBy.equals("得分提升率")) {
+			playerSortBy = "penaltyHitRate";
+		}else if (sortBy.equals("篮板提升率")) {
+			playerSortBy = "penaltyHitRate";
+		}else if (sortBy.equals("助攻提升率")) {
 			playerSortBy = "penaltyHitRate";
 		}
 		return playerSortBy;

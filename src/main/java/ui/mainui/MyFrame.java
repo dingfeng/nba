@@ -25,11 +25,8 @@ import ui.HotPanel;
 import ui.IndexPanel;
 import ui.LivePanel;
 import ui.MatchPanel;
-import ui.playerui.ShowAllPlayerPanel;
 import ui.playerui.ShowOnePlayerPanel;
-import ui.statistics.StatisticsPlayerPanel;
 import ui.statistics.StatisticsTeamPanel;
-import ui.teamui.ShowAllTeamPanel;
 import ui.teamui.TeamPanel;
 import bl.teambl.TeamController;
 import dataservice.playerdataservice.SeasonType;
@@ -50,7 +47,6 @@ public class MyFrame extends JFrame {
 	public static JPanel mainpanel = new JPanel();
 	public static CardLayout card = new CardLayout();
 
-	public static ShowAllTeamPanel showteampanel = new ShowAllTeamPanel();
 	public static IndexPanel indexpanel = new IndexPanel();
 	public static TeamPanel teampanel = new TeamPanel();
 	public static ShowOnePlayerPanel playerpanel = new ShowOnePlayerPanel();
