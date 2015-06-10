@@ -100,6 +100,7 @@ public class TeamPanel extends JPanel {
 		teammain.add("player",teamplayerpanel);
 		setHeader();
 		setFind();
+		
 		this.add(teammain);
 		this.add(find);
 		
@@ -236,7 +237,7 @@ public class TeamPanel extends JPanel {
 	}
 
 	void setContrast() {
-		teamcontrastpanel.setChart();
+//		teamcontrastpanel.setChart();
 		card.show(teammain, "contrast");
 		contrastbutton.setSelected(true);
 		databutton.setSelected(false);
@@ -339,19 +340,19 @@ public class TeamPanel extends JPanel {
 
 		image.setBounds(30, 5, FrameSize.width / 6, FrameSize.width / 6);
 		nameresult.setBounds(FrameSize.width / 4 , FrameSize.height / 40+30,
-				FrameSize.width / 12, 30);
+				FrameSize.width / 8, 40);
 		nameAbridgeresult.setBounds(FrameSize.width / 4 ,
-				FrameSize.height / 40 + 90, FrameSize.width / 12, 30);
+				FrameSize.height / 40 + 90, FrameSize.width / 10, 40);
 		addressresult.setBounds(FrameSize.width / 2 + 50,
-				FrameSize.height / 40 , FrameSize.width / 12, 30);
+				FrameSize.height / 40 , FrameSize.width / 10, 30);
 		matchArearesult.setBounds(FrameSize.width / 2 + 50,
-				FrameSize.height / 40 + 30, FrameSize.width / 12, 30);
+				FrameSize.height / 40 + 30, FrameSize.width / 10, 30);
 		playerArearesult.setBounds(FrameSize.width / 2 + 50,
-				FrameSize.height / 40 + 60, FrameSize.width / 12, 30);
+				FrameSize.height / 40 + 60, FrameSize.width / 10, 30);
 		manageresult.setBounds(FrameSize.width / 2 + 50,
-				FrameSize.height / 40 + 90, FrameSize.width / 12, 30);
+				FrameSize.height / 40 + 90, FrameSize.width / 8, 30);
 		foundYearresult.setBounds(FrameSize.width / 2 + 50,
-				FrameSize.height / 40 + 120, FrameSize.width / 12, 30);
+				FrameSize.height / 40 + 120, FrameSize.width / 10, 30);
 
 		nameresult.setFont(new Font("微软雅黑",Font.BOLD,24));
 		nameAbridgeresult.setFont(new Font("微软雅黑",Font.BOLD,24));
@@ -372,6 +373,7 @@ public class TeamPanel extends JPanel {
 		image.setVisible(true);
 		image.repaint();
 		setTeamdata();
+		teamcontrastpanel.setChart();
 
 	}
 

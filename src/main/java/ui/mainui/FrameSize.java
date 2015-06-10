@@ -17,10 +17,15 @@ public class FrameSize {
 	public static Color bluecolor=new Color(0,102,175);
 	public static Color darkbluecolor=new Color(6,72,131);
 	public static Color lightbluecolor=new Color(183,220,249);
-	public static double roundForNumber(double v,int num){
+	public static String roundForNumber(double v,int num){
+		if(num==0){
+			return (int) v+"";
+		}else{
 		BigDecimal bg = new BigDecimal(v);
         double f = bg.setScale(num, BigDecimal.ROUND_HALF_UP).doubleValue();
-        return f;
+		return f+"";
+		}
+		
     }
 	public static ImageIcon scaleImage(ImageIcon icon, int iconWidth, int iconHeight) {
 			int width = icon.getIconWidth();

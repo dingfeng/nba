@@ -40,6 +40,7 @@ public class StatisticsTeamPanel extends JPanel {
 	MyComboBox lowOrHigh;
 	MyComboBox season;
 	MyComboBox SeasonTypebox;
+	int num=0;
 	Teamblservice tc=new TeamController();
 	public StatisticsTeamPanel() {
 		this.setLayout(null);
@@ -130,20 +131,20 @@ public class StatisticsTeamPanel extends JPanel {
 			Vector data = new Vector();
 //			data.add(tc.getTeamImage(str.getName()));
 			data.add(str.getName());
-			data.add(FrameSize.roundForNumber(str.getPoints(), 1));
+			data.add(FrameSize.roundForNumber(str.getPoints(), num));
 			data.add(FrameSize.roundForNumber(str.getWinRate() * 100, 1));
 //			data.add(str.getMatchNo());
-			data.add(FrameSize.roundForNumber(str.getHitNo(), 1));
-			data.add(FrameSize.roundForNumber(str.getRebs(), 1));
-			data.add(FrameSize.roundForNumber(str.getAssistNo(), 1));
-			data.add(FrameSize.roundForNumber(str.getBlockNo(), 1));
-			data.add(FrameSize.roundForNumber(str.getStealsNo(), 1));
-			data.add(FrameSize.roundForNumber(str.getFoulsNo(), 1));
-			data.add(FrameSize.roundForNumber(str.getMistakesNo(), 1));
+			data.add(FrameSize.roundForNumber(str.getHitNo(), num));
+			data.add(FrameSize.roundForNumber(str.getRebs(), num));
+			data.add(FrameSize.roundForNumber(str.getAssistNo(), num));
+			data.add(FrameSize.roundForNumber(str.getBlockNo(), num));
+			data.add(FrameSize.roundForNumber(str.getStealsNo(), num));
+			data.add(FrameSize.roundForNumber(str.getFoulsNo(), num));
+			data.add(FrameSize.roundForNumber(str.getMistakesNo(), num));
 			data.add(FrameSize.roundForNumber(str.getThreeHitRate() * 100, 1));
 			data.add(FrameSize.roundForNumber(str.getPenaltyHitRate() * 100, 1));
-			data.add(FrameSize.roundForNumber(str.getOffenseRebs(), 1));
-			data.add(FrameSize.roundForNumber(str.getDefenceRebs(), 1));
+			data.add(FrameSize.roundForNumber(str.getOffenseRebs(), num));
+			data.add(FrameSize.roundForNumber(str.getDefenceRebs(), num));
 			data.add(FrameSize.roundForNumber(str.getHitRate() * 100, 1));
 			
 			
@@ -270,9 +271,11 @@ public class StatisticsTeamPanel extends JPanel {
 		}
 		if(((String)aveOrAll.getSelectedItem()).equals("场均")&&((String)lowOrHigh.getSelectedItem()).equals("基本")){
 			team=tc.getAllTeamAve(Integer.parseInt((String)season.getSelectedItem()), type);
+			num=1;
 			setLowTable(team);
 		}else if(((String)aveOrAll.getSelectedItem()).equals("总数")&&((String)lowOrHigh.getSelectedItem()).equals("基本")){
 			team=tc.getAllTeamTotal(Integer.parseInt((String)season.getSelectedItem()), type);
+			num=0;
 			setLowTable(team);
 		}else if(((String)lowOrHigh.getSelectedItem()).equals("高阶")){
 			teamhigh=tc.getAllTeamHigh(Integer.parseInt((String)season.getSelectedItem()), type);

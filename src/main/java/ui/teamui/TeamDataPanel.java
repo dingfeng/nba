@@ -38,7 +38,7 @@ public class TeamDataPanel extends JPanel {
 //	MyToggleButton avedata;
 	boolean ave = true;
 	JTextField[] teamlabel = new UneditableTextField[54];
-
+	int num=0;
 	public TeamDataPanel() {
 		this.setLayout(null);
 		this.setBounds(0, 30, FrameSize.width, FrameSize.height * 3 / 4 - 80);
@@ -87,20 +87,20 @@ public class TeamDataPanel extends JPanel {
 			TeamNormalPO str = team[i];
 			Vector data = new Vector();
 			data.add(2014 - i + "");
-			data.add(FrameSize.roundForNumber(str.getPoints(), 1));
+			data.add(FrameSize.roundForNumber(str.getPoints(),num));
 			data.add(FrameSize.roundForNumber(str.getWinRate() * 100, 1));
 			// data.add(str.getMatchNo());
-			data.add(FrameSize.roundForNumber(str.getHitNo(), 1));
-			data.add(FrameSize.roundForNumber(str.getRebs(), 1));
-			data.add(FrameSize.roundForNumber(str.getAssistNo(), 1));
-			data.add(FrameSize.roundForNumber(str.getBlockNo(), 1));
-			data.add(FrameSize.roundForNumber(str.getStealsNo(), 1));
-			data.add(FrameSize.roundForNumber(str.getFoulsNo(), 1));
-			data.add(FrameSize.roundForNumber(str.getMistakesNo(), 1));
+			data.add(FrameSize.roundForNumber(str.getHitNo(), num));
+			data.add(FrameSize.roundForNumber(str.getRebs(), num));
+			data.add(FrameSize.roundForNumber(str.getAssistNo(), num));
+			data.add(FrameSize.roundForNumber(str.getBlockNo(), num));
+			data.add(FrameSize.roundForNumber(str.getStealsNo(), num));
+			data.add(FrameSize.roundForNumber(str.getFoulsNo(), num));
+			data.add(FrameSize.roundForNumber(str.getMistakesNo(), num));
 			data.add(FrameSize.roundForNumber(str.getThreeHitRate() * 100, 1));
 			data.add(FrameSize.roundForNumber(str.getPenaltyHitRate() * 100, 1));
-			data.add(FrameSize.roundForNumber(str.getOffenseRebs(), 1));
-			data.add(FrameSize.roundForNumber(str.getDefenceRebs(), 1));
+			data.add(FrameSize.roundForNumber(str.getOffenseRebs(), num));
+			data.add(FrameSize.roundForNumber(str.getDefenceRebs(), num));
 			data.add(FrameSize.roundForNumber(str.getHitRate() * 100, 1));
 
 			// data.add(FrameSize.roundForNumber(str.getHandNo(), 1));
@@ -116,19 +116,19 @@ public class TeamDataPanel extends JPanel {
 		mytable.updateUI();
 
 		TableRowSorter rowSorter = (TableRowSorter) mytable.getRowSorter();
-		Comparator<Number> numberComparator = new Comparator<Number>() {
+		Comparator<String> numberComparator = new Comparator<String>() {
 			@Override
-			public int compare(Number o1, Number o2) {
+			public int compare(String o1, String o2) {
 				if (o1 == null) {
 					return -1;
 				}
 				if (o2 == null) {
 					return 1;
 				}
-				if (o1.doubleValue() < o2.doubleValue()) {
+				if (Double.parseDouble(o1) <Double.parseDouble(o2)) {
 					return -1;
 				}
-				if (o1.doubleValue() > o2.doubleValue()) {
+				if (Double.parseDouble(o1) > Double.parseDouble(o2)) {
 					return 1;
 				}
 				return 0;
@@ -214,10 +214,11 @@ public class TeamDataPanel extends JPanel {
 		// }
 		if (!all&&!high) {
 			team=tc.getTeamSeasonNormalAve(teamname,type);
-			
+			num=1;
 			setLowTable(team);
 		} else if (all&&!high) {
 			team=tc.getTeamSeasonNormalTotal(teamname,type);
+			num=0;
 			setLowTable(team);
 		} else if (high) {
 			teamhigh = tc.getTeamSeasonHigh(teamname, type);
