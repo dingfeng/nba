@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -64,8 +65,14 @@ public class PlayerController implements PlayerBlService {
 	public synchronized HotPlayerTeam[] getSeasonHotPlayer(int season,
 			String sortby, SeasonType type) {
 		String sortBy = sortby + " desc";
-		PlayerNormalPO[] players = playerService.sortPlayerNormalAven(season,
-				sortBy, 5, type);
+		PlayerNormalPO[] players = null;
+		try {
+			players = playerService.sortPlayerNormalAven(season,
+					sortBy, 5, type);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		HotPlayerTeam[] hotPlayers = new HotPlayerTeam[5];
 		double[] data = new double[5];
 		if (sortby.equals("points")) {
@@ -116,8 +123,14 @@ public class PlayerController implements PlayerBlService {
 	public synchronized HotPlayerTeam[] getPromotePlayer(int season,
 			String sortby, SeasonType type) {
 		String sortBy = sortby + "_uprate desc";
-		PlayerNormalPO[] players = playerService.sortPlayerNormalAven(season,
-				sortBy, 5, type);
+		PlayerNormalPO[] players = null;
+		try {
+			players = playerService.sortPlayerNormalAven(season,
+					sortBy, 5, type);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		HotPlayerTeam[] hotPlayers = new HotPlayerTeam[5];
 		double[] data = new double[5];
 		if (sortby.equals("points")) {
@@ -146,45 +159,71 @@ public class PlayerController implements PlayerBlService {
 	@Override
 	// 根据球员名字查找球员
 	public synchronized HPlayerPO findPlayer(String info) {
-		return playerService.findPlayer(info);
+		try {
+			return playerService.findPlayer(info);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
 	public synchronized HPlayerPO[] getPlayersWithStart(int season, String start) {
-		String[] playersFit = playerService.fuzzilySearch(start);
-		ArrayList<HPlayerPO> result = new ArrayList<HPlayerPO>(
-				playersFit.length);
-		HPlayerPO playerP;
-		for (String s : playersFit) {
-			playerP = playerService.findPlayer(s);
-			if (playerP != null) {
-				result.add(playerP);
+		String[] playersFit;
+		try {
+			playersFit = playerService.fuzzilySearch(start);
+			ArrayList<HPlayerPO> result = new ArrayList<HPlayerPO>(
+					playersFit.length);
+			HPlayerPO playerP;
+			for (String s : playersFit) {
+				playerP = playerService.findPlayer(s);
+				if (playerP != null) {
+					result.add(playerP);
+				}
 			}
+			return (HPlayerPO[]) result.toArray(new HPlayerPO[result.size()]);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return (HPlayerPO[]) result.toArray(new HPlayerPO[result.size()]);
+		return null;
 	}
 
 	@Override
 	public Image getPlayerImage(String name) {
-		HPlayerPO playerP = playerService.findPlayer(name);
-		Image result = playerP.getImage();
-		if (result != null) {
-			return result;
-		} else {
-			try {
-				return ImageIO.read(new File("image/noimage.png"));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		HPlayerPO playerP;
+		try {
+			playerP = playerService.findPlayer(name);
+			Image result = playerP.getImage();
+			if (result != null) {
+				return result;
+			} else {
+				try {
+					return ImageIO.read(new File("image/noimage.png"));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		return null;
 	}
 
 	@Override
 	public String[] fuzzilyFind(String info) {
-		String[] playersFit = playerService.fuzzilySearch(info);
-		return playersFit;
+		String[] playersFit;
+		try {
+			playersFit = playerService.fuzzilySearch(info);
+			return playersFit;
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
@@ -225,14 +264,21 @@ public class PlayerController implements PlayerBlService {
 				break;
 			}
 		}
-		PlayerPO[] players = playerService.screenPlayer(null, area,
-				playerPosition, 100);
-		PlayerNormalPO[] result = new PlayerNormalPO[players.length];
-		for (int i = 0; i != players.length; i++) {
-			result[i] = playerService.getPlayerNormalAve(season,
-					players[i].getName(), type);
+		PlayerPO[] players;
+		try {
+			players = playerService.screenPlayer(null, area, playerPosition,
+					100);
+			PlayerNormalPO[] result = new PlayerNormalPO[players.length];
+			for (int i = 0; i != players.length; i++) {
+				result[i] = playerService.getPlayerNormalAve(season,
+						players[i].getName(), type);
+			}
+			return result;
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return result;
+		return null;
 	}
 
 	@Override
@@ -274,14 +320,21 @@ public class PlayerController implements PlayerBlService {
 			}
 		}
 
-		PlayerPO[] players = playerService.screenPlayer(null, area,
-				playerPosition, 100);
-		PlayerNormalPO[] result = new PlayerNormalPO[players.length];
-		for (int i = 0; i != players.length; i++) {
-			result[i] = playerService.getPlayerNormalTotal(season,
-					players[i].getName(), type);
+		PlayerPO[] players;
+		try {
+			players = playerService.screenPlayer(null, area, playerPosition,
+					100);
+			PlayerNormalPO[] result = new PlayerNormalPO[players.length];
+			for (int i = 0; i != players.length; i++) {
+				result[i] = playerService.getPlayerNormalTotal(season,
+						players[i].getName(), type);
+			}
+			return result;
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return result;
+		return null;
 	}
 
 	@Override
@@ -323,85 +376,159 @@ public class PlayerController implements PlayerBlService {
 			}
 		}
 
-		PlayerPO[] players = playerService.screenPlayer(null, area,
-				playerPosition, 100);
-		PlayerHighPO[] result = new PlayerHighPO[players.length];
-		for (int i = 0; i != players.length; i++) {
-			result[i] = playerService.getPlayerHigh(season,
-					players[i].getName(), type);
+		PlayerPO[] players;
+		try {
+			players = playerService.screenPlayer(null, area, playerPosition,
+					100);
+			PlayerHighPO[] result = new PlayerHighPO[players.length];
+			for (int i = 0; i != players.length; i++) {
+				result[i] = playerService.getPlayerHigh(season,
+						players[i].getName(), type);
+			}
+			return result;
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return result;
+		return null;
 	}
 
 	@Override
 	// 查找球员场均数据 低阶
 	public PlayerNormalPO findPlayerMatchAve(int season, String playername,
 			SeasonType type) {
-		return playerService.getPlayerNormalAve(season, playername, type);
+		try {
+			return playerService.getPlayerNormalAve(season, playername, type);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
 	// 查找球员赛季数据 低阶
 	public PlayerNormalPO findPlayerTotal(int season, String playername,
 			SeasonType type) {
-		return playerService.getPlayerNormalTotal(season, playername, type);
+		try {
+			return playerService.getPlayerNormalTotal(season, playername, type);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
 	// 查找球员高阶数据
 	public PlayerHighPO findPlayerHigh(int season, String playername,
 			SeasonType type) {
-		return playerService.getPlayerHigh(season, playername, type);
+		try {
+			return playerService.getPlayerHigh(season, playername, type);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
 	// 获得所有球员场均数据 低阶
 	public PlayerNormalPO[] getAveAllPlayers(int season, SeasonType type) {
-		return playerService.getSeasonPlayerNormalAve(season, type);
+		try {
+			return playerService.getSeasonPlayerNormalAve(season, type);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
 	// 获得所有球员所有数据 低阶
 	public PlayerNormalPO[] getTotalAllPlayers(int season, SeasonType type) {
-		return playerService.getSeasonPlayerNormalTotal(season, type);
+		try {
+			return playerService.getSeasonPlayerNormalTotal(season, type);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
 	// 获得所有球员高阶数据
 	public PlayerHighPO[] getHighAllPlayers(int season, SeasonType type) {
-		return playerService.getSeasonPlayerHigh(season, type);
+		try {
+			return playerService.getSeasonPlayerHigh(season, type);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
 	// 获得球员的所有赛季总数据
 	public PlayerNormalPO[] getPlayerAllSeasonsTotal(String playerName,
 			SeasonType type) {
-		return playerService.getPlayerAllSeasonsTotal(playerName, type);
+		try {
+			return playerService.getPlayerAllSeasonsTotal(playerName, type);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
 	// 获得球员的所有赛季场均数据
 	public PlayerNormalPO[] getPlayerAllSeasonsAve(String playerName,
 			SeasonType type) {
-		return playerService.getPlayerAllSeasonsAve(playerName, type);
+		try {
+			return playerService.getPlayerAllSeasonsAve(playerName, type);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
 	// 获得球员的所有的赛季高阶数据
 	public PlayerHighPO[] getPlayerAllSeasons(String playerName, SeasonType type) {
-		return playerService.getPlayerAllSeasons(playerName, type);
+		try {
+			return playerService.getPlayerAllSeasons(playerName, type);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
 	public PlayerPO[] getAllActivePlayerData() {
-		return playerService.getAllActivePlayerData();
+		try {
+			return playerService.getAllActivePlayerData();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
 	public Image getRadarImage(int season, String name, SeasonType type) {
-		String filename = imageR + season + name + (type == SeasonType.REGULAR ? "REGULAR" : "PLAYOFF") + ".png";
-		PlayerNormalPO player = playerService.getPlayerNormalAve(season, name,
-				type);
+		String filename = imageR + season + name
+				+ (type == SeasonType.REGULAR ? "REGULAR" : "PLAYOFF") + ".png";
+		PlayerNormalPO player = null;
+		try {
+			player = playerService.getPlayerNormalAve(season, name,
+					type);
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		double[] playerData = { 0, 0, 0, 0, 0 };
 		if (player != null) {
 			playerData[0] = player.getPoints();
@@ -411,8 +538,14 @@ public class PlayerController implements PlayerBlService {
 			playerData[4] = player.getBlockNo();
 		}
 
-		PlayerNormalPO[] allPlayers = playerService.getSeasonPlayerNormalAve(
-				season, type);
+		PlayerNormalPO[] allPlayers = null;
+		try {
+			allPlayers = playerService.getSeasonPlayerNormalAve(
+					season, type);
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		int len = allPlayers.length;
 		StringBuffer PTS = new StringBuffer(len * 4);
 		StringBuffer REB = new StringBuffer(len * 4);
@@ -438,11 +571,11 @@ public class PlayerController implements PlayerBlService {
 		BLK.trimToSize();
 		String toWrite = "";
 		if (playerData != null) {
-			toWrite = filename + '\n' + name + "\n" + "AVE PERF" + "\n" + PTS.toString() + '\n'
-					+ REB.toString() + '\n' + AST.toString() + '\n'
-					+ STL.toString() + '\n' + BLK.toString() + '\n'
-					+ Double.toString(playerData[0]) + ","
-					+ Double.toString(playerData[1]) + ","
+			toWrite = filename + '\n' + name + "\n" + "AVE PERF" + "\n"
+					+ PTS.toString() + '\n' + REB.toString() + '\n'
+					+ AST.toString() + '\n' + STL.toString() + '\n'
+					+ BLK.toString() + '\n' + Double.toString(playerData[0])
+					+ "," + Double.toString(playerData[1]) + ","
 					+ Double.toString(playerData[2]) + ","
 					+ Double.toString(playerData[3]) + ","
 					+ Double.toString(playerData[4]);
@@ -454,7 +587,7 @@ public class PlayerController implements PlayerBlService {
 			output.close();
 			Process pr = Runtime.getRuntime().exec("python python\\radar.py");
 			pr.waitFor();
-			ImageIcon imageIcon = new ImageIcon(filename);    
+			ImageIcon imageIcon = new ImageIcon(filename);
 			Image radar = imageIcon.getImage();
 			return radar;
 		} catch (IOException | InterruptedException e) {
@@ -464,16 +597,24 @@ public class PlayerController implements PlayerBlService {
 		return null;
 	}
 
-	
-	
 	@Override
 	public Image getCompareImage(int season, String name1, String name2,
 			SeasonType type) {
-		String filename = imageC + name1 + name2 + Integer.toString(season) + (type == SeasonType.REGULAR ? "REGULAR" : "PLAYEROFF") + ".png";
-		MatchPlayerPO[] player1Matches = playerService.getSeasonMatches(season,
-				name1, type);
-		MatchPlayerPO[] player2Matches = playerService.getSeasonMatches(season,
+		String filename = imageC + name1 + name2 + Integer.toString(season)
+				+ (type == SeasonType.REGULAR ? "REGULAR" : "PLAYEROFF")
+				+ ".png";
+		MatchPlayerPO[] player1Matches = null;
+		MatchPlayerPO[] player2Matches = null;
+		try {
+			player1Matches = playerService.getSeasonMatches(season,
+					name1, type);
+			player2Matches = playerService.getSeasonMatches(season,
 				name2, type);
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		int len1 = player1Matches.length * 5;
 		int len2 = player2Matches.length * 5;
 		StringBuffer playerData1PTS = new StringBuffer(len1);
@@ -510,10 +651,8 @@ public class PlayerController implements PlayerBlService {
 				playerData1AST.append(player1Matches[i].getHelp() + ",");
 				playerData1FT
 						.append(player1Matches[i].getPenaltyHandNo() == 0 ? 0
-								: (100 * player1Matches[i]
-										.getPenaltyHitNo() / player1Matches[i]
-										.getPenaltyHandNo())
-										+ ",");
+								: (100 * player1Matches[i].getPenaltyHitNo() / player1Matches[i]
+										.getPenaltyHandNo()) + ",");
 				playerData13PT
 						.append(player1Matches[i].getThreeHandNo() == 0 ? 0
 								: (100 * player1Matches[i].getThreeHitNo() / player1Matches[i]
@@ -550,10 +689,8 @@ public class PlayerController implements PlayerBlService {
 				playerData2AST.append(player2Matches[i].getHelp() + ",");
 				playerData2FT
 						.append(player2Matches[i].getPenaltyHandNo() == 0 ? 0
-								: (100 * player2Matches[i]
-										.getPenaltyHitNo() / player2Matches[i]
-										.getPenaltyHandNo())
-										+ ",");
+								: (100 * player2Matches[i].getPenaltyHitNo() / player2Matches[i]
+										.getPenaltyHandNo()) + ",");
 				playerData23PT
 						.append(player2Matches[i].getThreeHandNo() == 0 ? 0
 								: (100 * player2Matches[i].getThreeHitNo() / player2Matches[i]
@@ -725,8 +862,8 @@ public class PlayerController implements PlayerBlService {
 			Process pr = Runtime.getRuntime()
 					.exec("python python\\__init__.py");
 			pr.waitFor();
-			ImageIcon imageIcon = new ImageIcon(filename);    
-			Image compare = imageIcon.getImage(); 
+			ImageIcon imageIcon = new ImageIcon(filename);
+			Image compare = imageIcon.getImage();
 			return compare;
 		} catch (IOException | InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -737,12 +874,21 @@ public class PlayerController implements PlayerBlService {
 
 	@Override
 	public Image getLineChartImage(int season, String playername) {
-		String filename = imageL + playername + Integer.toString(season) + ".png";
+		String filename = imageL + playername + Integer.toString(season)
+				+ ".png";
 		MatchPlayerPO[] newest = new MatchPlayerPO[10];
-		MatchPlayerPO[] regularP = playerService.getSeasonMatches(season,
-				playername, SeasonType.REGULAR);
-		MatchPlayerPO[] playeroffP = playerService.getSeasonMatches(season,
+		MatchPlayerPO[] regularP = null;
+		MatchPlayerPO[] playeroffP = null; 
+		try {
+			regularP = playerService.getSeasonMatches(season,
+					playername, SeasonType.REGULAR);
+			playeroffP = playerService.getSeasonMatches(season,
 				playername, SeasonType.PLAYOFF);
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		int nowP = 0;
 		if (regularP == null && playeroffP == null) {
 			return null;
@@ -787,8 +933,9 @@ public class PlayerController implements PlayerBlService {
 			PT3.append(newest[nowP - 1].getThreeHandNo() != 0 ? newest[10]
 					.getThreeHitNo() / newest[10].getThreeHandNo() * 100 : 0);
 
-			String toWrite = filename + '\n' + playername + '\n' + Integer.toString(nowP) + '\n' + Date.toString()
-					+ '\n' + PTS.toString() + '\n' + REB.toString() + '\n'
+			String toWrite = filename + '\n' + playername + '\n'
+					+ Integer.toString(nowP) + '\n' + Date.toString() + '\n'
+					+ PTS.toString() + '\n' + REB.toString() + '\n'
 					+ AST.toString() + '\n' + FT.toString() + '\n'
 					+ PT3.toString();
 			BufferedWriter output;
@@ -800,8 +947,8 @@ public class PlayerController implements PlayerBlService {
 				Process pr = Runtime.getRuntime().exec(
 						"python python\\errorbar.py");
 				pr.waitFor();
-				ImageIcon imageIcon = new ImageIcon(filename);    
-				Image line = imageIcon.getImage(); 
+				ImageIcon imageIcon = new ImageIcon(filename);
+				Image line = imageIcon.getImage();
 				return line;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -816,9 +963,17 @@ public class PlayerController implements PlayerBlService {
 
 	@Override
 	public Image getPlayerBar(int season, String name, SeasonType type) {
-		String filename = imageB + name + Integer.toString(season) + (type == SeasonType.REGULAR ? "REGULAR" : "PLAYEROFF") + ".png";
-		PlayerNormalPO player = playerService.getPlayerNormalAve(season, name,
-				type);
+		String filename = imageB + name + Integer.toString(season)
+				+ (type == SeasonType.REGULAR ? "REGULAR" : "PLAYEROFF")
+				+ ".png";
+		PlayerNormalPO player = null;
+		try {
+			player = playerService.getPlayerNormalAve(season, name,
+					type);
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		double[] playerData = { 0, 0, 0, 0, 0 };
 		if (player != null) {
 			playerData[0] = player.getPoints();
@@ -828,8 +983,14 @@ public class PlayerController implements PlayerBlService {
 			playerData[4] = player.getThreeHitRate();
 		}
 
-		PlayerNormalPO[] allPlayers = playerService.getSeasonPlayerNormalAve(
-				season, type);
+		PlayerNormalPO[] allPlayers = null;
+		try {
+			allPlayers = playerService.getSeasonPlayerNormalAve(
+					season, type);
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		int len = allPlayers.length;
 		StringBuffer PTS = new StringBuffer(len * 4);
 		StringBuffer REB = new StringBuffer(len * 4);
@@ -855,11 +1016,11 @@ public class PlayerController implements PlayerBlService {
 		PT3.trimToSize();
 		String toWrite = "";
 		if (playerData != null) {
-			toWrite = filename + '\n' + name + "\n" + "AVE PERF" + "\n" + PTS.toString() + '\n'
-					+ REB.toString() + '\n' + AST.toString() + '\n'
-					+ FT.toString() + '\n' + PT3.toString() + '\n'
-					+ Double.toString(playerData[0]) + ","
-					+ Double.toString(playerData[1]) + ","
+			toWrite = filename + '\n' + name + "\n" + "AVE PERF" + "\n"
+					+ PTS.toString() + '\n' + REB.toString() + '\n'
+					+ AST.toString() + '\n' + FT.toString() + '\n'
+					+ PT3.toString() + '\n' + Double.toString(playerData[0])
+					+ "," + Double.toString(playerData[1]) + ","
 					+ Double.toString(playerData[2]) + ","
 					+ Double.toString(playerData[3]) + ","
 					+ Double.toString(playerData[4]);
@@ -869,7 +1030,8 @@ public class PlayerController implements PlayerBlService {
 					filenameB)));
 			output.write(toWrite);
 			output.close();
-			Process pr = Runtime.getRuntime().exec("python python\\playerBar.py");
+			Process pr = Runtime.getRuntime().exec(
+					"python python\\playerBar.py");
 			pr.waitFor();
 			Image bar = ImageIO.read(new File(filename));
 			return bar;
