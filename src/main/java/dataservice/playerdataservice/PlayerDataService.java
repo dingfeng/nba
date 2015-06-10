@@ -181,7 +181,7 @@ public interface PlayerDataService extends Remote{
 	 * @param n				返回数目
 	 * @return				符合条件的球员信息
 	 */
-	public PlayerPO[] screenPlayer(String sort,String match_area,String postion,int n)throws RemoteException;
+	public PlayerPO[] screenPlayer(String sort,String match_area,String player_area,String postion,int n)throws RemoteException;
 	/**
 	 * 获得某个赛季的该球员的每场得比赛的数据
 	 * @param season	赛季
