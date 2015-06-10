@@ -7,12 +7,14 @@
  * 
  */
 package dataservice.playerdataservice;
+import java.awt.Image;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 import po.HPlayerPO;
 import po.MatchPlayerPO;
 import po.PlayerHighPO;
+import po.PlayerImage;
 import po.PlayerNormalPO;
 import po.PlayerPO;
 
@@ -191,6 +193,8 @@ public interface PlayerDataService extends Remote{
 	public MatchPlayerPO[] getSeasonMatches(int season, String name, SeasonType type)throws RemoteException;
 	//获得某个赛季球队球员的数据
 	public PlayerNormalPO[] getSeasonPlayerNormalOfTeam(int season, SeasonType type,String teamName)throws RemoteException;
+	//获得球员
+	public PlayerImage getPlayerImage(String playerName)throws RemoteException;
 //	public PlayerNormalPO[] sortPlayerNormalTotalHis(String sort, int n);
 //	public PlayerNormalPO sortPlayerNormalAveHis(String sort, int n);
 }
