@@ -8,12 +8,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import ui.mainui.FrameSize;
-import ui.mainui.MyButton;
+import ui.mainui.MyComboBox;
 import ui.mainui.MyFrame;
 import ui.mainui.MyToggleButton;
 import vo.HotPlayerTeam;
@@ -115,6 +114,8 @@ public class HotPanel extends JPanel {
 		show.setBackground(Color.white);
 		show.setBounds(FrameSize.width / 6, 0, 5 * FrameSize.width / 6,
 				11 * FrameSize.height / 12);
+		FrameSize.season.setBounds(FrameSize.width-150, 100, 100, 30);
+		this.add(FrameSize.season);
 		JLabel[] num=new JLabel[5];
 		for(int i=0;i<5;i++){
 			num[i]=new JLabel();
@@ -202,6 +203,7 @@ public class HotPanel extends JPanel {
 						FrameSize.width * 5 / 48, 50);
 				show.add(choose[i]);
 			}
+			choose[0].setSelected(true);
 			 showMessage_team("得分");
 			// choose.addActionListener(e -> showMessage_team());
 			break;
@@ -218,7 +220,7 @@ public class HotPanel extends JPanel {
 						FrameSize.width * 5 / 18, 50);
 				show.add(choose[i]);
 			}
-
+			choose[0].setSelected(true);
 			 showMessage_player("得分提升率");
 			// choose.addActionListener(e -> showMessage_player());
 			break;
@@ -244,6 +246,7 @@ public class HotPanel extends JPanel {
 				season_team.setSelected(false);
 				fast_player.setSelected(false);
 			}
+			choose[0].setSelected(true);
 			 showMessage_player("得分");
 			// choose.addActionListener(e -> showMessage_player());
 
@@ -306,10 +309,10 @@ public class HotPanel extends JPanel {
 			players = pc.getDayHotPlayer(sortBy);
 			break;
 		case 2:
-			players = pc.getSeasonHotPlayer(2013, sortBy, SeasonType.REGULAR);
+			players = pc.getSeasonHotPlayer(Integer.parseInt((String) FrameSize.season.getSelectedItem()), sortBy, SeasonType.REGULAR);
 			break;
 		case 4:
-			players = pc.getPromotePlayer(2013, sortBy, SeasonType.REGULAR);
+			players = pc.getPromotePlayer(Integer.parseInt((String) FrameSize.season.getSelectedItem()), sortBy, SeasonType.REGULAR);
 		}
 		try {
 			portrait_1.setIcon(scaleImage(
@@ -368,7 +371,6 @@ public class HotPanel extends JPanel {
 				5 * FrameSize.height / 7, 69, 55);
 
 		for (int i = 0; i < 5; i++) {
-			System.out.println(players[i].getName());
 			name[i].setText(players[i].getName());
 			// name[i].addMouseListener(new showPlayer());
 		}
@@ -410,8 +412,7 @@ public class HotPanel extends JPanel {
 			teamSortBy = "penaltyHitRate";
 		}
 
-		HotPlayerTeam[] hotteam = tc.getHotTeams(2013, teamSortBy,
-				SeasonType.REGULAR);
+		HotPlayerTeam[] hotteam = tc.getHotTeams(Integer.parseInt((String) FrameSize.season.getSelectedItem()), teamSortBy, SeasonType.REGULAR);
 
 		for (int i = 0; i < 5; i++) {
 			name[i].setText(tc.getTeamData(hotteam[i].getName()).getName()
