@@ -1,5 +1,8 @@
 package bl.playerbl;
 
+import gnu.trove.map.TIntObjectMap;
+import gnu.trove.map.hash.TIntObjectHashMap;
+
 import java.awt.Image;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -1036,6 +1039,39 @@ public class PlayerController implements PlayerBlService {
 			Image bar = ImageIO.read(new File(filename));
 			return bar;
 		} catch (IOException | InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	private boolean writeAnalyseData(){
+		try {
+			PlayerNormalPO[] playerNormal = playerService.getSeasonPlayerNormalAve(2014, SeasonType.REGULAR);
+			int length = playerNormal.length;
+			PlayerPO[] players = playerService.getAllActivePlayerData();
+			TIntObjectMap<PlayerNormalPO> playermap = new TIntObjectHashMap<PlayerNormalPO>(length);
+			for(PlayerNormalPO p : playerNormal){
+				
+			}
+			return true;
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public HPlayerPO[] getAllActiveHPlayerPO() {
+		try {
+			PlayerPO[] players = playerService.getAllActivePlayerData();
+			int length = players.length;
+			HPlayerPO[] hplayers = new HPlayerPO[length];
+			for(int i = 0; i != length; i ++){
+				//hplayers[i] = new HPlayerPO(players[i]);
+			}
+		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

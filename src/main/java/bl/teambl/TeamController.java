@@ -55,7 +55,7 @@ public class TeamController implements Teamblservice {
 		String sortBy = sortby + " desc";
 		TeamNormalPO[] teams = null;
 		try {
-			teams = teamservice.sortTeamNormalTotaln(season, sortBy, 5, type);
+			teams = teamservice.sortTeamNormalAven(season, sortBy, 5, type);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -4,7 +4,7 @@ import java.awt.Image;
 import java.io.Serializable;
 
 
-public class PlayerPO implements Comparable<PlayerPO>, Serializable{
+public class PlayerPO implements Comparable<PlayerPO>, Serializable, PlayerPOInterface{
 
 	private String name;// 姓名
 	private int number;// 球衣号码
@@ -61,8 +61,8 @@ public class PlayerPO implements Comparable<PlayerPO>, Serializable{
 		return name;
 	}
 
-	public int getNumber() {
-		return number;
+	public String getNumber() {
+		return Integer.toString(number);
 	}
 
 	public String getPosition() {
@@ -75,10 +75,6 @@ public class PlayerPO implements Comparable<PlayerPO>, Serializable{
 
 	public int getHeightinch() {
 		return heightinch;
-	}
-
-	public int getWeight() {
-		return weight;
 	}
 
 	public String getBirth() {
@@ -115,5 +111,22 @@ public class PlayerPO implements Comparable<PlayerPO>, Serializable{
 	@Override
 	public int compareTo(PlayerPO e) {
 		return name.compareTo(e.getName());
+	}
+
+	@Override
+	public String getHeight() {
+		String heistr = this.heightfeet + "ft" + this.heightinch + "in";
+		return heistr;
+	}
+
+	@Override
+	public String getWeight() {
+		String weistr = this.weight + "lb";
+		return weistr;
+	}
+
+	@Override
+	public String getCity() {
+		return null;
 	}
 }
