@@ -4,9 +4,10 @@ import matplotlib.pyplot as plt
 def getData():
     file_object = open("D:/dataToPC", 'r')
     try:
+         filename = file_object.readline().strip('\n') 
          playername1 = file_object.readline()
          playername2 = file_object.readline()
-         AveStd = np.zeros((10,2));
+         AveStd = np.zeros((10, 2));
          for i in range(10):
              line = file_object.readline()
              parts = line.split(',')
@@ -15,8 +16,8 @@ def getData():
              dataSubArray = np.array(dataSub)
              sum1 = dataSubArray.sum()
              sum2 = (dataSubArray * dataSubArray).sum()
-             mean = sum1/dataNo
-             var = sum2/dataNo - mean ** 2
+             mean = sum1 / dataNo
+             var = sum2 / dataNo - mean ** 2
              std = np.sqrt(var);
              AveStd[i] = np.array([mean, std])
          for j in range(5):
@@ -27,25 +28,25 @@ def getData():
     finally:
         file_object.close()
     
-    return playername1, playername2, dataSub1Done, dataSub2Done, dataSub3Done, dataSub4Done
+    return filename, playername1, playername2, dataSub1Done, dataSub2Done, dataSub3Done, dataSub4Done
  
 if __name__ == '__main__':
     N = 5
-    player1name, player2name, player1Means, player1Std, player2Means, player2Std = getData()
+    filename, player1name, player2name, player1Means, player1Std, player2Means, player2Std = getData()
  
     ind = np.arange(N)  # the x locations for the groups
     width = 0.35  # the width of the bars
  
     fig, ax = plt.subplots()
-    rects1 = ax.bar(ind, player1Means, width, color=(0.12568, 0.6549, 0.9019, 1), yerr=player1Std, alpha = 1)
-    rects2 = ax.bar(ind + width, player2Means, width, color=(0.8078, 0.8078, 0.8078, 1), yerr=player2Std, alpha = 1)
+    rects1 = ax.bar(ind, player1Means, width, color=(0.12568, 0.6549, 0.9019, 1), yerr=player1Std, alpha=1)
+    rects2 = ax.bar(ind + width, player2Means, width, color=(0.8078, 0.8078, 0.8078, 1), yerr=player2Std, alpha=1)
  
     # add some
     ax.set_ylabel('Scores')
     ax.set_xticks(ind + width)
     ax.set_xticklabels(('PTS', 'REB', 'AST', 'FT%', '3PT%'))
  
-    ax.legend((player1name, player2name), fontsize = 11)
+    ax.legend((player1name, player2name), fontsize=11)
  
 def autolabel(rects):
     # attach some text labels
@@ -57,7 +58,7 @@ def autolabel(rects):
 autolabel(rects1)
 autolabel(rects2)
 
-plt.savefig("D:/compare.png", dpi=70, facecolor='w', edgecolor='w',
+plt.savefig(filename, dpi=70, facecolor='w', edgecolor='w',
         orientation='portrait', papertype=None, format=None,
         transparent=True, bbox_inches=None, pad_inches=0.1,
         frameon=None)

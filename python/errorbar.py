@@ -20,6 +20,8 @@ def getSuppose(data):
 def getData():
 	file_object = open("D:/dataToPL.txt", 'r')
 	try:
+		filename = file_object.readline().strip('\n') 
+		playername = file_object.readline()
 		line = file_object.readline();
 		#Match Number
 		Number = int(line);
@@ -47,10 +49,10 @@ def getData():
 	finally:
 		file_object.close()
 		
-	return date, data, rangeDone, Number, maxi
+	return filename, playername, date, data, rangeDone, Number, maxi
 
 if __name__ == '__main__':
-	date, data, rangeDone, number, maxi = getData()
+	filename, playername, date, data, rangeDone, number, maxi = getData()
 	colors = np.array([(0.988, 0.4196, 0.478), (0.549, 0.914, 0.494), (0.839, 0.514, 0.894), 
 					(0.984, 0.737, 0.518), (0.12568, 0.6549, 0.9019)])
 	x = np.arange(1, number + 2, 1)
@@ -68,7 +70,8 @@ if __name__ == '__main__':
 	ax.legend(('PTS', 'REB', 'AST', 'FT%', '3PT%'), fontsize = 10)
 	#plt.xticks(x, people)
 	
-	plt.savefig("D:/line.png", dpi=70, facecolor='w', edgecolor='w',
+	
+	plt.savefig(filename, dpi=70, facecolor='w', edgecolor='w',
         orientation='portrait', papertype=None, format=None,
         transparent=True, bbox_inches=None, pad_inches=0.1,
         frameon=None)

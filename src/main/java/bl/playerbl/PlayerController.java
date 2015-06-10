@@ -40,10 +40,10 @@ public class PlayerController implements PlayerBlService {
 		filenameC = "D:/dataToPC";
 		filenameL = "D:/dataToPL";
 		filenameB = "D:/playerBar";
-		imageR = "D:/radar.png";
-		imageC = "D:/compare.png";
-		imageL = "D:/line.png";
-		imageB = "D:/playerData.png";
+		imageR = "D:/radar";
+		imageC = "D:/compare";
+		imageL = "D:/line";
+		imageB = "D:/playerData";
 		NBADataFactory dataFactory;
 		try {
 			dataFactory = DataFactory.instance();
@@ -374,6 +374,7 @@ public class PlayerController implements PlayerBlService {
 
 	@Override
 	public Image getRadarImage(int season, String name, SeasonType type) {
+		String filename = imageR + season + name + (type == SeasonType.REGULAR ? "REGULAR" : "PLAYOFF") + ".png";
 		PlayerNormalPO player = playerService.getPlayerNormalAve(season, name,
 				type);
 		double[] playerData = { 0, 0, 0, 0, 0 };
@@ -412,7 +413,7 @@ public class PlayerController implements PlayerBlService {
 		BLK.trimToSize();
 		String toWrite = "";
 		if (playerData != null) {
-			toWrite = name + "\n" + "AVE PERF" + "\n" + PTS.toString() + '\n'
+			toWrite = filename + '\n' + name + "\n" + "AVE PERF" + "\n" + PTS.toString() + '\n'
 					+ REB.toString() + '\n' + AST.toString() + '\n'
 					+ STL.toString() + '\n' + BLK.toString() + '\n'
 					+ Double.toString(playerData[0]) + ","
@@ -428,7 +429,7 @@ public class PlayerController implements PlayerBlService {
 			output.close();
 			Process pr = Runtime.getRuntime().exec("python python\\radar.py");
 			pr.waitFor();
-			ImageIcon imageIcon = new ImageIcon(imageR);    
+			ImageIcon imageIcon = new ImageIcon(filename);    
 			Image radar = imageIcon.getImage();
 			return radar;
 		} catch (IOException | InterruptedException e) {
@@ -443,6 +444,7 @@ public class PlayerController implements PlayerBlService {
 	@Override
 	public Image getCompareImage(int season, String name1, String name2,
 			SeasonType type) {
+		String filename = imageC + name1 + name2 + Integer.toString(season) + (type == SeasonType.REGULAR ? "REGULAR" : "PLAYEROFF") + ".png";
 		MatchPlayerPO[] player1Matches = playerService.getSeasonMatches(season,
 				name1, type);
 		MatchPlayerPO[] player2Matches = playerService.getSeasonMatches(season,
@@ -471,7 +473,7 @@ public class PlayerController implements PlayerBlService {
 			playerData2AST.append("0");
 			playerData2FT.append("0");
 			playerData23PT.append("0");
-		} else if (player1Matches.length == 0) {
+		} else if (player2Matches.length == 0) {
 			playerData2PTS.append("0");
 			playerData2REB.append("0");
 			playerData2AST.append("0");
@@ -511,7 +513,7 @@ public class PlayerController implements PlayerBlService {
 									.getThreeHitNo() / player1Matches[player1Matches.length - 1]
 									.getThreeHandNo()));
 
-		} else if (player2Matches.length == 0) {
+		} else if (player1Matches.length == 0) {
 			playerData1PTS.append("0");
 			playerData1REB.append("0");
 			playerData1AST.append("0");
@@ -682,7 +684,7 @@ public class PlayerController implements PlayerBlService {
 		BufferedWriter output;
 		try {
 			output = new BufferedWriter(new FileWriter(new File(filenameC)));
-			String data = name1 + "\n" + name2 + "\n"
+			String data = filename + '\n' + name1 + "\n" + name2 + "\n"
 					+ playerData1PTS.toString() + "\n"
 					+ playerData1REB.toString() + "\n"
 					+ playerData1AST.toString() + "\n"
@@ -698,7 +700,7 @@ public class PlayerController implements PlayerBlService {
 			Process pr = Runtime.getRuntime()
 					.exec("python python\\__init__.py");
 			pr.waitFor();
-			ImageIcon imageIcon = new ImageIcon(imageC);    
+			ImageIcon imageIcon = new ImageIcon(filename);    
 			Image compare = imageIcon.getImage(); 
 			return compare;
 		} catch (IOException | InterruptedException e) {
@@ -710,6 +712,7 @@ public class PlayerController implements PlayerBlService {
 
 	@Override
 	public Image getLineChartImage(int season, String playername) {
+		String filename = imageL + playername + Integer.toString(season) + ".png";
 		MatchPlayerPO[] newest = new MatchPlayerPO[10];
 		MatchPlayerPO[] regularP = playerService.getSeasonMatches(season,
 				playername, SeasonType.REGULAR);
@@ -759,7 +762,7 @@ public class PlayerController implements PlayerBlService {
 			PT3.append(newest[nowP - 1].getThreeHandNo() != 0 ? newest[10]
 					.getThreeHitNo() / newest[10].getThreeHandNo() * 100 : 0);
 
-			String toWrite = Integer.toString(nowP) + '\n' + Date.toString()
+			String toWrite = filename + '\n' + playername + '\n' + Integer.toString(nowP) + '\n' + Date.toString()
 					+ '\n' + PTS.toString() + '\n' + REB.toString() + '\n'
 					+ AST.toString() + '\n' + FT.toString() + '\n'
 					+ PT3.toString();
@@ -772,7 +775,7 @@ public class PlayerController implements PlayerBlService {
 				Process pr = Runtime.getRuntime().exec(
 						"python python\\errorbar.py");
 				pr.waitFor();
-				ImageIcon imageIcon = new ImageIcon(imageL);    
+				ImageIcon imageIcon = new ImageIcon(filename);    
 				Image line = imageIcon.getImage(); 
 				return line;
 			} catch (IOException e) {
@@ -788,6 +791,7 @@ public class PlayerController implements PlayerBlService {
 
 	@Override
 	public Image getPlayerBar(int season, String name, SeasonType type) {
+		String filename = imageB + name + Integer.toString(season) + (type == SeasonType.REGULAR ? "REGULAR" : "PLAYEROFF") + ".png";
 		PlayerNormalPO player = playerService.getPlayerNormalAve(season, name,
 				type);
 		double[] playerData = { 0, 0, 0, 0, 0 };
@@ -826,7 +830,7 @@ public class PlayerController implements PlayerBlService {
 		PT3.trimToSize();
 		String toWrite = "";
 		if (playerData != null) {
-			toWrite = name + "\n" + "AVE PERF" + "\n" + PTS.toString() + '\n'
+			toWrite = filename + '\n' + name + "\n" + "AVE PERF" + "\n" + PTS.toString() + '\n'
 					+ REB.toString() + '\n' + AST.toString() + '\n'
 					+ FT.toString() + '\n' + PT3.toString() + '\n'
 					+ Double.toString(playerData[0]) + ","
@@ -842,7 +846,7 @@ public class PlayerController implements PlayerBlService {
 			output.close();
 			Process pr = Runtime.getRuntime().exec("python python\\playerBar.py");
 			pr.waitFor();
-			Image bar = ImageIO.read(new File(imageB));
+			Image bar = ImageIO.read(new File(filename));
 			return bar;
 		} catch (IOException | InterruptedException e) {
 			// TODO Auto-generated catch block

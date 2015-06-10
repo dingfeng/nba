@@ -33,19 +33,19 @@ public class teamTest {
 		assertEquals(true, true);
 	}
 	
-	//@Test
+	@Test
 	public void testTeamCompare(){
 		String[] teamnames = teamservice.getTeamNames();
 		Image image = teamservice.getTeamCompare(2014, teamnames[3], teamnames[6], SeasonType.PLAYOFF);
 	
-		assertEquals(true, true);
+		assertNotNull(image);
 	}
 	
 	@Test
 	public void testTeamBar(){
 		String[] teamnames = teamservice.getTeamNames();
 		Image image = teamservice.getTeamBar(2014, teamnames[7], SeasonType.PLAYOFF);
-		assertEquals(true, true);
+		assertNotNull(image);
 	}
 	
 	//@Test

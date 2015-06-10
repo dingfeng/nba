@@ -5,6 +5,7 @@ def getData():
     file_object = open("D:/teamCompare", 'r')
     maxi = 0;
     try:
+         filename = file_object.readline().strip('\n') 
          teamname1 = file_object.readline()
          teamname2 = file_object.readline()
          #team1 performance
@@ -19,11 +20,11 @@ def getData():
     finally:
         file_object.close()
     
-    return teamname1, teamname2, dataSub1, dataSub2, maxi
+    return filename, teamname1, teamname2, dataSub1, dataSub2, maxi
  
 if __name__ == '__main__':
     N = 5
-    teamname1, teamname2, team1Means, team2Means, maxi = getData()
+    filename, teamname1, teamname2, team1Means, team2Means, maxi = getData()
  
     ind = np.arange(N)  # the x locations for the groups
     width = 0.4  # the width of the bars
@@ -48,7 +49,7 @@ def autolabel(rects):
 autolabel(rects1)
 autolabel(rects2)
 
-plt.savefig("D:/teamC.png", dpi=70, facecolor='w', edgecolor='w',
+plt.savefig(filename, dpi=70, facecolor='w', edgecolor='w',
         orientation='portrait', papertype=None, format=None,
         transparent=True, bbox_inches=None, pad_inches=0.1,
         frameon=None)

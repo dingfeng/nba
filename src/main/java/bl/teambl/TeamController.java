@@ -45,8 +45,8 @@ public class TeamController implements Teamblservice {
 		}
 		filenameB = "D:/teamBar";
 		filenameC = "D:/teamCompare";
-		ImageB = "D:/teamB.png";
-		ImageC = "D:/teamC.png";
+		ImageB = "D:/teamB";
+		ImageC = "D:/teamC";
 	}
 
 	@Override
@@ -284,6 +284,7 @@ public class TeamController implements Teamblservice {
 
 	@Override
 	public Image getTeamBar(int season, String teamname, SeasonType type) {
+		String filename = ImageB + teamname + Integer.toString(season) + (type == SeasonType.REGULAR ? "REGULAR" : "PLAYEROFF") + ".png";
 		TeamNormalPO team = teamservice
 				.getTeamNormalAve(season, teamname, type);
 		TeamNormalPO[] allteams = this.getAllTeamAve(season, type);
@@ -307,14 +308,14 @@ public class TeamController implements Teamblservice {
 		BLK.append(allteams[len - 1].getBlockNo());
 		String toWrite = "";
 		if(team != null){
-			toWrite = teamname + "\n" + PTS.toString() + "\n"
+			toWrite = filename + "\n" + teamname + "\n" + PTS.toString() + "\n"
 				+ REB.toString() + "\n" + AST.toString() + "\n"
 				+ STL.toString() + "\n" + BLK.toString() + "\n"
 				+ team.getPoints() + "," + team.getRebs() + ","
 				+ team.getAssistNo() + "," + team.getStealsNo() + ","
 				+ team.getBlockNo();
 		} else{
-			toWrite = teamname + "\n" + PTS.toString() + "\n"
+			toWrite = filename + "\n" + teamname + "\n" + PTS.toString() + "\n"
 					+ REB.toString() + "\n" + AST.toString() + "\n"
 					+ STL.toString() + "\n" + BLK.toString() + "\n"
 					+ "0,0,0,0,0";
@@ -327,7 +328,7 @@ public class TeamController implements Teamblservice {
 			output.close();
 			Process pr = Runtime.getRuntime().exec("python python\\teamBar.py");
 			pr.waitFor();
-			ImageIcon imageIcon = new ImageIcon(ImageB);    
+			ImageIcon imageIcon = new ImageIcon(filename);    
 			Image bar = imageIcon.getImage(); 
 			return bar;
 		} catch (IOException e) {
@@ -343,11 +344,12 @@ public class TeamController implements Teamblservice {
 	@Override
 	public Image getTeamCompare(int season, String teamname1, String teamname2,
 			SeasonType type) {
+		String filename = ImageC + teamname1 + teamname2 + Integer.toString(season) + (type == SeasonType.REGULAR? "REGULAR" : "PLAYEROFF") + ".png";
 		TeamNormalPO team1 = teamservice.getTeamNormalAve(season, teamname1, type);
 		TeamNormalPO team2 = teamservice.getTeamNormalAve(season, teamname2, type);
 		BufferedWriter output;
 		StringBuffer toWriteBuffer = new StringBuffer(100);
-		toWriteBuffer.append(teamname1 + "\n" + teamname2 + "\n");
+		toWriteBuffer.append(filename + "\n" + teamname1 + "\n" + teamname2 + "\n");
 		if(team1 != null && team2 != null){
 			toWriteBuffer.append(Double.toString(team1.getPoints()) + "," +
 				Double.toString(team1.getRebs()) + "," + Double.toString(team1.getAssistNo()) + "," + 
@@ -380,7 +382,7 @@ public class TeamController implements Teamblservice {
 			output.close();
 			Process pr = Runtime.getRuntime().exec("python python\\teamCompare.py");
 			pr.waitFor();
-			ImageIcon imageIcon = new ImageIcon(ImageC);    
+			ImageIcon imageIcon = new ImageIcon(filename);    
 			Image compare = imageIcon.getImage(); 
 			return compare;
 		} catch (IOException e) {

@@ -6,6 +6,7 @@ from numpy.lib.function_base import average
 def getData():
     file_object = open("D:/dataToP", 'r')
     try:
+         filename = file_object.readline().strip('\n') 
          playername1 = file_object.readline()
          playername2 = file_object.readline()
          #Calculate average performance
@@ -53,12 +54,12 @@ def getData():
     finally:
         file_object.close()
     
-    return data, maximum, playername1, playername2
+    return filename, data, maximum, playername1, playername2
 
 if __name__ == '__main__':
     N = 5
 
-    data, maximum, player1, player2 = getData()
+    filename, data, maximum, player1, player2 = getData()
     spoke_labels = data.pop('column names')
     colors = [(0.12568, 0.6549, 0.9019, 1), (0.8078, 0.8078, 0.8078, 1)]
 
@@ -73,12 +74,12 @@ if __name__ == '__main__':
     	d = np.concatenate((d, [d[0]])) # ±ÕºÏ
     	ax.plot(angles, d, color = color)
     	ax.fill(angles, d, facecolor = color, alpha = 0.25)
-    ax.set_thetagrids(angles * 180/np.pi, spoke_labels)
+    ax.set_thetagrids(angles * 180/np.pi, spoke_labels, fontsize = 20)
     ax.set_rlim(0, maximum + 0.2)
     ax.grid(True)
     ax.legend((player1, player2), loc=(0.9, .85), labelspacing=0.005)
-	
-    plt.savefig("D:/radar.png", dpi=30, facecolor='w', edgecolor='w',
+    
+    plt.savefig(filename, dpi=30, facecolor='w', edgecolor='w',
         orientation='portrait', papertype=None, format=None,
         transparent=True, bbox_inches=None, pad_inches=0.1,
         frameon=None)

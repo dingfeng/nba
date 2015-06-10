@@ -38,7 +38,7 @@ public class PlayerBlTest {
 	public void compareTest(){
 		String[] playerNames = this.getPlayernames();
 		Image result = playerservice.getCompareImage(2014, playerNames[0], playerNames[1], SeasonType.REGULAR);
-		assertEquals(true, true);
+		assertNotNull(result);
 	}
 	
 	//@Test

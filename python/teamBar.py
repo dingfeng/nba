@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 def getData():
     file_object = open("D:/teamBar", 'r')
     try:
+         filename = file_object.readline().strip('\n') 
          teamname = file_object.readline()
          #average performance
          average = np.zeros(5);
@@ -19,11 +20,11 @@ def getData():
     finally:
         file_object.close()
     
-    return teamname, dataSub1, average
+    return filename, teamname, dataSub1, average
  
 if __name__ == '__main__':
     N = 5
-    teamname, teamMeans, averageD = getData()
+    filename, teamname, teamMeans, averageD = getData()
  
     ind = np.arange(N)  # the x locations for the groups
     width = 0.4  # the width of the bars
@@ -48,7 +49,7 @@ def autolabel(rects):
 autolabel(rects1)
 autolabel(rects2)
 
-plt.savefig("D:/teamB.png", dpi=70, facecolor='w', edgecolor='w',
+plt.savefig(filename, dpi=70, facecolor='w', edgecolor='w',
         orientation='portrait', papertype=None, format=None,
         transparent=True, bbox_inches=None, pad_inches=0.1,
         frameon=None)
