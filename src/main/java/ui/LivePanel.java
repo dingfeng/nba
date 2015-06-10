@@ -57,7 +57,6 @@ public class LivePanel extends JPanel {
 	DefaultTableModel dataModel2 = new DefaultTableModel(rowimage, columnsName);
 	MyTable dataTable2 = new MyTable(dataModel2);
 	JScrollPane jScrollPane_data2 = new JScrollPane(dataTable2);
-	
 	DefaultTableModel pointModel = new DefaultTableModel(rowimage, columnsName);
 	MyTable pointsTable = new MyTable(pointModel);
 	{
@@ -385,7 +384,7 @@ public class LivePanel extends JPanel {
 		}
 	}
 	
-	
+	boolean inited = false;
 	void updateLiveTable(ArrayList<String> messages)
 	{
 		int rowNum = this.liveModel.getRowCount();
@@ -395,7 +394,14 @@ public class LivePanel extends JPanel {
 		String temp = null ;
 		for (int i = 0; i < margin; ++i)
 		{
+			if (!inited)
+			{
 			temp = messages.get(i);
+			}
+			else 
+			{
+				temp = messages.get(messagesSize - 1 - i);
+			}
 			tempArray = temp.split(" ");
 			if (tempArray.length == 4)
 			{
@@ -408,6 +414,7 @@ public class LivePanel extends JPanel {
 			  this.liveModel.addRow(s);;
 			}
 		}
+		inited= true;
 	}
 	void setText() {
 		livebutton = new MyToggleButton(new ImageIcon("image/live1.png"),
@@ -505,6 +512,8 @@ public class LivePanel extends JPanel {
 		columnsName.add("+/-");
 	    dataModel1.setDataVector(new Vector(), columnsName);
 	    dataModel2.setDataVector(new Vector(), columnsName);
+	    dataTable1.getColumnModel().getColumn(1).setPreferredWidth(200);
+	    dataTable2.getColumnModel().getColumn(1).setPreferredWidth(200);
 		this.repaint();
 	}
 	void showLive()
