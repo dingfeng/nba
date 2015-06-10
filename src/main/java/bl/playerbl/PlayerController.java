@@ -32,6 +32,7 @@ public class PlayerController implements PlayerBlService {
 	private String filenameC;
 	private String filenameL;
 	private String filenameB;
+	private String filenameAnalysis;
 	private String imageR;
 	private String imageC;
 	private String imageL;
@@ -44,6 +45,7 @@ public class PlayerController implements PlayerBlService {
 		filenameC = "D:/dataToPC";
 		filenameL = "D:/dataToPL";
 		filenameB = "D:/playerBar";
+		filenameAnalysis = "D:/analysis.csv";
 		imageR = "D:/radar";
 		imageC = "D:/compare";
 		imageL = "D:/line";
@@ -1050,16 +1052,43 @@ public class PlayerController implements PlayerBlService {
 		try {
 			PlayerNormalPO[] playerNormal = playerService.getSeasonPlayerNormalAve(2014, SeasonType.REGULAR);
 			int length = playerNormal.length;
+			StringBuffer dataToWrite = new StringBuffer(length * 20);
 			PlayerPO[] players = playerService.getAllActivePlayerData();
 			TIntObjectMap<PlayerNormalPO> playermap = new TIntObjectHashMap<PlayerNormalPO>(length);
 			for(PlayerNormalPO p : playerNormal){
-				
+				playermap.put(p.getName().hashCode(), p);
 			}
-			return true;
+			
+			//添加表头
+			dataToWrite.append("name,position,age,pts,rebs,ast\n");
+			
+			for(PlayerPO p : players){
+				PlayerNormalPO thisplayer = playermap.get(p.getName().hashCode());
+				if(thisplayer != null){
+					dataToWrite.append(p.getName() + "," + p.getPosition() + "," + p.getAge() + "," + 
+								thisplayer.getPoints() + "," + thisplayer.getRebs() + "," + thisplayer.getAssistNo() + "\n");
+				}
+			}
+			dataToWrite.trimToSize();
+			String toWrite = dataToWrite.toString();
+			try {
+				BufferedWriter output = new BufferedWriter(new FileWriter(new File(
+						filenameAnalysis)));
+				output.write(toWrite);
+				output.close();
+				return true;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	public void write(){
+		this.writeAnalyseData();
 	}
 }

@@ -29,6 +29,12 @@ public class PlayerBlTest {
 	}
 	
 	@Test
+	public void writeTest(){
+		PlayerController pc = new PlayerController();
+		pc.write();
+	}
+	
+	//@Test
 	public void PromoteTest(){
 		HotPlayerTeam[] pro1 = playerservice.getPromotePlayer(2014, "points", SeasonType.REGULAR);
 		HotPlayerTeam[] pro2 = playerservice.getPromotePlayer(2014, "help", SeasonType.REGULAR);
