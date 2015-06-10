@@ -66,7 +66,8 @@ public class ShowAllPlayerPanel extends JPanel {
 		}
 
 		// 根据姓名查找球员
-		EditableTextField playerNameTextField = new EditableTextField("按姓名查找");
+		EditableTextField playerNameTextField = new EditableTextField();
+		playerNameTextField.setText("按姓名查找");
 		playerNameTextField.setBackground(new Color(69, 69, 69));
 		playerNameTextField.setForeground(Color.white);
 		playerNameTextField.setBounds(27 * 30, 5,
