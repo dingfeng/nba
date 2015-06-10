@@ -1,5 +1,6 @@
 package bl.matchbl;
 
+import java.rmi.RemoteException;
 import java.util.Date;
 
 import dataservice.matchdataservice.MatchDataService;
@@ -31,63 +32,135 @@ public class MatchController implements Matchblservice {
 	
 	//获得当前赛季所有的赛后季比赛数据
 	public synchronized MatchesPO[] getPlayerOffMatches(int season){
-		return matchservice.getPlayerOffMatches(season);
+		try {
+			return matchservice.getPlayerOffMatches(season);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	// 获得某球员所有的比赛数据
 	public synchronized MatchesPO[] getRegularPlayerMatches(int season, String playername) {
-		return matchservice.getRegularPlayerMatchesn(season, playername, 100);
+		try {
+			return matchservice.getRegularPlayerMatchesn(season, playername, 100);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	// 获得某球队所有的比赛数据
 	public synchronized MatchesPO[] getRegularTeamMatches(int season, String teamname) {
-		return matchservice.getRegularTeamMatchesn(season, teamname, 100);
+		try {
+			return matchservice.getRegularTeamMatchesn(season, teamname, 100);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	// 获得在某一时间区间内的所有比赛信息
 	public synchronized MatchesPO[] getTimeMatches(Date date) {
-		return matchservice.getMatches(date);
+		try {
+			return matchservice.getMatches(date);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	@Override
 	public MatchesPO[] getRegularPlayerMatchesn(int season, String name) {
-		return matchservice.getRegularPlayerMatchesn(season, name, 5);
+		try {
+			return matchservice.getRegularPlayerMatchesn(season, name, 5);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
 	public MatchesPO[] getRegularTeamMatchesn(int season, String teamName) {
-		return matchservice.getRegularTeamMatchesn(season, teamName, 5);
+		try {
+			return matchservice.getRegularTeamMatchesn(season, teamName, 5);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
 	public MatchesPO[] getPlayerOffPlayerMatchesn(int season, String name) {
-		return matchservice.getPlayerOffPlayerMatchesn(season, name, 5);
+		try {
+			return matchservice.getPlayerOffPlayerMatchesn(season, name, 5);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
 	public MatchesPO[] getPlayerOffTeamMatchesn(int season, String teamName) {
-		return matchservice.getPlayerOffTeamMatchesn(season, teamName, 5);
+		try {
+			return matchservice.getPlayerOffTeamMatchesn(season, teamName, 5);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
 	public MatchesPO[] getPlayerOffPlayerMatches(int season, String playername) {
-		return matchservice.getPlayerOffPlayerMatchesn(season, playername, 100);
+		try {
+			return matchservice.getPlayerOffPlayerMatchesn(season, playername, 100);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
 	public MatchesPO[] getPlayerOffTeamMatches(int season, String teamname) {
-		return matchservice.getPlayerOffTeamMatchesn(season, teamname, 100);
+		try {
+			return matchservice.getPlayerOffTeamMatchesn(season, teamname, 100);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
 	public OldMatch[] getOldMatch(int season, int low, int high,
 			SeasonType seasonType) {
-		return matchservice.getOldMatch(season, low, high, seasonType);
+		try {
+			return matchservice.getOldMatch(season, low, high, seasonType);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
 	public OldMatch getOldMatchInfo(int matchId) {
-		return matchservice.getOldMatchInfo(matchId);
+		try {
+			return matchservice.getOldMatchInfo(matchId);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }
