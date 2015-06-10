@@ -6,6 +6,9 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 
@@ -49,7 +52,17 @@ public class MatchPanel extends JPanel {
 		matchmain.add("one", oneMatchScrollPane);
 		card.show(matchmain, "all");
 		this.add(matchmain);
-		// setTodayMatches(null);
+		
+		String s="2014-05-13";  
+		DateFormat df=new SimpleDateFormat("yyyy-MM-dd"); 
+		try {
+			Date date=df.parse(s);
+			setTodayMatches(date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("match");
+		} 
 		// test();
 	}
 
@@ -136,7 +149,7 @@ public class MatchPanel extends JPanel {
 				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		todatyMatchScrollPane
 				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		// this.add(todatyMatchScrollPane);
+		this.add(todatyMatchScrollPane);
 		card.show(matchmain, "all");
 		this.repaint();
 	}

@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
+import po.MatchesPO;
 import ui.mainui.FrameSize;
 import ui.mainui.MyFrame;
 import ui.mainui.MyTable;
@@ -17,24 +18,24 @@ import bl.matchbl.MatchController;
 import blservice.matchblservice.Matchblservice;
 
 public class RecentMatchPanel extends JPanel{
-	Matchblservice mc = new MatchController();
+
+	MatchController matchController = new MatchController();
 	String playerName;
 
 	Vector<String> columnsName = new Vector<String>();
+	Vector data = new Vector();
+	DefaultTableModel table = new DefaultTableModel(data, columnsName);
+	MyTable mytable = new MyTable(table);
 	
-	JScrollPane pastjScrollPane;
 	JScrollPane recentjScrollPane;
 
-	public RecentMatchPanel(String playername) {
+	public RecentMatchPanel() {
 		this.setLayout(null);
 		this.setBounds(0, 0,
-				 FrameSize.width , FrameSize.height*7/8*3/4-50);
+				 FrameSize.width , FrameSize.height * 3 / 4);
 		this.setBackground(Color.white);
-		
-		this.playerName = playername;
 
 		setText();
-		setRecentTable();
 		this.repaint();
 
 	}
@@ -53,34 +54,34 @@ public class RecentMatchPanel extends JPanel{
 	}
 
 	/** 近期比赛 */
-	void setRecentTable() {
-		Vector rowimage = new Vector();
+	public void setRecentTable(String playerName) {
+		columnsName.clear();
+		data.clear();
 		columnsName.add("日期");
 		columnsName.add("对阵队伍");
 		columnsName.add("比分");
-//		MatchesPO[] match = mc.getTimeMatches(null);
+		MatchesPO[] match = matchController.getRegularPlayerMatches(2014, playerName);
 
-//		for (int i = 0; i < 5; i++) {
-//			Vector data = new Vector();
-//			data.add(match[i].getDate());
-//			data.add(match[i].getTeam1().getName() + "-"
-//					+ match[i].getTeam2().getName());
-//			data.add(match[i].getTeam1().getTotalScores() + "-"
-//					+ match[i].getTeam2().getTotalScores());
-//
-//			rowimage.add(data);
-//		}
+		for (int i = match.length-1; i >match.length-6; i--) {
+			Vector rowData = new Vector();
+			rowData.add(match[i].getDate());
+			rowData.add(match[i].getTeam1().getName() + "-"
+					+ match[i].getTeam2().getName());
+			rowData.add(match[i].getTeam1().getTotalScores() + "-"
+					+ match[i].getTeam2().getTotalScores());
 
-		DefaultTableModel table = new DefaultTableModel(rowimage, columnsName);
-		MyTable recenttable = new MyTable(table);
-
-		recentjScrollPane = new JScrollPane(recenttable);
+			data.add(rowData);
+		}
+		table.setDataVector(data, columnsName);
+		
+		mytable.updateUI();
+		recentjScrollPane = new JScrollPane(mytable);
 
 		recentjScrollPane.setBounds(0, 30, FrameSize.width, FrameSize.height*3/4-180);
 		recentjScrollPane.setOpaque(false);
 		recentjScrollPane.getViewport().setOpaque(false);
 
-		recenttable.addMouseListener(new MouseAdapter() {
+		mytable.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
 
@@ -93,6 +94,7 @@ public class RecentMatchPanel extends JPanel{
 		});
 
 		this.add(recentjScrollPane);
+		this.repaint();
 	}
 
 

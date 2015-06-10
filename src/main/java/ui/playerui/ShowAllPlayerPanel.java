@@ -16,7 +16,9 @@ import javax.swing.table.DefaultTableModel;
 
 import po.HPlayerPO;
 import po.PlayerPO;
+import bl.playerbl.PlayerController;
 import bl.teambl.TeamController;
+import blservice.playerblservice.PlayerBlService;
 import ui.mainui.CharacterButton;
 import ui.mainui.EditableTextField;
 import ui.mainui.FrameSize;
@@ -28,6 +30,7 @@ import ui.mainui.MyTable;
 public class ShowAllPlayerPanel extends JPanel {
 
 	
+	PlayerBlService playerController = new PlayerController();
 	DefaultTableModel allPlayerTable = new DefaultTableModel();
 	MyTable myAllPlayerTable = new MyTable(allPlayerTable);
 	JScrollPane jAllPlayerScrollPane = new JScrollPane(myAllPlayerTable);
@@ -41,7 +44,7 @@ public class ShowAllPlayerPanel extends JPanel {
 		this.setOpaque(false);
 		JPanel headerPanel = HeaderPanel();
 		this.add(headerPanel);
-		setAllPlayerTable(null);
+		setAllPlayerTable(playerController.getPlayersWithStart(2014, "A"));
 	}
 
 	/** 查找栏 */
@@ -106,7 +109,7 @@ public class ShowAllPlayerPanel extends JPanel {
 			for (int i = 0; i < playerVOs.length; i++) {
 				Vector rowData = new Vector();
 				rowData.add(i+1);
-				rowData.add("大头照");
+				rowData.add(playerController.getPlayerImage(playerVOs[i].getName()));
 				rowData.add(playerVOs[i].getName());
 				rowData.add(playerVOs[i].getTeama());
 				rowData.add(playerVOs[i].getPosition());
@@ -115,45 +118,6 @@ public class ShowAllPlayerPanel extends JPanel {
 				rowData.add(playerVOs[i].getBirthCity());
 				rowData.add(playerVOs[i].getBirthday());
 				rowData.add(playerVOs[i].getNum());
-
-				data.add(rowData);
-			}
-			allPlayerTable = new DefaultTableModel(data, columnsName);
-			myAllPlayerTable = new MyTable(allPlayerTable);
-			jAllPlayerScrollPane = new JScrollPane(myAllPlayerTable);
-			jAllPlayerScrollPane.setBounds(0, 40, FrameSize.width,
-					FrameSize.width * 7 / 8 - 40);
-			this.add(jAllPlayerScrollPane);
-			this.repaint();
-		}
-		else{
-			Vector columnsName = new Vector();
-			columnsName.add(" ");
-			columnsName.add("球员");
-			columnsName.add("姓名");
-			columnsName.add("球队");
-			columnsName.add("位置");
-			columnsName.add("身高");
-			columnsName.add("体重");
-			columnsName.add("学校");
-			columnsName.add("城市");
-			columnsName.add("生日");
-			columnsName.add("球衣");
-
-			Vector data = new Vector();
-			for (int i = 0; i < 100; i++) {
-				Vector rowData = new Vector();
-				rowData.add(i);
-				rowData.add("辣");
-				rowData.add("辣");
-				rowData.add("还");
-				rowData.add("没");
-				rowData.add("有");
-				rowData.add("给");
-				rowData.add("俺");
-				rowData.add("接");
-				rowData.add("口");
-				rowData.add("啊");
 
 				data.add(rowData);
 			}
@@ -177,7 +141,6 @@ public class ShowAllPlayerPanel extends JPanel {
 
 			});
 		}
-
 	}
 
 	/**显示单个球员的所有信息*/

@@ -173,7 +173,8 @@ public class StatisticsPlayerPanel extends JPanel {
 			/* 03球队 */columnsName.add("球队");
 			/* 04效率 */columnsName.add("效率");
 			/* 05真实命中率 */columnsName.add("真实命中率");
-			/* 06GmSc */columnsName.add("GmSc");			/* 08篮板效率 */columnsName.add("篮板%");
+			/* 06GmSc */columnsName.add("GmSc");			
+			/* 07篮板效率 */columnsName.add("篮板%");
 			/* 08进攻篮板率 */columnsName.add("进攻%");
 			/* 09防守篮板率 */columnsName.add("防守%");
 			/* 10助攻率 */columnsName.add("助攻%");
