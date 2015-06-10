@@ -57,9 +57,10 @@ public interface PlayerBlService {
 	 * 获得进步最快球员 5名
 	 * @param season			赛季
 	 * @param sortby			排序依据
+	 * @param type				赛季类型
 	 * @return	相应赛季进步最快的5位球员
 	 */
-	public HotPlayerTeam[] getPromotePlayer(int season, String sortby);
+	public HotPlayerTeam[] getPromotePlayer(int season, String sortby, SeasonType type);
 	/**
 	 * 模糊查找球员
 	 * @param info				查找的开头字母

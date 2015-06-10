@@ -114,8 +114,33 @@ public class PlayerController implements PlayerBlService {
 	// 获得进步最快球员
 	@Override
 	public synchronized HotPlayerTeam[] getPromotePlayer(int season,
-			String sortby) {
-		return null;
+			String sortby, SeasonType type) {
+		String sortBy = sortby + "_uprate desc";
+		PlayerNormalPO[] players = playerService.sortPlayerNormalAven(season,
+				sortBy, 5, type);
+		HotPlayerTeam[] hotPlayers = new HotPlayerTeam[5];
+		double[] data = new double[5];
+		if (sortby.equals("points")) {
+			for (int i = 0; i != 5; i++) {
+				data[i] = players[i].getPoints_uprate();
+			}
+		} else if (sortby.equals("rebs")) {
+			for (int i = 0; i != 5; i++) {
+				data[i] = players[i].getRebs_uprate();
+			}
+		} else if (sortby.equals("help")) {
+			for (int i = 0; i != 5; i++) {
+				data[i] = players[i].getHelp_uprate();
+			}
+		}
+
+		String name;
+		for (int i = 0; i != 5; i++) {
+			name = players[i].getName();
+			hotPlayers[i] = new HotPlayerTeam(this.getPlayerImage(name), name,
+					data[i]);
+		}
+		return hotPlayers;
 	}
 
 	@Override

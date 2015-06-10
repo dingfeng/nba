@@ -3,7 +3,9 @@ package blservice.matchblservice;
 
 import java.util.Date;
 
+import dataservice.playerdataservice.SeasonType;
 import po.MatchesPO;
+import po.OldMatch;
 
 public interface Matchblservice 
 {
@@ -80,4 +82,5 @@ public interface Matchblservice
 	 * @return	球队该赛季最近5场季后赛比赛对象
 	 */
     public MatchesPO[] getPlayerOffTeamMatchesn(int season, String teamName);
+    public OldMatch[] getOldMatch(int season, int low, int high, SeasonType seasonType);
 }

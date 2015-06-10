@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import dataservice.playerdataservice.SeasonType;
 import po.PlayerPO;
+import vo.HotPlayerTeam;
 import blservice.playerblservice.PlayerBlService;
 
 public class PlayerBlTest {
@@ -27,14 +28,24 @@ public class PlayerBlTest {
 		return names;
 	}
 	
+	@Test
+	public void PromoteTest(){
+		HotPlayerTeam[] pro1 = playerservice.getPromotePlayer(2014, "points", SeasonType.REGULAR);
+		HotPlayerTeam[] pro2 = playerservice.getPromotePlayer(2014, "help", SeasonType.REGULAR);
+		HotPlayerTeam[] pro3 = playerservice.getPromotePlayer(2014, "rebs", SeasonType.REGULAR);
+		assertNotNull(pro1);
+		assertNotNull(pro2);
+		assertNotNull(pro3);
+	}
+	
 	//@Test
 	public void radarTest(){
 		String[] playerNames = this.getPlayernames();
 		Image result = playerservice.getRadarImage(2014, playerNames[0], SeasonType.REGULAR);
-		assertEquals(true, true);
+		assertNotNull(result);
 	}
 	
-	@Test
+	//@Test
 	public void compareTest(){
 		String[] playerNames = this.getPlayernames();
 		Image result = playerservice.getCompareImage(2014, playerNames[0], playerNames[1], SeasonType.REGULAR);
