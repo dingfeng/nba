@@ -7,7 +7,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import dataservice.playerdataservice.PlayerDataService;
@@ -208,18 +207,7 @@ public class TeamController implements Teamblservice {
 	// 根据球队简称查找其下的球员的场均数据 低阶
 	public PlayerNormalPO[] getAllPlayerMatchAve(int season, String teamname,
 			SeasonType type) {
-		String[] playernames = this.getPlayers(teamname);
-		ArrayList<PlayerNormalPO> players = new ArrayList<PlayerNormalPO>(
-				playernames.length);
-		PlayerNormalPO thisPlayer;
-		for (String p : playernames) {
-			thisPlayer = playerservice.getPlayerNormalAve(season, p, type);
-			if (thisPlayer != null) {
-				players.add(thisPlayer);
-			}
-		}
-		return (PlayerNormalPO[]) players.toArray(new PlayerNormalPO[players
-				.size()]);
+		return playerservice.getSeasonPlayerNormalOfTeam(season, type, teamname);
 	}
 
 	@Override
