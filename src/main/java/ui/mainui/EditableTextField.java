@@ -1,20 +1,16 @@
 package ui.mainui;
 
+import java.awt.Color;
+
 import javax.swing.JTextField;
 
 public class EditableTextField extends JTextField {
 
 	public EditableTextField(){
-		setFeature();
-	}
-	
-	public EditableTextField(String text){
-		setText(text);
-		setFeature();
-	}
-	
-	private void setFeature(){
-		this.setBorder(null);
+//		this.setBorder(null);
 		this.addFocusListener(new TextFieldAction());
+		this.setBackground(Color.white);
 	}
+	
+
 }

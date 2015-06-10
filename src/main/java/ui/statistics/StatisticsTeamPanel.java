@@ -165,19 +165,19 @@ public class StatisticsTeamPanel extends JPanel {
 		mytable.updateUI();
 
 		TableRowSorter rowSorter = (TableRowSorter) mytable.getRowSorter();  
-		 Comparator<Number> numberComparator = new Comparator<Number>() {  
+		 Comparator<String> numberComparator = new Comparator<String>() {  
 	            @Override  
-	            public int compare(Number o1, Number o2) {  
+	            public int compare(String o1, String o2) {  
 	                if ( o1 == null ) {  
 	                    return -1;  
 	                }  
 	                if ( o2 == null ) {  
 	                    return 1;  
 	                }  
-	                if ( o1.doubleValue() < o2.doubleValue() ) {  
+	                if ( Double.parseDouble(o1) < Double.parseDouble(o2)) {  
 	                    return -1;  
 	                }  
-	                if ( o1.doubleValue() > o2.doubleValue() ) {  
+	                if ( Double.parseDouble(o1) > Double.parseDouble(o2) ) {  
 	                    return 1;  
 	                }  
 	                return 0;  
