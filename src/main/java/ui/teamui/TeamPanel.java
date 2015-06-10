@@ -3,10 +3,10 @@ package ui.teamui;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Comparator;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -14,29 +14,19 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 
-import dataservice.playerdataservice.SeasonType;
-import po.TeamNormalPO;
 import po.TeamPO;
 import ui.mainui.FrameSize;
 import ui.mainui.MyButton;
-import ui.mainui.MyFrame;
 import ui.mainui.MyTable;
 import ui.mainui.MyToggleButton;
 import ui.mainui.UneditableTextField;
-import vo.SortType;
-import vo.TeamSortBy;
-import bl.playerbl.PlayerController;
 import bl.teambl.TeamController;
 
 public class TeamPanel extends JPanel {
@@ -282,43 +272,43 @@ public class TeamPanel extends JPanel {
 		find.setBounds(0, 0, FrameSize.width, FrameSize.height / 4);
 		find.setLayout(null);
 
-		JLabel name = new JLabel("队名");// 队伍名称
-		JLabel nameAbridge = new JLabel("缩写");// 名称缩写
+//		JLabel name = new JLabel("队名");// 队伍名称
+//		JLabel nameAbridge = new JLabel("缩写");// 名称缩写
 		JLabel address = new JLabel("所在地");// 所在地
 		JLabel matchArea = new JLabel("赛区");// 赛区
 		JLabel playerArea = new JLabel("分区");// 分区
 		JLabel manage = new JLabel("主场");// 主场
 		JLabel foundYear = new JLabel("建立时间");// 建立时间
 
-		name.setForeground(Color.black);
-		nameAbridge.setForeground(Color.black);
+//		name.setForeground(Color.black);
+//		nameAbridge.setForeground(Color.black);
 		address.setForeground(Color.black);
 		matchArea.setForeground(Color.black);
 		playerArea.setForeground(Color.black);
 		manage.setForeground(Color.black);
 		foundYear.setForeground(Color.black);
 
-		name.setBounds(FrameSize.width / 2, FrameSize.height / 40,
+//		name.setBounds(FrameSize.width / 3, FrameSize.height / 40,
+//				FrameSize.width / 12, 30);
+//		nameAbridge.setBounds(FrameSize.width / 3, FrameSize.height / 40 + 30,
+//				FrameSize.width / 24, 30);
+		address.setBounds(FrameSize.width / 2, FrameSize.height / 40 ,
 				FrameSize.width / 12, 30);
-		nameAbridge.setBounds(FrameSize.width / 2, FrameSize.height / 40 + 30,
-				FrameSize.width / 24, 30);
-		address.setBounds(FrameSize.width / 2, FrameSize.height / 40 + 60,
+		matchArea.setBounds(FrameSize.width / 2, FrameSize.height / 40 + 30,
 				FrameSize.width / 12, 30);
-		matchArea.setBounds(FrameSize.width / 2, FrameSize.height / 40 + 90,
+		playerArea.setBounds(FrameSize.width / 2, FrameSize.height / 40 + 60,
 				FrameSize.width / 12, 30);
-		playerArea.setBounds(FrameSize.width / 2, FrameSize.height / 40 + 120,
+		manage.setBounds(FrameSize.width / 2, FrameSize.height / 40 + 90,
 				FrameSize.width / 12, 30);
-		manage.setBounds(FrameSize.width / 2, FrameSize.height / 40 + 150,
-				FrameSize.width / 12, 30);
-		foundYear.setBounds(FrameSize.width / 2, FrameSize.height / 40 + 180,
+		foundYear.setBounds(FrameSize.width / 2, FrameSize.height / 40 + 120,
 				FrameSize.width / 12, 30);
 
 		for (int i = 0; i < 54; i++) {
 			teamlabel[i] = new UneditableTextField();
 		}
 
-		find.add(name);
-		find.add(nameAbridge);
+//		find.add(name);
+//		find.add(nameAbridge);
 		find.add(address);
 		find.add(matchArea);
 		find.add(playerArea);
@@ -348,21 +338,24 @@ public class TeamPanel extends JPanel {
 		image.setOpaque(false);
 
 		image.setBounds(30, 5, FrameSize.width / 6, FrameSize.width / 6);
-		nameresult.setBounds(FrameSize.width / 2 + 50, FrameSize.height / 40,
+		nameresult.setBounds(FrameSize.width / 4 , FrameSize.height / 40+30,
 				FrameSize.width / 12, 30);
-		nameAbridgeresult.setBounds(FrameSize.width / 2 + 50,
-				FrameSize.height / 40 + 30, FrameSize.width / 12, 30);
-		addressresult.setBounds(FrameSize.width / 2 + 50,
-				FrameSize.height / 40 + 60, FrameSize.width / 12, 30);
-		matchArearesult.setBounds(FrameSize.width / 2 + 50,
+		nameAbridgeresult.setBounds(FrameSize.width / 4 ,
 				FrameSize.height / 40 + 90, FrameSize.width / 12, 30);
+		addressresult.setBounds(FrameSize.width / 2 + 50,
+				FrameSize.height / 40 , FrameSize.width / 12, 30);
+		matchArearesult.setBounds(FrameSize.width / 2 + 50,
+				FrameSize.height / 40 + 30, FrameSize.width / 12, 30);
 		playerArearesult.setBounds(FrameSize.width / 2 + 50,
-				FrameSize.height / 40 + 120, FrameSize.width / 12, 30);
+				FrameSize.height / 40 + 60, FrameSize.width / 12, 30);
 		manageresult.setBounds(FrameSize.width / 2 + 50,
-				FrameSize.height / 40 + 150, FrameSize.width / 12, 30);
+				FrameSize.height / 40 + 90, FrameSize.width / 12, 30);
 		foundYearresult.setBounds(FrameSize.width / 2 + 50,
-				FrameSize.height / 40 + 180, FrameSize.width / 12, 30);
+				FrameSize.height / 40 + 120, FrameSize.width / 12, 30);
 
+		nameresult.setFont(new Font("微软雅黑",Font.BOLD,24));
+		nameAbridgeresult.setFont(new Font("微软雅黑",Font.BOLD,24));
+		
 		find.add(image);
 		find.add(nameresult);
 		find.add(nameAbridgeresult);

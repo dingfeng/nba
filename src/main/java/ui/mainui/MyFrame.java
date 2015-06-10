@@ -232,48 +232,23 @@ public class MyFrame extends JFrame {
 		teams.add(normal[i]);
 		}
 		TeamNormalPO[] teammatch = tc.getAllTeamTotal(2013, SeasonType.REGULAR);
-		int Southeast=0;
-		int Central=5;
-		int Atlantic=10;
-		int Pacific=15;
-		int Northwest=20;
-		int Southwest=25;
+		int West=0;
+		int East=1;
 		for (int i = 0; i < teammatch.length; i++) {
 			TeamPO team = tc.getTeamData(teammatch[i].getName());
-			String playerArea = team.getPlayerArea();
+			String playerArea = team.getMatchArea();
 			
 			switch (playerArea) {
-			case "Southeast":
-				normal[Southeast].setText(team.getName());
-				normal[Southeast].setIcon(FrameSize.scaleImage(new ImageIcon(team.getImage()),40,40));
-				Southeast++;
+			case "E":
+				normal[East].setText(team.getName());
+				normal[East].setIcon(FrameSize.scaleImage(new ImageIcon(team.getImage()),40,40));
+				East=East+2;
 				break;
 
-			case "Central":
-				normal[Central].setText(team.getName());
-				normal[Central].setIcon(FrameSize.scaleImage(new ImageIcon(team.getImage()),40,40));
-				Central++;
-				break;
-			case "Atlantic":
-				normal[Atlantic].setText(team.getName());
-				normal[Atlantic].setIcon(FrameSize.scaleImage(new ImageIcon(team.getImage()),40,40));
-				Atlantic++;
-				break;
-			case "Pacific":
-				normal[Pacific].setText(team.getName());
-				normal[Pacific].setIcon(FrameSize.scaleImage(new ImageIcon(team.getImage()),40,40));
-				Pacific++;
-				break;
-			case "Southwest":
-				normal[Southwest].setText(team.getName());
-				normal[Southwest].setIcon(FrameSize.scaleImage(new ImageIcon(team.getImage()),40,40));
-				Southwest++;
-				break;
-
-			case "Northwest":
-				normal[Northwest].setText(team.getName());
-				normal[Northwest].setIcon(FrameSize.scaleImage(new ImageIcon(team.getImage()),40,40));
-				Northwest++;
+			case "W":
+				normal[West].setText(team.getName());
+				normal[West].setIcon(FrameSize.scaleImage(new ImageIcon(team.getImage()),40,40));
+				West=West+2;
 				break;
 			}
 

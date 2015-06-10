@@ -309,7 +309,7 @@ public class HotPanel extends JPanel {
 			players = pc.getSeasonHotPlayer(2013, sortBy, SeasonType.REGULAR);
 			break;
 		case 4:
-			players = pc.getPromotePlayer(2013, sortBy);
+			players = pc.getPromotePlayer(2013, sortBy, SeasonType.REGULAR);
 		}
 		try {
 			portrait_1.setIcon(scaleImage(
@@ -538,11 +538,11 @@ public class HotPanel extends JPanel {
 		} else if (sortBy.equals("罚球命中率")) {
 			playerSortBy = "penaltyHitRate";
 		}else if (sortBy.equals("得分提升率")) {
-			playerSortBy = "penaltyHitRate";
+			playerSortBy = "points";
 		}else if (sortBy.equals("篮板提升率")) {
-			playerSortBy = "penaltyHitRate";
+			playerSortBy = "rebs";
 		}else if (sortBy.equals("助攻提升率")) {
-			playerSortBy = "penaltyHitRate";
+			playerSortBy = "help";
 		}
 		return playerSortBy;
 
