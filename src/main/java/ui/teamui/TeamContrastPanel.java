@@ -26,6 +26,10 @@ public class TeamContrastPanel extends JPanel{
 	}
 	
 	public void setChart(){
+		new Thread()
+		{
+			public void run()
+			{
 		String teamname=MyFrame.teampanel.nameAbridgeresult.getText();
 		Image image=tc.getTeamBar(2014, teamname, SeasonType.REGULAR);
 		
@@ -33,10 +37,12 @@ public class TeamContrastPanel extends JPanel{
 		imagelabel.setBounds((FrameSize.width-560)/2, 30, 560, 420);
 		imagelabel.setOpaque(false);		
 		imagelabel.repaint();
-		this.add(imagelabel);
-		this.repaint();
-		this.validate();
+		add(imagelabel);
+		repaint();
+		validate();
 		imagelabel.setVisible(true);
 		imagelabel.repaint();
+			}
+		}.start();
 	}
 }
