@@ -25,7 +25,9 @@ import ui.HotPanel;
 import ui.IndexPanel;
 import ui.LivePanel;
 import ui.MatchPanel;
+import ui.playerui.ShowAllPlayerPanel;
 import ui.playerui.ShowOnePlayerPanel;
+import ui.statistics.StatisticsPlayerPanel;
 import ui.statistics.StatisticsTeamPanel;
 import ui.teamui.TeamPanel;
 import bl.teambl.TeamController;
@@ -49,12 +51,12 @@ public class MyFrame extends JFrame {
 
 	public static IndexPanel indexpanel = new IndexPanel();
 	public static TeamPanel teampanel = new TeamPanel();
-	public static ShowOnePlayerPanel playerpanel = new ShowOnePlayerPanel();
+	public static ShowAllPlayerPanel playerpanel = new ShowAllPlayerPanel();
 	 public static HotPanel hotpanel = new HotPanel();
 	 public static MatchPanel matchpanel = new MatchPanel();
 //	public static StatisticsPlayerPanel statisticsPlayerPanel = new StatisticsPlayerPanel();
 	public static StatisticsTeamPanel statisticsTeamPanel = new StatisticsTeamPanel();
-	public static LivePanel livepanel=new LivePanel();
+//	public static LivePanel livepanel=new LivePanel();
 
 	TeamController tc=new TeamController();
 	// MatchController mc = new MatchController();
@@ -84,10 +86,10 @@ public class MyFrame extends JFrame {
 		mainpanel.add(playerpanel, "player");
 		mainpanel.add(teampanel, "team");
 		 mainpanel.add(matchpanel, "match");
-		 mainpanel.add(hotpanel, "hot");
+//		 mainpanel.add(hotpanel, "hot");
 //		mainpanel.add(statisticsPlayerPanel, "statisticsPlayer");
 		mainpanel.add(statisticsTeamPanel,"statisticsTeam");
-		mainpanel.add(livepanel,"live");
+//		mainpanel.add(livepanel,"live");
 		mainpanel.setBackground(Color.white);
 		
 		setExit();

@@ -39,7 +39,7 @@ public class StatisticsPlayerPanel extends JPanel {
 		this.setOpaque(false);
 		JPanel headerPanel = HeaderPanel();
 		this.add(headerPanel);
-		setTable(null,null,SeasonType.REGULAR,2014,"场均","基本");
+		setTable("C",Area.ATLANTIC,SeasonType.REGULAR,2013,"场均","基本");
 	}
 
 	/** 筛选栏 */

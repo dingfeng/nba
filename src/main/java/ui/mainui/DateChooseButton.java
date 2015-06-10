@@ -42,7 +42,7 @@ public class DateChooseButton extends JButton {
 	private String originalText = null;
 	private SimpleDateFormat sdf = null;
 	public DateChooseButton() {
-		/*this(getNowDate());*/
+		this(getNowDate());
 		this.setBackground(FrameSize.buttonbackColor);
 		this.setForeground(Color.white);
 	}
@@ -103,14 +103,17 @@ public class DateChooseButton extends JButton {
 
 	
 	private static Date getNowDate() {
-		MatchController mc=new MatchController();
-		String Date=mc.getTodayMatches()[0].getDate();
-		int month=Integer.parseInt(Date.split("-")[0]);
-		int day=Integer.parseInt(Date.split("-")[1]);
-		int year = 112;
+//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+		Calendar c = Calendar.getInstance();
+		int month = c.get(Calendar.MONTH);
+		int day = c.get(Calendar.DATE);
+//		String Date=mc.getTodayMatches()[0].getDate();
+//		int month=Integer.parseInt(Date.split("-")[0]);
+//		int day=Integer.parseInt(Date.split("-")[1]);
+		int year = 113;
 		
-		if(month<10){
-			year=113;
+		if(month<7){
+			year=114;
 		}
 		Date date=new Date();
 		
@@ -164,9 +167,9 @@ public class DateChooseButton extends JButton {
 		try {
 			date = getDefaultDateFormat().parse(s);
 		} catch (ParseException e) {
-			/*date = getNowDate();*/
+			date = getNowDate();
 		}
-		/*setDate(date);*/
+		setDate(date);
 	}
 
 	public void setText(SimpleDateFormat df, String s) {
@@ -212,8 +215,8 @@ setDate(date);
 	private class DateChooser extends JPanel implements ActionListener,
 			ChangeListener {
 
-		int startYear = 2012; // 默认【最小】显示年份
-		int lastYear = 2013; // 默认【最大】显示年份
+		int startYear = 1940; // 默认【最小】显示年份
+		int lastYear = 2015; // 默认【最大】显示年份
 		int width = 240; // 界面宽度
 		int height = 150; // 界面高度
 		Color backGroundColor = Color.gray; // 底色

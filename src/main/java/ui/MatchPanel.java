@@ -52,18 +52,7 @@ public class MatchPanel extends JPanel {
 		matchmain.add("one", oneMatchScrollPane);
 		card.show(matchmain, "all");
 		this.add(matchmain);
-		
-		String s="2014-05-13";  
-		DateFormat df=new SimpleDateFormat("yyyy-MM-dd"); 
-		try {
-			Date date=df.parse(s);
-			setTodayMatches(date);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("match");
-		} 
-		// test();
+
 	}
 
 	/** 查找栏 */
@@ -75,7 +64,7 @@ public class MatchPanel extends JPanel {
 
 		DateChooseButton dateButton = new DateChooseButton();
 		dateButton.setBounds(0, 5, 150, 30);
-		// dateButton.setEnd(this);
+		 dateButton.setEnd(this);
 		headerPanel.add(dateButton);
 
 		return headerPanel;
@@ -84,6 +73,7 @@ public class MatchPanel extends JPanel {
 
 	/** 一天的所有比赛 */
 	public void setTodayMatches(Date date) {
+		System.out.println(date);
 		todatyMatchScrollPane.getViewport().removeAll();
 		JPanel matchPanel = new JPanel();
 		matchPanel.setLayout(null);
@@ -92,24 +82,18 @@ public class MatchPanel extends JPanel {
 		for (int i = 0; i < matches.length; i++) {
 			MatchTeamPO team1 = matches[i].getTeam1();
 			MatchTeamPO team2 = matches[i].getTeam2();
+			System.out.println(team1.getName()+"-"+team2.getName());
+
 			matchLabel[i] = new JLabel();
 			matchLabel[i].setBounds(0, i * 200, FrameSize.width, 200);
 			JLabel teamImage1 = new JLabel(scaleImage(new ImageIcon(
 					teamController.getTeamData(team1.getName())
 							.getImage()), 150, 150));
-			// JLabel team1 = new JLabel();
-			// team1.setOpaque(true);
-			// team1.setBackground(Color.red);
 			teamImage1.setBounds(200, 25, 150, 150);
 			JLabel teamImage2 = new JLabel(scaleImage(new ImageIcon(
 					teamController.getTeamData(team2.getName())
 							.getImage()), 150, 150));
-			// JLabel team2 = new JLabel();
-			// team2.setOpaque(true);
-			// team2.setBackground(Color.blue);
 			teamImage2.setBounds(FrameSize.width - 350, 25, 150, 150);
-			// team1.setText("1-"+String.valueOf(i));
-			// team2.setText("2-"+String.valueOf(i));
 			matchLabel[i].add(teamImage1);
 			matchLabel[i].add(teamImage2);
 
@@ -149,7 +133,7 @@ public class MatchPanel extends JPanel {
 				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		todatyMatchScrollPane
 				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		this.add(todatyMatchScrollPane);
+//		this.add(todatyMatchScrollPane);
 		card.show(matchmain, "all");
 		this.repaint();
 	}
