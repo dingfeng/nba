@@ -71,7 +71,7 @@ public class MatchPanel extends JPanel {
 
 	}
 
-	/** 一天的所有比赛 */
+	/**一天的所有比赛 */
 	public void setTodayMatches(Date date) {
 		System.out.println(date);
 		todatyMatchScrollPane.getViewport().removeAll();
@@ -138,7 +138,7 @@ public class MatchPanel extends JPanel {
 		this.repaint();
 	}
 
-	/** 一场比赛的具体信息 */
+	/**一场比赛的具体信息 */
 	public void setOneMatch(MatchTeamPO team1,MatchTeamPO team2){
 		oneMatchScrollPane.getViewport().removeAll();
 		JPanel matchPanel = new JPanel();
