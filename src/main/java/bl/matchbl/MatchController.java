@@ -3,7 +3,9 @@ package bl.matchbl;
 import java.util.Date;
 
 import dataservice.matchdataservice.MatchDataService;
+import dataservice.playerdataservice.SeasonType;
 import po.MatchesPO;
+import po.OldMatch;
 import DataFactory.DataFactory;
 import DataFactoryService.NBADataFactory;
 import blservice.matchblservice.Matchblservice;
@@ -75,6 +77,17 @@ public class MatchController implements Matchblservice {
 	@Override
 	public MatchesPO[] getPlayerOffTeamMatches(int season, String teamname) {
 		return matchservice.getPlayerOffTeamMatchesn(season, teamname, 100);
+	}
+
+	@Override
+	public OldMatch[] getOldMatch(int season, int low, int high,
+			SeasonType seasonType) {
+		return matchservice.getOldMatch(season, low, high, seasonType);
+	}
+
+	@Override
+	public OldMatch getOldMatchInfo(int matchId) {
+		return matchservice.getOldMatchInfo(matchId);
 	}
 
 }

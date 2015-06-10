@@ -82,5 +82,19 @@ public interface Matchblservice
 	 * @return	球队该赛季最近5场季后赛比赛对象
 	 */
     public MatchesPO[] getPlayerOffTeamMatchesn(int season, String teamName);
+    /**
+     * <=1984赛季的比赛信息获取
+     * @param season		赛季
+     * @param low			从第几场开始（最小为0）
+     * @param high			到第几场结束
+     * @param seasonType	赛季类型
+     * @return 相应的比赛数据
+     */
     public OldMatch[] getOldMatch(int season, int low, int high, SeasonType seasonType);
+    /**
+     * 通过matchId获得<=1984赛季比赛数据
+     * @param matchId		比赛编号
+     * @return	返回相应比赛数据
+     */
+    public OldMatch getOldMatchInfo(int matchId);
 }
