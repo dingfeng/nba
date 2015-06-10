@@ -1,6 +1,8 @@
 package po;
 
-public class TeamNormalPO {
+import java.io.Serializable;
+
+public class TeamNormalPO implements Serializable{
 	private String name; // 球队名称
 	private int matchNo; // 比赛场数
 	private double hitNo; // 投篮命中数

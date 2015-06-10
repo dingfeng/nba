@@ -1,10 +1,14 @@
 package po;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.Serializable;
+
+import tool.ImageTool;
 
 
-public class TeamPO implements Comparable<TeamPO>{
-	private Image image; // 队伍图标
+public class TeamPO implements Comparable<TeamPO>, Serializable{
+	private byte[] image; // 队伍图标
 	private String name; // 队伍名称
 	private String nameAbridge; // 名称缩写
 	private String address; // 所在地
@@ -20,7 +24,8 @@ public class TeamPO implements Comparable<TeamPO>{
 	public TeamPO(Image image, String name, String nameAbridge, String address,
 			String matchArea, String playerArea, String manage, int foundYear) {
 		super();
-		this.image = image;
+		if (image != null)
+		this.image = ImageTool.imageToBytes_player(image, "png", BufferedImage.TYPE_INT_ARGB);
 		this.name = name;
 		this.nameAbridge = nameAbridge;
 		this.address = address;
@@ -31,7 +36,9 @@ public class TeamPO implements Comparable<TeamPO>{
 	}
 
 	public Image getImage() {
-		return image;
+		if (image != null)
+		return ImageTool.bytesToImage(image);
+		else return null;
 	}
 
 	public String getName() {

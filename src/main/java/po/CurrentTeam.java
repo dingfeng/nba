@@ -1,9 +1,10 @@
-package live;
+package po;
 
 import java.awt.Image;
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class CurrentTeam {
+public class CurrentTeam implements Serializable{
 	   String teamName;       //球队名称
        CurrentPlayer[] firsts; //首发
        CurrentPlayer[] benches; //替补

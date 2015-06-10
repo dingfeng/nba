@@ -1,16 +1,20 @@
 package po;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class OldMatch {
+import tool.ImageTool;
+
+public class OldMatch implements Serializable{
        int matchId;
        String host_team;
        String guest_team;
        String pt1[];
        String pt2[];
        String date;
-       Image img;
+       byte[] img;
        public String toString()
        {
     	   StringBuilder sb = new StringBuilder();
@@ -26,7 +30,8 @@ public class OldMatch {
     	   this.guest_team = guest_team;
     	   this.pt1 = pt1;
     	   this.pt2 = pt2;
-    	   this.img = img;
+    	   if (img != null)
+    	   this.img = ImageTool.imageToBytes_player(img, "jpg", BufferedImage.TYPE_INT_RGB);
     	   this.date = date;
        }
        public OldMatch(int matchId, String host_team, String guest_team,String date)
@@ -42,7 +47,9 @@ public class OldMatch {
        }
        public Image getImg()
        {
-    	   return img;
+    	   if (img!= null)
+    	   return ImageTool.bytesToImage(img);
+    	   else return null;
        }
 	public int getMatchId() {
 		return matchId;

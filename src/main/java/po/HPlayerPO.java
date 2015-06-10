@@ -1,8 +1,11 @@
 package po;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public class HPlayerPO {
+import tool.ImageTool;
+public class HPlayerPO implements Serializable{
    String name;
    String totalName;
    String position;
@@ -15,12 +18,15 @@ public class HPlayerPO {
    String num;
    String teama;
    String gameArea;
-   Image image;
+   byte[] image;
+//   Image image;
    public HPlayerPO(String name, String totalName, String position, String height,
 		String weight, String birthday, String birthCity, String high_school,
 		String university, String num, String teama, String gameArea,Image image) {
 	super();
-	this.image = image;
+	if (image != null)
+	this.image = ImageTool.imageToBytes_player(image, "png",BufferedImage.TYPE_INT_ARGB);
+//	this.image = image;
 	this.teama = teama;
 	this.gameArea = gameArea;
 	this.name = name;
@@ -36,7 +42,10 @@ public class HPlayerPO {
 }
 public Image getImage()
 {
-	return image;
+	if (image != null)
+	return ImageTool.bytesToImage(image);
+	else return null;
+	//	return image;
 }
 public String getTeama()
 {

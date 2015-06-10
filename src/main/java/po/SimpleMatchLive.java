@@ -1,6 +1,8 @@
-package live;
+package po;
 
-public class SimpleMatchLive {
+import java.io.Serializable;
+
+public class SimpleMatchLive implements Serializable{
        private int matchId;
        private String hostTeam;
        private String guestTeam;

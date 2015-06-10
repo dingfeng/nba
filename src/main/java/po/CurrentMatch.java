@@ -1,8 +1,9 @@
-package live;
+package po;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class CurrentMatch 
+public class CurrentMatch implements Serializable
 {
   CurrentTeam team1;
   CurrentTeam team2;

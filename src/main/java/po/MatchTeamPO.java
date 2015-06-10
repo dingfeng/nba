@@ -1,7 +1,9 @@
 package po;
 
+import java.io.Serializable;
 
-public class MatchTeamPO {
+
+public class MatchTeamPO implements Serializable{
        private MatchPlayerPO[] players;
        private int[] scores;
        private int totalScores;

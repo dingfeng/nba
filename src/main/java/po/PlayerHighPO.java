@@ -1,6 +1,8 @@
 package po;
 
-public class PlayerHighPO {
+import java.io.Serializable;
+
+public class PlayerHighPO implements Serializable{
 	private String playerName;
 	private String teamName;
 	private double efficiency;// 效率

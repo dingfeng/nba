@@ -1,6 +1,8 @@
 package po;
 
-public class SimpleMatchPO {
+import java.io.Serializable;
+
+public class SimpleMatchPO implements Serializable{
        String team1;
        String team2;
        int scores1;

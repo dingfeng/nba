@@ -1,6 +1,8 @@
 package po;
 
-public class MatchPlayerPO implements Comparable<MatchPlayerPO>
+import java.io.Serializable;
+
+public class MatchPlayerPO implements Comparable<MatchPlayerPO>, Serializable
 {
 	private String name;// 球员名称
 	private String location;//位置

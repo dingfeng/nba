@@ -7,6 +7,9 @@
  * 
  */
 package dataservice.playerdataservice;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
 import po.HPlayerPO;
 import po.MatchPlayerPO;
 import po.PlayerHighPO;
@@ -29,14 +32,14 @@ import po.PlayerPO;
  * @version 1.0
  * @since JDK 1.8
  */
-public interface PlayerDataService {
+public interface PlayerDataService extends Remote{
 	//得到所有球员数据
     /**
      * 获得所有现役球员<br/>
      * 
      * @return 所有现役球员
      */
-	public PlayerPO[] getAllActivePlayerData();
+	public PlayerPO[] getAllActivePlayerData()throws RemoteException;
 	//获得球员某个赛季的高阶数据
 	/**
 	 * getPlayerHigh 获得球员某个赛季的高阶数据 <br/>
@@ -46,7 +49,7 @@ public interface PlayerDataService {
 	 * @param type       赛季类型
 	 * @return           球员高阶数据
 	 */
-	public PlayerHighPO getPlayerHigh(int season,String playerName,SeasonType type);
+	public PlayerHighPO getPlayerHigh(int season,String playerName,SeasonType type)throws RemoteException;
 	//高阶数据排序
 	/**
 	 * 高阶数据排序 <br/>
@@ -56,7 +59,7 @@ public interface PlayerDataService {
 	 * @param type      赛季类型
 	 * @return          排序后的高阶数据
 	 */
-	public PlayerHighPO[] sortPlayerHighn(int season, String sort,int n, SeasonType type);
+	public PlayerHighPO[] sortPlayerHighn(int season, String sort,int n, SeasonType type)throws RemoteException;
 	//获得某个球员赛季总基础数据
 	/**
 	 * 返回某个球员的赛季总数据基础数据<br/>
@@ -65,7 +68,7 @@ public interface PlayerDataService {
 	 * @param type         赛季类型
 	 * @return             赛季总基础数据
 	 */
-	public PlayerNormalPO getPlayerNormalTotal(int season, String playerName, SeasonType type);
+	public PlayerNormalPO getPlayerNormalTotal(int season, String playerName, SeasonType type)throws RemoteException;
 	//排序球员赛季总数据
 	/**
 	 * 排序球员赛季总数据<br/>
@@ -75,7 +78,7 @@ public interface PlayerDataService {
 	 * @param type		赛季类型
 	 * @return			排序后的赛季总基础数据
 	 */
-	public PlayerNormalPO[] sortPlayerNormalTotal(int season, String sort, int n, SeasonType type);
+	public PlayerNormalPO[] sortPlayerNormalTotal(int season, String sort, int n, SeasonType type)throws RemoteException;
   	//获得某个球员赛季场均数据
 	/**
 	 * 获得某个球员赛季场均数据<br/>
@@ -84,7 +87,7 @@ public interface PlayerDataService {
 	 * @param type			赛季类型
 	 * @return				赛季场均数据
 	 */
-	public PlayerNormalPO getPlayerNormalAve(int season, String playerName, SeasonType type);
+	public PlayerNormalPO getPlayerNormalAve(int season, String playerName, SeasonType type)throws RemoteException;
 	//排序球员的场均基础数据
 	/**
 	 * 排序球员的赛季场均基础数据<br/>
@@ -94,7 +97,7 @@ public interface PlayerDataService {
 	 * @param type		赛季类型
 	 * @return			排序后的赛季场均数据
 	 */
-	public PlayerNormalPO[] sortPlayerNormalAven(int season, String sort, int n, SeasonType type);
+	public PlayerNormalPO[] sortPlayerNormalAven(int season, String sort, int n, SeasonType type)throws RemoteException;
 	//获得球员的所有赛季总数据<br/>
 	/**
 	 * 获得球员的所有赛季总数据<br/>
@@ -102,7 +105,7 @@ public interface PlayerDataService {
 	 * @param type			赛季类型
 	 * @return				所有赛季总数据
 	 */
-	public PlayerNormalPO[] getPlayerAllSeasonsTotal(String playerName, SeasonType type);
+	public PlayerNormalPO[] getPlayerAllSeasonsTotal(String playerName, SeasonType type)throws RemoteException;
 	//获得球员的赛季场均数据
 	/**
 	 * 获得球员的所有赛季场均数据 <br/>
@@ -110,7 +113,7 @@ public interface PlayerDataService {
 	 * @param type			赛季类型
 	 * @return				所有赛季场均数据
 	 */
-	public PlayerNormalPO[] getPlayerAllSeasonsAve(String playerName, SeasonType type);
+	public PlayerNormalPO[] getPlayerAllSeasonsAve(String playerName, SeasonType type)throws RemoteException;
 	//获得球员的所有的赛季高阶数据
 	/**
 	 * 获得球员的所有的赛季高阶数据 <br/>
@@ -118,28 +121,28 @@ public interface PlayerDataService {
 	 * @param type			赛季类型
 	 * @return				该球员的所有赛季高阶数据
 	 */
-	public PlayerHighPO[] getPlayerAllSeasons(String playerName, SeasonType type);
+	public PlayerHighPO[] getPlayerAllSeasons(String playerName, SeasonType type)throws RemoteException;
 	//通过首字符获得
 	/**
 	 * 通过首字符串获得<br/>
 	 * @param ini	首字符串
 	 * @return		所有符合条件的球员
 	 */
-	public HPlayerPO[] getHPlayerByIni(String ini);
+	public HPlayerPO[] getHPlayerByIni(String ini)throws RemoteException;
 	//模糊查找
 	/**
 	 * 模糊查找<br/>
 	 * @param info		模糊查找依据
 	 * @return			符合条件所有球员名
 	 */
-	public String[] fuzzilySearch(String info);
+	public String[] fuzzilySearch(String info)throws RemoteException;
 	//现役球员名查找
 	/**
 	 * 现役球员名查找<br/>
 	 * @param playerName	球员名
 	 * @return				球员信息
 	 */
-	public HPlayerPO findPlayer(String playerName);
+	public HPlayerPO findPlayer(String playerName)throws RemoteException;
 	//获得某个赛季的所有球员
 	/**
 	 * 获得某个赛季所有参赛球员的赛季场均基础数据<br/>
@@ -147,28 +150,28 @@ public interface PlayerDataService {
 	 * @param type		赛季类型
 	 * @return			所有球员的赛季场均基础数据
 	 */
-	public PlayerNormalPO[] getSeasonPlayerNormalAve(int season,SeasonType type);
+	public PlayerNormalPO[] getSeasonPlayerNormalAve(int season,SeasonType type)throws RemoteException;
 	/**
 	 * 获得某个赛季的所有参赛球员的赛季总基础数据<br/>
 	 * @param season	赛季
 	 * @param type		赛季类型
 	 * @return			所有参赛球员的赛季总基础数据
 	 */
-	public PlayerNormalPO[] getSeasonPlayerNormalTotal(int season, SeasonType type);
+	public PlayerNormalPO[] getSeasonPlayerNormalTotal(int season, SeasonType type)throws RemoteException;
 	/**
 	 * 获得某个赛季的所有参赛球员的赛季高级数据<br/>
 	 * @param season	赛季
 	 * @param type		赛季类型
 	 * @return			所参赛球员的赛季高阶数据
 	 */
-	public PlayerHighPO[] getSeasonPlayerHigh(int season, SeasonType type);
+	public PlayerHighPO[] getSeasonPlayerHigh(int season, SeasonType type)throws RemoteException;
 	//获得球队所有球员
 	/**
 	 * 获得某个球队的球员<br/>
 	 * @param team	球员缩写名
 	 * @return		在该球员服役的球员
 	 */
-	public PlayerPO[] getPlayersOfTeam(String team);
+	public PlayerPO[] getPlayersOfTeam(String team)throws RemoteException;
 	//球员筛选
 	/**
 	 * 根据条件筛选球员<br/>
@@ -178,16 +181,16 @@ public interface PlayerDataService {
 	 * @param n				返回数目
 	 * @return				符合条件的球员信息
 	 */
-	public PlayerPO[] screenPlayer(String sort,String match_area,String postion,int n);
+	public PlayerPO[] screenPlayer(String sort,String match_area,String postion,int n)throws RemoteException;
 	/**
 	 * 获得某个赛季的该球员的每场得比赛的数据
 	 * @param season	赛季
 	 * @param name		球员姓名
 	 * @return			该球员在该赛季的每场比赛的数据
 	 */
-	public MatchPlayerPO[] getSeasonMatches(int season, String name, SeasonType type);
+	public MatchPlayerPO[] getSeasonMatches(int season, String name, SeasonType type)throws RemoteException;
 	//获得某个赛季球队球员的数据
-	public PlayerNormalPO[] getSeasonPlayerNormalOfTeam(int season, SeasonType type,String teamName);
+	public PlayerNormalPO[] getSeasonPlayerNormalOfTeam(int season, SeasonType type,String teamName)throws RemoteException;
 //	public PlayerNormalPO[] sortPlayerNormalTotalHis(String sort, int n);
 //	public PlayerNormalPO sortPlayerNormalAveHis(String sort, int n);
 }

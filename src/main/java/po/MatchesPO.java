@@ -1,6 +1,8 @@
 package po;
 
-public class MatchesPO {
+import java.io.Serializable;
+
+public class MatchesPO implements Serializable{
 	   
        private MatchTeamPO team1;
        private MatchTeamPO team2;

@@ -1,34 +1,20 @@
 package DataFactory;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import data.matchdata.MatchData;
-import data.playerdata.PlayerData;
-import data.teamdata.TeamData;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import dataservice.matchdataservice.MatchDataService;
 import dataservice.playerdataservice.PlayerDataService;
 import dataservice.teamdataservice.TeamDataService;
 import DataFactoryService.NBADataFactory;
 
 public class DataFactory implements NBADataFactory{
-    private static MatchDataService matchData;
-    private static TeamDataService teamData;
-    private static PlayerDataService playerData;
-//	private String usr = "root";
-//	private String password = "root";
-	private String url = "jdbc:mysql://dingfeng:3306/nba?useUnicode=true&characterEncoding=utf8";
-//	String url = "jdbc:mysql://dingfeng:3306/nba";
-//	private String url = "jdbc:mysql://127.0.0.1:3306/nba";
-//	String url = "jdbc:mysql://dingfeng:3306/nba";
-	private String driver = "com.mysql.jdbc.Driver";
-	private Connection conn;
-	private static NBADataFactory factory;
-	private  DataFactory() throws Exception
-	{
-   	 Class.forName(driver);
-//   	 conn = DriverManager.getConnection(url,"root","");
-   	conn = DriverManager.getConnection(url,"root","");
-	} 
+	private MatchDataService matchData;
+	private PlayerDataService playerData;
+	private TeamDataService teamData;
+	private static NBADataFactory factory ;
+	private String ip  = "rmi://dingfeng/";
 	public static NBADataFactory instance() throws Exception
 	{
 		if (factory == null)
@@ -40,7 +26,12 @@ public class DataFactory implements NBADataFactory{
 	public MatchDataService getMatchData() {
 		if (matchData == null)
 		{
-			matchData = new MatchData(conn);
+			try {
+				matchData = (MatchDataService) Naming.lookup(ip+"MatchData");
+			} catch (MalformedURLException | RemoteException
+					| NotBoundException e) {
+				e.printStackTrace();
+			}
 		}
 		return matchData;
 	}
@@ -49,7 +40,12 @@ public class DataFactory implements NBADataFactory{
 	public PlayerDataService getPlayerData() {
 		if (playerData == null)
 		{
-			playerData = new PlayerData(conn);
+			try {
+				playerData = (PlayerDataService) Naming.lookup(ip+"PlayerData");
+			} catch (MalformedURLException | RemoteException
+					| NotBoundException e) {
+				e.printStackTrace();
+			}
 		}
 		return playerData;
 	}
@@ -58,7 +54,12 @@ public class DataFactory implements NBADataFactory{
 	public TeamDataService getTeamData() {
 		if (teamData == null)
 		{
-			teamData = new TeamData(conn);
+			try {
+				teamData = (TeamDataService) Naming.lookup(ip+"TeamData");
+			} catch (MalformedURLException | RemoteException
+					| NotBoundException e) {
+				e.printStackTrace();
+			}
 		}
 		return teamData;
 	}

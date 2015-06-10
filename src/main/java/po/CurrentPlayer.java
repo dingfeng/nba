@@ -1,8 +1,9 @@
-package live;
+package po;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class CurrentPlayer {
+public class CurrentPlayer implements Serializable{
 	  String name;    //姓名
       String position;//位置
       String time;    //时间

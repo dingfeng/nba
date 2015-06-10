@@ -1,9 +1,10 @@
 package po;
 
 import java.awt.Image;
+import java.io.Serializable;
 
 
-public class PlayerPO implements Comparable<PlayerPO>{
+public class PlayerPO implements Comparable<PlayerPO>, Serializable{
 
 	private String name;// 姓名
 	private int number;// 球衣号码

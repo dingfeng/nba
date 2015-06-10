@@ -1,6 +1,8 @@
 package po;
 
-public class TeamHighPO {
+import java.io.Serializable;
+
+public class TeamHighPO implements Serializable{
 	private String name;
 	private double offenseRound; // 进攻回合
 	private double offenseEfficiency;// 进攻效率
