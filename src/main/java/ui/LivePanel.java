@@ -112,7 +112,7 @@ public class LivePanel extends JPanel {
 		Font f2 = new Font("宋体",Font.BOLD,20);
 		Font f3 = new Font("宋体",Font.PLAIN,13);
 		Font f4 = new Font("宋体",Font.PLAIN,13);
-		 guestTeamImage = new JLabel("guestTeamImage");;
+		 guestTeamImage = new JLabel();;
 		guestTeamImage.setBounds((int)((990-150)/1200.0 * w), 0, (int)(150/1200.0 * w), (int)(150/800.0 * h));
 		guestTeamImage.setOpaque(true);
 		 guestTeamName = new JLabel("骑士（1）");
@@ -127,7 +127,7 @@ public class LivePanel extends JPanel {
 		guestTeamScores.setBounds((int)((990-300)/1200.0 * w), 0, (int)(150/800.0 * h), (int)(75/1200.0 * w));
 		guestTeamScores.setOpaque(true);
 		guestTeamScores.setFont(f1);
-		 hostTeamImage = new JLabel("hostTeamImage");
+		 hostTeamImage = new JLabel();
 		hostTeamImage.setBounds(0, 0, (int)(150/1200.0 * w), (int)(150/800.0 * h));
 		hostTeamImage.setOpaque(true);
 		 hostTeamName = new JLabel("勇士（1）");
@@ -311,11 +311,13 @@ public class LivePanel extends JPanel {
 		  String win2 = team2.getWin();
 		  Image teamImg1 = team1.getImg();
 		  Image teamImg2 = team2.getImg();
-//		  hostTeamImage.setIcon(new ImageIcon(teamImg1));;
+		  if (teamImg1 != null)
+		  hostTeamImage.setIcon(new ImageIcon(teamImg1));;
 		  hostTeamName.setText(teamName1+" "+win1);;
 		  hostTeamInfo.setText(teamInfo1);;
 		  hostTeamScores.setText(totalScores1);;
-//		  guestTeamImage.setIcon(new ImageIcon(teamImg2));;
+		  if (teamImg2 != null)
+		  guestTeamImage.setIcon(new ImageIcon(teamImg2));;
 		 guestTeamName.setText(teamName2+" "+win2);;
 		 guestTeamInfo.setText(teamInfo2);
 		 guestTeamScores.setText(totalScores2);;
