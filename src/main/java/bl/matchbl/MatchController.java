@@ -163,4 +163,15 @@ public class MatchController implements Matchblservice {
 		return null;
 	}
 
+	@Override
+	public MatchesPO getMatchById(int matchId) {
+		try {
+			return matchservice.getMatchById(matchId);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

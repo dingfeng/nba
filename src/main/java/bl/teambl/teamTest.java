@@ -33,7 +33,7 @@ public class teamTest {
 		assertEquals(true, true);
 	}
 	
-	@Test
+	//@Test
 	public void testTeamCompare(){
 		String[] teamnames = teamservice.getTeamNames();
 		Image image = teamservice.getTeamCompare(2014, teamnames[3], teamnames[6], SeasonType.PLAYOFF);
@@ -41,11 +41,27 @@ public class teamTest {
 		assertNotNull(image);
 	}
 	
-	@Test
+	//@Test
 	public void testTeamBar(){
 		String[] teamnames = teamservice.getTeamNames();
 		Image image = teamservice.getTeamBar(2014, teamnames[7], SeasonType.PLAYOFF);
 		assertNotNull(image);
+	}
+	
+	@Test
+	public void TeamCompareGenerater(){
+		String[] teamnames = teamservice.getTeamNames();
+		for(String t1 : teamnames){
+			teamservice.getTeamCompare(2014, "WAS", t1, SeasonType.REGULAR);
+		}
+	}
+	
+	//@Test
+	public void TeamBarGenerater(){
+		String[] teamnames = teamservice.getTeamNames();
+		for(String t : teamnames){
+			teamservice.getTeamBar(2014, t, SeasonType.REGULAR);
+		}
 	}
 	
 	//@Test

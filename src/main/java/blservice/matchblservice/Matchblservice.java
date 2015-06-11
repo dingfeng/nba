@@ -97,4 +97,10 @@ public interface Matchblservice
      * @return	返回相应比赛数据
      */
     public OldMatch getOldMatchInfo(int matchId);
+    /**
+     * 通过matchId获得>1984赛季比赛数据
+     * @param matchId		比赛编号
+     * @return	返回相应比赛数据
+     */
+    public MatchesPO getMatchById(int matchId);
 }
