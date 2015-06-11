@@ -97,6 +97,9 @@ public class MatchPanel extends JPanel {
 			teamImage2.setBounds(FrameSize.width - 350, 25, 150, 150);
 			matchLabel[i].add(teamImage1);
 			matchLabel[i].add(teamImage2);
+			
+			JLabel teamName1 = new JLabel(team1.getName());
+			JLabel teamName2 = new JLabel(team2.getName());
 
 			int column = team1.getScores().length+1;
 			JLabel[][] scores = new JLabel[3][column];
