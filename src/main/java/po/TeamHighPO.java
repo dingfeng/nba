@@ -49,32 +49,68 @@ public class TeamHighPO implements Serializable{
 		sb.append("\n");
 		return sb.toString();
 	}
+	/**
+	 * 获得赛季
+	 * @return  赛季
+	 */
 	public int getSeason()
 	{
 		return season;
 	}
+	/**
+	 * 获得球队名
+	 * @return  球队名
+	 */
 	public String getName()
 	{
 		return name;
 	}
+	/**
+	 * 获得进攻回合数
+	 * @return  进攻回合数
+	 */
 	public double getOffenseRound() {
 		return offenseRound;
 	}
+	/**
+	 * 获得进攻效率
+	 * @return  进攻效率
+	 */
 	public double getOffenseEfficiency() {
 		return offenseEfficiency;
 	}
+	/**
+	 * 获得防守效率
+	 * @return  防守效率
+	 */
 	public double getDefenceEfficiency() {
 		return defenceEfficiency;
 	}
+	/**
+	 * 获得篮板效率
+	 * @return  篮板效率
+	 */
 	public double getOrebsEfficiency() {
 		return orebsEfficiency;
 	}
+	/**
+	 * 获得防守篮板效率
+	 * @return 防守篮板效率
+	 */
 	public double getDrebsEfficiency() {
 		return drebsEfficiency;
 	}
+	/**
+	 * 获得抢断率
+	 * @return 抢断率
+	 */
 	public double getStealsEfficiency() {
 		return stealsEfficiency;
 	}
+	/**
+	 * 获得助攻率
+	 * @return  助攻率
+	 */
 	public double getAssistEfficiency() {
 		return assistEfficiency;
 	}

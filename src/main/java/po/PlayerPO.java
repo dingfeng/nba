@@ -45,52 +45,89 @@ public class PlayerPO implements Comparable<PlayerPO>, Serializable{
 //	{
 //		return teamnameAbridge;
 //	}
-	
+	/**
+	 * 获得球队
+	 * @return  球队
+	 */
 	public String getTeamA()
 	{
 		return teama;
 	}
+	/**
+	 * 获得联盟
+	 * @return  联盟
+	 */
 	public String getGameArea()
 	{
 		return gameArea;
 	}
-
+    /**
+     * 获得名字
+     * @return  名字
+     */
 	public String getName() {
 		return name;
 	}
-
+    /**
+     * 获得球衣号
+     * @return  球衣号
+     */
 	public int getNumber() {
 		return number;
 	}
-
+    /**
+     * 获得位置
+     * @return  位置
+     */
 	public String getPosition() {
 		return position;
 	}
-
+    /**
+     * 获得身高（英尺）
+     * @return  身高（英尺）
+     */
 	public int getHeightfeet() {
 		return heightfeet;
 	}
-
+    /**
+     * 获得身高(英寸)
+     * @return  身高（英寸）
+     */
 	public int getHeightinch() {
 		return heightinch;
 	}
-
+    /**
+     * 获得体重
+     * @return  体重
+     */
 	public int getWeight() {
 		return weight;
 	}
-
+    /**
+     * 获得生日
+     * @return  生日
+     */
 	public String getBirth() {
 		return birth;
 	}
-
+    /**
+     * 获得年龄
+     * @return  年龄
+     */
 	public int getAge() {
 		return age;
 	}
-
+    /**
+     * 获得球龄
+     * @return  球龄
+     */
 	public int getExp() {
 		return exp;
 	}
-
+   /**
+    * 获得学校
+    * @return  学校
+    */
 	public String getSchool() {
 		return school;
 	}
@@ -109,7 +146,9 @@ public class PlayerPO implements Comparable<PlayerPO>, Serializable{
 		sb.append(gameArea+" ");
 		return sb.toString();
 	}
-
+   /**
+    * 比较
+    */
 	@Override
 	public int compareTo(PlayerPO e) {
 		return name.compareTo(e.getName());

@@ -198,7 +198,7 @@ public interface PlayerDataService extends Remote{
 	 * @param type      赛季类型
 	 * @param teamName  球队名
 	 * @return          球员基础数据
-	 * @throws RemoteException   可能抛出rmi异常
+	 * @throws RemoteException   可能抛出网络异常
 	 */
 	public PlayerNormalPO[] getSeasonPlayerNormalOfTeam(int season, SeasonType type,String teamName)throws RemoteException;
 	//获得球员
@@ -206,16 +206,31 @@ public interface PlayerDataService extends Remote{
 	 * 获得球员图片<br/>
 	 * @param playerName        球员名
 	 * @return                  球员图片
-	 * @throws RemoteException  可能抛出rmi异常
+	 * @throws RemoteException  可能抛出网络异常
 	 */
 	public PlayerImage getPlayerImage(String playerName)throws RemoteException;
-	/**
-	 * 
-	 */
 	//获得现役球员
-	public String[] fuzzilySearchActivePlayer(String playerName)throws RemoteException;
-	public PlayerPO[] fuzzilySearchAvtivePlayerPO(String playerName) throws RemoteException;
-    public PlayerPO findActivePlayerPO(String info) throws RemoteException;
+	/**
+	 * 模糊查找球员名
+	 * @param info               查找依据
+	 * @return                   符合条件的球员名
+	 * @throws RemoteException   可能抛出网络异常
+	 */
+	public String[] fuzzilySearchActivePlayer(String info)throws RemoteException;
+	/**
+	 * 模糊查找球员
+	 * @param info               查找依据
+	 * @return                   符合条件的球员信息
+	 * @throws RemoteException   可能抛出网络异常
+	 */
+	public PlayerPO[] fuzzilySearchAvtivePlayerPO(String info) throws RemoteException;
+	/**
+	 * 根据球员名查找球员
+	 * @param playerName        球员名
+	 * @return                  球员信息
+	 * @throws RemoteException  可能抛出网络异常
+	 */
+    public PlayerPO findActivePlayerPO(String playerName) throws RemoteException;
 //	public PlayerNormalPO[] sortPlayerNormalTotalHis(String sort, int n);
 //	public PlayerNormalPO sortPlayerNormalAveHis(String sort, int n);
 }

@@ -37,36 +37,75 @@ public class CurrentMatch implements Serializable
 	  sb.append("文字直播 ："+ messages.get(0));
 	  return sb.toString();
   }
+  /**
+   * 获得比赛编号
+   * @return  比赛编号
+   */
   public int getMatchId()
   {
 	  return Integer.parseInt(matchId);
   }
+  /**
+   * 设置文字直播内容
+   * @param mess  文字直播内容
+   */
   public void setMessages(ArrayList<String> mess)
   {
 	  messages = mess;
   }
+  /**
+   * 获得文字直播
+   * @return  文字直播内容
+   */
   public ArrayList<String> getMessages()
   {
 	  return messages;
   }
+  /**
+   * 获得主场球队
+   * @return  主场球队
+   */
 public CurrentTeam getTeam1() {
 	return team1;
 }
+/**
+ * 获得客场球队
+ * @return  客场球队
+ */
 public CurrentTeam getTeam2() {
 	return team2;
 }
+/**
+ * 获得比赛日期
+ * @return  比赛日期
+ */
 public String getDate() {
 	return date;
 }
+/**
+ * 获得比赛时间
+ * @return  比赛时间
+ */
 public String getTime() {
 	return time;
 }
+/**
+ * 获得体育场
+ * @return   体育场
+ */
 public String getGym() {
 	return gym;
 }
+/**
+ * 获得观众数
+ * @return 观众数
+ */
 public String getAudience() {
 	return audience;
 }
+/**
+ * 调整小比分数组
+ */
 public void adjustTeamPoints()
 {
 	String[] pts1 = team1.getPoints();

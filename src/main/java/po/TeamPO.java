@@ -12,7 +12,7 @@ public class TeamPO implements Comparable<TeamPO>, Serializable{
 	private String name; // 队伍名称
 	private String nameAbridge; // 名称缩写
 	private String address; // 所在地
-	private String matchArea; // 赛区
+	private String matchArea; // 赛
 	private String playerArea;// 分区
 	private String manage; // 主场
 	private int foundYear; // 建立时间
@@ -32,71 +32,71 @@ public class TeamPO implements Comparable<TeamPO>, Serializable{
 		this.playerArea = playerArea;
 		this.manage = manage;
 		this.foundYear = foundYear;
-		this.matchArea = getMatchArea(playerArea);
+		this.matchArea = matchArea;
 	}
-
+   /**
+    * 获得图片
+    * @return 图片
+    */
 	public Image getImage() {
 		if (image != null)
 		return ImageTool.bytesToImage(image);
 		else return null;
 	}
-
+/**
+ * 获得球队名字
+ * @return 球队名字
+ */
 	public String getName() {
 		return name;
 	}
-
+/**
+ * 获得球队缩写名
+ * @return  球队缩写名
+ */
 	public String getNameAbridge() {
 		return nameAbridge;
 	}
-
+/**
+ * 获得地址
+ * @return 地址
+ */
 	public String getAddress() {
 		return address;
 	}
-
+/**
+ * 获得联盟
+ * @return 联盟
+ */
 	public String getMatchArea() {
 		return matchArea;
 	}
-
+/**
+ * 获得赛区
+ * @return 赛区
+ */
 	public String getPlayerArea() {
 		return playerArea;
 	}
-
+/**
+ * 获得主场
+ * @return 主场
+ */
 	public String getManage() {
 		return manage;
 	}
-
+/**
+ * 获得建立年份
+ * @return   建立年份
+ */
 	public int getFoundYear() {
 		return foundYear;
 	}
+	/**
+	 * 比较
+	 */
 	@Override
 	public int compareTo(TeamPO o) {
 		return name.compareTo(o.getName());
 	}
-	
-	 public static  String getMatchArea(String playerArea)
-	 {
-		 String result = null;
-		 switch (playerArea)
-		 {
-		 case "Central":
-			 result = "E";
-			 break;
-		 case "Atlantic":
-			 result  = "E";
-			 break;
-	     case "Pacific":
-	    	 result = "W";
-	    	 break;
-		 case "Southwest":
-			 result = "W";
-			 break;
-		 case "Southeast":
-			 result = "E";
-			 break;
-		 case "Northwest":
-			 result = "W";
-			 break;
-		 }
-		 return result;
-	 }
 }

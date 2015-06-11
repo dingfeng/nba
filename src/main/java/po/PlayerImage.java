@@ -15,6 +15,10 @@ public class PlayerImage implements Serializable{
     		   this.image = ImageTool.imageToBytes_player(image, "png", BufferedImage.TYPE_INT_ARGB);
     	   }
        }
+       /**
+        * 获得图片
+        * @return  图片
+        */
        public Image getImage()
        {
     	   Image img = null;

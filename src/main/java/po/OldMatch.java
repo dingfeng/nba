@@ -41,28 +41,56 @@ public class OldMatch implements Serializable{
     	   this.guest_team = guest_team;
     	   this.date =date;
        } 
+       /**
+        * 获得日期
+        * @return  日期
+        */
        public String getDate()
        {
     	   return date;
        }
+       /**
+        * 获得图片
+        * @return  图片
+        */
        public Image getImg()
        {
     	   if (img!= null)
     	   return ImageTool.bytesToImage(img);
     	   else return null;
        }
+       /**
+        * 获得比赛编号
+        * @return  比赛编号
+        */
 	public int getMatchId() {
 		return matchId;
 	}
+	/**
+	 * 获得主场球队
+	 * @return  主场球队
+	 */
 	public String getHost_team() {
 		return host_team;
 	}
+	/**
+	 * 获得客场球队
+	 * @return  客场球队
+	 */
 	public String getGuestTeam() {
 		return guest_team;
 	}
+	/**
+	 * 获得主场球队小比分
+	 * @return  主场球队小比分
+	 */
 	public String[] getPt1() {
 		return pt1;
 	}
+	/**
+	 * 获得客场球队小比分
+	 * @return  客场球队小比分
+	 */
 	public String[] getPt2() {
 		return pt2;
 	}

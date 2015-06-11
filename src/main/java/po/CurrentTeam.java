@@ -74,24 +74,43 @@ public class CurrentTeam implements Serializable{
     	   sb.append("points : "+Arrays.toString(points)+"\n");
     	   return sb.toString();
        }
-       
+    /**
+     * 获得图片
+     * @return  图片
+     */
    public Image getImg()
    {
 	   if (img!=null)
 	   return  ImageTool.bytesToImage(img);
 	   else return null;
    }
+   /**
+    * 获得描述
+    * @return  描述
+    */
    public String getDisc() 
    {
 	return disc;
    }
+   /**
+    * 获得胜利场数
+    * @return   胜利场数
+    */
 	public String getWin() {
 		return win;
 	}
+	/**
+	 * 获得小比分
+	 * @return  小比分
+	 */
 	public String[] getPoints()
        {
     	   return points;
        }
+	/**
+	 * 设置小比分数量
+	 * @param size 小比分数量
+	 */
 	public void changePoints(int size)
 	{
 		String[] pts = new String[size];
@@ -101,68 +120,152 @@ public class CurrentTeam implements Serializable{
 		}
 		points = pts;
 	}
+	/**
+	 * 获得总得分
+	 * @return  总得分
+	 */
       public String getTotalScores()
       {
     	  return totalScores;
       }
+      /**
+       * 获得球队名
+       * @return  球队名
+       */
      public String getTeamName()
      {
     	 return teamName;
      }
+     /**
+      * 获得首发球员
+      * @return  首发球员
+      */
 	public CurrentPlayer[] getFirsts() {
 		return firsts;
 	}
+	/**
+	 * 获得替补球员
+	 * @return  替补球员
+	 */
 	public CurrentPlayer[] getBenches() {
 		return benches;
 	}
+	/**
+	 * 获得投篮数
+	 * @return  投篮数
+	 */
 	public String getShot() {
 		return shot;
 	}
+	/**
+	 * 获得三分楸树
+	 * @return  三分球数
+	 */
 	public String getThreeShot() {
 		return threeShot;
 	}
+	/**
+	 * 获得罚球数
+	 * @return  罚球数
+	 */
 	public String getPenalty() {
 		return penalty;
 	}
+	/**
+	 * 获得进攻篮板数
+	 * @return   进攻篮板数
+	 */
 	public String getOffenseRebs() {
 		return offenseRebs;
 	}
+	/**
+	 * 获得防守篮板数
+	 * @return 防守篮板数
+	 */
 	public String getDefenceRebs() {
 		return defenceRebs;
 	}
+	/**
+	 * 获得篮板数
+	 * @return  篮板数
+	 */
 	public String getRebs() {
 		return rebs;
 	}
+	/**
+	 * 获得助攻数
+	 * @return 助攻数
+	 */
 	public String getAssist() {
 		return assist;
 	}
+	/**
+	 * 获得犯规数
+	 * @return  犯规数
+	 */
 	public String getFouls() {
 		return fouls;
 	}
+	/**
+	 * 获得抢断数
+	 * @return 抢断数
+	 */
 	public String getSteals() {
 		return steals;
 	}
+	/**
+	 * 获得失误数
+	 * @return  失误数
+	 */
 	public String getMistakes() {
 		return mistakes;
 	}
+	/**
+	 * 获得盖帽数
+	 * @return  盖帽数
+	 */
 	public String getBlock() {
 		return block;
 	}
+	/**
+	 * 获得得分
+	 * @return 得分
+	 */
 	public String getScores() {
 		return scores;
 	}
+	/**
+	 * 获得投篮命中率
+	 * @return  投篮命中率
+	 */
 	public String getShotRate() {
 		return shotRate;
 	}
+	/**
+	 * 获得三分球命中率
+	 * @return  三分球命中率
+	 */
 	public String getThreeRate() {
 		return threeRate;
 	}
+	/**
+	 * 获得罚球命中率
+	 * @return  罚球命中率
+	 */
 	public String getPenaltyRate() {
 		return penaltyRate;
 	}
+	/**
+	 * 获得基本数据
+	 * @return  基本数据
+	 */
 	public String[] getPrimaryDatas() {
 		return primaryDatas;
 	}
+	/**
+	 * 获得命中率
+	 * @return 命中率
+	 */
 	public String[] getRates() {
 		return rates;
 	}

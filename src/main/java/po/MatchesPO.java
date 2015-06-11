@@ -16,17 +16,34 @@ public class MatchesPO implements Serializable{
     	            this.team2 = team2;
     	            this.date = date;
     		   }
+       /**
+        * 获得主场球队
+        * @return 主场球队
+        */
 	public MatchTeamPO getTeam1() {
 		return team1;
 	}
+	/**
+	 * 获得比赛编号
+	 * @return   比赛编号
+	 */
 	public int getMatchId()
 	{
 		return matchId;
+		
 	}
+	/**
+	 * 获得客场球队
+	 * @return 客场球队
+	 */ 
 	public MatchTeamPO getTeam2() 
 	{
 		return team2;
 	}
+	/**
+	 * 获得比赛日期
+	 * @return 比赛日期
+	 */
 	public String getDate() 
 	{
 		return date;

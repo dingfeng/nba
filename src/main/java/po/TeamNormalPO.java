@@ -102,70 +102,158 @@ public class TeamNormalPO implements Serializable{
 	 sb.append(winRate);
 	 return sb.toString();
 	}
+	/**
+	 * 获得赛季
+	 * @return  赛季
+	 */
 	public int getSeason()
 	{
 		return season;
 	}
+	/**
+	 * 获得球员名
+	 * @return  球员名
+	 */
 	public String getName() {
 		return name;
 	}
+	/**
+	 * 获得比赛场数
+	 * @return  比赛场数
+	 */
 	public int getMatchNo() {
 		return matchNo;
 	}
+	/**
+	 * 获得投篮命中数
+	 * @return  投篮命中率
+	 */
 	public double getHitNo() {
 		return hitNo;
 	}
+	/**
+	 * 获得投篮出手数
+	 * @return  投篮出手数
+	 */
 	public double getHandNo() {
 		return handNo;
 	}
+	/**
+	 * 获得三分球命中数
+	 * @return 三分球命中数
+	 */
 	public double getThreeHitNo() {
 		return threeHitNo;
 	}
+	/**
+	 * 获得三分球出手数
+	 * @return  三分球出手数
+	 */
 	public double getThreeHandNo() {
 		return threeHandNo;
 	}
+	/**
+	 * 获得罚球命中数
+	 * @return 罚球命中数
+	 */
 	public double getPenaltyHitNo() {
 		return penaltyHitNo;
 	}
+	/**
+	 * 获得罚球出手数
+	 * @return  罚球出手数
+	 */
 	public double getPenaltyHandNo() {
 		return penaltyHandNo;
 	}
+	/**
+	 * 获得进攻篮板数
+	 * @return  进攻篮板数
+	 */
 	public double getOffenseRebs() {
 		return offenseRebs;
 	}
+	/**
+	 * 获得防守篮板数
+	 * @return 防守篮板数
+	 */
 	public double getDefenceRebs() {
 		return defenceRebs;
 	}
+	/**
+	 * 获得篮板数
+	 * @return  篮板数
+	 */
 	public double getRebs() {
 		return rebs;
 	}
+	/**
+	 * 获得助攻数
+	 * @return  助攻数
+	 */
 	public double getAssistNo() {
 		return assistNo;
 	}
+	/**
+	 * 获得抢断数
+	 * @return  抢断数
+	 */
 	public double getStealsNo() {
 		return stealsNo;
 	}
+	/**
+	 * 获得盖帽数
+	 * @return  盖帽数
+	 */
 	public double getBlockNo() {
 		return blockNo;
 	}
+	/**
+	 * 获得失误数
+	 * @return 失误数
+	 */
 	public double getMistakesNo() {
 		return mistakesNo;
 	}
+	/**
+	 * 获得犯规数
+	 * @return  犯规数
+	 */
 	public double getFoulsNo() {
 		return foulsNo;
 	}
+	/**
+	 * 获得得分
+	 * @return  得分
+	 */
 	public double getPoints() {
 		return points;
 	}
+	/**
+	 * 获得投篮命中率
+	 * @return 投篮命中率
+	 */
 	public double getHitRate() {
 		return hitRate;
 	}
+	/**
+	 * 获得三分球命中率
+	 * @return  三分球命中率
+	 */
 	public double getThreeHitRate() {
 		return threeHitRate;
 	}
+	/**
+	 * 获得罚球命中率
+	 * @return  罚球命中率
+	 */
 	public double getPenaltyHitRate() {
 		return penaltyHitRate;
 	}
+	/**
+	 * 获得胜率
+	 * @return 胜率
+	 */
 	public double getWinRate() {
 		return winRate;
 	}

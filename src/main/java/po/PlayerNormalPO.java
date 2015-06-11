@@ -140,73 +140,165 @@ public class PlayerNormalPO implements Serializable{
 		return sb.toString();
 		
 	}
+	/**
+	 * 获得赛季
+	 * @return  赛季
+	 */
 	public int getSeason()
 	{
 		return season;
 	}
+	/**
+	 * 获得名字
+	 * @return  名字
+	 */
 	public String getName() {
 		return name;
 	}
+	/**
+	 * 获得球队
+	 * @return 球队
+	 */
 	public String getTeam() {
 		return team;
 	}
+	/**
+	 * 获得比赛场数
+	 * @return  比赛场数
+	 */
 	public int getMatchNo() {
 		return matchNo;
 	}
+	/**
+	 * 获得首发次数
+	 * @return  首发次数
+	 */
 	public double getFirstServiceNo() {
 		return firstServiceNo;
 	}
+	/**
+	 * 获得篮板数
+	 * @return  篮板数
+	 */
 	public double getRebs() {
 		return rebs;
 	}
+	/**
+	 * 获得助攻数
+	 * @return  助攻数
+	 */
 	public double getAssistNo() {
 		return assistNo;
 	}
+	/**
+	 * 获得在场时间
+	 * @return  在场时间
+	 */
 	public double getTime() {
 		return time;
 	}
+	/**
+	 * 获得投篮命中率
+	 * @return 投篮命中率
+	 */
 	public double getHitRate() {
 		return hitRate;
 	}
+	/**
+	 * 获得三分球命中率
+	 * @return  三分球命中率 
+	 */
 	public double getThreeHitRate() {
 		return threeHitRate;
 	}
+	/**
+	 * 获得罚球命中率
+	 * @return  罚球命中率
+	 */
 	public double getPenaltyHitRate() {
 		return penaltyHitRate;
 	}
+	/**
+	 * 获得进攻篮板数
+	 * @return  进攻篮板数
+	 */
 	public double getOffendRebsNo() {
 		return offendRebsNo;
 	}
+	/**
+	 * 获得防守篮板数
+	 * @return 防守篮板数
+	 */
 	public double getDefenceRebsNo() {
 		return defenceRebsNo;
 	}
+	/**
+	 * 获得抢断数
+	 * @return  抢断数
+	 */
 	public double getStealsNo() {
 		return stealsNo;
 	}
+	/**
+	 * 获得篮板数
+	 * @return  篮板数
+	 */
 	public double getBlockNo() {
 		return blockNo;
 	}
+	/**
+	 * 获得失误数
+	 * @return  失误数
+	 */
 	public double getMistakesNo() {
 		return mistakesNo;
 	}
+	/**
+	 * 获得犯规数
+	 * @return  犯规数
+	 */
 	public double getFoulsNo() {
 		return foulsNo;
 	}
+	/**
+	 * 获得得分
+	 * @return 得分
+	 */
 	public double getPoints() {
 		return points;
 	}
+	/**
+	 * 获得两双数
+	 * @return 两双数
+	 */
 	public double getTwoPair() {
 		return twoPair;
 	}
+	/**
+	 * 获得得分提升率
+	 * @return  得分提升率
+	 */
 	public double getPoints_uprate() {
 		return points_uprate;
 	}
+	/**
+	 * 获得篮板提升率
+	 * @return 篮板提升率
+	 */
 	public double getRebs_uprate() {
 		return rebs_uprate;
 	}
+	/**
+	 * 获得助攻提升率
+	 * @return 助攻提升率
+	 */
 	public double getHelp_uprate() {
 		return help_uprate;
 	}
+	/**
+	 * 获得得分篮板助攻比（1：1：1）
+	 * @return  得分篮板助攻比（1：1：1）
+	 */
 	public double getScoring_rebound_assist() {
 		return scoring_rebound_assist;
 	}

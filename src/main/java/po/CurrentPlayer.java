@@ -3,6 +3,13 @@ package po;
 import java.io.Serializable;
 import java.util.Arrays;
 
+/**
+ * ClassName : CurrentPlayer
+ * discription: 用于存储直播球员对象
+ * @author FD
+ *
+ */
+
 public class CurrentPlayer implements Serializable{
 	  String name;    //姓名
       String position;//位置
@@ -45,55 +52,123 @@ public class CurrentPlayer implements Serializable{
     {
     	return Arrays.toString(datas);
     }
+    /**
+     * 获得所有数据组成的数组
+     * @return    所有数据组成的数组
+     */
     public String[] getDatas()
     {
     	return datas;
     }
+    /**
+     * 获得球员名
+     * @return   球员名
+     */
 	public String getName() {
 		return name;
 	}
+	/**
+	 * 获得球员位置
+	 * @return   球员位置
+	 */
 	public String getPosition() {
 		return position;
 	}
+	/**
+	 * 获得球员在场时间
+	 * @return   球员在场时间
+	 */
 	public String getTime() {
 		return time;
 	}
+	/**
+	 * 获得投篮数
+	 * @return   投篮数
+	 */
 	public String getShot() {
 		return shot;
 	}
+	/**
+	 * 获得三分球数
+	 * @return  三分球数
+	 */
 	public String getThreeShot() {
 		return threeShot;
 	}
+	/**
+	 * 获得罚球数
+	 * @return  罚球数
+	 */
 	public String getPenalty() {
 		return penalty;
 	}
+	/**
+	 * 获得进攻篮板数
+	 * @return   进攻篮板数
+	 */
 	public String getOffenseRebs() {
 		return offenseRebs;
 	}
+	/**
+	 * 获得防守篮板数
+	 * @return  防守篮板数
+	 */
 	public String getDefenceRebs() {
 		return defenceRebs;
 	}
+	/**
+	 * 获得篮板数
+	 * @return   篮板数
+	 */
 	public String getRebs() {
 		return rebs;
 	}
+	/**
+	 * 获得助攻数
+	 * @return  助攻数
+	 */
 	public String getAssist() {
 		return assist;
 	}
+	/**
+	 * 获得犯规数
+	 * @return  犯规数
+	 */
 	public String getFouls() {
 		return fouls;
 	}
+	/**
+	 * 获得助攻数
+	 * @return  助攻数
+	 */
 	public String getSteals() {
 		return steals;
 	}
+	/**
+	 * 获得失误数
+	 * @return 失误数
+	 */
 	public String getMistakes() {
 		return mistakes;
 	}
+	/**
+	 * 获得盖帽数
+	 * @return   盖帽数
+	 */
 	public String getBlock() {
 		return block;
 	}
+	/**
+	 * 获得得分
+	 * @return   得分
+	 */
 	public String getScores() {
 		return scores;
 	}
+	/**
+	 * 获得效率
+	 * @return  效率
+	 */
 	public String getEfficiency() {
 		return efficiency;
 	}
