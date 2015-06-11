@@ -8,7 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import dataservice.playerdataservice.SeasonType;
+import po.PlayerNormalPO;
 import po.PlayerPO;
+import vo.Area;
 import vo.HotPlayerTeam;
 import blservice.playerblservice.PlayerBlService;
 
@@ -29,6 +31,12 @@ public class PlayerBlTest {
 	}
 	
 	@Test
+	public void screenTest(){
+		PlayerNormalPO[] result = playerservice.screenNormalAvePlayers(2014, "G", Area.ATLANTIC, SeasonType.REGULAR);
+		assertEquals(true, true);
+	}
+	
+	//@Test
 	public void writeTest(){
 		PlayerController pc = new PlayerController();
 		pc.write();
