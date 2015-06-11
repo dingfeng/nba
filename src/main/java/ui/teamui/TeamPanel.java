@@ -206,7 +206,7 @@ public class TeamPanel extends JPanel {
 	
 	void setTeamdata() {
 		card.show(teammain, "data");
-		teamdatapanel.setTable(nameAbridgeresult.getText(),high,showAllData());
+		teamdatapanel.setTable(high,showAllData());
 		databutton.setSelected(true);
 		recentbutton.setSelected(false);
 		pastbutton.setSelected(false);

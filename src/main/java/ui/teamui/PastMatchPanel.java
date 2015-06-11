@@ -5,17 +5,19 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
 
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 
-import bl.matchbl.MatchController;
 import po.MatchesPO;
 import ui.mainui.FrameSize;
+import ui.mainui.MyComboBox;
 import ui.mainui.MyFrame;
 import ui.mainui.MyTable;
+import bl.matchbl.MatchController;
 
 public class PastMatchPanel extends JPanel{
 
@@ -27,7 +29,7 @@ public class PastMatchPanel extends JPanel{
 	DefaultTableModel table = new DefaultTableModel(rowimage, columnsName);
 	MyTable mytable = new MyTable(table);
 	JScrollPane pastjScrollPane;
-	
+	JComboBox season=new MyComboBox(new String[]{"2014","2013","2012","2011","2010","2009","2008","2007","2006","2005","2004","2003","2002","2001","2000","1999","1998","1997","1996","1995","1994","1993","1992","1991","1990","1989","1988","1987","1986","1985"});
 	public PastMatchPanel(){
 		this.setLayout(null);
 		this.setBounds(0, 0,
@@ -44,11 +46,12 @@ public class PastMatchPanel extends JPanel{
 		recent.setOpaque(true);
 		recent.setBackground(FrameSize.bluecolor);
 		recent.setForeground(Color.white);
-		FrameSize.season.setBounds(FrameSize.width-150,0 ,100 ,30 );
-		FrameSize.season.setBackground(Color.white);
-		FrameSize.season.addActionListener(e->setPastTable());
-		recent.add(FrameSize.season);
+		season.setBounds(FrameSize.width-150,0 ,100 ,30 );
+		season.setBackground(Color.white);
+		season.addActionListener(e->setPastTable());
+		season.setForeground(Color.black);
 		this.add(recent);
+		recent.add(season);
 
 	}
 	/** 过往查询 */
@@ -59,7 +62,7 @@ public class PastMatchPanel extends JPanel{
 		columnsName.add("对阵队伍");
 		columnsName.add("比分");
 
-		MatchesPO[] match = mc.getRegularTeamMatches(Integer.parseInt((String) FrameSize.season.getSelectedItem()),teamname);
+		MatchesPO[] match = mc.getRegularTeamMatches(Integer.parseInt((String) season.getSelectedItem()),teamname);
 		rowimage.clear();
 		for (int i = match.length - 6; i >= 0; i--) {
 			Vector data = new Vector();

@@ -14,7 +14,7 @@ public class DataFactory implements NBADataFactory{
 	private PlayerDataService playerData;
 	private TeamDataService teamData;
 	private static NBADataFactory factory ;
-	private String ip  = "rmi://dingfeng/"; 
+	private String ip  = "rmi://127.0.0.1/"; 
 	public static NBADataFactory instance() throws Exception
 	{
 		if (factory == null)

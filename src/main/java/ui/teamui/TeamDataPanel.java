@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -19,6 +20,8 @@ import dataservice.playerdataservice.SeasonType;
 import po.TeamHighPO;
 import po.TeamNormalPO;
 import ui.mainui.FrameSize;
+import ui.mainui.MyComboBox;
+import ui.mainui.MyFrame;
 import ui.mainui.MyTable;
 import ui.mainui.MyToggleButton;
 import ui.mainui.UneditableTextField;
@@ -32,10 +35,10 @@ public class TeamDataPanel extends JPanel {
 	DefaultTableModel table = new DefaultTableModel(rowimage, columnsName);
 	MyTable mytable = new MyTable(table);
 	JScrollPane jScrollPane = new JScrollPane(mytable);
-
+	JComboBox seasontype=new MyComboBox(new String[]{"常规赛","季后赛"});
+	SeasonType type = SeasonType.REGULAR;
 	Teamblservice tc = new TeamController();
-//	MyToggleButton alldata;
-//	MyToggleButton avedata;
+
 	boolean ave = true;
 	JTextField[] teamlabel = new UneditableTextField[54];
 	int num=0;
@@ -48,7 +51,11 @@ public class TeamDataPanel extends JPanel {
 	}
 
 	public void setText() {
-
+		seasontype.setBounds(FrameSize.width/2,0,100,30);
+//		seasontype.addActionListener(e->setTable());
+		seasontype.setBackground(Color.white);
+		seasontype.setForeground(Color.black);
+//		this.add(seasontype);
 		jScrollPane
 				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		jScrollPane
@@ -201,17 +208,17 @@ public class TeamDataPanel extends JPanel {
 		this.repaint();
 	}
 
-	public void setTable(String teamname, boolean high,boolean all) {
+	public void setTable(boolean high,boolean all) {
 
-		
+		String teamname=MyFrame.teampanel.nameAbridgeresult.getText();
 		TeamNormalPO[] team = new TeamNormalPO[70];
 		TeamHighPO[] teamhigh = new TeamHighPO[70];
-		SeasonType type = SeasonType.REGULAR;
-		// if(((String)SeasonTypebox.getSelectedItem()).equals("常规赛")){
-		// type=SeasonType.REGULAR;
-		// }else if(((String)SeasonTypebox.getSelectedItem()).equals("季后赛")){
-		// type=SeasonType.PLAYOFF;
-		// }
+		
+		 if(((String)seasontype.getSelectedItem()).equals("常规赛")){
+		 type=SeasonType.REGULAR;
+		 }else if(((String)seasontype.getSelectedItem()).equals("季后赛")){
+		 type=SeasonType.PLAYOFF;
+		 }
 		if (!all&&!high) {
 			team=tc.getTeamSeasonNormalAve(teamname,type);
 			num=1;
