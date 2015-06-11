@@ -20,7 +20,25 @@ import po.PlayerPO;
 
 /**
  * 球员数据接口 javaBean ClassName:PlayerDataService<br/>
- * Function: findPlayer fuzzilySearch getAllActivePlayerData getHPlayerByIni getPlayerAllSeasons getPlayerAllSeasonsAve getPlayerAllSeasonsTotal getPlayerHigh getPlayerNormalAve getPlayerNormalTotal getPlayersOfTeam getSeasonPlayerHigh getSeasonPlayerNormalAve getSeasonPlayerNormalTotal screenPlayer sortPlayerHighn sortPlayerNormalAven sortPlayerNormalTotal <br/>
+ * Function: <br/>
+ * findPlayer <br/>
+ * fuzzilySearch <br/>
+ * getAllActivePlayerData<br/>
+ * getHPlayerByIni <br/>
+ * getPlayerAllSeasons <br/>
+ * getPlayerAllSeasonsAve <br/>
+ * getPlayerAllSeasonsTotal <br/>
+ * getPlayerHigh <br/>
+ * getPlayerNormalAve <br/>
+ * getPlayerNormalTotal <br/>
+ * getPlayersOfTeam <br/>
+ * getSeasonPlayerHigh <br/>
+ * getSeasonPlayerNormalAve <br/>
+ * getSeasonPlayerNormalTotal <br/>
+ * screenPlayer <br/>
+ * sortPlayerHighn <br/>
+ * sortPlayerNormalAven <br/>
+ * sortPlayerNormalTotal <br/>
  * Reason: 为球员模块提供数据接口 <br/>
  *Date:2015-5-31下午 13:00：01 <br/>
  * format: sort 的格式为 数据类型+排序类型 <br/>
@@ -44,8 +62,9 @@ public interface PlayerDataService extends Remote{
 	public PlayerPO[] getAllActivePlayerData()throws RemoteException;
 	//获得球员某个赛季的高阶数据
 	/**
-	 * getPlayerHigh 获得球员某个赛季的高阶数据 <br/>
-	 * 
+	 * 获得球员某个赛季的高阶数据 <br/>
+	 * ex:<br/>
+	 * getAllActivePlayerData()<br/>
 	 * @param season     赛季
 	 * @param playerName 球员名
 	 * @param type       赛季类型
@@ -55,6 +74,8 @@ public interface PlayerDataService extends Remote{
 	//高阶数据排序
 	/**
 	 * 高阶数据排序 <br/>
+	 * ex:<br/>
+	 * getPlayerHigh(2014,"Kobe Bryant",SeasonType.REGULAR)<br/>
 	 * @param season    赛季
 	 * @param sort      排序依据
 	 * @param n         返回值数量。不足按较小值
@@ -65,6 +86,8 @@ public interface PlayerDataService extends Remote{
 	//获得某个球员赛季总基础数据
 	/**
 	 * 返回某个球员的赛季总数据基础数据<br/>
+	 * ex:<br/>
+	 * sortPlayerHighn(2014,"rebs desc,player_name asc",SeasonType.REGULAR)<br/>
 	 * @param season       赛季
 	 * @param playerName   球员名
 	 * @param type         赛季类型
@@ -74,6 +97,8 @@ public interface PlayerDataService extends Remote{
 	//排序球员赛季总数据
 	/**
 	 * 排序球员赛季总数据<br/>
+	 * ex:<br/>
+	 * getPlayerNormalTotal(2014,"Kobe Bryant",SeasonType.REGUALR)<br/>
 	 * @param season	赛季
 	 * @param sort		排序依据
 	 * @param n			返回数目。不足按较小的值
@@ -84,6 +109,8 @@ public interface PlayerDataService extends Remote{
   	//获得某个球员赛季场均数据
 	/**
 	 * 获得某个球员赛季场均数据<br/>
+	 * ex:<br/>
+	 * sortPlayerNormalTotal(2014,"rebs desc,player_name asc",SeasonType.REGULAR)<br/>
 	 * @param season		赛季
 	 * @param playerName	球员名
 	 * @param type			赛季类型
@@ -93,6 +120,8 @@ public interface PlayerDataService extends Remote{
 	//排序球员的场均基础数据
 	/**
 	 * 排序球员的赛季场均基础数据<br/>
+	 * ex:<br/>
+	 * getPlayerNormalAve(2014,"Kobe Bryant",SeasonType.REGULAR)<br/>
 	 * @param season	赛季
 	 * @param sort		排序依据
 	 * @param n			返回数目
@@ -103,6 +132,8 @@ public interface PlayerDataService extends Remote{
 	//获得球员的所有赛季总数据<br/>
 	/**
 	 * 获得球员的所有赛季总数据<br/>
+	 * ex:<br/>
+	 * sortPlayerNormalAven(2014,"rebs desc,player_name asc",7,SeasonType.REGULAR)<br/>
 	 * @param playerName	球员名
 	 * @param type			赛季类型
 	 * @return				所有赛季总数据
@@ -111,6 +142,8 @@ public interface PlayerDataService extends Remote{
 	//获得球员的赛季场均数据
 	/**
 	 * 获得球员的所有赛季场均数据 <br/>
+	 * ex:<br/>
+	 * getPlayerAllSeasonsTotal("Kobe Bryant",SeasonType.REGULAR)<br/>
 	 * @param playerName	球员名
 	 * @param type			赛季类型
 	 * @return				所有赛季场均数据
@@ -119,6 +152,8 @@ public interface PlayerDataService extends Remote{
 	//获得球员的所有的赛季高阶数据
 	/**
 	 * 获得球员的所有的赛季高阶数据 <br/>
+	 * ex:<br/>
+	 * getPlayerAllSeasonsAve("Kobe Bryant",SeasonType.REGULAR)<br/>
 	 * @param playerName	球员名
 	 * @param type			赛季类型
 	 * @return				该球员的所有赛季高阶数据
@@ -127,6 +162,8 @@ public interface PlayerDataService extends Remote{
 	//通过首字符获得
 	/**
 	 * 通过首字符串获得<br/>
+	 * ex:<br/>
+	 * getPlayerAllSeasons("Kobe Bryant",SeasonType.REGULAR)<br/>
 	 * @param ini	首字符串
 	 * @return		所有符合条件的球员
 	 */
@@ -134,6 +171,8 @@ public interface PlayerDataService extends Remote{
 	//模糊查找
 	/**
 	 * 模糊查找<br/>
+	 * ex:<br/>
+	 * getHPlayerByIni("A")<br/>
 	 * @param info		模糊查找依据
 	 * @return			符合条件所有球员名
 	 */
@@ -141,6 +180,8 @@ public interface PlayerDataService extends Remote{
 	//现役球员名查找
 	/**
 	 * 现役球员名查找<br/>
+	 * ex:<br/>
+	 * fuzzilySearch("V")<br/>
 	 * @param playerName	球员名
 	 * @return				球员信息
 	 */
@@ -148,6 +189,8 @@ public interface PlayerDataService extends Remote{
 	//获得某个赛季的所有球员
 	/**
 	 * 获得某个赛季所有参赛球员的赛季场均基础数据<br/>
+	 * ex:<br/>
+	 * findPlayer("Kobe Bryant")<br/>
 	 * @param season	赛季
 	 * @param type		赛季类型
 	 * @return			所有球员的赛季场均基础数据
@@ -155,6 +198,8 @@ public interface PlayerDataService extends Remote{
 	public PlayerNormalPO[] getSeasonPlayerNormalAve(int season,SeasonType type)throws RemoteException;
 	/**
 	 * 获得某个赛季的所有参赛球员的赛季总基础数据<br/>
+	 * ex:<br/>
+	 * getSeasonPlayerNormalAve(2014,SeasonType.REGULAR)<br/>
 	 * @param season	赛季
 	 * @param type		赛季类型
 	 * @return			所有参赛球员的赛季总基础数据
@@ -162,6 +207,8 @@ public interface PlayerDataService extends Remote{
 	public PlayerNormalPO[] getSeasonPlayerNormalTotal(int season, SeasonType type)throws RemoteException;
 	/**
 	 * 获得某个赛季的所有参赛球员的赛季高级数据<br/>
+	 * ex:<br/>
+	 * getSeasonPlayerNormalTotal(2014,SeasonType.PLAYOFF)<br/>
 	 * @param season	赛季
 	 * @param type		赛季类型
 	 * @return			所参赛球员的赛季高阶数据
@@ -170,6 +217,8 @@ public interface PlayerDataService extends Remote{
 	//获得球队所有球员
 	/**
 	 * 获得某个球队的球员<br/>
+	 * ex:<br/>
+	 * getSeasonPlayerHigh(2014,SeasonType.REGULAR)<br/>
 	 * @param team	球员缩写名
 	 * @return		在该球员服役的球员
 	 */
@@ -177,6 +226,8 @@ public interface PlayerDataService extends Remote{
 	//球员筛选
 	/**
 	 * 根据条件筛选球员<br/>
+	 * ex:<br/>
+	 * getPlayersOfTeam("LAL")<br/>
 	 * @param sort			排序依据
 	 * @param match_area	联盟
 	 * @param postion		位置
@@ -185,7 +236,9 @@ public interface PlayerDataService extends Remote{
 	 */
 	public PlayerPO[] screenPlayer(String sort,String match_area,String player_area,String postion,int n)throws RemoteException;
 	/**
-	 * 获得某个赛季的该球员的每场得比赛的数据
+	 * 获得某个赛季的该球员的每场得比赛的数据<br/>
+	 * ex:<br/>
+	 * screenPlayer("rebs desc","W","SouthWest","F",8)<br/>
 	 * @param season	赛季
 	 * @param name		球员姓名
 	 * @return			该球员在该赛季的每场比赛的数据
@@ -194,6 +247,8 @@ public interface PlayerDataService extends Remote{
 	//获得某个赛季球队球员的数据
 	/**
 	 * 获得某个赛季球队中的球员数据<br/>
+	 * ex:<br/>
+	 * getSeasonMatches(2014,"Kobe Bryant",SeasonType.REGULAR)<br/>
 	 * @param season    赛季
 	 * @param type      赛季类型
 	 * @param teamName  球队名
@@ -204,6 +259,8 @@ public interface PlayerDataService extends Remote{
 	//获得球员
 	/**
 	 * 获得球员图片<br/>
+	 * ex:<br/>
+	 * getSeasonPlayerNormalOfTeam(2014,SeasonType.REGUALR,"LAL")<br/>
 	 * @param playerName        球员名
 	 * @return                  球员图片
 	 * @throws RemoteException  可能抛出网络异常
@@ -211,21 +268,27 @@ public interface PlayerDataService extends Remote{
 	public PlayerImage getPlayerImage(String playerName)throws RemoteException;
 	//获得现役球员
 	/**
-	 * 模糊查找球员名
+	 * 模糊查找球员名<br/>
+	 * ex:<br/>
+	 * getPlayerImage("Kobe Bryant")<br/>
 	 * @param info               查找依据
 	 * @return                   符合条件的球员名
 	 * @throws RemoteException   可能抛出网络异常
 	 */
 	public String[] fuzzilySearchActivePlayer(String info)throws RemoteException;
 	/**
-	 * 模糊查找球员
+	 * 模糊查找球员<br/>
+	 * ex:<br/>
+	 * fuzzilySearchActivePlayer("A")<br/>
 	 * @param info               查找依据
 	 * @return                   符合条件的球员信息
 	 * @throws RemoteException   可能抛出网络异常
 	 */
 	public PlayerPO[] fuzzilySearchAvtivePlayerPO(String info) throws RemoteException;
 	/**
-	 * 根据球员名查找球员
+	 * 根据球员名查找球员<br/>
+	 * ex:<br/>
+	 * fuzzilySearchAvtivePlayerPO("A")<br/>
 	 * @param playerName        球员名
 	 * @return                  球员信息
 	 * @throws RemoteException  可能抛出网络异常
