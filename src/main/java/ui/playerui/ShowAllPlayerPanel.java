@@ -63,6 +63,7 @@ public class ShowAllPlayerPanel extends JPanel {
 		for (int i = 0; i < 27; i++) {
 			character[i].setBounds(30 * i, 5,30,30);
 			headerPanel.add(character[i]);
+			character[i].addActionListener(e->);
 		}
 
 		// 根据姓名查找球员
@@ -96,30 +97,32 @@ public class ShowAllPlayerPanel extends JPanel {
 			Vector columnsName = new Vector();
 //			columnsName.add(" ");
 			/*01球员图片*/columnsName.add("球员");
-			columnsName.add("姓名");
-			columnsName.add("球队");
-			columnsName.add("位置");
-			columnsName.add("身高");
-			columnsName.add("体重");
-			columnsName.add("学校");
-			columnsName.add("城市");
-			columnsName.add("生日");
-			columnsName.add("球衣");
+			/*02姓名*/columnsName.add("姓名");
+			/*03球队*/columnsName.add("球队");
+			/*04位置*/columnsName.add("位置");
+			/*05身高*/columnsName.add("身高");
+			/*06体重*/columnsName.add("体重");
+			/*07学校*/columnsName.add("学校");
+			/*08城市*/columnsName.add("城市");
+			/*09生日*/columnsName.add("生日");
+			/*10球衣*/columnsName.add("球衣");
 
 			Vector data = new Vector();
 			for (int i = 0; i < playerVOs.length; i++) {
 				Vector rowData = new Vector();
 //				rowData.add(i+1);
 				/*01球员图片*/rowData.add(playerController.getPlayerImage(playerVOs[i].getName()));
-				rowData.add(playerVOs[i].getName());
-				rowData.add(playerVOs[i].getTeama());
-				rowData.add(playerVOs[i].getPosition());
-				rowData.add(playerVOs[i].getWeight());
-				rowData.add(playerVOs[i].getHigh_school());
-				rowData.add(playerVOs[i].getBirthCity());
-				rowData.add(playerVOs[i].getBirthday());
-				rowData.add(playerVOs[i].getNum());
+				/*02姓名*/rowData.add(playerVOs[i].getName());
+				/*03球队*/rowData.add(playerVOs[i].getTeama());
+				/*04位置*/rowData.add(playerVOs[i].getPosition());
+				/*05身高*/rowData.add(playerVOs[i].getHeight());
+				/*06体重*/rowData.add(playerVOs[i].getWeight());
+				/*07学校*/rowData.add(playerVOs[i].getHigh_school());
+				/*08城市*/rowData.add(playerVOs[i].getBirthCity());
+				/*09生日*/rowData.add(playerVOs[i].getBirthday());
+				/*10球衣*/rowData.add(playerVOs[i].getNum());
 
+				System.out.println(playerVOs[i].getNum());
 				data.add(rowData);
 			}
 			allPlayerTable = new DefaultTableModel(data, columnsName);
