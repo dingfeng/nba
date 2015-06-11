@@ -51,8 +51,10 @@ public class teamTest {
 	@Test
 	public void TeamCompareGenerater(){
 		String[] teamnames = teamservice.getTeamNames();
-		for(String t1 : teamnames){
-			teamservice.getTeamCompare(2014, "WAS", t1, SeasonType.REGULAR);
+		for(int i = 6; i != teamnames.length; i ++){
+			for(String t2 : teamnames){
+				teamservice.getTeamCompare(2014, teamnames[i], t2, SeasonType.PLAYOFF);
+			}
 		}
 	}
 	
@@ -60,7 +62,7 @@ public class teamTest {
 	public void TeamBarGenerater(){
 		String[] teamnames = teamservice.getTeamNames();
 		for(String t : teamnames){
-			teamservice.getTeamBar(2014, t, SeasonType.REGULAR);
+			teamservice.getTeamBar(2014, t, SeasonType.PLAYOFF);
 		}
 	}
 	

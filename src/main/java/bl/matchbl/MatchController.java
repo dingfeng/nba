@@ -33,7 +33,7 @@ public class MatchController implements Matchblservice {
 	//获得当前赛季所有的赛后季比赛数据
 	public synchronized MatchesPO[] getPlayerOffMatches(int season){
 		try {
-			return matchservice.getPlayerOffMatches(season);
+			return matchservice.getPlayOffMatches(season);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -99,7 +99,7 @@ public class MatchController implements Matchblservice {
 	@Override
 	public MatchesPO[] getPlayerOffPlayerMatchesn(int season, String name) {
 		try {
-			return matchservice.getPlayerOffPlayerMatchesn(season, name, 5);
+			return matchservice.getPlayOffPlayerMatchesn(season, name, 5);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -110,7 +110,7 @@ public class MatchController implements Matchblservice {
 	@Override
 	public MatchesPO[] getPlayerOffTeamMatchesn(int season, String teamName) {
 		try {
-			return matchservice.getPlayerOffTeamMatchesn(season, teamName, 5);
+			return matchservice.getPlayOffTeamMatchesn(season, teamName, 5);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -121,7 +121,7 @@ public class MatchController implements Matchblservice {
 	@Override
 	public MatchesPO[] getPlayerOffPlayerMatches(int season, String playername) {
 		try {
-			return matchservice.getPlayerOffPlayerMatchesn(season, playername, 100);
+			return matchservice.getPlayOffPlayerMatchesn(season, playername, 100);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -132,7 +132,7 @@ public class MatchController implements Matchblservice {
 	@Override
 	public MatchesPO[] getPlayerOffTeamMatches(int season, String teamname) {
 		try {
-			return matchservice.getPlayerOffTeamMatchesn(season, teamname, 100);
+			return matchservice.getPlayOffTeamMatchesn(season, teamname, 100);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
