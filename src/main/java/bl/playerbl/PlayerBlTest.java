@@ -33,7 +33,7 @@ public class PlayerBlTest {
 	@Test
 	public void screenTest(){
 		PlayerNormalPO[] result = playerservice.screenNormalAvePlayers(2014, "G", Area.ATLANTIC, SeasonType.REGULAR);
-		assertEquals(true, true);
+		assertNotNull(result);
 	}
 	
 	//@Test

@@ -26,8 +26,7 @@ import ui.IndexPanel;
 import ui.LivePanel;
 import ui.MatchPanel;
 import ui.playerui.ShowAllPlayerPanel;
-import ui.playerui.ShowOnePlayerPanel;
-import ui.statistics.StatisticsPlayerPanel;
+import ui.statistics.StatisticsPanel;
 import ui.statistics.StatisticsTeamPanel;
 import ui.teamui.TeamPanel;
 import bl.teambl.TeamController;
@@ -57,7 +56,7 @@ public class MyFrame extends JFrame {
 //	public static StatisticsPlayerPanel statisticsPlayerPanel = new StatisticsPlayerPanel();
 	public static StatisticsTeamPanel statisticsTeamPanel = new StatisticsTeamPanel();
 	public static LivePanel livepanel=new LivePanel();
-
+	public static StatisticsPanel statisticspanel=new StatisticsPanel();
 	TeamController tc=new TeamController();
 	// MatchController mc = new MatchController();
 
@@ -89,6 +88,7 @@ public class MyFrame extends JFrame {
 		 mainpanel.add(hotpanel, "hot");
 //		mainpanel.add(statisticsPlayerPanel, "statisticsPlayer");
 		mainpanel.add(statisticsTeamPanel,"statisticsTeam");
+		mainpanel.add(statisticspanel,"statistics");
 		mainpanel.add(livepanel,"live");
 		mainpanel.setBackground(Color.white);
 		
@@ -160,7 +160,7 @@ public class MyFrame extends JFrame {
 
 		});
 		JMenuItem teamitem = new JMenuItem("球队数据");
-		playeritem.setFont(MyFont.font1);
+		teamitem.setFont(MyFont.font1);
 		teamitem.setBackground(Color.white);
 		teamitem.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
@@ -168,8 +168,19 @@ public class MyFrame extends JFrame {
 			}
 
 		});
+		JMenuItem item = new JMenuItem("统计数据");
+		item.setFont(MyFont.font1);
+		item.setBackground(Color.white);
+		item.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				card.show(mainpanel, "statistics");
+			}
+
+		});
+		
 		staticstype.add(playeritem);
 		staticstype.add(teamitem);
+		staticstype.add(item);
 		staticstype.setBackground(Color.white);
 
 		staticsbutton.addMouseListener(new MouseAdapter() {
