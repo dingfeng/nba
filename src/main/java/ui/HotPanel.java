@@ -114,8 +114,6 @@ public class HotPanel extends JPanel {
 		show.setBackground(Color.white);
 		show.setBounds(FrameSize.width / 6, 0, 5 * FrameSize.width / 6,
 				11 * FrameSize.height / 12);
-		FrameSize.season.setBounds(FrameSize.width-150, 100, 100, 30);
-		this.add(FrameSize.season);
 		JLabel[] num=new JLabel[5];
 		for(int i=0;i<5;i++){
 			num[i]=new JLabel();
@@ -309,10 +307,10 @@ public class HotPanel extends JPanel {
 			players = pc.getDayHotPlayer(sortBy);
 			break;
 		case 2:
-			players = pc.getSeasonHotPlayer(Integer.parseInt((String) FrameSize.season.getSelectedItem()), sortBy, SeasonType.REGULAR);
+			players = pc.getSeasonHotPlayer(2014, sortBy, SeasonType.REGULAR);
 			break;
 		case 4:
-			players = pc.getPromotePlayer(Integer.parseInt((String) FrameSize.season.getSelectedItem()), sortBy, SeasonType.REGULAR);
+			players = pc.getPromotePlayer(2014, sortBy, SeasonType.REGULAR);
 		}
 		try {
 			portrait_1.setIcon(scaleImage(

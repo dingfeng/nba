@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
@@ -92,18 +93,19 @@ public class StatisticsTeamPanel extends JPanel {
 
 		return headerPanel;
 	}
-//	class ImageRenderer   implements TableCellRenderer{
-//			 
-//			@Override
-//			public Component getTableCellRendererComponent(JTable table, Object value,  
-//			        boolean isSelected, boolean hasFocus, int row, int column) { 
-//			            //根据column判断是不是需要显示图片的列，是的话就根据value生成ImageIcon，返回相应的JLabel
-//			            
-//			                return new JLabel(new ImageIcon((String) value));
-//			            
-//			        
-//			    }  
-//}
+	public class ColorTableCellRenderer extends DefaultTableCellRenderer {
+	    DefaultTableCellRenderer renderer=new DefaultTableCellRenderer(); 
+	    @Override
+	    public Component getTableCellRendererComponent(JTable table, Object value,   
+	            boolean isSelected, boolean hasFocus, int row, int column) {   
+	        if(column==0){
+	            return new JLabel((ImageIcon)value);
+	        }else{
+	            return super.getTableCellRendererComponent(table, value, isSelected,hasFocus, row, column);
+	        }
+	    }   
+	
+}
 	//低阶数据
 	void setLowTable(TeamNormalPO[] team){
 		columnsName.removeAllElements();
@@ -130,18 +132,8 @@ public class StatisticsTeamPanel extends JPanel {
 		
 		for (int i = 0; i <team.length; i++) {
 			TeamNormalPO str = team[i];
-			JPanel imagepanel=new JPanel() {
-				protected void paintComponent(Graphics g) {
-					java.awt.Image img =tc.getTeamImage(str.getName());
-					g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-					// 细致渲染、绘制背景，可控制截取图片，显示于指定的JPanel位置
-					// g.drawImage(img, 0, 0, frameSize.width, frameSize.height,
-					// 0, 0, icon.getIconWidth(), icon.getIconHeight(),
-					// icon.getImageObserver());
-				}
-			};
 			Vector data = new Vector();
-			data.add(imagepanel);
+			data.add(new ImageIcon(tc.getTeamImage(str.getName())));
 			data.add(str.getName());
 			data.add(FrameSize.roundForNumber(str.getPoints(), num));
 			data.add(FrameSize.roundForNumber(str.getWinRate() * 100, 1));
@@ -172,8 +164,9 @@ public class StatisticsTeamPanel extends JPanel {
 		}
 		table.setDataVector(rowimage, columnsName);
 		mytable.setRowSorter(new TableRowSorter<TableModel>(table));
-//		TableCellRenderer myRenderer = new ImageRenderer();
-//		mytable.getColumnModel().getColumn(0).setCellRenderer(myRenderer);
+		TableCellRenderer myRenderer = new ColorTableCellRenderer();
+		mytable.setDefaultRenderer(Object.class, myRenderer);
+//		getColumnModel().getColumn(0).setCellRenderer(myRenderer);
 		mytable.updateUI();
 
 		TableRowSorter rowSorter = (TableRowSorter) mytable.getRowSorter();  
