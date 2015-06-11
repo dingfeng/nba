@@ -44,7 +44,7 @@ public class ShowAllPlayerPanel extends JPanel {
 		this.setOpaque(false);
 		JPanel headerPanel = HeaderPanel();
 		this.add(headerPanel);
-		setAllPlayerTable(playerController.getPlayersWithStart(2014, "A"));
+//		setAllPlayerTable(playerController.getPlayersWithStart(2014, "A"));
 	}
 
 	/** 查找栏 */
