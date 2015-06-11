@@ -66,8 +66,8 @@ public class LivePanel extends JPanel {
 	DefaultTableModel pointModel = new DefaultTableModel(rowimage, columnsName);
 	MyTable pointsTable = new MyTable(pointModel);
 	{
-		pointsTable.setRowHeight(40);
-		pointsTable.getTableHeader().setPreferredSize(new Dimension(1,28));;
+		pointsTable.setRowHeight((int)((((150-37)/800.0 * FrameSize.height) - (35/900.0 * FrameSize.height))/2)-2);
+		pointsTable.getTableHeader().setPreferredSize(new Dimension(1,(int)(35/900.0 * FrameSize.height)));;
 	}
 	JScrollPane jScrollPane_points = new JScrollPane(pointsTable);
 	String[] tableHeads = {"一","二","三","四","五","六","七","八","九"};
@@ -517,7 +517,7 @@ public class LivePanel extends JPanel {
 		int h = FrameSize.height;
 		jScrollPane_points.setBounds((int)(300/1200.0 * w), (int)(37/800.0 * h), (int)(390/1200.0 * w),
 				 (int)((150-37)/800.0 * h));
-		jScrollPane_points.setBackground(Color.BLACK);
+		jScrollPane_points.setBackground(Color.WHITE);
 		jScrollPane_points.getViewport().setOpaque(false);
 		this.add(jScrollPane_points);
 		this.repaint();
