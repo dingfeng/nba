@@ -73,21 +73,21 @@ public class MatchDataTest {
 
 	@Test
 	public void testGetPlayerOffMatches() throws RemoteException {
-		MatchesPO[] matches = match.getPlayerOffMatches(1994);
+		MatchesPO[] matches = match.getPlayOffMatches(1994);
 //		print(matches);
 		assertEquals(true,true);
 	}
 
 	@Test
 	public void testGetPlayerOffPlayerMatches() throws RemoteException {
-		MatchesPO[] matches = match.getPlayerOffPlayerMatches(2008, "Kobe Bryant");
+		MatchesPO[] matches = match.getPlayOffPlayerMatches(2008, "Kobe Bryant");
 //		print (matches);
 		assertEquals(true,true);
 	}
 
 	@Test
 	public void testGetPlayerOffTeamMatches() throws RemoteException {
-		MatchesPO[] matches = match.getPlayerOffTeamMatches(2007, "LAL");
+		MatchesPO[] matches = match.getPlayOffTeamMatches(2007, "LAL");
 //		print(matches);
 		assertEquals(true,true);
 	}
