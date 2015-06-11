@@ -45,8 +45,8 @@ public class TeamController implements Teamblservice {
 		}
 		filenameB = "D:/teamBar";
 		filenameC = "D:/teamCompare";
-		ImageB = "D:/teamB";
-		ImageC = "D:/teamC";
+		ImageB = "D:/Team/teamB";
+		ImageC = "D:/Team/teamC";
 	}
 
 	@Override
@@ -415,9 +415,10 @@ public class TeamController implements Teamblservice {
 			output.close();
 			Process pr = Runtime.getRuntime().exec("python python\\teamBar.py");
 			pr.waitFor();
-			ImageIcon imageIcon = new ImageIcon(filename);
-			Image bar = imageIcon.getImage();
-			return bar;
+//			ImageIcon imageIcon = new ImageIcon(filename);
+//			Image bar = imageIcon.getImage();
+//			return bar;
+			return null;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -530,9 +531,10 @@ public class TeamController implements Teamblservice {
 			Process pr = Runtime.getRuntime().exec(
 					"python python\\teamCompare.py");
 			pr.waitFor();
-			ImageIcon imageIcon = new ImageIcon(filename);
-			Image compare = imageIcon.getImage();
-			return compare;
+//			ImageIcon imageIcon = new ImageIcon(filename);
+//			Image compare = imageIcon.getImage();
+//			return compare;
+			return null;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
