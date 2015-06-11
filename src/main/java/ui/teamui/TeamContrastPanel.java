@@ -58,10 +58,10 @@ public class TeamContrastPanel extends JPanel{
 		});
 		JLabel t=new JLabel("队名");
 		t.setBounds(FrameSize.width-250, 5, 50, 30);
-		pic1.setBounds(50, FrameSize.height/8, FrameSize.height/5, FrameSize.height/5);
-		pic2.setBounds(FrameSize.width*3/4, FrameSize.height/8, FrameSize.height/5, FrameSize.height/5);
-		name1.setBounds(50, FrameSize.height/3, 100, 50);
-		name2.setBounds(FrameSize.width*3/4, FrameSize.height/3, 100,50);
+		pic1.setBounds(FrameSize.width/2-300-FrameSize.height/5, FrameSize.height/8, FrameSize.height/5, FrameSize.height/5);
+		pic2.setBounds(FrameSize.width/2+300, FrameSize.height/8, FrameSize.height/5, FrameSize.height/5);
+		name1.setBounds(FrameSize.width/2-300-FrameSize.height/5, FrameSize.height/3, 100, 50);
+		name2.setBounds(FrameSize.width/2+300, FrameSize.height/3, 100,50);
 		pic1.setOpaque(false);
 		this.add(enter);
 		this.add(t2);

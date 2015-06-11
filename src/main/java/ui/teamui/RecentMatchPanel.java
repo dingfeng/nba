@@ -54,7 +54,8 @@ public class RecentMatchPanel extends JPanel {
 	}
 
 	/** 近期比赛 */
-	public void setRecentTable(String teamname) {
+	public void setRecentTable() {
+		String teamname=MyFrame.teampanel.nameAbridgeresult.getText();
 		columnsName.clear();
 		rowimage.clear();
 		columnsName.add("日期");

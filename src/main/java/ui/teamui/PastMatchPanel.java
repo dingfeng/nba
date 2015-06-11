@@ -44,18 +44,22 @@ public class PastMatchPanel extends JPanel{
 		recent.setOpaque(true);
 		recent.setBackground(FrameSize.bluecolor);
 		recent.setForeground(Color.white);
-		
+		FrameSize.season.setBounds(FrameSize.width-150,0 ,100 ,30 );
+		FrameSize.season.setBackground(Color.white);
+		FrameSize.season.addActionListener(e->setPastTable());
+		recent.add(FrameSize.season);
 		this.add(recent);
 
 	}
 	/** 过往查询 */
-	void setPastTable(String teamname) {
+	void setPastTable() {
+		String teamname=MyFrame.teampanel.nameAbridgeresult.getText();
 		columnsName.clear();
 		columnsName.add("日期");
 		columnsName.add("对阵队伍");
 		columnsName.add("比分");
 
-		MatchesPO[] match = mc.getRegularTeamMatches(2012,teamname);
+		MatchesPO[] match = mc.getRegularTeamMatches(Integer.parseInt((String) FrameSize.season.getSelectedItem()),teamname);
 		rowimage.clear();
 		for (int i = match.length - 6; i >= 0; i--) {
 			Vector data = new Vector();

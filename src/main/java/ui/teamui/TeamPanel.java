@@ -215,7 +215,7 @@ public class TeamPanel extends JPanel {
 	}
 
 	void setRecent() {
-		recentmatchpanel.setRecentTable(nameAbridgeresult.getText());
+		recentmatchpanel.setRecentTable();
 		card.show(teammain, "recent");
 		
 		recentbutton.setSelected(true);
@@ -226,7 +226,7 @@ public class TeamPanel extends JPanel {
 	}
 
 	void setPast() {
-		pastmatchpanel.setPastTable(nameAbridgeresult.getText());
+		pastmatchpanel.setPastTable();
 		card.show(teammain, "past");
 		
 		pastbutton.setSelected(true);

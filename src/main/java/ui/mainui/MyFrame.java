@@ -96,7 +96,7 @@ public class MyFrame extends JFrame {
 		setMini();
 		setTitle();
 		setHeadButton();
-//		setTeambutton();
+		setTeambutton();
 		int screenWidth = (int) Toolkit.getDefaultToolkit().getScreenSize()
 				.getWidth();
 		int screenHeight = (int) Toolkit.getDefaultToolkit().getScreenSize()
