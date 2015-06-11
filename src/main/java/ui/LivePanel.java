@@ -2,9 +2,13 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +17,7 @@ import java.util.TimerTask;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -46,6 +51,7 @@ public class LivePanel extends JPanel {
 	JLabel gameGym;
 	JLabel gameAudience;
 	
+	JPanel gameChoosePanel;
 	Vector<String> columnsName = new Vector<String>();
 	Vector rowimage = new Vector();
 	DefaultTableModel liveModel = new DefaultTableModel(rowimage, columnsName);
@@ -83,6 +89,34 @@ public class LivePanel extends JPanel {
 		update();
 	}
 	
+	private void setGameChoose(SimpleMatchLive[] matches)
+	{
+		
+		for (int i = 0; i < matches.length; ++i)
+		{
+			MyButton myButton = new MyButton();
+			gameChoosePanel.add(myButton);
+			myButton.setMatch(matches[i]);
+		}
+	}
+	
+	class MyButton extends JButton
+	{
+		int matchId = -1;
+		public void setMatch(SimpleMatchLive match)
+		{
+			String team1 = match.getHostTeam();
+			String team2 = match.getGuestTeam();
+			String showStr = team1 +" vs "+ team2;
+			this.matchId = match.getMatchId();
+			this.setText(showStr);
+			this.setFont(new Font("宋体",Font.PLAIN,15));
+			this.setBackground(Color.WHITE);
+			this.setForeground(Color.gray);
+			this.addActionListener(e->setMatchId(matchId));
+			this.setFocusPainted(false);
+		}
+	}
 	public void update()
 	{
 		try {
@@ -94,6 +128,7 @@ public class LivePanel extends JPanel {
 		SimpleMatchLive[] matches = null;
 		try {
 			matches = matchData.getAllLiveMatches();
+			setGameChoose(matches);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -101,6 +136,7 @@ public class LivePanel extends JPanel {
 		{
 			setMatchId(matches[0].getMatchId());
 		}
+		
 	}
 	
 	private void initComponent()
@@ -427,6 +463,17 @@ public class LivePanel extends JPanel {
 		databutton.setSelectedIcon(new ImageIcon("image/data2.png"));
 		livebutton.setBounds(FrameSize.width * 5 / 6, 10, 100, 40);
 		databutton.setBounds(FrameSize.width * 11 / 12, 10, 100, 40);
+		JLabel label = new JLabel("赛事");
+		label.setBackground(Color.white);
+		label.setOpaque(true);
+		label.setFont(new Font("宋体",Font.BOLD,30));
+		label.setBounds((int)(FrameSize.width * 5.0 /6 + 50),60,100,40);
+		gameChoosePanel = new JPanel();
+		gameChoosePanel.setBackground(Color.WHITE);
+		gameChoosePanel.setBounds(FrameSize.width * 5 / 6, 100,FrameSize.width/6 ,150-100);
+		gameChoosePanel.setLayout(new FlowLayout());
+		this.add(gameChoosePanel);
+		this.add(label);
 		this.add(livebutton);
 		this.add(databutton);
 
