@@ -72,8 +72,8 @@ public class PlayerController implements PlayerBlService {
 		String sortBy = sortby + " desc";
 		PlayerNormalPO[] players = null;
 		try {
-			players = playerService.sortPlayerNormalAven(season,
-					sortBy, 5, type);
+			players = playerService.sortPlayerNormalAven(season, sortBy, 5,
+					type);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -130,8 +130,8 @@ public class PlayerController implements PlayerBlService {
 		String sortBy = sortby + "_uprate desc";
 		PlayerNormalPO[] players = null;
 		try {
-			players = playerService.sortPlayerNormalAven(season,
-					sortBy, 5, type);
+			players = playerService.sortPlayerNormalAven(season, sortBy, 5,
+					type);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -272,9 +272,9 @@ public class PlayerController implements PlayerBlService {
 		}
 		PlayerPO[] players;
 		try {
-			players = playerService.screenPlayer(null, matcharea, playerarea, playerPosition,
-					100);
-			if(players == null){
+			players = playerService.screenPlayer(null, matcharea, playerarea,
+					playerPosition, 100);
+			if (players == null) {
 				return null;
 			}
 			PlayerNormalPO[] result = new PlayerNormalPO[players.length];
@@ -331,9 +331,9 @@ public class PlayerController implements PlayerBlService {
 		}
 		PlayerPO[] players;
 		try {
-			players = playerService.screenPlayer(null, matcharea, playerarea, playerPosition,
-					100);
-			if(players == null){
+			players = playerService.screenPlayer(null, matcharea, playerarea,
+					playerPosition, 100);
+			if (players == null) {
 				return null;
 			}
 			PlayerNormalPO[] result = new PlayerNormalPO[players.length];
@@ -390,9 +390,9 @@ public class PlayerController implements PlayerBlService {
 		}
 		PlayerPO[] players;
 		try {
-			players = playerService.screenPlayer(null, matcharea, playerarea, playerPosition,
-					100);
-			if(players == null){
+			players = playerService.screenPlayer(null, matcharea, playerarea,
+					playerPosition, 100);
+			if (players == null) {
 				return null;
 			}
 			PlayerHighPO[] result = new PlayerHighPO[players.length];
@@ -538,8 +538,7 @@ public class PlayerController implements PlayerBlService {
 				+ (type == SeasonType.REGULAR ? "REGULAR" : "PLAYOFF") + ".png";
 		PlayerNormalPO player = null;
 		try {
-			player = playerService.getPlayerNormalAve(season, name,
-					type);
+			player = playerService.getPlayerNormalAve(season, name, type);
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -555,8 +554,7 @@ public class PlayerController implements PlayerBlService {
 
 		PlayerNormalPO[] allPlayers = null;
 		try {
-			allPlayers = playerService.getSeasonPlayerNormalAve(
-					season, type);
+			allPlayers = playerService.getSeasonPlayerNormalAve(season, type);
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -621,15 +619,15 @@ public class PlayerController implements PlayerBlService {
 		MatchPlayerPO[] player1Matches = null;
 		MatchPlayerPO[] player2Matches = null;
 		try {
-			player1Matches = playerService.getSeasonMatches(season,
-					name1, type);
-			player2Matches = playerService.getSeasonMatches(season,
-				name2, type);
+			player1Matches = playerService
+					.getSeasonMatches(season, name1, type);
+			player2Matches = playerService
+					.getSeasonMatches(season, name2, type);
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 		int len1 = player1Matches.length * 5;
 		int len2 = player2Matches.length * 5;
 		StringBuffer playerData1PTS = new StringBuffer(len1);
@@ -893,17 +891,17 @@ public class PlayerController implements PlayerBlService {
 				+ ".png";
 		MatchPlayerPO[] newest = new MatchPlayerPO[10];
 		MatchPlayerPO[] regularP = null;
-		MatchPlayerPO[] playeroffP = null; 
+		MatchPlayerPO[] playeroffP = null;
 		try {
-			regularP = playerService.getSeasonMatches(season,
-					playername, SeasonType.REGULAR);
-			playeroffP = playerService.getSeasonMatches(season,
-				playername, SeasonType.PLAYOFF);
+			regularP = playerService.getSeasonMatches(season, playername,
+					SeasonType.REGULAR);
+			playeroffP = playerService.getSeasonMatches(season, playername,
+					SeasonType.PLAYOFF);
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 		int nowP = 0;
 		if (regularP == null && playeroffP == null) {
 			return null;
@@ -983,8 +981,7 @@ public class PlayerController implements PlayerBlService {
 				+ ".png";
 		PlayerNormalPO player = null;
 		try {
-			player = playerService.getPlayerNormalAve(season, name,
-					type);
+			player = playerService.getPlayerNormalAve(season, name, type);
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -1000,8 +997,7 @@ public class PlayerController implements PlayerBlService {
 
 		PlayerNormalPO[] allPlayers = null;
 		try {
-			allPlayers = playerService.getSeasonPlayerNormalAve(
-					season, type);
+			allPlayers = playerService.getSeasonPlayerNormalAve(season, type);
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -1056,33 +1052,38 @@ public class PlayerController implements PlayerBlService {
 		}
 		return null;
 	}
-	
-	private boolean writeAnalyseData(){
+
+	private boolean writeAnalyseData() {
 		try {
-			PlayerNormalPO[] playerNormal = playerService.getSeasonPlayerNormalAve(2014, SeasonType.REGULAR);
+			PlayerNormalPO[] playerNormal = playerService
+					.getSeasonPlayerNormalAve(2014, SeasonType.REGULAR);
 			int length = playerNormal.length;
 			StringBuffer dataToWrite = new StringBuffer(length * 20);
 			PlayerPO[] players = playerService.getAllActivePlayerData();
-			TIntObjectMap<PlayerNormalPO> playermap = new TIntObjectHashMap<PlayerNormalPO>(length);
-			for(PlayerNormalPO p : playerNormal){
+			TIntObjectMap<PlayerNormalPO> playermap = new TIntObjectHashMap<PlayerNormalPO>(
+					length);
+			for (PlayerNormalPO p : playerNormal) {
 				playermap.put(p.getName().hashCode(), p);
 			}
-			
-			//添加表头
+
+			// 添加表头
 			dataToWrite.append("name,position,age,pts,rebs,ast\n");
-			
-			for(PlayerPO p : players){
-				PlayerNormalPO thisplayer = playermap.get(p.getName().hashCode());
-				if(thisplayer != null){
-					dataToWrite.append(p.getName() + "," + p.getPosition() + "," + p.getAge() + "," + 
-								thisplayer.getPoints() + "," + thisplayer.getRebs() + "," + thisplayer.getAssistNo() + "\n");
+
+			for (PlayerPO p : players) {
+				PlayerNormalPO thisplayer = playermap.get(p.getName()
+						.hashCode());
+				if (thisplayer != null) {
+					dataToWrite.append(p.getName() + "," + p.getPosition()
+							+ "," + p.getAge() + "," + thisplayer.getPoints()
+							+ "," + thisplayer.getRebs() + ","
+							+ thisplayer.getAssistNo() + "\n");
 				}
 			}
 			dataToWrite.trimToSize();
 			String toWrite = dataToWrite.toString();
 			try {
-				BufferedWriter output = new BufferedWriter(new FileWriter(new File(
-						filenameAnalysis)));
+				BufferedWriter output = new BufferedWriter(new FileWriter(
+						new File(filenameAnalysis)));
 				output.write(toWrite);
 				output.close();
 				return true;
@@ -1096,8 +1097,8 @@ public class PlayerController implements PlayerBlService {
 		}
 		return false;
 	}
-	
-	public void write(){
+
+	public void write() {
 		this.writeAnalyseData();
 	}
 
@@ -1111,6 +1112,18 @@ public class PlayerController implements PlayerBlService {
 	public PlayerPO[] getPlayerOfTeam(String teamname) {
 		try {
 			return playerService.getPlayersOfTeam(teamname);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public PlayerPO[] getPlayerPOWithStart(String start) {
+		String[] playersFit = null;
+		try {
+			playersFit = playerService.fuzzilySearch(start);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

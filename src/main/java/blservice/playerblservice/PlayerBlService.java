@@ -201,4 +201,10 @@ public interface PlayerBlService {
      * @return	相应的playerPO对象数组
      */
     public PlayerPO[] getPlayerOfTeam(String teamname);
+    /**
+     * 由球员首字母得到playerpo数组
+     * @param start	球员名称首字母
+     * @return	返回相应的playerpo数组
+     */
+    public PlayerPO[] getPlayerPOWithStart(String start);
 }
