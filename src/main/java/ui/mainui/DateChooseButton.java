@@ -219,9 +219,9 @@ setDate(date);
 		int lastYear = 2015; // 默认【最大】显示年份
 		int width = 240; // 界面宽度
 		int height = 150; // 界面高度
-		Color backGroundColor = Color.gray; // 底色
+		Color backGroundColor = Color.black; // 底色
 		// 月历表格配色----------------//
-		Color palletTableColor = FrameSize.buttonbackColor; // 日历表底色
+		Color palletTableColor = Color.black; // 日历表底色
 		Color todayBackColor = Color.orange; // 今天背景色
 		Color weekFontColor = Color.white; // 星期文字色
 		Color dateFontColor = Color.white; // 日期文字色

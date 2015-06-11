@@ -44,7 +44,7 @@ public class ShowAllPlayerPanel extends JPanel {
 		this.setOpaque(false);
 		JPanel headerPanel = HeaderPanel();
 		this.add(headerPanel);
-//		setAllPlayerTable(playerController.getPlayersWithStart(2014, "A"));
+		setAllPlayerTable(playerController.getPlayersWithStart(2014, "A"));
 	}
 
 	/** 查找栏 */
@@ -94,8 +94,8 @@ public class ShowAllPlayerPanel extends JPanel {
 	private void setAllPlayerTable(HPlayerPO[] playerVOs) {
 		if (playerVOs != null) {
 			Vector columnsName = new Vector();
-			columnsName.add(" ");
-			columnsName.add("球员");
+//			columnsName.add(" ");
+			/*01球员图片*/columnsName.add("球员");
 			columnsName.add("姓名");
 			columnsName.add("球队");
 			columnsName.add("位置");
@@ -109,8 +109,8 @@ public class ShowAllPlayerPanel extends JPanel {
 			Vector data = new Vector();
 			for (int i = 0; i < playerVOs.length; i++) {
 				Vector rowData = new Vector();
-				rowData.add(i+1);
-				rowData.add(playerController.getPlayerImage(playerVOs[i].getName()));
+//				rowData.add(i+1);
+				/*01球员图片*/rowData.add(playerController.getPlayerImage(playerVOs[i].getName()));
 				rowData.add(playerVOs[i].getName());
 				rowData.add(playerVOs[i].getTeama());
 				rowData.add(playerVOs[i].getPosition());

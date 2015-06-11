@@ -80,8 +80,9 @@ public class MatchPanel extends JPanel {
 		MatchesPO[] matches = matchController.getTimeMatches(date);
 		JLabel[] matchLabel = new JLabel[matches.length];
 		for (int i = 0; i < matches.length; i++) {
-			MatchTeamPO team1 = matches[i].getTeam1();
-			MatchTeamPO team2 = matches[i].getTeam2();
+			MatchesPO match = matchController.getMatchById(matches[i].getMatchId());
+			MatchTeamPO team1 = match.getTeam1();
+			MatchTeamPO team2 = match.getTeam2();
 			System.out.println(team1.getName()+"-"+team2.getName());
 
 			matchLabel[i] = new JLabel();
@@ -97,8 +98,9 @@ public class MatchPanel extends JPanel {
 			matchLabel[i].add(teamImage1);
 			matchLabel[i].add(teamImage2);
 
-			JLabel[][] scores = new JLabel[3][4];
-			for (int j = 0; j < 4; j++) {
+			int column = team1.getScores().length+1;
+			JLabel[][] scores = new JLabel[3][column];
+			for (int j = 0; j < column; j++) {
 				scores[0][j] = new JLabel(String.valueOf(j + 1));
 				scores[1][j] = new JLabel(String.valueOf(team1.getScores()[j]));
 				scores[2][j] = new JLabel(String.valueOf(team2.getScores()[j]));
@@ -109,7 +111,7 @@ public class MatchPanel extends JPanel {
 				}
 				for (int k = 0; k < 3; k++) {
 					scores[k][j].setBounds(350 + (FrameSize.width - 700 - 120)
-							* (j + 1) / 5 + j * 30, 40 + k * 50, 30, 30);
+							* (j + 1) / (column+1) + j * 30, 40 + k * 50, 30, 30);
 					matchLabel[i].add(scores[k][j]);
 				}
 
@@ -117,7 +119,8 @@ public class MatchPanel extends JPanel {
 
 			matchLabel[i].addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
-					setOneMatch(team1, team2);
+//					setOneMatch(team1, team2);
+					System.out.println(team1.getPlayers().length+'-'+team2.getPlayers().length);
 				}
 			});
 			matchPanel.add(matchLabel[i]);
