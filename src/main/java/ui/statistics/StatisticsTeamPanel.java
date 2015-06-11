@@ -2,6 +2,9 @@ package ui.statistics;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Panel;
+import java.awt.Toolkit;
 import java.util.Comparator;
 import java.util.Vector;
 
@@ -105,7 +108,7 @@ public class StatisticsTeamPanel extends JPanel {
 	void setLowTable(TeamNormalPO[] team){
 		columnsName.removeAllElements();
 		
-//		columnsName.add("图标");
+		columnsName.add("图标");
 		columnsName.add("球队");
 		columnsName.add("得分");
 		columnsName.add("胜率(%)");
@@ -127,9 +130,18 @@ public class StatisticsTeamPanel extends JPanel {
 		
 		for (int i = 0; i <team.length; i++) {
 			TeamNormalPO str = team[i];
-			
+			JPanel imagepanel=new JPanel() {
+				protected void paintComponent(Graphics g) {
+					java.awt.Image img =tc.getTeamImage(str.getName());
+					g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+					// 细致渲染、绘制背景，可控制截取图片，显示于指定的JPanel位置
+					// g.drawImage(img, 0, 0, frameSize.width, frameSize.height,
+					// 0, 0, icon.getIconWidth(), icon.getIconHeight(),
+					// icon.getImageObserver());
+				}
+			};
 			Vector data = new Vector();
-//			data.add(tc.getTeamImage(str.getName()));
+			data.add(imagepanel);
 			data.add(str.getName());
 			data.add(FrameSize.roundForNumber(str.getPoints(), num));
 			data.add(FrameSize.roundForNumber(str.getWinRate() * 100, 1));
