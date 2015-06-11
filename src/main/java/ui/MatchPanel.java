@@ -28,6 +28,7 @@ import blservice.matchblservice.Matchblservice;
 import blservice.teamblservice.Teamblservice;
 import ui.mainui.DateChooseButton;
 import ui.mainui.FrameSize;
+import ui.mainui.MyFont;
 import ui.mainui.MyTable;
 
 public class MatchPanel extends JPanel {
@@ -100,6 +101,27 @@ public class MatchPanel extends JPanel {
 			
 			JLabel teamName1 = new JLabel(team1.getName());
 			JLabel teamName2 = new JLabel(team2.getName());
+			teamName1.setFont(MyFont.font2);
+			teamName2.setFont(MyFont.font2);
+			teamName1.setBounds(100,30,100,30);
+			teamName2.setBounds(FrameSize.width-150,30,50,30);
+			matchLabel[i].add(teamName1);
+			matchLabel[i].add(teamName2);
+			
+			JLabel teamScores1 = new JLabel(String.valueOf(team1.getTotalScores()));
+			JLabel teamScores2 = new JLabel(String.valueOf(team2.getTotalScores()));
+			if(team1.getTotalScores()>team2.getTotalScores()){
+				teamScores1.setForeground(Color.red);
+			}
+			else{
+				teamScores2.setForeground(Color.red);
+			}
+			teamScores1.setBounds(100,60,50,30);
+			teamScores2.setBounds(FrameSize.width-150,60,50,30);
+			matchLabel[i].add(teamScores1);
+			matchLabel[i].add(teamScores2);
+			
+			
 
 			int column = team1.getScores().length+1;
 			JLabel[][] scores = new JLabel[3][column];
