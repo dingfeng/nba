@@ -60,7 +60,8 @@ public class CurrentTeam implements Serializable{
     	   this.teamName = teamName;
     	   this.totalScores = totalScores;
     	   this.points = points;
-    	   this.img = ImageTool.imageToBytes_player(img, "jpg", BufferedImage.TYPE_INT_RGB);
+    	   if (img != null)
+    	   this.img = ImageTool.imageToBytes_player(img, "png", BufferedImage.TYPE_INT_ARGB);
        }
        public String toString()
        {
@@ -76,7 +77,9 @@ public class CurrentTeam implements Serializable{
        
    public Image getImg()
    {
+	   if (img!=null)
 	   return  ImageTool.bytesToImage(img);
+	   else return null;
    }
    public String getDisc() 
    {

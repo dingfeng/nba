@@ -11,6 +11,7 @@ public class MatchesPO implements Serializable{
        public MatchesPO(int matchId,MatchTeamPO team1,MatchTeamPO team2,
     		   String date)
     		   {
+    	            this.matchId = matchId;
     	            this.team1 = team1;
     	            this.team2 = team2;
     	            this.date = date;
