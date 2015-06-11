@@ -189,4 +189,16 @@ public interface PlayerBlService {
      * @return	返回相应球员与所有球员当前赛季平均水平比较的柱状图
      */
     public Image getPlayerBar(int season, String name, SeasonType type);
+    /**
+     * 根据球员名称得到PlayerPO
+     * @param name		球员名称
+     * @return	返回相应的playerPO
+     */
+    public PlayerPO getplayerPObyName(String name);
+    /**
+     * 得到一个球队的所有球员playerPO对象
+     * @param teamname		球队名称
+     * @return	相应的playerPO对象数组
+     */
+    public PlayerPO[] getPlayerOfTeam(String teamname);
 }

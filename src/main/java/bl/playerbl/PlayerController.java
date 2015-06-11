@@ -274,6 +274,9 @@ public class PlayerController implements PlayerBlService {
 		try {
 			players = playerService.screenPlayer(null, matcharea, playerarea, playerPosition,
 					100);
+			if(players == null){
+				return null;
+			}
 			PlayerNormalPO[] result = new PlayerNormalPO[players.length];
 			for (int i = 0; i != players.length; i++) {
 				result[i] = playerService.getPlayerNormalAve(season,
@@ -330,6 +333,9 @@ public class PlayerController implements PlayerBlService {
 		try {
 			players = playerService.screenPlayer(null, matcharea, playerarea, playerPosition,
 					100);
+			if(players == null){
+				return null;
+			}
 			PlayerNormalPO[] result = new PlayerNormalPO[players.length];
 			for (int i = 0; i != players.length; i++) {
 				result[i] = playerService.getPlayerNormalTotal(season,
@@ -386,6 +392,9 @@ public class PlayerController implements PlayerBlService {
 		try {
 			players = playerService.screenPlayer(null, matcharea, playerarea, playerPosition,
 					100);
+			if(players == null){
+				return null;
+			}
 			PlayerHighPO[] result = new PlayerHighPO[players.length];
 			for (int i = 0; i != players.length; i++) {
 				result[i] = playerService.getPlayerHigh(season,
@@ -1090,5 +1099,22 @@ public class PlayerController implements PlayerBlService {
 	
 	public void write(){
 		this.writeAnalyseData();
+	}
+
+	@Override
+	public PlayerPO getplayerPObyName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PlayerPO[] getPlayerOfTeam(String teamname) {
+		try {
+			return playerService.getPlayersOfTeam(teamname);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
