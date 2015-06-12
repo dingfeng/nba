@@ -41,6 +41,7 @@ public class ShowAllPlayerPanel extends JPanel {
 	PlayerDataService playerService = dataFactory.getPlayerData();
 	
 	PlayerBlService playerController = new PlayerController();
+	TeamController teamController = new TeamController();
 	DefaultTableModel allPlayerTable = new DefaultTableModel();
 	MyTable myAllPlayerTable = new MyTable(allPlayerTable);
 	JScrollPane jAllPlayerScrollPane = new JScrollPane(myAllPlayerTable);
@@ -83,7 +84,7 @@ public class ShowAllPlayerPanel extends JPanel {
 			character[i] = new CharacterButton((char) ('A' + i));
 		}
 		for (int i = 0; i < 26; i++) {
-			character[i].setBounds(120+30 * i, 5,30,30);
+			character[i].setBounds(100+30 * i, 5,30,30);
 			headerPanel.add(character[i]);
 		}
 		
@@ -120,8 +121,8 @@ public class ShowAllPlayerPanel extends JPanel {
 		playerNameTextField.setText("按姓名查找");
 		playerNameTextField.setBackground(new Color(69, 69, 69));
 		playerNameTextField.setForeground(Color.white);
-		playerNameTextField.setBounds(120+26 * 30, 5,
-				(FrameSize.width - 26 * 30-120) / 2 - 10, 30);
+		playerNameTextField.setBounds(100+26 * 30+5, 5,
+				(FrameSize.width - 26 * 30-100) / 2 - 10, 30);
 		playerNameTextField.addKeyListener(new KeyAdapter(){
 			public void keyPressed(KeyEvent e){
 				if(e.getKeyChar()==KeyEvent.VK_ENTER){
@@ -139,11 +140,10 @@ public class ShowAllPlayerPanel extends JPanel {
 		headerPanel.add(playerNameTextField);
 
 		// 根据球队查找球员
-		String team[] = new String[30];// 所有球队名
+		String team[] = teamController.getTeamNames();
 		MyComboBox findPlayerAccordingTeam = new MyComboBox("按球队查找", team);
 		findPlayerAccordingTeam.setBounds(
-				120+27 * 30 + (FrameSize.width - 26 * 30) / 2, 5, FrameSize.width
-						- (120+26 * 30 + (FrameSize.width - 26 * 30) / 2), 30);
+				100+26 * 30+5+(FrameSize.width - 26 * 30-100) / 2 - 10+5, 5, (FrameSize.width - 26 * 30-100) / 2 - 10, 30);
 		findPlayerAccordingTeam.addActionListener(e->setNowPlayerTable(playerController.getPlayerOfTeam((String)findPlayerAccordingTeam.getSelectedItem())));
 		headerPanel.add(findPlayerAccordingTeam);
 

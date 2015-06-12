@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -76,12 +77,13 @@ public class MatchPanel extends JPanel {
 
 	/** 一天的所有比赛 */
 	public void setTodayMatches(Date date) {
-		if (date.getYear() > 1984) {
+		if (date.getYear()+1900 > 1984) {
 			System.out.println(date);
 			todatyMatchScrollPane.getViewport().removeAll();
 			JPanel matchPanel = new JPanel();
 			matchPanel.setLayout(null);
 			MatchesPO[] matches = matchController.getTimeMatches(date);
+			System.out.println(matches.length);
 			JLabel[] matchLabel = new JLabel[matches.length];
 			for (int i = 0; i < matches.length; i++) {
 				MatchesPO match = matchController.getMatchById(matches[i]
@@ -107,8 +109,8 @@ public class MatchPanel extends JPanel {
 				JLabel teamName2 = new JLabel(team2.getName());
 				teamName1.setFont(MyFont.font2);
 				teamName2.setFont(MyFont.font2);
-				teamName1.setBounds(100, 30, 100, 30);
-				teamName2.setBounds(FrameSize.width - 150, 30, 50, 30);
+				teamName1.setBounds(100, 60, 100, 30);
+				teamName2.setBounds(FrameSize.width - 150, 60, 50, 30);
 				matchLabel[i].add(teamName1);
 				matchLabel[i].add(teamName2);
 
@@ -116,17 +118,19 @@ public class MatchPanel extends JPanel {
 						.getTotalScores()));
 				JLabel teamScores2 = new JLabel(String.valueOf(team2
 						.getTotalScores()));
+				teamScores1.setFont(MyFont.font3);
+				teamScores2.setFont(MyFont.font3);
 				if (team1.getTotalScores() > team2.getTotalScores()) {
 					teamScores1.setForeground(Color.red);
 				} else {
 					teamScores2.setForeground(Color.red);
 				}
-				teamScores1.setBounds(100, 60, 50, 30);
-				teamScores2.setBounds(FrameSize.width - 150, 60, 50, 30);
+				teamScores1.setBounds(100, 120, 50, 30);
+				teamScores2.setBounds(FrameSize.width - 150, 120, 50, 30);
 				matchLabel[i].add(teamScores1);
 				matchLabel[i].add(teamScores2);
 
-				int column = team1.getScores().length + 1;
+				int column = team1.getScores().length;
 				JLabel[][] scores = new JLabel[3][column];
 				for (int j = 0; j < column; j++) {
 					scores[0][j] = new JLabel(String.valueOf(j + 1));
@@ -142,7 +146,7 @@ public class MatchPanel extends JPanel {
 					for (int k = 0; k < 3; k++) {
 						scores[k][j].setBounds(350
 								+ (FrameSize.width - 700 - 120) * (j + 1)
-								/ (column + 1) + j * 30, 40 + k * 50, 30, 30);
+								/ (column + 2) + j * 30, 40 + k * 50, 30, 30);
 						matchLabel[i].add(scores[k][j]);
 					}
 
@@ -150,9 +154,7 @@ public class MatchPanel extends JPanel {
 
 				matchLabel[i].addMouseListener(new MouseAdapter() {
 					public void mouseClicked(MouseEvent e) {
-						// setOneMatch(team1, team2);
-						System.out.println(team1.getPlayers().length + '-'
-								+ team2.getPlayers().length);
+						 setOneMatch(team1, team2);
 					}
 				});
 				matchPanel.add(matchLabel[i]);
@@ -327,6 +329,24 @@ public class MatchPanel extends JPanel {
 
 	/** 一场旧比赛的信息图 */
 	private void setOneOldMatch(Image picture) {
+		oneMatchScrollPane.getViewport().removeAll();
+		JLabel jLabel = new JLabel();
+		jLabel.setIcon(new ImageIcon(picture));
+		jLabel.setOpaque(false);	
+		
+		oneMatchScrollPane.getViewport().add(jLabel);
+		jLabel.setPreferredSize(new Dimension(FrameSize.width, 900));
+		oneMatchScrollPane.setBounds(0, 0, FrameSize.width,
+				FrameSize.height * 7 / 8 - 40);
+		oneMatchScrollPane.setOpaque(false);
+		oneMatchScrollPane.getViewport().setOpaque(false);
+		oneMatchScrollPane
+				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		oneMatchScrollPane
+				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		// this.add(todatyMatchScrollPane);
+		card.show(matchmain, "one");
+		this.repaint();
 		
 	}
 
