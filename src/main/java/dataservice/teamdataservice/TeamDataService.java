@@ -12,6 +12,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 import dataservice.playerdataservice.SeasonType;
+import po.HotPlayerTeam;
 import po.TeamHighPO;
 import po.TeamNormalPO;
 import po.TeamPO;
@@ -32,11 +33,10 @@ import po.TeamPO;
  * sortTeamNormalTotaln<br/>
  * Reason: 为球队模块提供数据接口 <br/>
  * 数据格式：sort 的格式为 数据类型+排序类型 <br/>
- * 数据类型：  season(赛季),teamName（球队名） ,offenseRound（进攻回合） ,offenseEfficiency（进攻效率） ,defenceEfficiency （防守效率）,
- * orebsEfficiency（进攻篮板效率） ,drebsEfficiency（防守篮板效率）,stealsEfficiency（抢断效率）,assistEfficiency（助攻效率）,ave （平均）,season 
- * ,matchNo（比赛场数）,hitNo（投篮命中数）,handNo（投篮出手数）,threeHitNo（三分球命中数）, threeHandNo（三分球出手数）,penaltyHitNo（罚球命中数）,penaltyHandNo（罚球出手数）,
- * offenseRebs（进攻篮板数）,defenceRebs（防守篮板数）,rebs（篮板数）,assistNo（助攻数）,stealsNo（抢断数）,blockNo（盖帽数）,mistakesNo（失误数）,foulsNo（犯规数）,points（得分）,
- * hitRate（命中率）,threeHitRate（三分命中率）,penaltyHitRate（罚球命中率）,winRate（胜率）
+ * 数据类型：  season,teamName ,offenseRound ,offenseEfficiency ,defenceEfficiency ,
+ * orebsEfficiency ,drebsEfficiency,stealsEfficiency,assistEfficiency,ave ,season ,teamName ,
+ * matchNo,hitNo,handNo,threeHitNo, threeHandNo,penaltyHitNo,penaltyHandNo,offenseRebs,defenceRebs
+ * ,rebs,assistNo,stealsNo,blockNo,mistakesNo,foulsNo,points,hitRate,threeHitRate,penaltyHitRate,winRate
  * 排序类型：asc,desc 
  * 例如：1.hitNo asc  2. teamName desc 
  * 组合排序： offenseRound desc,offenseEfficiency desc
@@ -174,4 +174,12 @@ public interface TeamDataService extends Remote{
 	 * @throws RemoteException   有可能抛出网络异常
 	 */
 	public TeamHighPO[] getTeamSeasonHigh(String teama,SeasonType type)throws RemoteException;
+	/**
+	 * 获得赛季热点球队<br/>
+	 * @param sort                热点类型       
+	 * @param seasonType          赛季类型
+	 * @return                    前五名的热点球队
+	 * @throws RemoteException    有可能抛出网络异常
+	 */
+	public HotPlayerTeam[] getHotTeam(int season,String sort,SeasonType seasonType)throws RemoteException;
 }

@@ -15,6 +15,7 @@ public class ImageRenderer implements TableCellRenderer{
 	public Component getTableCellRendererComponent(
 			JTable table, Object value, boolean isSelected, 
 			boolean hasFocus, int rowIndex, int columnIndex) {
+		try{
 			if( value instanceof Image )
 			{
 				ImageIcon imageI = scaleImage(new ImageIcon((Image)value),60,50);
@@ -42,7 +43,10 @@ public class ImageRenderer implements TableCellRenderer{
 			throw new RuntimeException(ex.getMessage(), ex);
 			}
 			}
-			
+		}catch (Exception e)
+		{
+			return new JLabel(value.toString());
+		}
 			}
 	private ImageIcon scaleImage(ImageIcon icon, int iconWidth, int iconHeight) { 
 		int width = icon.getIconWidth(); 
