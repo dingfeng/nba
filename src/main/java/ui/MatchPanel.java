@@ -110,7 +110,7 @@ public class MatchPanel extends JPanel {
 				teamName1.setFont(MyFont.font2);
 				teamName2.setFont(MyFont.font2);
 				teamName1.setBounds(100, 60, 100, 30);
-				teamName2.setBounds(FrameSize.width - 150, 60, 50, 30);
+				teamName2.setBounds(FrameSize.width - 150, 60, 100, 30);
 				matchLabel[i].add(teamName1);
 				matchLabel[i].add(teamName2);
 
