@@ -2,6 +2,7 @@ package ui.playerui;
 
 import java.awt.Button;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -44,6 +45,10 @@ public class ShowAllPlayerPanel extends JPanel {
 	TeamController teamController = new TeamController();
 	DefaultTableModel allPlayerTable = new DefaultTableModel();
 	MyTable myAllPlayerTable = new MyTable(allPlayerTable);
+	{
+		((MyTable)myAllPlayerTable).setShowImage(true);
+		myAllPlayerTable.getTableHeader().setPreferredSize(new Dimension(1,40));;
+	}
 	JScrollPane jAllPlayerScrollPane = new JScrollPane(myAllPlayerTable);
 	
 	Vector columnsName = new Vector();
@@ -169,7 +174,7 @@ public class ShowAllPlayerPanel extends JPanel {
 		if (playerVOs != null) {
 			columnsName.removeAllElements();
 //			columnsName.add(" ");
-//			/*01球员图片*/columnsName.add("球员");
+			/*01球员图片*/columnsName.add("球员");
 			/*02姓名*/columnsName.add("姓名");
 			/*03球队*/columnsName.add("球队");
 			/*04位置*/columnsName.add("位置");
@@ -186,7 +191,7 @@ public class ShowAllPlayerPanel extends JPanel {
 			for (int i = 0; i < playerVOs.length; i++) {
 				Vector rowData = new Vector();
 //				rowData.add(i+1);
-//				/*01球员图片*/rowData.add(playerController.getPlayerImage(playerVOs[i].getName()));
+				/*01球员图片*/rowData.add(playerController.getPlayerImage(playerVOs[i].getName()));
 				/*02姓名*/rowData.add(playerVOs[i].getName());
 				/*03球队*/rowData.add(playerVOs[i].getTeamA());
 				/*04位置*/rowData.add(playerVOs[i].getPosition());
@@ -199,8 +204,7 @@ public class ShowAllPlayerPanel extends JPanel {
 				/*12赛区*/rowData.add(playerVOs[i].getGameArea());
 				data.add(rowData);
 			}
-			allPlayerTable = new DefaultTableModel(data, columnsName);
-			myAllPlayerTable = new MyTable(allPlayerTable);
+			allPlayerTable.setDataVector(data, columnsName);
 			jAllPlayerScrollPane = new JScrollPane(myAllPlayerTable);
 			jAllPlayerScrollPane.setBounds(0, 40, FrameSize.width,
 					FrameSize.width * 7 / 8 - 40);
@@ -211,7 +215,7 @@ public class ShowAllPlayerPanel extends JPanel {
 					if (e.getClickCount() == 2) {
 						try {
 							MyFrame.onePlayerPanel.showOne((String) myAllPlayerTable.getModel().getValueAt(
-									myAllPlayerTable.getSelectedRow(), 0));
+									myAllPlayerTable.getSelectedRow(), 1));
 							MyFrame.card.show(MyFrame.mainpanel, "oneplayer");
 						} catch (NullPointerException e1) {
 						
@@ -220,6 +224,7 @@ public class ShowAllPlayerPanel extends JPanel {
 				}
 
 			});
+			myAllPlayerTable.setRowHeight(50);
 		}
 	}
 	
@@ -228,7 +233,7 @@ public class ShowAllPlayerPanel extends JPanel {
 		if (playerVOs != null) {
 			columnsName.removeAllElements();
 //			columnsName.add(" ");
-//			/*01球员图片*/columnsName.add("球员");
+			/*01球员图片*/columnsName.add("球员");
 			/*02姓名*/columnsName.add("姓名");
 			/*03球队*/columnsName.add("球队");
 			/*04位置*/columnsName.add("位置");
@@ -242,7 +247,7 @@ public class ShowAllPlayerPanel extends JPanel {
 			for (int i = 0; i < playerVOs.length; i++) {
 				Vector rowData = new Vector();
 //				rowData.add(i+1);
-//				/*01球员图片*/rowData.add(playerController.getPlayerImage(playerVOs[i].getName()));
+				/*01球员图片*/rowData.add(playerController.getPlayerImage(playerVOs[i].getName()));
 				/*02姓名*/rowData.add(playerVOs[i].getName());
 				/*03球队*/rowData.add(playerVOs[i].getTeama());
 				/*04位置*/rowData.add(playerVOs[i].getPosition());
@@ -254,8 +259,7 @@ public class ShowAllPlayerPanel extends JPanel {
 
 				data.add(rowData);
 			}
-			allPlayerTable = new DefaultTableModel(data, columnsName);
-			myAllPlayerTable = new MyTable(allPlayerTable);
+			allPlayerTable.setDataVector(data, columnsName);
 			jAllPlayerScrollPane = new JScrollPane(myAllPlayerTable);
 			jAllPlayerScrollPane.setBounds(0, 40, FrameSize.width,
 					FrameSize.width * 7 / 8 - 40);
@@ -273,6 +277,7 @@ public class ShowAllPlayerPanel extends JPanel {
 				}
 
 			});
+			myAllPlayerTable.setRowHeight(50);
 		}
 	}
 

@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -63,6 +64,7 @@ public class TeamPlayerPanel extends JPanel {
 				FrameSize.height * 3 / 4 - 180);
 		jScrollPane.setBackground(Color.white);
 		jScrollPane.getViewport().setOpaque(false);
+		
 		setButton();
 		this.repaint();
 	}
@@ -124,6 +126,8 @@ public class TeamPlayerPanel extends JPanel {
 			rowimage.add(data);
 		}
 		table.setDataVector(rowimage, columnsName);
+		TableColumn firsetColumn = mytable.getColumnModel().getColumn(0);
+		firsetColumn.setPreferredWidth(112);
 		this.add(jScrollPane);
 		this.repaint();
 	}
@@ -170,6 +174,8 @@ public class TeamPlayerPanel extends JPanel {
 			rowimage.add(data);
 		}
 		table.setDataVector(rowimage, columnsName);
+		TableColumn firsetColumn = mytable.getColumnModel().getColumn(0);
+		firsetColumn.setPreferredWidth(112);
 		mytable.setRowSorter(new TableRowSorter<TableModel>(table));
 		mytable.updateUI();
 

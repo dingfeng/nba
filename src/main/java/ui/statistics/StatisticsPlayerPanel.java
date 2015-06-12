@@ -28,7 +28,11 @@ public class StatisticsPlayerPanel extends JPanel {
 	Vector<String> columnsName = new Vector<String>();
 	Vector data = new Vector();
 	DefaultTableModel table = new DefaultTableModel(data, columnsName);
-	MyTable mytable = new MyTable(table);
+	MyTable mytable = new MyTable(table);{
+		((MyTable)mytable).setShowImage(true);
+	
+	mytable.getTableHeader().setPreferredSize(new Dimension(1,40));;
+	}
 	JScrollPane jScrollPane = new JScrollPane(mytable);
 
 	PlayerBlService playerController = new PlayerController();
@@ -120,7 +124,7 @@ public class StatisticsPlayerPanel extends JPanel {
 		if (playerMatchVOs != null) {
 			columnsName.removeAllElements();
 //			/* 00排名 */columnsName.add("排名");
-//			/* 01球员 */columnsName.add("球员");
+			/* 01球员 */columnsName.add("球员");
 			/* 02姓名 */columnsName.add("姓名");
 			/* 03球队 */columnsName.add("球队");
 			/* 04场数 */columnsName.add("场数");
@@ -143,7 +147,7 @@ public class StatisticsPlayerPanel extends JPanel {
 			for (int i = 0; i < playerMatchVOs.length; i++) {
 				Vector rowData = new Vector();
 //				/* 00排名 */rowData.add(i + 1);
-//				/* 01球员 */rowData.add("图片");
+				/* 01球员 */rowData.add(playerController.getPlayerImage(playerMatchVOs[i].getName()));
 				/* 02姓名 */rowData.add(playerMatchVOs[i].getName());
 				/* 03球队 */rowData.add(playerMatchVOs[i].getTeam());
 				/* 04场数 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getMatchNo(),1));
@@ -163,6 +167,7 @@ public class StatisticsPlayerPanel extends JPanel {
 				/* 19得分 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getPoints(),1));
 				data.add(rowData);
 			}
+			mytable.setRowHeight(50);
 			setScrollPane();
 		}
 	}
