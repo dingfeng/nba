@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -18,6 +19,7 @@ import javax.swing.table.TableRowSorter;
 import ui.mainui.FrameSize;
 import ui.mainui.MyComboBox;
 import ui.mainui.MyTable;
+import ui.mainui.UneditableTextField;
 
 public class StatisticsPanel extends JPanel {
 	Vector<String> columnsName = new Vector<String>();
@@ -27,7 +29,7 @@ public class StatisticsPanel extends JPanel {
 	JScrollPane jScrollPane = new JScrollPane(mytable);
 	JComboBox type=new MyComboBox(new String[]{"数据偏离度","得分","篮板","助攻"});
 	JLabel imagelabel=new JLabel();
-	JLabel text=new JLabel();
+	JTextArea text=new JTextArea();
 	public StatisticsPanel() {
 		this.setLayout(null);
 		this.setBounds(0, 0, FrameSize.width, FrameSize.height * 7 / 8);
@@ -38,7 +40,7 @@ public class StatisticsPanel extends JPanel {
 		type.setBackground(Color.white);
 		type.setForeground(Color.black);
 		imagelabel.setBounds(FrameSize.width/2-280,275 ,560,420);
-		
+		text.setBounds(FrameSize.width-280,300,250,400);
 		this.add(text);
 		this.add(type);
 		this.add(imagelabel);
@@ -169,8 +171,8 @@ public class StatisticsPanel extends JPanel {
 		jScrollPane.getViewport().setOpaque(false);
 		this.add(jScrollPane);
 		imagelabel.setIcon(null);
-		imagelabel.setText("得分偏离度=某年龄段得分占比-球员数占比，偏离度正值越大，表示该年龄段球员的数据贡献越大");
-//		text.setVisible(true);
+		imagelabel.setText("得分偏离度=某年龄段得分占比-球员数占比"+"\n"+"偏离度正值越大"+"\n"+"表示该年龄段球员的数据贡献越大");
+		text.setText(null);
 		this.repaint();
 	}
 
@@ -241,7 +243,7 @@ public class StatisticsPanel extends JPanel {
 		jScrollPane.setBounds(0, 50, FrameSize.width,210);
 		table.setDataVector(rowimage, columnsName);
 		imagelabel.setIcon(new ImageIcon("image/ptsScatter.png"));
-		text.setVisible(false);
+		text.setText("可得卡方值为25.63226"+"\n"+"经查表可知34.3816（a = 0.1） > 25.63226"+"\n"+"可知年龄与得分之间关系较显著"+"\n"+"可得年龄与得分Pearson系数："+"\n"+"(-0.578,0.006)"+"\n"+"可以发现年龄与得分一般相关"+"\n"+"这和之前卡方独立性统计的结果相符合。");
 	}
 
 	void setTableReb(){
@@ -298,7 +300,7 @@ public class StatisticsPanel extends JPanel {
 		jScrollPane.setBounds(0, 50, FrameSize.width,210);
 		table.setDataVector(rowimage, columnsName);
 		imagelabel.setIcon(new ImageIcon("image/rebScatter.png"));
-		text.setVisible(false);
+		text.setText("可得卡方值为20.21252"+"\n"+"经查表可知22.3071（a=0.1） > 20.21252"+"\n"+"可知年龄与篮板之间关系较显著"+"\n"+"可得年龄与篮板Pearson系数："+"\n"+"(-0.509,0.018)"+"\n"+"可以发现年龄与篮板一般相关"+"\n"+"这和之前卡方独立性统计的结果相符合。");
 	}
 
 	void setTableAss(){
@@ -355,7 +357,7 @@ public class StatisticsPanel extends JPanel {
 		table.setDataVector(rowimage, columnsName);
 		jScrollPane.setBounds(0, 50, FrameSize.width,210);
 		imagelabel.setIcon(new ImageIcon("image/astScatter.png"));
-		text.setVisible(false);
+		text.setText("可得卡方值为11.88465"+"\n"+"经查表可知22.3071（a=0.1） > 11.88465"+"\n"+"可知年龄与助攻之间不显著"+"\n"+"可得年龄与助攻Pearson系数："+"\n"+"(-0.188,0.413)"+"\n"+"可以发现年龄与助攻不相关"+"\n"+"这和之前卡方独立性统计的结果相符合。");
 	}
 	
 	void setTable(){
