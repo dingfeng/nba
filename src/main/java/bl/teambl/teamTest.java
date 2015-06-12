@@ -48,10 +48,10 @@ public class teamTest {
 		assertNotNull(image);
 	}
 	
-	@Test
+	//@Test
 	public void TeamCompareGenerater(){
 		String[] teamnames = teamservice.getTeamNames();
-		for(int i = 6; i != teamnames.length; i ++){
+		for(int i = 29; i != teamnames.length; i ++){
 			for(String t2 : teamnames){
 				teamservice.getTeamCompare(2014, teamnames[i], t2, SeasonType.PLAYOFF);
 			}
