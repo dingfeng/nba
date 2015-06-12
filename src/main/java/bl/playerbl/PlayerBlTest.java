@@ -30,6 +30,14 @@ public class PlayerBlTest {
 		return names;
 	}
 	
+	//@Test
+	public void GenerateRadar(){
+		String[] names = this.getPlayernames();
+		for(int i = 347; i != names.length; i ++){
+			playerservice.getRadarImage(2014, names[i], SeasonType.REGULAR);
+		}
+	}
+	
 	@Test
 	public void GenerateCompare(){
 		String[] names = this.getPlayernames();
