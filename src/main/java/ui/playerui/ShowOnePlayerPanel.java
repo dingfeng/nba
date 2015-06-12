@@ -88,6 +88,7 @@ public class ShowOnePlayerPanel extends JPanel{
 		playermain.add("past", pastmatchpanel);
 		playermain.add("recent", recentmatchpanel);
 		playermain.add("contrast", playercontrastpanel);
+		playermain.add("trend",trendpanel);
 		setHeader();
 		setFind();
 		this.add(playermain);
@@ -103,16 +104,16 @@ public class ShowOnePlayerPanel extends JPanel{
 		databutton.setBounds(0, FrameSize.height / 4, FrameSize.width / 5, 50);
 
 		recentbutton = new MyToggleButton("近期比赛", Color.black, Color.gray);
-		recentbutton.setBounds(FrameSize.width / 5, FrameSize.height / 5,
-				FrameSize.width / 4, 50);
+		recentbutton.setBounds(FrameSize.width / 5, FrameSize.height / 4,
+				FrameSize.width / 5, 50);
 
 		pastbutton = new MyToggleButton("过往查询", Color.black, Color.gray);
-		pastbutton.setBounds(FrameSize.width *2/ 5, FrameSize.height / 5,
-				FrameSize.width / 4, 50);
+		pastbutton.setBounds(FrameSize.width *2/ 5, FrameSize.height / 4,
+				FrameSize.width / 5, 50);
 
 		contrastbutton = new MyToggleButton("对比", Color.black, Color.gray);
-		contrastbutton.setBounds(FrameSize.width * 3 / 5, FrameSize.height / 5,
-				FrameSize.width / 4, 50);
+		contrastbutton.setBounds(FrameSize.width * 3 / 5, FrameSize.height / 4,
+				FrameSize.width / 5, 50);
 
 		trendbutton = new MyToggleButton("趋势",Color.black,Color.gray);
 		trendbutton.setBounds(FrameSize.width*4/5,FrameSize.height/4,FrameSize.width/5,50);
@@ -194,6 +195,12 @@ public class ShowOnePlayerPanel extends JPanel{
 	
 	void setTrend() {
 		
+		card.show(playermain, "trend");
+		databutton.setSelected(false);
+		recentbutton.setSelected(false);
+		pastbutton.setSelected(false);
+		contrastbutton.setSelected(false);
+		trendbutton.setSelected(true);
 	}
 	
 	void setPlayerdata() {
@@ -214,6 +221,8 @@ public class ShowOnePlayerPanel extends JPanel{
 		databutton.setSelected(false);
 		pastbutton.setSelected(false);
 		contrastbutton.setSelected(false);
+		trendbutton.setSelected(false);
+
 	}
 
 	void setPast() {
@@ -224,6 +233,7 @@ public class ShowOnePlayerPanel extends JPanel{
 		databutton.setSelected(false);
 		recentbutton.setSelected(false);
 		contrastbutton.setSelected(false);
+		trendbutton.setSelected(false);
 	}
 
 	void setContrast() {
@@ -233,6 +243,7 @@ public class ShowOnePlayerPanel extends JPanel{
 		databutton.setSelected(false);
 		recentbutton.setSelected(false);
 		pastbutton.setSelected(false);
+		trendbutton.setSelected(false);
 	}
 	
 
