@@ -15,6 +15,7 @@ import java.util.Vector;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -32,6 +33,7 @@ import blservice.teamblservice.Teamblservice;
 import ui.mainui.DateChooseButton;
 import ui.mainui.FrameSize;
 import ui.mainui.MyFont;
+import ui.mainui.MyFrame;
 import ui.mainui.MyTable;
 
 public class MatchPanel extends JPanel {
@@ -297,6 +299,19 @@ public class MatchPanel extends JPanel {
 		teamImage2.setBounds(FrameSize.width - 350, 25, 150, 150);
 		matchPanel.add(teamImage1);
 		matchPanel.add(teamImage2);
+		teamImage1.addMouseListener((new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				MyFrame.teampanel.showOne(team1.getName());
+				MyFrame.card.show(MyFrame.mainpanel, "team");
+			}
+		}));
+		teamImage2.addMouseListener((new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				MyFrame.teampanel.showOne(team2.getName());
+				MyFrame.card.show(MyFrame.mainpanel, "team");
+			}
+		}));
+		
 		
 		JLabel teamName1 = new JLabel(team1.getName());
 		JLabel teamName2 = new JLabel(team2.getName());
