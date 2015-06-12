@@ -247,9 +247,10 @@ public class MatchPanel extends JPanel {
 
 				}
 
+				Image matchImage = matches[i].getImg();
 				matchLabel[i].addMouseListener(new MouseAdapter() {
 					public void mouseClicked(MouseEvent e) {
-//						setOneOldMatch(matches[i].getImg());
+						setOneOldMatch(matchImage);
 					}
 				});
 				matchPanel.add(matchLabel[i]);

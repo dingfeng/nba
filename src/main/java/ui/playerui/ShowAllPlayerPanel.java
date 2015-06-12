@@ -6,6 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.rmi.RemoteException;
 import java.util.Vector;
 
 import javax.swing.AbstractButton;
@@ -17,8 +18,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import dataservice.playerdataservice.PlayerDataService;
 import po.HPlayerPO;
 import po.PlayerPO;
+import DataFactory.DataFactory;
 import bl.playerbl.PlayerController;
 import bl.teambl.TeamController;
 import blservice.playerblservice.PlayerBlService;
@@ -32,6 +35,9 @@ import ui.mainui.MyTable;
 
 public class ShowAllPlayerPanel extends JPanel {
 
+	
+	DataFactory dataFactory = new DataFactory();
+	PlayerDataService playerService = dataFactory.getPlayerData();
 	
 	PlayerBlService playerController = new PlayerController();
 	DefaultTableModel allPlayerTable = new DefaultTableModel();
@@ -52,7 +58,12 @@ public class ShowAllPlayerPanel extends JPanel {
 		this.setOpaque(false);
 		JPanel headerPanel = HeaderPanel();
 		this.add(headerPanel);
-		setOldPlayerTable(playerController.getPlayersWithStart(2014, "A"));
+		try {
+			setNowPlayerTable(playerService.fuzzilySearchAvtivePlayerPO("A"));
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/** 查找栏 */
@@ -64,46 +75,45 @@ public class ShowAllPlayerPanel extends JPanel {
 
 		// 根据球队查找球员
 		MyComboBox newOrOld = new MyComboBox(new String[]{"现役","退役"});
-		newOrOld.setBounds(0,5,30,30);
+		newOrOld.setBounds(0,5,100,30);
 		headerPanel.add(newOrOld);
 		
 		// 根据首字母查找球员
-		CharacterButton[] character = new CharacterButton[27];
-		character[0] = new CharacterButton("全部");
-		for (int i = 1; i < 27; i++) {
-			character[i] = new CharacterButton((char) ('A' + i - 1));
+		CharacterButton[] character = new CharacterButton[26];
+		for (int i = 0; i < 26; i++) {
+			character[i] = new CharacterButton((char) ('A' + i));
 		}
-		for (int i = 0; i < 27; i++) {
-			character[i].setBounds(30 * i, 5,30,30);
+		for (int i = 0; i < 26; i++) {
+			character[i].setBounds(120+30 * i, 5,30,30);
 			headerPanel.add(character[i]);
 		}
 		
-		character[1].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"A"));
-		character[2].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"B"));
-		character[3].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"C"));
-		character[4].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"D"));
-		character[5].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"E"));
-		character[6].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"F"));
-		character[7].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"G"));
-		character[8].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"H"));
-		character[9].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"I"));
-		character[10].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"J"));
-		character[11].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"K"));
-		character[12].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"L"));
-		character[13].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"M"));
-		character[14].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"N"));
-		character[15].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"O"));
-		character[16].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"P"));
-		character[17].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"Q"));
-		character[18].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"R"));
-		character[19].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"S"));
-		character[20].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"T"));
-		character[21].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"U"));
-		character[22].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"V"));
-		character[23].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"W"));
-		character[24].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"X"));
-		character[25].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"Y"));
-		character[26].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"Z"));
+		character[0].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"A"));
+		character[1].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"B"));
+		character[2].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"C"));
+		character[3].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"D"));
+		character[4].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"E"));
+		character[5].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"F"));
+		character[6].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"G"));
+		character[7].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"H"));
+		character[8].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"I"));
+		character[9].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"J"));
+		character[10].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"K"));
+		character[11].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"L"));
+		character[12].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"M"));
+		character[13].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"N"));
+		character[14].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"O"));
+		character[15].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"P"));
+		character[16].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"Q"));
+		character[17].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"R"));
+		character[18].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"S"));
+		character[19].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"T"));
+		character[20].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"U"));
+		character[21].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"V"));
+		character[22].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"W"));
+		character[23].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"X"));
+		character[24].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"Y"));
+		character[25].addActionListener(e->setTable((String)newOrOld.getSelectedItem(),"Z"));
 
 
 		// 根据姓名查找球员
@@ -112,7 +122,7 @@ public class ShowAllPlayerPanel extends JPanel {
 		playerNameTextField.setBackground(new Color(69, 69, 69));
 		playerNameTextField.setForeground(Color.white);
 		playerNameTextField.setBounds(27 * 30, 5,
-				(FrameSize.width - 27 * 30) / 2 - 10, 30);
+				(FrameSize.width - 26 * 30-120) / 2 - 10, 30);
 		playerNameTextField.addKeyListener(new KeyAdapter(){
 			public void keyPressed(KeyEvent e){
 				if(e.getKeyChar()==KeyEvent.VK_ENTER){
@@ -146,7 +156,12 @@ public class ShowAllPlayerPanel extends JPanel {
 			setOldPlayerTable(playerController.getPlayersWithStart(2014, playerStart));
 		}
 		else{
-//			setNewPlayerTable();
+			try {
+				setNowPlayerTable(playerService.fuzzilySearchAvtivePlayerPO(playerStart));
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -155,7 +170,7 @@ public class ShowAllPlayerPanel extends JPanel {
 		if (playerVOs != null) {
 			columnsName.removeAllElements();
 //			columnsName.add(" ");
-			/*01球员图片*/columnsName.add("球员");
+//			/*01球员图片*/columnsName.add("球员");
 			/*02姓名*/columnsName.add("姓名");
 			/*03球队*/columnsName.add("球队");
 			/*04位置*/columnsName.add("位置");
@@ -172,7 +187,7 @@ public class ShowAllPlayerPanel extends JPanel {
 			for (int i = 0; i < playerVOs.length; i++) {
 				Vector rowData = new Vector();
 //				rowData.add(i+1);
-				/*01球员图片*/rowData.add(playerController.getPlayerImage(playerVOs[i].getName()));
+//				/*01球员图片*/rowData.add(playerController.getPlayerImage(playerVOs[i].getName()));
 				/*02姓名*/rowData.add(playerVOs[i].getName());
 				/*03球队*/rowData.add(playerVOs[i].getTeamA());
 				/*04位置*/rowData.add(playerVOs[i].getPosition());
@@ -212,7 +227,7 @@ public class ShowAllPlayerPanel extends JPanel {
 		if (playerVOs != null) {
 			columnsName.removeAllElements();
 //			columnsName.add(" ");
-			/*01球员图片*/columnsName.add("球员");
+//			/*01球员图片*/columnsName.add("球员");
 			/*02姓名*/columnsName.add("姓名");
 			/*03球队*/columnsName.add("球队");
 			/*04位置*/columnsName.add("位置");
@@ -226,7 +241,7 @@ public class ShowAllPlayerPanel extends JPanel {
 			for (int i = 0; i < playerVOs.length; i++) {
 				Vector rowData = new Vector();
 //				rowData.add(i+1);
-				/*01球员图片*/rowData.add(playerController.getPlayerImage(playerVOs[i].getName()));
+//				/*01球员图片*/rowData.add(playerController.getPlayerImage(playerVOs[i].getName()));
 				/*02姓名*/rowData.add(playerVOs[i].getName());
 				/*03球队*/rowData.add(playerVOs[i].getTeama());
 				/*04位置*/rowData.add(playerVOs[i].getPosition());
