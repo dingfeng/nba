@@ -64,8 +64,8 @@ public class PlayerDataPanel extends JPanel{
 		columnsName.removeAllElements();
 
 		/* 00赛季 */columnsName.add("赛季");
-		/* 01球员 */columnsName.add("球员");
-		/* 02姓名 */columnsName.add("姓名");
+//		/* 01球员 */columnsName.add("球员");
+//		/* 02姓名 */columnsName.add("姓名");
 		/* 03球队 */columnsName.add("球队");
 		/* 04场数 */columnsName.add("场数");
 		/* 05篮板 */columnsName.add("篮板");
@@ -89,10 +89,10 @@ public class PlayerDataPanel extends JPanel{
 			PlayerNormalPO str = player[i];
 			Vector rowData = new Vector();
 			/*00赛季*/rowData.add(2014 - i);
-			/*01球员*/rowData.add(playerController.getPlayerImage(str.getName()));
-			/*02姓名*/rowData.add(str.getName());
+//			/*01球员*/rowData.add(playerController.getPlayerImage(str.getName()));
+//			/*02姓名*/rowData.add(str.getName());
 			/*03球队*/rowData.add(str.getTeam());
-			/*04场数*/rowData.add(FrameSize.roundForNumber(str.getMatchNo(), 0));
+			/*04场数*/rowData.add(FrameSize.roundForNumber(str.getMatchNo(), 1));
 			/*05篮板*/rowData.add(FrameSize.roundForNumber(str.getRebs(), 1));
 			/* 06助攻 */rowData.add(FrameSize.roundForNumber(str.getAssistNo(), 1));
 			/* 07分钟 */rowData.add(FrameSize.roundForNumber(str.getTime(), 1));
@@ -133,7 +133,7 @@ public class PlayerDataPanel extends JPanel{
 				return 0;
 			}
 		};
-		for (int col = 1; col < mytable.getColumnCount(); col++) {
+		for (int col = 2; col < mytable.getColumnCount(); col++) {
 			rowSorter.setComparator(col, numberComparator);
 		}
 
@@ -145,8 +145,8 @@ public class PlayerDataPanel extends JPanel{
 	void setHighTable(PlayerHighPO[] player) {
 		columnsName.removeAllElements();
 		/* 00赛季 */columnsName.add("赛季");
-		/* 01球员 */columnsName.add("球员");
-		/* 02姓名 */columnsName.add("姓名");
+//		/* 01球员 */columnsName.add("球员");
+//		/* 02姓名 */columnsName.add("姓名");
 		/* 03球队 */columnsName.add("球队");
 		/* 04效率 */columnsName.add("效率");
 		/* 05真实命中率 */columnsName.add("真实命中率");
@@ -165,8 +165,8 @@ public class PlayerDataPanel extends JPanel{
 			PlayerHighPO str = player[i];
 			Vector rowData = new Vector();
 			/* 00赛季 */rowData.add(2014-i);
-			/* 01球员 */rowData.add(playerController.getPlayerImage(str.getPlayerName()));
-			/* 02姓名 */rowData.add(str.getPlayerName());
+//			/* 01球员 */rowData.add(playerController.getPlayerImage(str.getPlayerName()));
+//			/* 02姓名 */rowData.add(str.getPlayerName());
 			/* 03球队 */rowData.add(str.getTeamName());
 			/* 04效率 */rowData.add(FrameSize.roundForNumber(str.getEfficiency(), 1));
 			/* 05真实命中率 */rowData.add(FrameSize.roundForNumber(str.getTrueHitRate(), 1));
@@ -205,7 +205,7 @@ public class PlayerDataPanel extends JPanel{
 				return 0;
 			}
 		};
-		for (int col = 4; col < mytable.getColumnCount(); col++) {
+		for (int col = 2; col < mytable.getColumnCount(); col++) {
 			rowSorter.setComparator(col, numberComparator);
 		}
 

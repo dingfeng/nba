@@ -295,7 +295,7 @@ public class MyFrame extends JFrame {
 	}
 
 	void setPlayer() {
-		card.show(mainpanel, "player");
+		card.show(mainpanel, "allplayer");
 		index.setSelected(false);
 		playerbutton.setSelected(true);
 		teambutton.setSelected(false);

@@ -62,6 +62,7 @@ public class ShowOnePlayerPanel extends JPanel{
 	public static RecentMatchPanel recentmatchpanel = new RecentMatchPanel();
 	public static PlayerContrastPanel playercontrastpanel = new PlayerContrastPanel();
 	public static PlayerDataPanel playerdatapanel = new PlayerDataPanel();
+	public static TrendPanel trendpanel = new TrendPanel();
 	
 	MyToggleButton databutton;
 	MyToggleButton recentbutton;
@@ -331,8 +332,6 @@ public class ShowOnePlayerPanel extends JPanel{
 		setPlayerdata();
 
 	}
-
-
 
 	private void resizeTable(boolean bool, JScrollPane jsp, JTable table) {
 		Dimension containerwidth = null;
