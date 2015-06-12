@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.Comparator;
 import java.util.Vector;
 
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -13,6 +14,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import ui.mainui.FrameSize;
+import ui.mainui.MyComboBox;
 import ui.mainui.MyTable;
 
 public class StatisticsPanel extends JPanel {
@@ -21,16 +23,19 @@ public class StatisticsPanel extends JPanel {
 	DefaultTableModel table = new DefaultTableModel(rowimage, columnsName);
 	JTable mytable = new MyTable(table);
 	JScrollPane jScrollPane = new JScrollPane(mytable);
-
+	JComboBox type=new MyComboBox(new String[]{"第一个表","得分","篮板","助攻"});
 	public StatisticsPanel() {
 		this.setLayout(null);
 		this.setBounds(0, 0, FrameSize.width, FrameSize.height * 7 / 8);
 		this.setBackground(FrameSize.backColor);
 		this.setOpaque(false);
-		setTable();
+		type.addActionListener(e->setTable());
+		this.add(type);
+		setTableOne();
 	}
 
-	void setTable() {
+	void setTableOne() {
+		columnsName.clear();
 		columnsName.add("年龄段");
 		columnsName.add("球员数");
 		columnsName.add("球员占数比");
@@ -41,6 +46,7 @@ public class StatisticsPanel extends JPanel {
 		columnsName.add("场均助攻平均");
 		columnsName.add("助攻偏离度");
 		
+		rowimage.clear();
 		Vector data1=new Vector();
 		data1.add("19-21");
 		data1.add(28);
@@ -153,5 +159,195 @@ public class StatisticsPanel extends JPanel {
 		jScrollPane.getViewport().setOpaque(false);
 		this.add(jScrollPane);
 		this.repaint();
+	}
+
+	void setTableAge(){
+		columnsName.clear();
+		columnsName.add("年龄/得分");
+		columnsName.add("0-3");
+		columnsName.add("4-7");
+		columnsName.add("8-11");
+		columnsName.add("12-15");
+		columnsName.add("16-19");
+		columnsName.add("20+");
+		rowimage.clear();
+		Vector data1=new Vector();
+		data1.add("19-21");
+		data1.add(8);
+		data1.add(9);
+		data1.add(5);
+		data1.add(5);
+		data1.add(0);
+		data1.add(1);
+		Vector data2=new Vector();
+		data2.add("22-24");
+		data2.add(34);
+		data2.add(24);
+		data2.add(18);
+		data2.add(14);
+		data2.add(7);
+		data2.add(3);
+		Vector data3=new Vector();
+		data3.add("25-27");
+		data3.add(30);
+		data3.add(32);
+		data3.add(28);
+		data3.add(11);
+		data3.add(2);
+		data3.add(2);
+		Vector data4=new Vector();
+		data4.add("28-30");
+		data4.add(16);
+		data4.add(27);
+		data4.add(15);
+		data4.add(11);
+		data4.add(3);
+		data4.add(2);
+		Vector data5=new Vector();
+		data5.add("31-33");
+		data5.add(21);
+		data5.add(12);
+		data5.add(9);
+		data5.add(2);
+		data5.add(2);
+		data5.add(0);
+		Vector data6=new Vector();
+		data6.add("34-36");
+		data6.add(16);
+		data6.add(8);
+		data6.add(5);
+		data6.add(6);
+		data6.add(1);
+		data6.add(0);
+		rowimage.add(data1);
+		rowimage.add(data2);
+		rowimage.add(data3);
+		rowimage.add(data4);
+		rowimage.add(data5);
+		rowimage.add(data6);
+		
+		table.setDataVector(rowimage, columnsName);
+	}
+
+	void setTableReb(){
+		columnsName.clear();
+		columnsName.add("年龄/篮板");
+		columnsName.add("0-2");
+		columnsName.add("3-5");
+		columnsName.add("6-8");
+		columnsName.add("9+");
+		rowimage.clear();
+		Vector data1=new Vector();
+		data1.add("19-21");
+		data1.add(17);
+		data1.add(6);
+		data1.add(4);
+		data1.add(1);
+		Vector data2=new Vector();
+		data2.add("22-24");
+		data2.add(52);
+		data2.add(34);
+		data2.add(11);
+		data2.add(3);
+		Vector data3=new Vector();
+		data3.add("25-27");
+		data3.add(58);
+		data3.add(37);
+		data3.add(8);
+		data3.add(2);
+		Vector data4=new Vector();
+		data4.add("28-30");
+		data4.add(39);
+		data4.add(24);
+		data4.add(11);
+		data4.add(0);
+		Vector data5=new Vector();
+		data5.add("31-33");
+		data5.add(31);
+		data5.add(13);
+		data5.add(0);
+		data5.add(3);
+		Vector data6=new Vector();
+		data6.add("34-36");
+		data6.add(23);
+		data6.add(7);
+		data6.add(2);
+		data6.add(0);
+		
+		rowimage.add(data1);
+		rowimage.add(data2);
+		rowimage.add(data3);
+		rowimage.add(data4);
+		rowimage.add(data5);
+		rowimage.add(data6);
+		
+		table.setDataVector(rowimage, columnsName);
+	}
+
+	void setTableAss(){
+		columnsName.clear();
+		columnsName.add("年龄/篮板");
+		columnsName.add("0-2");
+		columnsName.add("3-5");
+		columnsName.add("6-8");
+		columnsName.add("9+");
+		rowimage.clear();
+		Vector data1=new Vector();
+		data1.add("19-21");
+		data1.add(23);
+		data1.add(4);
+		data1.add(1);
+		data1.add(0);
+		Vector data2=new Vector();
+		data2.add("22-24");
+		data2.add(73);
+		data2.add(18);
+		data2.add(4);
+		data2.add(5);
+		Vector data3=new Vector();
+		data3.add("25-27");
+		data3.add(79);
+		data3.add(17);
+		data3.add(5);
+		data3.add(4);
+		Vector data4=new Vector();
+		data4.add("28-30");
+		data4.add(47);
+		data4.add(19);
+		data4.add(5);
+		data4.add(3);
+		Vector data5=new Vector();
+		data5.add("31-33");
+		data5.add(33);
+		data5.add(11);
+		data5.add(2);
+		data5.add(0);
+		Vector data6=new Vector();
+		data6.add("34-36");
+		data6.add(26);
+		data6.add(6);
+		data6.add(0);
+		data6.add(0);
+		
+		rowimage.add(data1);
+		rowimage.add(data2);
+		rowimage.add(data3);
+		rowimage.add(data4);
+		rowimage.add(data5);
+		rowimage.add(data6);
+		table.setDataVector(rowimage, columnsName);
+	}
+	
+	void setTable(){
+		if(type.getSelectedItem().equals("第一个表")){
+			setTableOne();
+		}else if(type.getSelectedItem().equals("年龄")){
+			setTableAge();
+		}else if(type.getSelectedItem().equals("篮板")){
+			setTableReb();
+		}else if(type.getSelectedItem().equals("助攻")){
+			setTableAss();
+		}
+	
 	}
 }

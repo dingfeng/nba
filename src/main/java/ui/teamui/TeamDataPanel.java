@@ -1,13 +1,11 @@
 package ui.teamui;
 
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
 import java.util.Comparator;
 import java.util.Vector;
 
-import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -16,17 +14,16 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-import dataservice.playerdataservice.SeasonType;
 import po.TeamHighPO;
 import po.TeamNormalPO;
 import ui.mainui.FrameSize;
 import ui.mainui.MyComboBox;
 import ui.mainui.MyFrame;
 import ui.mainui.MyTable;
-import ui.mainui.MyToggleButton;
 import ui.mainui.UneditableTextField;
 import bl.teambl.TeamController;
 import blservice.teamblservice.Teamblservice;
+import dataservice.playerdataservice.SeasonType;
 
 public class TeamDataPanel extends JPanel {
 
@@ -51,7 +48,12 @@ public class TeamDataPanel extends JPanel {
 	}
 
 	public void setText() {
-
+		JLabel blue=new JLabel("球员总数据");
+		blue.setBackground(FrameSize.bluecolor);
+		blue.setBounds(0, 0, FrameSize.width-100, 30);
+		blue.setForeground(Color.white);
+		blue.setOpaque(true);
+		this.add(blue);
 		jScrollPane
 				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		jScrollPane

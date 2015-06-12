@@ -58,6 +58,7 @@ public class TeamContrastPanel extends JPanel{
 		JButton enter=new MyButton("确定",FrameSize.bluecolor,FrameSize.darkbluecolor);
 		enter.addActionListener(e->setCompare());
 		enter.setBounds(FrameSize.width-50,0,30,30);
+		enter.setForeground(Color.white);
 		t2.addKeyListener(new KeyAdapter(){
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyChar() == KeyEvent.VK_ENTER) // 按回车键执行相应操作;

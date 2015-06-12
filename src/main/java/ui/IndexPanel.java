@@ -38,7 +38,11 @@ public class IndexPanel extends JPanel {
 		background.setBackground(Color.white);
 		;
 		background.setBounds(0, 0, FrameSize.width, FrameSize.height * 7 / 8);
+		JLabel score=new JLabel("2 - 2");
+		score.setForeground(Color.gray);
+		score.setBounds(585, 330, 80, 30);
 		this.add(background);
+		background.add(score);
 		setChart();
 		this.setOpaque(false);
 

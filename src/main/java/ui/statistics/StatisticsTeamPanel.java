@@ -98,19 +98,19 @@ public class StatisticsTeamPanel extends JPanel {
 
 		return headerPanel;
 	}
-	public class ColorTableCellRenderer extends DefaultTableCellRenderer {
-	    DefaultTableCellRenderer renderer=new DefaultTableCellRenderer(); 
-	    @Override
-	    public Component getTableCellRendererComponent(JTable table, Object value,   
-	            boolean isSelected, boolean hasFocus, int row, int column) {  
-	        if(column==0){
-	            return new JLabel((ImageIcon)value);
-	        }else{
-	            return super.getTableCellRendererComponent(table, value, isSelected,hasFocus, row, column);
-	        }
-	    }   
-	
-}
+//	public class ColorTableCellRenderer extends DefaultTableCellRenderer {
+//	    DefaultTableCellRenderer renderer=new DefaultTableCellRenderer(); 
+//	    @Override
+//	    public Component getTableCellRendererComponent(JTable table, Object value,   
+//	            boolean isSelected, boolean hasFocus, int row, int column) {  
+//	        if(column==0){
+//	            return new JLabel((ImageIcon)value);
+//	        }else{
+//	            return super.getTableCellRendererComponent(table, value, isSelected,hasFocus, row, column);
+//	        }
+//	    }   
+//	
+//}
 	//低阶数据
 	void setLowTable(TeamNormalPO[] team){
 		columnsName.removeAllElements();
@@ -185,8 +185,8 @@ public class StatisticsTeamPanel extends JPanel {
 	        for (int col = 1; col < mytable.getColumnCount(); col++) {  
 	            rowSorter.setComparator(col, numberComparator);  
 	        }  
-			TableCellRenderer myRenderer = new ColorTableCellRenderer();
-			mytable.setDefaultRenderer(Object.class, myRenderer);
+//			TableCellRenderer myRenderer = new ColorTableCellRenderer();
+//			mytable.setDefaultRenderer(Object.class, myRenderer);
 			mytable.setRowHeight(50);
 	    jScrollPane=new JScrollPane(mytable);
 		jScrollPane
