@@ -1,12 +1,17 @@
 package ui.teamui;
 
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Comparator;
 import java.util.Vector;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import po.HPlayerPO;
 import po.PlayerNormalPO;
@@ -38,7 +43,18 @@ public class TeamPlayerPanel extends JPanel {
 		this.setLayout(null);
 		this.setBounds(0, 30, FrameSize.width, FrameSize.height * 3 / 4 - 80);
 		this.setBackground(Color.white);
+		mytable.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					MyFrame.onePlayerPanel.showOne((String) mytable.getModel().getValueAt(
+							mytable.getSelectedRow(), 0));
+					MyFrame.setPlayer();
+					MyFrame.card.show(MyFrame.mainpanel,"oneplayer");
+				}
+			}
 
+		});
+		
 		jScrollPane
 				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		jScrollPane
@@ -139,9 +155,9 @@ public class TeamPlayerPanel extends JPanel {
 			data.add(FrameSize.roundForNumber(player.getMatchNo(),0));
 			data.add(FrameSize.roundForNumber(player.getFirstServiceNo(),1));
 			data.add(FrameSize.roundForNumber(player.getTime(),1));
-			data.add(FrameSize.roundForNumber(player.getHitRate(),1));
-			data.add(FrameSize.roundForNumber(player.getThreeHitRate(),1));
-			data.add(FrameSize.roundForNumber(player.getPenaltyHitRate(),1));
+			data.add(FrameSize.roundForNumber(player.getHitRate()*100,1));
+			data.add(FrameSize.roundForNumber(player.getThreeHitRate()*100,1));
+			data.add(FrameSize.roundForNumber(player.getPenaltyHitRate()*100,1));
 			data.add(FrameSize.roundForNumber(player.getOffendRebsNo(),1));
 			data.add(FrameSize.roundForNumber(player.getDefenceRebsNo(),1));
 			data.add(FrameSize.roundForNumber(player.getRebs(),1));
@@ -154,6 +170,31 @@ public class TeamPlayerPanel extends JPanel {
 			rowimage.add(data);
 		}
 		table.setDataVector(rowimage, columnsName);
+		mytable.setRowSorter(new TableRowSorter<TableModel>(table));
+		mytable.updateUI();
+
+		TableRowSorter rowSorter = (TableRowSorter) mytable.getRowSorter();
+		Comparator<String> numberComparator = new Comparator<String>() {
+			@Override
+			public int compare(String o1, String o2) {
+				if (o1 == null) {
+					return -1;
+				}
+				if (o2 == null) {
+					return 1;
+				}
+				if (Double.parseDouble(o1) <Double.parseDouble(o2)) {
+					return -1;
+				}
+				if (Double.parseDouble(o1) > Double.parseDouble(o2)) {
+					return 1;
+				}
+				return 0;
+			}
+		};
+		for (int col = 1; col < mytable.getColumnCount(); col++) {
+			rowSorter.setComparator(col, numberComparator);
+		}
 		this.add(jScrollPane);
 		this.repaint();
 	}
@@ -163,7 +204,7 @@ public class TeamPlayerPanel extends JPanel {
 		String teamname = MyFrame.teampanel.nameAbridgeresult.getText();
 		String[] playername = tc.getPlayers(teamname);
 		PlayerPO[] players  = pc.getPlayerOfTeam(teamname);
-			
+		
 		if (base.isSelected()) {
 			setBase(players);
 		} else {

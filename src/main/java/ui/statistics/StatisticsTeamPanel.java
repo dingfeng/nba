@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Panel;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Comparator;
 import java.util.Vector;
 
@@ -26,6 +28,7 @@ import po.TeamHighPO;
 import po.TeamNormalPO;
 import ui.mainui.FrameSize;
 import ui.mainui.MyComboBox;
+import ui.mainui.MyFrame;
 import ui.mainui.MyTable;
 import bl.teambl.TeamController;
 import blservice.teamblservice.Teamblservice;
@@ -185,8 +188,7 @@ public class StatisticsTeamPanel extends JPanel {
 	        for (int col = 1; col < mytable.getColumnCount(); col++) {  
 	            rowSorter.setComparator(col, numberComparator);  
 	        }  
-//			TableCellRenderer myRenderer = new ColorTableCellRenderer();
-//			mytable.setDefaultRenderer(Object.class, myRenderer);
+
 			mytable.setRowHeight(50);
 	    jScrollPane=new JScrollPane(mytable);
 		jScrollPane
@@ -282,5 +284,16 @@ public class StatisticsTeamPanel extends JPanel {
 			teamhigh=tc.getAllTeamHigh(Integer.parseInt((String)season.getSelectedItem()), type);
 			setHighTable(teamhigh);
 		}
+		mytable.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					MyFrame.teampanel.showOne((String) mytable.getModel().getValueAt(
+							mytable.getSelectedRow(), 1));
+					MyFrame.setTeam();
+					MyFrame.card.show(MyFrame.mainpanel,"team");
+				}
+			}
+
+		});
 	}
 }

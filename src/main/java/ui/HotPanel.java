@@ -477,10 +477,11 @@ public class HotPanel extends JPanel {
 				 MyFrame.teampanel.showOne(info.substring(info.length() -
 				 3));
 				MyFrame.card.show(MyFrame.mainpanel, "team");
+				MyFrame.setTeam();
 				break;
 			default:
-				// MyFrame.playerpanel.findPlayerClick(info);
-				MyFrame.card.show(MyFrame.mainpanel, "player");
+				 MyFrame.onePlayerPanel.showOne(info);
+				MyFrame.setPlayer();
 			}
 
 		}

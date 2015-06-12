@@ -127,14 +127,14 @@ public class MyFrame extends JFrame {
 
 	}
 
-	MyToggleButton index;
-	MyToggleButton playerbutton;
-	MyToggleButton teambutton;
-	MyToggleButton hotbutton;
-	MyToggleButton matchbutton;
-	MyToggleButton helpbutton;
-	MyToggleButton staticsbutton;
-	MyToggleButton livebutton;
+	public static MyToggleButton index;
+	public static MyToggleButton playerbutton;
+	public static MyToggleButton teambutton;
+	public static MyToggleButton hotbutton;
+	public static MyToggleButton matchbutton;
+	public static MyToggleButton helpbutton;
+	public static MyToggleButton staticsbutton;
+	public static MyToggleButton livebutton;
 	JPopupMenu teams = new JPopupMenu();
 
 	void setHeadButton() {
@@ -281,7 +281,7 @@ public class MyFrame extends JFrame {
 		}
 	}
 
-	void setIndex() {
+	public static void setIndex() {
 
 		card.show(mainpanel, "index");
 		index.setSelected(true);
@@ -294,7 +294,7 @@ public class MyFrame extends JFrame {
 
 	}
 
-	void setPlayer() {
+	public static void setPlayer() {
 		card.show(mainpanel, "allplayer");
 		index.setSelected(false);
 		playerbutton.setSelected(true);
@@ -305,7 +305,7 @@ public class MyFrame extends JFrame {
 		staticsbutton.setSelected(false);
 	}
 
-	public void setTeam() {
+	public static void setTeam() {
 		// card.show(mainpanel, "team");
 		index.setSelected(false);
 		playerbutton.setSelected(false);
@@ -316,7 +316,7 @@ public class MyFrame extends JFrame {
 		staticsbutton.setSelected(false);
 	}
 
-	void setHot() {
+	public static void setHot() {
 		card.show(mainpanel, "hot");
 		index.setSelected(false);
 		playerbutton.setSelected(false);
@@ -328,7 +328,7 @@ public class MyFrame extends JFrame {
 		livebutton.setSelected(false);
 	}
 
-	void setMatch() {
+	public static void setMatch() {
 		card.show(mainpanel, "match");
 		index.setSelected(false);
 		playerbutton.setSelected(false);
@@ -340,7 +340,7 @@ public class MyFrame extends JFrame {
 		livebutton.setSelected(false);
 	}
 
-	void setStatics() {
+	public static void setStatics() {
 		index.setSelected(false);
 		playerbutton.setSelected(false);
 		teambutton.setSelected(false);
@@ -352,7 +352,7 @@ public class MyFrame extends JFrame {
 
 	}
 
-	void setLive() {
+	public static void setLive() {
 		card.show(mainpanel, "live");
 		index.setSelected(false);
 		playerbutton.setSelected(false);
