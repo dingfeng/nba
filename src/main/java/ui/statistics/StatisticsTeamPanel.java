@@ -39,6 +39,9 @@ public class StatisticsTeamPanel extends JPanel {
 	Vector rowimage = new Vector();
 	DefaultTableModel table = new DefaultTableModel(rowimage, columnsName);
 	JTable mytable = new MyTable(table);
+	{
+		((MyTable)mytable).setShowImage(true);
+	}
 	JScrollPane jScrollPane;
 	MyComboBox aveOrAll = new MyComboBox(new String[] { "场均", "总数" });
 	MyComboBox lowOrHigh;

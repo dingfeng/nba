@@ -16,11 +16,16 @@ public class MyTable extends JTable {						// 实现自己的表格类
     private Color evenRowColor = new Color(245,245,245);//奇数行颜色
     private Color oddRowColor = new Color(255,255,255);//偶数行颜色
     private Color gridColor = new Color(0,0,0,0);//网格颜色
+    private boolean imagable = false;
 	// 重写JTable类的构造方法
 	public MyTable(DefaultTableModel tableModel) {//Vector rowData, Vector columnNames
 		super(tableModel);						// 调用父类的构造方法
 		this.setGridColor(gridColor);
 		this.setRowHeight(30);
+	}
+	public void setShowImage(boolean imagable)
+	{
+		this.imagable = imagable;
 	}
 	// 重写JTable类的getTableHeader()方法
 	public JTableHeader getTableHeader() {					// 定义表格头
@@ -49,7 +54,7 @@ public class MyTable extends JTable {						// 实现自己的表格类
 	
 	//设置奇偶行的颜色
 	public TableCellRenderer getCellRenderer(int row, int column) {
-		if (column == 0)
+		if (column == 0 && imagable)
 		{
 			return new ImageRenderer();
 		}
