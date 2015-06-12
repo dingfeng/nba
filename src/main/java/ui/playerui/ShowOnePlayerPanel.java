@@ -117,6 +117,7 @@ public class ShowOnePlayerPanel extends JPanel{
 
 		trendbutton = new MyToggleButton("趋势",Color.black,Color.gray);
 		trendbutton.setBounds(FrameSize.width*4/5,FrameSize.height/4,FrameSize.width/5,50);
+		
 		databutton.setForeground(Color.white);
 		recentbutton.setForeground(Color.white);
 		pastbutton.setForeground(Color.white);
@@ -176,6 +177,7 @@ public class ShowOnePlayerPanel extends JPanel{
 		this.add(recentbutton);
 		this.add(pastbutton);
 		this.add(contrastbutton);
+		this.add(trendbutton);
 
 	}
 
