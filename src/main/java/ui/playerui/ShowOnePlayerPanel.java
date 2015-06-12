@@ -100,28 +100,32 @@ public class ShowOnePlayerPanel extends JPanel{
 	void setHeader() {	
 		
 		databutton = new MyToggleButton("数据", Color.black, Color.gray);
-		databutton.setBounds(0, FrameSize.height / 4, FrameSize.width / 4, 50);
+		databutton.setBounds(0, FrameSize.height / 4, FrameSize.width / 5, 50);
 
 		recentbutton = new MyToggleButton("近期比赛", Color.black, Color.gray);
-		recentbutton.setBounds(FrameSize.width / 5, FrameSize.height / 4,
+		recentbutton.setBounds(FrameSize.width / 5, FrameSize.height / 5,
 				FrameSize.width / 4, 50);
 
 		pastbutton = new MyToggleButton("过往查询", Color.black, Color.gray);
-		pastbutton.setBounds(FrameSize.width *2/ 5, FrameSize.height / 4,
+		pastbutton.setBounds(FrameSize.width *2/ 5, FrameSize.height / 5,
 				FrameSize.width / 4, 50);
 
 		contrastbutton = new MyToggleButton("对比", Color.black, Color.gray);
-		contrastbutton.setBounds(FrameSize.width * 3 / 5, FrameSize.height / 4,
+		contrastbutton.setBounds(FrameSize.width * 3 / 5, FrameSize.height / 5,
 				FrameSize.width / 4, 50);
 
+		trendbutton = new MyToggleButton("趋势",Color.black,Color.gray);
+		trendbutton.setBounds(FrameSize.width*4/5,FrameSize.height/4,FrameSize.width/5,50);
 		databutton.setForeground(Color.white);
 		recentbutton.setForeground(Color.white);
 		pastbutton.setForeground(Color.white);
 		contrastbutton.setForeground(Color.white);
+		trendbutton.setForeground(Color.white);
 
 		recentbutton.addActionListener(e -> setRecent());
 		pastbutton.addActionListener(e -> setPast());
 		contrastbutton.addActionListener(e -> setContrast());
+		trendbutton.addActionListener(e->setTrend());
 
 		JPopupMenu type = new JPopupMenu();
 		JMenuItem normal = new JMenuItem("基本数据");
@@ -174,6 +178,8 @@ public class ShowOnePlayerPanel extends JPanel{
 
 	}
 
+
+
 	void showall() {
 		alldata.setSelected(true);
 		avedata.setSelected(false);
@@ -184,6 +190,10 @@ public class ShowOnePlayerPanel extends JPanel{
 		avedata.setSelected(true);
 		alldata.setSelected(false);
 		setPlayerdata();
+	}
+	
+	void setTrend() {
+		
 	}
 	
 	void setPlayerdata() {
