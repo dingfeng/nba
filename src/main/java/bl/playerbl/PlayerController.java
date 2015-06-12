@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import dataservice.playerdataservice.PlayerDataService;
@@ -28,10 +27,8 @@ import DataFactoryService.NBADataFactory;
 import blservice.playerblservice.PlayerBlService;
 
 public class PlayerController implements PlayerBlService {
-	private String filenameR;
 	private String filenameC;
 	private String filenameL;
-	private String filenameB;
 	private String filenameAnalysis;
 	private String imageR;
 	private String imageC;
@@ -41,10 +38,8 @@ public class PlayerController implements PlayerBlService {
 
 	// 排序球员数据 场均
 	public PlayerController() {
-		filenameR = "D:/dataToP";
 		filenameC = "D:/dataToPC";
 		filenameL = "D:/dataToPL";
-		filenameB = "D:/playerBar";
 		filenameAnalysis = "D:/analysis.csv";
 		imageR = "D:/Player/radar";
 		imageC = "D:/compare";
@@ -204,12 +199,9 @@ public class PlayerController implements PlayerBlService {
 			if (result != null) {
 				return result;
 			} else {
-				try {
-					return ImageIO.read(new File("image/noimage.png"));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				ImageIcon imageIcon = new ImageIcon("image/noimage.png");
+				Image non = imageIcon.getImage();
+				return non;
 			}
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
