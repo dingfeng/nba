@@ -18,7 +18,7 @@ def getSuppose(data):
 	return mean, range
 
 def getData():
-	file_object = open("D:/dataToPL.txt", 'r')
+	file_object = open("D:/dataToPL", 'r')
 	try:
 		filename = file_object.readline().strip('\n') 
 		playername = file_object.readline()
@@ -65,9 +65,11 @@ if __name__ == '__main__':
                      mec = (0.8078, 0.8078, 0.8078, 1), ms = 20, mew = 3, linestyle = '--')
 		
 	ax.grid(True)
-	ax.set_yticks(np.linspace(0, maxi + 2, 8))
+	ax.set_yticks(np.arange(0, maxi + 2, 1))
 	plt.xticks(x, date)
-	ax.legend(('PTS', 'REB', 'AST', 'FT%', '3PT%'), fontsize = 10)
+	plt.xlabel("DATE")
+	plt.ylabel("NUMBER")
+	ax.legend(('PTS', 'REB', 'AST', 'STL', 'BLK'), fontsize = 10)
 	#plt.xticks(x, people)
 	
 	

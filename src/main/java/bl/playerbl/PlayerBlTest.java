@@ -31,6 +31,20 @@ public class PlayerBlTest {
 	}
 	
 	//@Test
+	public void lineTest(){
+		String[] names = this.getPlayernames();
+		playerservice.getLineChartImage(2014, names[0]);
+	}
+	
+	@Test
+	public void GenerateLine(){
+		String[] names = this.getPlayernames();
+		for(String n : names){
+			playerservice.getLineChartImage(2014, n);
+		}
+	}
+	
+	//@Test
 	public void GenerateRadar(){
 		String[] names = this.getPlayernames();
 		for(int i = 347; i != names.length; i ++){
@@ -38,7 +52,7 @@ public class PlayerBlTest {
 		}
 	}
 	
-	@Test
+	//@Test
 	public void GenerateCompare(){
 		String[] names = this.getPlayernames();
 		for(String n : names){
