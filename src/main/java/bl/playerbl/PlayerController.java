@@ -1104,7 +1104,12 @@ public class PlayerController implements PlayerBlService {
 
 	@Override
 	public PlayerPO getplayerPObyName(String name) {
-		// TODO Auto-generated method stub
+		try {
+			return playerService.findActivePlayerPO(name);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 
@@ -1125,8 +1130,14 @@ public class PlayerController implements PlayerBlService {
 		try {
 			playersFit = playerService.fuzzilySearch(start);
 			if(playersFit != null){
-				
+				PlayerPO[] result = new PlayerPO[playersFit.length];
+				int i = 0;
+				for(String p : playersFit){
+					result[i] = playerService.findActivePlayerPO(p);
+				}
+				return result;
 			}
+			return null;
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
