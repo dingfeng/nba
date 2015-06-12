@@ -68,6 +68,7 @@ public class ShowOnePlayerPanel extends JPanel{
 	MyToggleButton recentbutton;
 	MyToggleButton pastbutton;
 	MyToggleButton contrastbutton;
+	MyToggleButton trendbutton;
 	MyToggleButton alldata;
 	MyToggleButton avedata;
 	boolean high=false;
@@ -192,6 +193,7 @@ public class ShowOnePlayerPanel extends JPanel{
 		recentbutton.setSelected(false);
 		pastbutton.setSelected(false);
 		contrastbutton.setSelected(false);
+		trendbutton.setSelected(false);
 	}
 
 	void setRecent() {
