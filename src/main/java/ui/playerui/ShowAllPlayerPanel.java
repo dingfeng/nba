@@ -121,7 +121,7 @@ public class ShowAllPlayerPanel extends JPanel {
 		playerNameTextField.setText("按姓名查找");
 		playerNameTextField.setBackground(new Color(69, 69, 69));
 		playerNameTextField.setForeground(Color.white);
-		playerNameTextField.setBounds(27 * 30, 5,
+		playerNameTextField.setBounds(120+26 * 30, 5,
 				(FrameSize.width - 26 * 30-120) / 2 - 10, 30);
 		playerNameTextField.addKeyListener(new KeyAdapter(){
 			public void keyPressed(KeyEvent e){
@@ -143,8 +143,8 @@ public class ShowAllPlayerPanel extends JPanel {
 		String team[] = new String[30];// 所有球队名
 		MyComboBox findPlayerAccordingTeam = new MyComboBox("按球队查找", team);
 		findPlayerAccordingTeam.setBounds(
-				27 * 30 + (FrameSize.width - 27 * 30) / 2, 5, FrameSize.width
-						- (27 * 30 + (FrameSize.width - 27 * 30) / 2), 30);
+				120+27 * 30 + (FrameSize.width - 26 * 30) / 2, 5, FrameSize.width
+						- (120+26 * 30 + (FrameSize.width - 26 * 30) / 2), 30);
 		findPlayerAccordingTeam.addActionListener(e->setNowPlayerTable(playerController.getPlayerOfTeam((String)findPlayerAccordingTeam.getSelectedItem())));
 		headerPanel.add(findPlayerAccordingTeam);
 

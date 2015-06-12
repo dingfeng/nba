@@ -39,7 +39,7 @@ public class StatisticsPlayerPanel extends JPanel {
 		this.setOpaque(false);
 		JPanel headerPanel = HeaderPanel();
 		this.add(headerPanel);
-		setTable("C",Area.ATLANTIC,SeasonType.REGULAR,2013,"场均","基本");
+		setTable("F",Area.EASTERN,SeasonType.REGULAR,2013,"场均","基本");
 	}
 
 	/** 筛选栏 */
@@ -102,6 +102,10 @@ public class StatisticsPlayerPanel extends JPanel {
 	/**设置表格*/
 	private void setTable(String location,Area zone,SeasonType seasonType,int season,String aveOrAll,String lowOrHigh) {
 
+//		if(location.equals("球员位置")){
+//			location=null;
+//		}
+		
 		if(lowOrHigh.equals("基本")){
 			PlayerNormalPO[] playerNormal = playerController.screenNormalAvePlayers(season, location, zone, seasonType);
 			setLowTable(playerNormal);
@@ -116,7 +120,7 @@ public class StatisticsPlayerPanel extends JPanel {
 		if (playerMatchVOs != null) {
 			columnsName.removeAllElements();
 //			/* 00排名 */columnsName.add("排名");
-			/* 01球员 */columnsName.add("球员");
+//			/* 01球员 */columnsName.add("球员");
 			/* 02姓名 */columnsName.add("姓名");
 			/* 03球队 */columnsName.add("球队");
 			/* 04场数 */columnsName.add("场数");
@@ -138,25 +142,25 @@ public class StatisticsPlayerPanel extends JPanel {
 			data.clear();
 			for (int i = 0; i < playerMatchVOs.length; i++) {
 				Vector rowData = new Vector();
-				/* 00排名 */rowData.add(i + 1);
-				/* 01球员 */rowData.add("图片");
+//				/* 00排名 */rowData.add(i + 1);
+//				/* 01球员 */rowData.add("图片");
 				/* 02姓名 */rowData.add(playerMatchVOs[i].getName());
 				/* 03球队 */rowData.add(playerMatchVOs[i].getTeam());
-				/* 04场数 */rowData.add(playerMatchVOs[i].getMatchNo());
-				/* 05篮板 */rowData.add(playerMatchVOs[i].getRebs());
-				/* 06助攻 */rowData.add(playerMatchVOs[i].getAssistNo());
-				/* 07分钟 */rowData.add(playerMatchVOs[i].getTime());
-				/* 09三分命中率 */rowData.add(playerMatchVOs[i].getThreeHitRate());
-				/* 10罚球命中率 */rowData.add(playerMatchVOs[i].getPenaltyHitRate());
-				/* 11投篮命中率 */rowData.add(playerMatchVOs[i].getHitRate());
-				/* 12进攻 */rowData.add(playerMatchVOs[i].getOffendRebsNo());
-				/* 13防守 */rowData.add(playerMatchVOs[i].getDefenceRebsNo());
-				/* 14抢断 */rowData.add(playerMatchVOs[i].getStealsNo());
-				/* 15盖帽 */rowData.add(playerMatchVOs[i].getBlockNo());
-				/* 16失误 */rowData.add(playerMatchVOs[i].getMistakesNo());
-				/* 17犯规 */rowData.add(playerMatchVOs[i].getFoulsNo());
-				/* 18两双 */rowData.add(playerMatchVOs[i].getTwoPair());
-				/* 19得分 */rowData.add(playerMatchVOs[i].getPoints());
+				/* 04场数 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getMatchNo(),1));
+				/* 05篮板 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getRebs(),0));
+				/* 06助攻 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getAssistNo(),1));
+				/* 07分钟 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getTime(),1));
+				/* 09三分命中率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getThreeHitRate(),1));
+				/* 10罚球命中率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getPenaltyHitRate(),1));
+				/* 11投篮命中率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getHitRate(),1));
+				/* 12进攻 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getOffendRebsNo(),1));
+				/* 13防守 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getDefenceRebsNo(),1));
+				/* 14抢断 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getStealsNo(),1));
+				/* 15盖帽 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getBlockNo(),1));
+				/* 16失误 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getMistakesNo(),1));
+				/* 17犯规 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getFoulsNo(),1));
+				/* 18两双 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getTwoPair(),1));
+				/* 19得分 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getPoints(),1));
 				data.add(rowData);
 			}
 			setScrollPane();
@@ -168,7 +172,7 @@ public class StatisticsPlayerPanel extends JPanel {
 		if (playerMatchVOs != null) {
 			columnsName.removeAllElements();
 //			/* 00排名 */columnsName.add("排名");
-			/* 01球员 */columnsName.add("球员");
+//			/* 01球员 */columnsName.add("球员");
 			/* 02姓名 */columnsName.add("姓名");
 			/* 03球队 */columnsName.add("球队");
 			/* 04效率 */columnsName.add("效率");
@@ -187,20 +191,20 @@ public class StatisticsPlayerPanel extends JPanel {
 			for (int i = 0; i < playerMatchVOs.length; i++) {
 				Vector rowData = new Vector();
 //				/* 00排名 */rowData.add(i+1);
-				/* 01球员 */rowData.add("图片");
+//				/* 01球员 */rowData.add("图片");
 				/* 02姓名 */rowData.add(playerMatchVOs[i].getPlayerName());
 				/* 03球队 */rowData.add(playerMatchVOs[i].getTeamName());
-				/* 04效率 */rowData.add(playerMatchVOs[i].getEfficiency());
-				/* 05真实命中率 */rowData.add(playerMatchVOs[i].getTrueHitRate());
-				/* 06GmSc */rowData.add(playerMatchVOs[i].getGmScEfficiency());
-				/* 07篮板效率 */rowData.add(playerMatchVOs[i].getRebEfficiency());
-				/* 08进攻篮板率 */rowData.add(playerMatchVOs[i].getDefenceRebsEfficiency());
-				/* 09防守篮板率 */rowData.add(playerMatchVOs[i].getOffenseRebsEfficiency());
-				/* 10助攻率 */rowData.add(playerMatchVOs[i].getAssistEfficiency());
-				/* 11抢断率 */rowData.add(playerMatchVOs[i].getStealsEfficiency());
-				/* 12盖帽率 */rowData.add(playerMatchVOs[i].getBlockEfficiency());
-				/* 13失误率 */rowData.add(playerMatchVOs[i].getMistakeEfficiency());
-				/* 14使用率 */rowData.add(playerMatchVOs[i].getUseEfficiency());	
+				/* 04效率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getEfficiency(),1));
+				/* 05真实命中率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getTrueHitRate(),1));
+				/* 06GmSc */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getGmScEfficiency(),1));
+				/* 07篮板效率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getRebEfficiency(),1));
+				/* 08进攻篮板率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getDefenceRebsEfficiency(),1));
+				/* 09防守篮板率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getOffenseRebsEfficiency(),1));
+				/* 10助攻率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getAssistEfficiency(),1));
+				/* 11抢断率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getStealsEfficiency(),1));
+				/* 12盖帽率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getBlockEfficiency(),1));
+				/* 13失误率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getMistakeEfficiency(),1));
+				/* 14使用率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getUseEfficiency(),1));	
 				data.add(rowData);
 			}
 			setScrollPane();
