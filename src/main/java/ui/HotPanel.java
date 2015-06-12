@@ -11,11 +11,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import po.HotPlayerTeam;
 import ui.mainui.FrameSize;
 import ui.mainui.MyComboBox;
 import ui.mainui.MyFrame;
 import ui.mainui.MyToggleButton;
-import vo.HotPlayerTeam;
 import bl.playerbl.PlayerController;
 import bl.teambl.TeamController;
 import dataservice.playerdataservice.SeasonType;

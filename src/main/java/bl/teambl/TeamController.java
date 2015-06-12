@@ -10,6 +10,7 @@ import dataservice.playerdataservice.PlayerDataService;
 import dataservice.playerdataservice.SeasonType;
 import dataservice.teamdataservice.TeamDataService;
 import po.HPlayerPO;
+import po.HotPlayerTeam;
 import po.PlayerHighPO;
 import po.PlayerNormalPO;
 import po.PlayerPO;
@@ -19,7 +20,6 @@ import po.TeamPO;
 import DataFactory.DataFactory;
 import DataFactoryService.NBADataFactory;
 import blservice.teamblservice.Teamblservice;
-import vo.HotPlayerTeam;
 
 public class TeamController implements Teamblservice {
 	private TeamDataService teamservice;
@@ -48,62 +48,12 @@ public class TeamController implements Teamblservice {
 	@Override
 	public HotPlayerTeam[] getHotTeams(int season, String sortby,
 			SeasonType type) {
-		String sortBy = sortby + " desc";
-		TeamNormalPO[] teams = null;
+		po.HotPlayerTeam[] hotTeams = null;
 		try {
-			teams = teamservice.sortTeamNormalAven(season, sortBy, 5, type);
+			hotTeams = teamservice.getHotTeam(season, sortby, type);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		HotPlayerTeam[] hotTeams = new HotPlayerTeam[5];
-		double[] data = new double[5];
-
-		if (sortby.equals("points")) {
-			for (int i = 0; i != 5; i++) {
-				data[i] = teams[i].getPoints();
-			}
-		} else if (sortby.equals("rebs")) {
-			for (int i = 0; i != 5; i++) {
-				data[i] = teams[i].getRebs();
-			}
-		} else if (sortby.equals("assistNo")) {
-			for (int i = 0; i != 5; i++) {
-				data[i] = teams[i].getAssistNo();
-			}
-		} else if (sortby.equals("blockNo")) {
-			for (int i = 0; i != 5; i++) {
-				data[i] = teams[i].getBlockNo();
-			}
-		} else if (sortby.equals("stealsNo")) {
-			for (int i = 0; i != 5; i++) {
-				data[i] = teams[i].getStealsNo();
-			}
-		} else if (sortby.equals("threeHitRate")) {
-			for (int i = 0; i != 5; i++) {
-				data[i] = teams[i].getThreeHitRate();
-			}
-		} else if (sortby.equals("hitRate")) {
-			for (int i = 0; i != 5; i++) {
-				data[i] = teams[i].getHitRate();
-			}
-		} else if (sortby.equals("penaltyHitRate")) {
-			for (int i = 0; i != 5; i++) {
-				data[i] = teams[i].getPenaltyHitRate();
-			}
-		}
-
-		String name;
-		TeamPO thisTeam = null;
-		for (int i = 0; i != 5; i++) {
-			name = teams[i].getName();
-			try {
-				thisTeam = teamservice.findTeam(name);
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			hotTeams[i] = new HotPlayerTeam(thisTeam.getImage(), name, data[i]);
 		}
 		return hotTeams;
 	}
