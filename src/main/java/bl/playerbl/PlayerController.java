@@ -46,10 +46,10 @@ public class PlayerController implements PlayerBlService {
 		filenameL = "D:/dataToPL";
 		filenameB = "D:/playerBar";
 		filenameAnalysis = "D:/analysis.csv";
-		imageR = "D:/radar";
+		imageR = "D:/Player/radar";
 		imageC = "D:/compare";
 		imageL = "D:/line";
-		imageB = "D:/playerData";
+		imageB = "D:/Player/playerData";
 		NBADataFactory dataFactory;
 		try {
 			dataFactory = DataFactory.instance();
@@ -600,9 +600,10 @@ public class PlayerController implements PlayerBlService {
 			output.close();
 			Process pr = Runtime.getRuntime().exec("python python\\radar.py");
 			pr.waitFor();
-			ImageIcon imageIcon = new ImageIcon(filename);
-			Image radar = imageIcon.getImage();
-			return radar;
+//			ImageIcon imageIcon = new ImageIcon(filename);
+//			Image radar = imageIcon.getImage();
+//			return radar;
+			return null;
 		} catch (IOException | InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1027,7 +1028,7 @@ public class PlayerController implements PlayerBlService {
 		PT3.trimToSize();
 		String toWrite = "";
 		if (playerData != null) {
-			toWrite = filename + '\n' + name + "\n" + "AVE PERF" + "\n"
+			toWrite = filename + '\n' + name + "\n"
 					+ PTS.toString() + '\n' + REB.toString() + '\n'
 					+ AST.toString() + '\n' + FT.toString() + '\n'
 					+ PT3.toString() + '\n' + Double.toString(playerData[0])
@@ -1044,8 +1045,9 @@ public class PlayerController implements PlayerBlService {
 			Process pr = Runtime.getRuntime().exec(
 					"python python\\playerBar.py");
 			pr.waitFor();
-			Image bar = ImageIO.read(new File(filename));
-			return bar;
+//			Image bar = ImageIO.read(new File(filename));
+//			return bar;
+			return null;
 		} catch (IOException | InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1124,6 +1126,9 @@ public class PlayerController implements PlayerBlService {
 		String[] playersFit = null;
 		try {
 			playersFit = playerService.fuzzilySearch(start);
+			if(playersFit != null){
+				
+			}
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

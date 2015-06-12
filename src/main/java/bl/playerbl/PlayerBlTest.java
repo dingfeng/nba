@@ -31,6 +31,15 @@ public class PlayerBlTest {
 	}
 	
 	@Test
+	public void GenerateCompare(){
+		String[] names = this.getPlayernames();
+		for(String n : names){
+			playerservice.getPlayerBar(2014, n, SeasonType.REGULAR);
+			playerservice.getPlayerBar(2014, n, SeasonType.PLAYOFF);
+		}
+	}
+	
+	//@Test
 	public void screenTest(){
 		PlayerNormalPO[] result = playerservice.screenNormalAvePlayers(2014, "G", Area.ATLANTIC, SeasonType.REGULAR);
 		assertNotNull(result);
