@@ -12,6 +12,7 @@ import java.util.Vector;
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -43,8 +44,6 @@ public class ShowAllPlayerPanel extends JPanel {
 	DefaultTableModel allPlayerTable = new DefaultTableModel();
 	MyTable myAllPlayerTable = new MyTable(allPlayerTable);
 	JScrollPane jAllPlayerScrollPane = new JScrollPane(myAllPlayerTable);
-
-	JPanel onePlayerPanel = new JPanel();
 	
 	Vector columnsName = new Vector();
 	Vector data = new Vector();
@@ -211,7 +210,9 @@ public class ShowAllPlayerPanel extends JPanel {
 				public void mouseClicked(MouseEvent e) {
 					if (e.getClickCount() == 2) {
 						try {
-							
+							MyFrame.onePlayerPanel.showOne((String) myAllPlayerTable.getModel().getValueAt(
+									myAllPlayerTable.getSelectedRow(), 0));
+							MyFrame.card.show(MyFrame.mainpanel, "oneplayer");
 						} catch (NullPointerException e1) {
 						
 						}
@@ -275,11 +276,4 @@ public class ShowAllPlayerPanel extends JPanel {
 		}
 	}
 
-	/**显示单个球员的所有信息*/
-	private void setOnePlayerPanel(){
-		onePlayerPanel.removeAll();
-		onePlayerPanel.setBackground(Color.red);
-		onePlayerPanel.setBounds(0,0,FrameSize.width,FrameSize.height*7/8-40);
-		this.add(onePlayerPanel);
-	}
 }
