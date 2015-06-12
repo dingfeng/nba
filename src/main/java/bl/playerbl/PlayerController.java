@@ -536,79 +536,79 @@ public class PlayerController implements PlayerBlService {
 	public Image getRadarImage(int season, String name, SeasonType type) {
 		String filename = imageR + season + name
 				+ (type == SeasonType.REGULAR ? "REGULAR" : "PLAYOFF") + ".png";
-		PlayerNormalPO player = null;
-		try {
-			player = playerService.getPlayerNormalAve(season, name, type);
-		} catch (RemoteException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		double[] playerData = { 0, 0, 0, 0, 0 };
-		if (player != null) {
-			playerData[0] = player.getPoints();
-			playerData[1] = player.getRebs();
-			playerData[2] = player.getAssistNo();
-			playerData[3] = player.getStealsNo();
-			playerData[4] = player.getBlockNo();
-		}
-
-		PlayerNormalPO[] allPlayers = null;
-		try {
-			allPlayers = playerService.getSeasonPlayerNormalAve(season, type);
-		} catch (RemoteException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		int len = allPlayers.length;
-		StringBuffer PTS = new StringBuffer(len * 4);
-		StringBuffer REB = new StringBuffer(len * 4);
-		StringBuffer AST = new StringBuffer(len * 4);
-		StringBuffer STL = new StringBuffer(len * 4);
-		StringBuffer BLK = new StringBuffer(len * 4);
-		for (int i = 0; i != len - 1; i++) {
-			PTS.append(allPlayers[i].getPoints() + ",");
-			REB.append(allPlayers[i].getRebs() + ",");
-			AST.append(allPlayers[i].getAssistNo() + ",");
-			STL.append(allPlayers[i].getStealsNo() + ",");
-			BLK.append(allPlayers[i].getBlockNo() + ",");
-		}
-		PTS.append(allPlayers[len - 1].getPoints());
-		REB.append(allPlayers[len - 1].getRebs());
-		AST.append(allPlayers[len - 1].getAssistNo());
-		STL.append(allPlayers[len - 1].getStealsNo());
-		BLK.append(allPlayers[len - 1].getBlockNo());
-		PTS.trimToSize();
-		REB.trimToSize();
-		AST.trimToSize();
-		STL.trimToSize();
-		BLK.trimToSize();
-		String toWrite = "";
-		if (playerData != null) {
-			toWrite = filename + '\n' + name + "\n" + "AVE PERF" + "\n"
-					+ PTS.toString() + '\n' + REB.toString() + '\n'
-					+ AST.toString() + '\n' + STL.toString() + '\n'
-					+ BLK.toString() + '\n' + Double.toString(playerData[0])
-					+ "," + Double.toString(playerData[1]) + ","
-					+ Double.toString(playerData[2]) + ","
-					+ Double.toString(playerData[3]) + ","
-					+ Double.toString(playerData[4]);
-		}
-		try {
-			BufferedWriter output = new BufferedWriter(new FileWriter(new File(
-					filenameR)));
-			output.write(toWrite);
-			output.close();
-			Process pr = Runtime.getRuntime().exec("python python\\radar.py");
-			pr.waitFor();
-//			ImageIcon imageIcon = new ImageIcon(filename);
-//			Image radar = imageIcon.getImage();
-//			return radar;
-			return null;
-		} catch (IOException | InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+//		PlayerNormalPO player = null;
+//		try {
+//			player = playerService.getPlayerNormalAve(season, name, type);
+//		} catch (RemoteException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		double[] playerData = { 0, 0, 0, 0, 0 };
+//		if (player != null) {
+//			playerData[0] = player.getPoints();
+//			playerData[1] = player.getRebs();
+//			playerData[2] = player.getAssistNo();
+//			playerData[3] = player.getStealsNo();
+//			playerData[4] = player.getBlockNo();
+//		}
+//
+//		PlayerNormalPO[] allPlayers = null;
+//		try {
+//			allPlayers = playerService.getSeasonPlayerNormalAve(season, type);
+//		} catch (RemoteException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		int len = allPlayers.length;
+//		StringBuffer PTS = new StringBuffer(len * 4);
+//		StringBuffer REB = new StringBuffer(len * 4);
+//		StringBuffer AST = new StringBuffer(len * 4);
+//		StringBuffer STL = new StringBuffer(len * 4);
+//		StringBuffer BLK = new StringBuffer(len * 4);
+//		for (int i = 0; i != len - 1; i++) {
+//			PTS.append(allPlayers[i].getPoints() + ",");
+//			REB.append(allPlayers[i].getRebs() + ",");
+//			AST.append(allPlayers[i].getAssistNo() + ",");
+//			STL.append(allPlayers[i].getStealsNo() + ",");
+//			BLK.append(allPlayers[i].getBlockNo() + ",");
+//		}
+//		PTS.append(allPlayers[len - 1].getPoints());
+//		REB.append(allPlayers[len - 1].getRebs());
+//		AST.append(allPlayers[len - 1].getAssistNo());
+//		STL.append(allPlayers[len - 1].getStealsNo());
+//		BLK.append(allPlayers[len - 1].getBlockNo());
+//		PTS.trimToSize();
+//		REB.trimToSize();
+//		AST.trimToSize();
+//		STL.trimToSize();
+//		BLK.trimToSize();
+//		String toWrite = "";
+//		if (playerData != null) {
+//			toWrite = filename + '\n' + name + "\n" + "AVE PERF" + "\n"
+//					+ PTS.toString() + '\n' + REB.toString() + '\n'
+//					+ AST.toString() + '\n' + STL.toString() + '\n'
+//					+ BLK.toString() + '\n' + Double.toString(playerData[0])
+//					+ "," + Double.toString(playerData[1]) + ","
+//					+ Double.toString(playerData[2]) + ","
+//					+ Double.toString(playerData[3]) + ","
+//					+ Double.toString(playerData[4]);
+//		}
+//		try {
+//			BufferedWriter output = new BufferedWriter(new FileWriter(new File(
+//					filenameR)));
+//			output.write(toWrite);
+//			output.close();
+//			Process pr = Runtime.getRuntime().exec("python python\\radar.py");
+//			pr.waitFor();
+		ImageIcon imageIcon = new ImageIcon(filename);
+		Image radar = imageIcon.getImage();
+		return radar;
+//			return null;
+//		} catch (IOException | InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return null;
 	}
 
 	@Override
@@ -980,79 +980,80 @@ public class PlayerController implements PlayerBlService {
 		String filename = imageB + name + Integer.toString(season)
 				+ (type == SeasonType.REGULAR ? "REGULAR" : "PLAYEROFF")
 				+ ".png";
-		PlayerNormalPO player = null;
-		try {
-			player = playerService.getPlayerNormalAve(season, name, type);
-		} catch (RemoteException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		double[] playerData = { 0, 0, 0, 0, 0 };
-		if (player != null) {
-			playerData[0] = player.getPoints();
-			playerData[1] = player.getRebs();
-			playerData[2] = player.getAssistNo();
-			playerData[3] = player.getPenaltyHitRate();
-			playerData[4] = player.getThreeHitRate();
-		}
-
-		PlayerNormalPO[] allPlayers = null;
-		try {
-			allPlayers = playerService.getSeasonPlayerNormalAve(season, type);
-		} catch (RemoteException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		int len = allPlayers.length;
-		StringBuffer PTS = new StringBuffer(len * 4);
-		StringBuffer REB = new StringBuffer(len * 4);
-		StringBuffer AST = new StringBuffer(len * 4);
-		StringBuffer FT = new StringBuffer(len * 4);
-		StringBuffer PT3 = new StringBuffer(len * 4);
-		for (int i = 0; i != len - 1; i++) {
-			PTS.append(allPlayers[i].getPoints() + ",");
-			REB.append(allPlayers[i].getRebs() + ",");
-			AST.append(allPlayers[i].getAssistNo() + ",");
-			FT.append(allPlayers[i].getStealsNo() + ",");
-			PT3.append(allPlayers[i].getBlockNo() + ",");
-		}
-		PTS.append(allPlayers[len - 1].getPoints());
-		REB.append(allPlayers[len - 1].getRebs());
-		AST.append(allPlayers[len - 1].getAssistNo());
-		FT.append(allPlayers[len - 1].getStealsNo());
-		PT3.append(allPlayers[len - 1].getBlockNo());
-		PTS.trimToSize();
-		REB.trimToSize();
-		AST.trimToSize();
-		FT.trimToSize();
-		PT3.trimToSize();
-		String toWrite = "";
-		if (playerData != null) {
-			toWrite = filename + '\n' + name + "\n"
-					+ PTS.toString() + '\n' + REB.toString() + '\n'
-					+ AST.toString() + '\n' + FT.toString() + '\n'
-					+ PT3.toString() + '\n' + Double.toString(playerData[0])
-					+ "," + Double.toString(playerData[1]) + ","
-					+ Double.toString(playerData[2]) + ","
-					+ Double.toString(playerData[3]) + ","
-					+ Double.toString(playerData[4]);
-		}
-		try {
-			BufferedWriter output = new BufferedWriter(new FileWriter(new File(
-					filenameB)));
-			output.write(toWrite);
-			output.close();
-			Process pr = Runtime.getRuntime().exec(
-					"python python\\playerBar.py");
-			pr.waitFor();
-//			Image bar = ImageIO.read(new File(filename));
-//			return bar;
-			return null;
-		} catch (IOException | InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+//		PlayerNormalPO player = null;
+//		try {
+//			player = playerService.getPlayerNormalAve(season, name, type);
+//		} catch (RemoteException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		double[] playerData = { 0, 0, 0, 0, 0 };
+//		if (player != null) {
+//			playerData[0] = player.getPoints();
+//			playerData[1] = player.getRebs();
+//			playerData[2] = player.getAssistNo();
+//			playerData[3] = player.getPenaltyHitRate();
+//			playerData[4] = player.getThreeHitRate();
+//		}
+//
+//		PlayerNormalPO[] allPlayers = null;
+//		try {
+//			allPlayers = playerService.getSeasonPlayerNormalAve(season, type);
+//		} catch (RemoteException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		int len = allPlayers.length;
+//		StringBuffer PTS = new StringBuffer(len * 4);
+//		StringBuffer REB = new StringBuffer(len * 4);
+//		StringBuffer AST = new StringBuffer(len * 4);
+//		StringBuffer FT = new StringBuffer(len * 4);
+//		StringBuffer PT3 = new StringBuffer(len * 4);
+//		for (int i = 0; i != len - 1; i++) {
+//			PTS.append(allPlayers[i].getPoints() + ",");
+//			REB.append(allPlayers[i].getRebs() + ",");
+//			AST.append(allPlayers[i].getAssistNo() + ",");
+//			FT.append(allPlayers[i].getStealsNo() + ",");
+//			PT3.append(allPlayers[i].getBlockNo() + ",");
+//		}
+//		PTS.append(allPlayers[len - 1].getPoints());
+//		REB.append(allPlayers[len - 1].getRebs());
+//		AST.append(allPlayers[len - 1].getAssistNo());
+//		FT.append(allPlayers[len - 1].getStealsNo());
+//		PT3.append(allPlayers[len - 1].getBlockNo());
+//		PTS.trimToSize();
+//		REB.trimToSize();
+//		AST.trimToSize();
+//		FT.trimToSize();
+//		PT3.trimToSize();
+//		String toWrite = "";
+//		if (playerData != null) {
+//			toWrite = filename + '\n' + name + "\n"
+//					+ PTS.toString() + '\n' + REB.toString() + '\n'
+//					+ AST.toString() + '\n' + FT.toString() + '\n'
+//					+ PT3.toString() + '\n' + Double.toString(playerData[0])
+//					+ "," + Double.toString(playerData[1]) + ","
+//					+ Double.toString(playerData[2]) + ","
+//					+ Double.toString(playerData[3]) + ","
+//					+ Double.toString(playerData[4]);
+//		}
+//		try {
+//			BufferedWriter output = new BufferedWriter(new FileWriter(new File(
+//					filenameB)));
+//			output.write(toWrite);
+//			output.close();
+//			Process pr = Runtime.getRuntime().exec(
+//					"python python\\playerBar.py");
+//			pr.waitFor();
+		ImageIcon imageIcon = new ImageIcon(filename);
+		Image bar = imageIcon.getImage();
+		return bar;
+//			return null;
+//		} catch (IOException | InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return null;
 	}
 
 	private boolean writeAnalyseData() {
