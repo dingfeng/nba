@@ -195,6 +195,11 @@ public class PlayerController implements PlayerBlService {
 		HPlayerPO playerP;
 		try {
 			playerP = playerService.findPlayer(name);
+			if(playerP == null){
+				ImageIcon imageIcon = new ImageIcon("image/noimage.png");
+				Image non = imageIcon.getImage();
+				return non;
+			}
 			Image result = playerP.getImage();
 			if (result != null) {
 				return result;
