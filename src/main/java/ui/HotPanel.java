@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import po.HotPlayerTeam;
+import tool.ImageTool;
 import ui.mainui.FrameSize;
 import ui.mainui.MyComboBox;
 import ui.mainui.MyFrame;
@@ -413,25 +414,23 @@ public class HotPanel extends JPanel {
 		HotPlayerTeam[] hotteam = tc.getHotTeams(Integer.parseInt((String) FrameSize.season.getSelectedItem()), teamSortBy, SeasonType.REGULAR);
 
 		for (int i = 0; i < 5; i++) {
-			name[i].setText(tc.getTeamData(hotteam[i].getName()).getName()
-					+ " / " + hotteam[i].getName());
+			name[i].setText( hotteam[i].getName());
 			// name[i].addMouseListener(new showTeam());
 		}
-
 		portrait_1.setIcon(scaleImage(
-				new ImageIcon(tc.getTeamData(hotteam[0].getName()).getImage()),
+				new ImageIcon(hotteam[0].getAction()),
 				FrameSize.width / 8, FrameSize.width / 8));
 		portrait_2.setIcon(scaleImage(
-				new ImageIcon(tc.getTeamData(hotteam[1].getName()).getImage()),
+				new ImageIcon(hotteam[1].getAction()),
 				FrameSize.width / 12, FrameSize.width / 12));
 		portrait_3.setIcon(scaleImage(
-				new ImageIcon(tc.getTeamData(hotteam[2].getName()).getImage()),
+				new ImageIcon(hotteam[2].getAction()),
 				FrameSize.width / 12, FrameSize.width / 12));
 		portrait_4.setIcon(scaleImage(
-				new ImageIcon(tc.getTeamData(hotteam[3].getName()).getImage()),
+				new ImageIcon(hotteam[3].getAction()),
 				FrameSize.width / 12, FrameSize.width / 12));
 		portrait_5.setIcon(scaleImage(
-				new ImageIcon(tc.getTeamData(hotteam[4].getName()).getImage()),
+				new ImageIcon(hotteam[4].getAction()),
 				FrameSize.width / 12, FrameSize.width / 12));
 
 		portrait_1.setBounds(11 * FrameSize.width / 60, FrameSize.height / 10,
