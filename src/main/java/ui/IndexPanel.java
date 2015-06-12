@@ -41,6 +41,7 @@ public class IndexPanel extends JPanel {
 		JLabel score=new JLabel("2 - 2");
 		score.setForeground(Color.gray);
 		score.setBounds(585, 330, 80, 30);
+		score.setFont(new Font("微软雅黑",Font.BOLD,14));
 		this.add(background);
 		background.add(score);
 		setChart();

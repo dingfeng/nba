@@ -482,6 +482,7 @@ public class HotPanel extends JPanel {
 			default:
 				 MyFrame.onePlayerPanel.showOne(info);
 				MyFrame.setPlayer();
+				MyFrame.card.show(MyFrame.mainpanel, "oneplayer");
 			}
 
 		}

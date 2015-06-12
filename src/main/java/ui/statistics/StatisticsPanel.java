@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.util.Comparator;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -24,6 +26,8 @@ public class StatisticsPanel extends JPanel {
 	JTable mytable = new MyTable(table);
 	JScrollPane jScrollPane = new JScrollPane(mytable);
 	JComboBox type=new MyComboBox(new String[]{"数据偏离度","得分","篮板","助攻"});
+	JLabel imagelabel=new JLabel();
+	JLabel text=new JLabel();
 	public StatisticsPanel() {
 		this.setLayout(null);
 		this.setBounds(0, 0, FrameSize.width, FrameSize.height * 7 / 8);
@@ -33,7 +37,11 @@ public class StatisticsPanel extends JPanel {
 		type.setBounds(10, 10, 100, 30);
 		type.setBackground(Color.white);
 		type.setForeground(Color.black);
+		imagelabel.setBounds(FrameSize.width/2-280,275 ,560,420);
+		
+		this.add(text);
 		this.add(type);
+		this.add(imagelabel);
 		setTableOne();
 	}
 
@@ -156,11 +164,13 @@ public class StatisticsPanel extends JPanel {
 				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		jScrollPane
 				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		jScrollPane.setBounds(0, FrameSize.height/4, FrameSize.width,
-				FrameSize.height * 5 / 8);
+		jScrollPane.setBounds(0, 50, FrameSize.width,240);
 		jScrollPane.setBackground(Color.white);
 		jScrollPane.getViewport().setOpaque(false);
 		this.add(jScrollPane);
+		imagelabel.setIcon(null);
+		imagelabel.setText("得分偏离度=某年龄段得分占比-球员数占比，偏离度正值越大，表示该年龄段球员的数据贡献越大");
+//		text.setVisible(true);
 		this.repaint();
 	}
 
@@ -228,8 +238,10 @@ public class StatisticsPanel extends JPanel {
 		rowimage.add(data4);
 		rowimage.add(data5);
 		rowimage.add(data6);
-		
+		jScrollPane.setBounds(0, 50, FrameSize.width,210);
 		table.setDataVector(rowimage, columnsName);
+		imagelabel.setIcon(new ImageIcon("image/ptsScatter.png"));
+		text.setVisible(false);
 	}
 
 	void setTableReb(){
@@ -283,8 +295,10 @@ public class StatisticsPanel extends JPanel {
 		rowimage.add(data4);
 		rowimage.add(data5);
 		rowimage.add(data6);
-		
+		jScrollPane.setBounds(0, 50, FrameSize.width,210);
 		table.setDataVector(rowimage, columnsName);
+		imagelabel.setIcon(new ImageIcon("image/rebScatter.png"));
+		text.setVisible(false);
 	}
 
 	void setTableAss(){
@@ -339,6 +353,9 @@ public class StatisticsPanel extends JPanel {
 		rowimage.add(data5);
 		rowimage.add(data6);
 		table.setDataVector(rowimage, columnsName);
+		jScrollPane.setBounds(0, 50, FrameSize.width,210);
+		imagelabel.setIcon(new ImageIcon("image/astScatter.png"));
+		text.setVisible(false);
 	}
 	
 	void setTable(){
