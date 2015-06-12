@@ -39,7 +39,7 @@ public class StatisticsTeamPanel extends JPanel {
 	Vector rowimage = new Vector();
 	DefaultTableModel table = new DefaultTableModel(rowimage, columnsName);
 	JTable mytable = new MyTable(table);
-	JScrollPane jScrollPane=new JScrollPane(mytable);
+	JScrollPane jScrollPane;
 	MyComboBox aveOrAll = new MyComboBox(new String[] { "场均", "总数" });
 	MyComboBox lowOrHigh;
 	MyComboBox season;
@@ -97,7 +97,7 @@ public class StatisticsTeamPanel extends JPanel {
 	    DefaultTableCellRenderer renderer=new DefaultTableCellRenderer(); 
 	    @Override
 	    public Component getTableCellRendererComponent(JTable table, Object value,   
-	            boolean isSelected, boolean hasFocus, int row, int column) {   
+	            boolean isSelected, boolean hasFocus, int row, int column) {  
 	        if(column==0){
 	            return new JLabel((ImageIcon)value);
 	        }else{
@@ -109,7 +109,6 @@ public class StatisticsTeamPanel extends JPanel {
 	//低阶数据
 	void setLowTable(TeamNormalPO[] team){
 		columnsName.removeAllElements();
-		
 		columnsName.add("图标");
 		columnsName.add("球队");
 		columnsName.add("得分");
@@ -127,17 +126,14 @@ public class StatisticsTeamPanel extends JPanel {
 		columnsName.add("防守篮板数");
 		columnsName.add("篮板数");
 //		columnsName.add("比赛场数");
-		
 		rowimage.clear();
-		
 		for (int i = 0; i <team.length; i++) {
 			TeamNormalPO str = team[i];
 			Vector data = new Vector();
-			data.add(new ImageIcon(tc.getTeamImage(str.getName())));
+			data.add(tc.getTeamImage(str.getName()));
 			data.add(str.getName());
 			data.add(FrameSize.roundForNumber(str.getPoints(), num));
 			data.add(FrameSize.roundForNumber(str.getWinRate() * 100, 1));
-//			data.add(str.getMatchNo());
 			data.add(FrameSize.roundForNumber(str.getHitNo(), num));
 			data.add(FrameSize.roundForNumber(str.getRebs(), num));
 			data.add(FrameSize.roundForNumber(str.getAssistNo(), num));
@@ -150,22 +146,15 @@ public class StatisticsTeamPanel extends JPanel {
 			data.add(FrameSize.roundForNumber(str.getOffenseRebs(), num));
 			data.add(FrameSize.roundForNumber(str.getDefenceRebs(), num));
 			data.add(FrameSize.roundForNumber(str.getHitRate() * 100, 1));
-			
-			
 //			data.add(FrameSize.roundForNumber(str.getHandNo(), 1));
 //			data.add(FrameSize.roundForNumber(str.getThreeHitNo(), 1));
 //			data.add(FrameSize.roundForNumber(str.getThreeHandNo(), 1));
 //			data.add(FrameSize.roundForNumber(str.getPenaltyHitNo(), 1));
 //			data.add(FrameSize.roundForNumber(str.getPenaltyHandNo(), 1));
-			
-			
-			
 			rowimage.add(data);
 		}
 		table.setDataVector(rowimage, columnsName);
 		mytable.setRowSorter(new TableRowSorter<TableModel>(table));
-		TableCellRenderer myRenderer = new ColorTableCellRenderer();
-		mytable.setDefaultRenderer(Object.class, myRenderer);
 //		getColumnModel().getColumn(0).setCellRenderer(myRenderer);
 		mytable.updateUI();
 
@@ -191,8 +180,10 @@ public class StatisticsTeamPanel extends JPanel {
 	        for (int col = 1; col < mytable.getColumnCount(); col++) {  
 	            rowSorter.setComparator(col, numberComparator);  
 	        }  
-		
-		 
+			TableCellRenderer myRenderer = new ColorTableCellRenderer();
+			mytable.setDefaultRenderer(Object.class, myRenderer);
+			mytable.setRowHeight(50);
+	    jScrollPane=new JScrollPane(mytable);
 		jScrollPane
 				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		jScrollPane

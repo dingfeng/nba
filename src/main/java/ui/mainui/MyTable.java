@@ -9,6 +9,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 
+import ui.statistics.ImageRenderer;
+
 public class MyTable extends JTable {						// 实现自己的表格类
 	private Color selectionColor = new Color(207,228,249);//行选择颜色
     private Color evenRowColor = new Color(245,245,245);//奇数行颜色
@@ -47,6 +49,10 @@ public class MyTable extends JTable {						// 实现自己的表格类
 	
 	//设置奇偶行的颜色
 	public TableCellRenderer getCellRenderer(int row, int column) {
+		if (column == 0)
+		{
+			return new ImageRenderer();
+		}
 	       return new MyCellRenderer();
 	    }
 	   

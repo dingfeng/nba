@@ -20,6 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
@@ -68,6 +69,7 @@ public class LivePanel extends JPanel {
 	{
 		pointsTable.setRowHeight((int)((((150-37)/800.0 * FrameSize.height) - (35/900.0 * FrameSize.height))/2)-2);
 		pointsTable.getTableHeader().setPreferredSize(new Dimension(1,(int)(35/900.0 * FrameSize.height)));;
+		
 	}
 	JScrollPane jScrollPane_points = new JScrollPane(pointsTable);
 	String[] tableHeads = {"一","二","三","四","五","六","七","八","九"};
@@ -87,6 +89,7 @@ public class LivePanel extends JPanel {
 		initComponent();
 		setPoints();
 		update();
+
 	}
 	
 	private void setGameChoose(SimpleMatchLive[] matches)
@@ -258,6 +261,11 @@ public class LivePanel extends JPanel {
 					updateGameTable(match);
 					updateLiveTable(match.getMessages());
 					updateData(match);
+					JScrollBar jscrollBar = jScrollPane_live.getVerticalScrollBar();
+				    if (jscrollBar != null)
+				        jscrollBar.setValue(jscrollBar.getMaximum());
+				    jScrollPane_live.repaint();
+				    jScrollPane_live.validate();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -395,7 +403,7 @@ public class LivePanel extends JPanel {
 			t.add(team2.getTeamName());
 			for (int i = 0; i < pts2.length; ++i)
 			{
-				t.add(pts1[i]);
+				t.add(pts2[i]);
 			}
 			t.add(totalScores2);
 			rowimage.add(t);
@@ -404,19 +412,25 @@ public class LivePanel extends JPanel {
 		}
 		else 
 		{
+			if (!pointModel.getValueAt(0, 0).equals(team1.getTeamName()))
 			pointModel.setValueAt(team1.getTeamName(), 0, 0);
 			for (int i = 0; i < pts1.length; ++i)
 			{
+				if (!pointModel.getValueAt(0, 1+i).equals(pts1[i]))
 				pointModel.setValueAt(pts1[i], 0, 1+i);
 			}
+			if (!pointModel.getValueAt(0, 1+pts1.length).equals(totalScores1))
 			pointModel.setValueAt(totalScores1, 0, 1+pts1.length);
-			
+			if (!pointModel.getValueAt(1, 0).equals(team2.getTeamName()))
 			pointModel.setValueAt(team2.getTeamName(), 1, 0);
 			for (int i = 0; i < pts1.length; ++i)
 			{
-				pointModel.setValueAt(pts2[i], 0, 1+i);
+				if (!pointModel.getValueAt(1, 1+i).equals(pts2[i]))
+				pointModel.setValueAt(pts2[i], 1, 1+i);
 			}
-			pointModel.setValueAt(totalScores1, 0, 1+pts1.length);
+			if (!pointModel.getValueAt(1, 1+pts2.length).equals(totalScores2))
+			pointModel.setValueAt(totalScores2, 1, 1+pts2.length);
+			jScrollPane_points.repaint();
 		}
 	}
 	
@@ -428,11 +442,13 @@ public class LivePanel extends JPanel {
 		int margin = messagesSize - rowNum;
 		String[] tempArray = null;
 		String temp = null ;
+		
 		for (int i = 0; i < margin; ++i)
 		{
 			if (!inited)
 			{
 			temp = messages.get(i);
+			
 			}
 			else 
 			{
@@ -495,6 +511,7 @@ public class LivePanel extends JPanel {
 				FrameSize.height * 27 / 40  / 2);
 		jScrollPane_data1.setBackground(Color.white);
 		jScrollPane_data1.getViewport().setOpaque(false);
+		
 		this.add(jScrollPane_data1);
 		jScrollPane_data1.setVisible(false);
 				
@@ -533,6 +550,9 @@ public class LivePanel extends JPanel {
 		columnsName.add("比分");
 		rowimage = new Vector();
 		liveModel.setDataVector(rowimage, columnsName);
+		liveTable.getColumnModel().getColumn(2).setPreferredWidth(800);
+//		liveTable.getColumnModel().getColumn(1).setPreferredWidth(10);
+//		liveTable.getColumnModel().getColumn(3).setPreferredWidth(10);
 		this.repaint();
 
 	}
