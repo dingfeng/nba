@@ -47,12 +47,17 @@ public class TeamContrastPanel extends JPanel{
 	}
 	
 	void setchoose(){
+		JLabel blue=new JLabel();
+		blue.setBackground(FrameSize.bluecolor);
+		blue.setBounds(0, 0, FrameSize.width,30);
+		blue.setOpaque(true);
+		this.add(blue);
 		t2=new EditableTextField();
 		t2.setText("NBA联盟平均");
-		t2.setBounds(FrameSize.width-200,5,150,30);
-		JButton enter=new MyButton("确定",Color.white,Color.gray);
+		t2.setBounds(FrameSize.width-200,0,150,30);
+		JButton enter=new MyButton("确定",FrameSize.bluecolor,FrameSize.darkbluecolor);
 		enter.addActionListener(e->setCompare());
-		enter.setBounds(FrameSize.width-50,5,30,30);
+		enter.setBounds(FrameSize.width-50,0,30,30);
 		t2.addKeyListener(new KeyAdapter(){
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyChar() == KeyEvent.VK_ENTER) // 按回车键执行相应操作;
@@ -62,20 +67,20 @@ public class TeamContrastPanel extends JPanel{
 			}
 		});
 		JLabel t=new JLabel("队名");
-		t.setBounds(FrameSize.width-250, 5, 50, 30);
+		t.setBounds(FrameSize.width-250, 0, 50, 30);
 		pic1.setBounds(FrameSize.width/2-300-FrameSize.height/5, FrameSize.height/8, FrameSize.height/5, FrameSize.height/5);
 		pic2.setBounds(FrameSize.width/2+300, FrameSize.height/8, FrameSize.height/5, FrameSize.height/5);
 		name1.setBounds(FrameSize.width/2-300-FrameSize.height/5, FrameSize.height/3, 100, 50);
 		name2.setBounds(FrameSize.width/2+300, FrameSize.height/3, 100,50);
 		pic2.addMouseListener(new show());
 		name2.addMouseListener(new show());
-		seasontype.setBounds(FrameSize.width/2,5,100,30);
+		seasontype.setBounds(FrameSize.width*2/3,0,100,30);
 		seasontype.addActionListener(e->setOneOrTwo());
 		seasontype.setBackground(Color.white);
 		seasontype.setForeground(Color.black);
-		this.add(seasontype);
-		this.add(enter);
-		this.add(t2);
+		blue.add(seasontype);
+		blue.add(enter);
+		blue.add(t2);
 		this.add(name1);
 		this.add(name2);
 		this.add(pic1);

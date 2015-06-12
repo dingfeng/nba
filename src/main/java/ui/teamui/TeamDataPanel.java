@@ -44,24 +44,20 @@ public class TeamDataPanel extends JPanel {
 	int num=0;
 	public TeamDataPanel() {
 		this.setLayout(null);
-		this.setBounds(0, 30, FrameSize.width, FrameSize.height * 3 / 4 - 80);
+		this.setBounds(0, 30, FrameSize.width, FrameSize.height * 3 / 4 - 180);
 		this.setBackground(Color.white);
 		setText();
 		this.repaint();
 	}
 
 	public void setText() {
-		seasontype.setBounds(FrameSize.width/2,0,100,30);
-//		seasontype.addActionListener(e->setTable());
-		seasontype.setBackground(Color.white);
-		seasontype.setForeground(Color.black);
-//		this.add(seasontype);
+
 		jScrollPane
 				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		jScrollPane
 				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		jScrollPane.setBounds(0, 30, FrameSize.width,
-				FrameSize.height * 7 / 8 - 30);
+				420);
 		jScrollPane.setBackground(Color.white);
 		jScrollPane.getViewport().setOpaque(false);
 	}

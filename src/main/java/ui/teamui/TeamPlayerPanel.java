@@ -10,11 +10,14 @@ import javax.swing.table.DefaultTableModel;
 
 import po.HPlayerPO;
 import po.PlayerNormalPO;
+import po.PlayerPO;
 import ui.mainui.FrameSize;
 import ui.mainui.MyFrame;
 import ui.mainui.MyTable;
 import ui.mainui.MyToggleButton;
+import bl.playerbl.PlayerController;
 import bl.teambl.TeamController;
+import blservice.playerblservice.PlayerBlService;
 import blservice.teamblservice.Teamblservice;
 import dataservice.playerdataservice.SeasonType;
 
@@ -30,7 +33,7 @@ public class TeamPlayerPanel extends JPanel {
 	MyToggleButton base;
 
 	Teamblservice tc = new TeamController();
-
+	PlayerBlService pc=new PlayerController();
 	public TeamPlayerPanel() {
 		this.setLayout(null);
 		this.setBounds(0, 30, FrameSize.width, FrameSize.height * 3 / 4 - 80);
@@ -76,34 +79,30 @@ public class TeamPlayerPanel extends JPanel {
 		setTable();
 	}
 
-	void setBase(HPlayerPO[] players) {
+	void setBase(PlayerPO[] players) {
 		columnsName.clear();
 		columnsName.add("姓名");
 		columnsName.add("位置");
 		columnsName.add("身高");
 		columnsName.add("体重");
 		columnsName.add("生日");
-		columnsName.add("出生地");
-		columnsName.add("高中");
-		columnsName.add("大学");
+		columnsName.add("毕业学校");
 		columnsName.add("球号");
 		columnsName.add("球队");
 		columnsName.add("比赛地");
 		rowimage.clear();
 
 		for (int i = 1; i < players.length; i++) {
-			HPlayerPO player = players[i];
+			PlayerPO player = players[i];
 			Vector data = new Vector();
 			data.add(player.getName());
 			data.add(player.getPosition());
-			data.add(player.getHeight());
+			data.add(player.getHeightfeet());
 			data.add(player.getWeight());
-			data.add(player.getBirthday());
-			data.add(player.getBirthCity());
-			data.add(player.getHigh_school());
-			data.add(player.getUniversity());
+			data.add(player.getBirth());
+			data.add(player.getSchool());
 			data.add(player.getName());
-			data.add(player.getTeama());
+			data.add(player.getTeamA());
 			data.add(player.getGameArea());
 
 			rowimage.add(data);
@@ -163,10 +162,8 @@ public class TeamPlayerPanel extends JPanel {
 		
 		String teamname = MyFrame.teampanel.nameAbridgeresult.getText();
 		String[] playername = tc.getPlayers(teamname);
-		HPlayerPO[] players = new HPlayerPO[playername.length];
-		for (int i = 0; i < playername.length; i++) {
-			players[i] = tc.getPlayerBase(playername[i]);
-		}
+		PlayerPO[] players  = pc.getPlayerOfTeam(teamname);
+			
 		if (base.isSelected()) {
 			setBase(players);
 		} else {
