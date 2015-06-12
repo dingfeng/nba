@@ -2,6 +2,7 @@ package ui.statistics;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Panel;
 import java.awt.Toolkit;
@@ -41,6 +42,7 @@ public class StatisticsTeamPanel extends JPanel {
 	JTable mytable = new MyTable(table);
 	{
 		((MyTable)mytable).setShowImage(true);
+		mytable.getTableHeader().setPreferredSize(new Dimension(1,40));;
 	}
 	JScrollPane jScrollPane;
 	MyComboBox aveOrAll = new MyComboBox(new String[] { "场均", "总数" });

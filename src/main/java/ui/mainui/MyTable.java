@@ -66,6 +66,10 @@ public class MyTable extends JTable {						// 实现自己的表格类
 	        public Component getTableCellRendererComponent(JTable table,Object value,boolean isSelected,boolean hasFocus,int row,int column){
 	        Component cell = super.getTableCellRendererComponent(table,value,isSelected,hasFocus,row,column);  
 	        this.setColor(cell, table, isSelected, hasFocus, row, column);
+	        if ((isSelected || hasFocus) && imagable)
+	        {
+	           cell.setBackground(Color.GRAY);
+	        }
 	        this.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
 	        return cell;
 	        }
