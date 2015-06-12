@@ -272,7 +272,7 @@ public class PlayerController implements PlayerBlService {
 		}
 		PlayerPO[] players;
 		try {
-			players = playerService.screenPlayer("desc", matcharea, playerarea,
+			players = playerService.screenPlayer(null, matcharea, playerarea,
 					playerPosition, 100);
 			if (players == null) {
 				return null;
@@ -331,7 +331,7 @@ public class PlayerController implements PlayerBlService {
 		}
 		PlayerPO[] players;
 		try {
-			players = playerService.screenPlayer("desc", matcharea, playerarea,
+			players = playerService.screenPlayer(null, matcharea, playerarea,
 					playerPosition, 100);
 			if (players == null) {
 				return null;
@@ -390,7 +390,7 @@ public class PlayerController implements PlayerBlService {
 		}
 		PlayerPO[] players;
 		try {
-			players = playerService.screenPlayer("desc", matcharea, playerarea,
+			players = playerService.screenPlayer(null, matcharea, playerarea,
 					playerPosition, 100);
 			if (players == null) {
 				return null;
