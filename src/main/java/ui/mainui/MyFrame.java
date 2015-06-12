@@ -51,15 +51,15 @@ public class MyFrame extends JFrame {
 	public static CardLayout card = new CardLayout();
 
 	public static IndexPanel indexpanel = new IndexPanel();
-	public static TeamPanel teampanel = new TeamPanel();
-	public static ShowAllPlayerPanel allPlayerPanel = new ShowAllPlayerPanel();
-	public static ShowOnePlayerPanel onePlayerPanel = new ShowOnePlayerPanel();
-	public static HotPanel hotpanel = new HotPanel();
-	public static MatchPanel matchpanel = new MatchPanel();
-	public static StatisticsPlayerPanel statisticsPlayerPanel = new StatisticsPlayerPanel();
-	public static StatisticsTeamPanel statisticsTeamPanel = new StatisticsTeamPanel();
-	public static LivePanel livepanel = new LivePanel();
-	public static StatisticsPanel statisticspanel = new StatisticsPanel();
+	public static TeamPanel teampanel ;
+	public static ShowAllPlayerPanel allPlayerPanel;
+	public static ShowOnePlayerPanel onePlayerPanel;
+	public static HotPanel hotpanel;
+	public static MatchPanel matchpanel;
+	public static StatisticsPlayerPanel statisticsPlayerPanel;
+	public static StatisticsTeamPanel statisticsTeamPanel;
+	public static LivePanel livepanel;
+	public static StatisticsPanel statisticspanel;
 	TeamController tc = new TeamController();
 
 	// MatchController mc = new MatchController();
@@ -86,17 +86,81 @@ public class MyFrame extends JFrame {
 				FrameSize.height * 7 / 8);
 		mainpanel.setLayout(card);
 		mainpanel.add(indexpanel, "index");
-		mainpanel.add(teampanel, "team");
-		mainpanel.add(allPlayerPanel, "allplayer");
-		mainpanel.add(onePlayerPanel, "oneplayer");
-		mainpanel.add(matchpanel, "match");
-		mainpanel.add(hotpanel, "hot");
-		mainpanel.add(statisticsPlayerPanel, "statisticsPlayer");
-		mainpanel.add(statisticsTeamPanel, "statisticsTeam");
-		mainpanel.add(statisticspanel, "statistics");
-		mainpanel.add(livepanel, "live");
 		mainpanel.setBackground(Color.white);
-
+         new Thread()
+         {
+        	 public void run()
+        	 {
+        		 teampanel = new TeamPanel();
+    			 mainpanel.add(teampanel, "team");
+        	 }
+         }.start();
+         
+         new Thread()
+         {
+        	 public void run()
+        	 {
+        		 allPlayerPanel = new ShowAllPlayerPanel();
+        		 mainpanel.add(allPlayerPanel, "allplayer");
+        	 }
+         }.start();
+         new Thread()
+         {
+        	 public void run()
+        	 {
+        		 onePlayerPanel = new ShowOnePlayerPanel();
+        		 mainpanel.add(onePlayerPanel, "oneplayer");
+        	 }
+         }.start();
+         new Thread()
+         {
+        	 public void run()
+        	 {
+        		 hotpanel = new HotPanel();
+        		 mainpanel.add(hotpanel, "hot");
+        	 }
+         }.start();
+         new Thread()
+         {
+        	 public void run()
+        	 {
+        		 matchpanel = new MatchPanel();
+        		 mainpanel.add(matchpanel, "match");
+        	 }
+         }.start();
+         new Thread()
+         {
+        	 public void run()
+        	 {
+        		 statisticsPlayerPanel = new StatisticsPlayerPanel();
+        		 mainpanel.add(statisticsPlayerPanel, "statisticsPlayer");
+        	 }
+         }.start();
+         new Thread()
+         {
+        	 public void run()
+        	 {
+        		 statisticsTeamPanel = new StatisticsTeamPanel();
+        		 mainpanel.add(statisticsTeamPanel, "statisticsTeam");
+        	 }
+         }.start();
+         new Thread()
+         {
+        	 public void run()
+        	 {
+        		 livepanel = new LivePanel();
+        		 mainpanel.add(livepanel, "live");
+        	 }
+         }.start();
+         new Thread()
+         {
+        	 public void run()
+        	 {
+    			 statisticspanel = new StatisticsPanel();
+    			 mainpanel.add(statisticspanel, "statistics");
+        	 }
+         }.start();
+         
 		setExit();
 		setMini();
 		setTitle();
