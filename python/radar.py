@@ -74,12 +74,13 @@ if __name__ == '__main__':
     	d = np.concatenate((d, [d[0]])) # ±ÕºÏ
     	ax.plot(angles, d, color = color)
     	ax.fill(angles, d, facecolor = color, alpha = 0.25)
-    ax.set_thetagrids(angles * 180/np.pi, spoke_labels, fontsize = 20)
+    ax.set_thetagrids(angles * 180/np.pi, spoke_labels, fontsize = 25)
     ax.set_rlim(0, maximum + 0.2)
     ax.grid(True)
-    ax.legend((player1, player2), loc=(0.9, .85), labelspacing=0.005)
+    ax.legend((player1, player2), loc=(0.9, .85),labelspacing=0.005, fontsize = 16)
     
     plt.savefig(filename, dpi=30, facecolor='w', edgecolor='w',
         orientation='portrait', papertype=None, format=None,
         transparent=True, bbox_inches=None, pad_inches=0.1,
         frameon=None)
+    plt.show()
