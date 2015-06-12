@@ -26,6 +26,7 @@ import ui.IndexPanel;
 import ui.LivePanel;
 import ui.MatchPanel;
 import ui.playerui.ShowAllPlayerPanel;
+import ui.playerui.ShowOnePlayerPanel;
 import ui.statistics.StatisticsPanel;
 import ui.statistics.StatisticsPlayerPanel;
 import ui.statistics.StatisticsTeamPanel;
@@ -51,14 +52,16 @@ public class MyFrame extends JFrame {
 
 	public static IndexPanel indexpanel = new IndexPanel();
 	public static TeamPanel teampanel = new TeamPanel();
-	public static ShowAllPlayerPanel playerpanel = new ShowAllPlayerPanel();
-	 public static HotPanel hotpanel = new HotPanel();
-	 public static MatchPanel matchpanel = new MatchPanel();
+	public static ShowAllPlayerPanel allPlayerPanel = new ShowAllPlayerPanel();
+	public static ShowOnePlayerPanel onePlayerPanel = new ShowOnePlayerPanel();
+	public static HotPanel hotpanel = new HotPanel();
+	public static MatchPanel matchpanel = new MatchPanel();
 	public static StatisticsPlayerPanel statisticsPlayerPanel = new StatisticsPlayerPanel();
 	public static StatisticsTeamPanel statisticsTeamPanel = new StatisticsTeamPanel();
-	public static LivePanel livepanel=new LivePanel();
-	public static StatisticsPanel statisticspanel=new StatisticsPanel();
-	TeamController tc=new TeamController();
+	public static LivePanel livepanel = new LivePanel();
+	public static StatisticsPanel statisticspanel = new StatisticsPanel();
+	TeamController tc = new TeamController();
+
 	// MatchController mc = new MatchController();
 
 	public MyFrame() {
@@ -83,16 +86,17 @@ public class MyFrame extends JFrame {
 				FrameSize.height * 7 / 8);
 		mainpanel.setLayout(card);
 		mainpanel.add(indexpanel, "index");
-		mainpanel.add(playerpanel, "player");
 		mainpanel.add(teampanel, "team");
-		 mainpanel.add(matchpanel, "match");
-		 mainpanel.add(hotpanel, "hot");
+		mainpanel.add(allPlayerPanel, "allplayer");
+		mainpanel.add(onePlayerPanel, "oneplayer");
+		mainpanel.add(matchpanel, "match");
+		mainpanel.add(hotpanel, "hot");
 		mainpanel.add(statisticsPlayerPanel, "statisticsPlayer");
-		mainpanel.add(statisticsTeamPanel,"statisticsTeam");
-		mainpanel.add(statisticspanel,"statistics");
-		mainpanel.add(livepanel,"live");
+		mainpanel.add(statisticsTeamPanel, "statisticsTeam");
+		mainpanel.add(statisticspanel, "statistics");
+		mainpanel.add(livepanel, "live");
 		mainpanel.setBackground(Color.white);
-		
+
 		setExit();
 		setMini();
 		setTitle();
@@ -122,7 +126,7 @@ public class MyFrame extends JFrame {
 		frame.add(icon);
 
 	}
-	
+
 	MyToggleButton index;
 	MyToggleButton playerbutton;
 	MyToggleButton teambutton;
@@ -132,18 +136,26 @@ public class MyFrame extends JFrame {
 	MyToggleButton staticsbutton;
 	MyToggleButton livebutton;
 	JPopupMenu teams = new JPopupMenu();
+
 	void setHeadButton() {
 
-		index = new MyToggleButton(new ImageIcon("image/index.png"),FrameSize.bluecolor,FrameSize.darkbluecolor);
-		playerbutton = new MyToggleButton(new ImageIcon("image/player.png"),FrameSize.bluecolor,FrameSize.darkbluecolor);
-		teambutton = new MyToggleButton(new ImageIcon("image/图片1.png"),FrameSize.bluecolor,FrameSize.darkbluecolor);
-		hotbutton = new MyToggleButton(new ImageIcon("image/hot.png"),FrameSize.bluecolor,FrameSize.darkbluecolor);
-		matchbutton = new MyToggleButton(new ImageIcon("image/match.png"),FrameSize.bluecolor,FrameSize.darkbluecolor);
-		helpbutton = new MyToggleButton(new ImageIcon("image/help.png"),FrameSize.bluecolor,FrameSize.darkbluecolor);
-		staticsbutton = new MyToggleButton(new ImageIcon("image/statics.png"),FrameSize.bluecolor,FrameSize.darkbluecolor);
-		livebutton=new MyToggleButton(new ImageIcon("image/live.png"),FrameSize.bluecolor,FrameSize.darkbluecolor);
-		
-		
+		index = new MyToggleButton(new ImageIcon("image/index.png"),
+				FrameSize.bluecolor, FrameSize.darkbluecolor);
+		playerbutton = new MyToggleButton(new ImageIcon("image/player.png"),
+				FrameSize.bluecolor, FrameSize.darkbluecolor);
+		teambutton = new MyToggleButton(new ImageIcon("image/图片1.png"),
+				FrameSize.bluecolor, FrameSize.darkbluecolor);
+		hotbutton = new MyToggleButton(new ImageIcon("image/hot.png"),
+				FrameSize.bluecolor, FrameSize.darkbluecolor);
+		matchbutton = new MyToggleButton(new ImageIcon("image/match.png"),
+				FrameSize.bluecolor, FrameSize.darkbluecolor);
+		helpbutton = new MyToggleButton(new ImageIcon("image/help.png"),
+				FrameSize.bluecolor, FrameSize.darkbluecolor);
+		staticsbutton = new MyToggleButton(new ImageIcon("image/statics.png"),
+				FrameSize.bluecolor, FrameSize.darkbluecolor);
+		livebutton = new MyToggleButton(new ImageIcon("image/live.png"),
+				FrameSize.bluecolor, FrameSize.darkbluecolor);
+
 		teambutton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				teams.show(e.getComponent(), 0, 50);
@@ -178,7 +190,7 @@ public class MyFrame extends JFrame {
 			}
 
 		});
-		
+
 		staticstype.add(playeritem);
 		staticstype.add(teamitem);
 		staticstype.add(item);
@@ -199,7 +211,7 @@ public class MyFrame extends JFrame {
 		helpbutton.setBounds(360, 3 * FrameSize.height / 80, 50, 50);
 		staticsbutton.setBounds(430, 3 * FrameSize.height / 80, 50, 50);
 		livebutton.setBounds(500, 3 * FrameSize.height / 80, 50, 50);
-		
+
 		index.setToolTipText("主页");
 		playerbutton.setToolTipText("球员");
 		teambutton.setToolTipText("球队");
@@ -208,7 +220,6 @@ public class MyFrame extends JFrame {
 		helpbutton.setToolTipText("帮助");
 		staticsbutton.setToolTipText("统计");
 		livebutton.setToolTipText("直播");
-		
 
 		index.addActionListener(e -> setIndex());
 		playerbutton.addActionListener(e -> setPlayer());
@@ -216,8 +227,8 @@ public class MyFrame extends JFrame {
 		hotbutton.addActionListener(e -> setHot());
 		matchbutton.addActionListener(e -> setMatch());
 		helpbutton.addActionListener(e -> HelpUtil.startHelp());
-		staticsbutton.addActionListener(e->setStatics());
-		livebutton.addActionListener(e->setLive());
+		staticsbutton.addActionListener(e -> setStatics());
+		livebutton.addActionListener(e -> setLive());
 
 		frame.add(livebutton);
 		frame.add(helpbutton);
@@ -231,38 +242,39 @@ public class MyFrame extends JFrame {
 
 	void setTeambutton() {
 
-		
-		teams.setLayout(new GridLayout(15,2));
-		JMenuItem[] normal=new JMenuItem[30];
-		for(int i=0;i<30;i++){
-		normal[i] = new JMenuItem();
-		normal[i].setBackground(Color.white);
-		normal[i].addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				teampanel.showOne(((JMenuItem)e.getSource()).getText());
-				card.show(mainpanel, "team");
-			}
-		});
-		teams.add(normal[i]);
+		teams.setLayout(new GridLayout(15, 2));
+		JMenuItem[] normal = new JMenuItem[30];
+		for (int i = 0; i < 30; i++) {
+			normal[i] = new JMenuItem();
+			normal[i].setBackground(Color.white);
+			normal[i].addMouseListener(new MouseAdapter() {
+				public void mousePressed(MouseEvent e) {
+					teampanel.showOne(((JMenuItem) e.getSource()).getText());
+					card.show(mainpanel, "team");
+				}
+			});
+			teams.add(normal[i]);
 		}
 		TeamNormalPO[] teammatch = tc.getAllTeamTotal(2013, SeasonType.REGULAR);
-		int West=0;
-		int East=1;
+		int West = 0;
+		int East = 1;
 		for (int i = 0; i < teammatch.length; i++) {
 			TeamPO team = tc.getTeamData(teammatch[i].getName());
 			String playerArea = team.getMatchArea();
-			
+
 			switch (playerArea) {
 			case "E":
 				normal[East].setText(team.getName());
-				normal[East].setIcon(FrameSize.scaleImage(new ImageIcon(team.getImage()),40,40));
-				East=East+2;
+				normal[East].setIcon(FrameSize.scaleImage(
+						new ImageIcon(team.getImage()), 40, 40));
+				East = East + 2;
 				break;
 
 			case "W":
 				normal[West].setText(team.getName());
-				normal[West].setIcon(FrameSize.scaleImage(new ImageIcon(team.getImage()),40,40));
-				West=West+2;
+				normal[West].setIcon(FrameSize.scaleImage(
+						new ImageIcon(team.getImage()), 40, 40));
+				West = West + 2;
 				break;
 			}
 
@@ -270,7 +282,7 @@ public class MyFrame extends JFrame {
 	}
 
 	void setIndex() {
-		
+
 		card.show(mainpanel, "index");
 		index.setSelected(true);
 		playerbutton.setSelected(false);
@@ -294,7 +306,7 @@ public class MyFrame extends JFrame {
 	}
 
 	public void setTeam() {
-//		card.show(mainpanel, "team");
+		// card.show(mainpanel, "team");
 		index.setSelected(false);
 		playerbutton.setSelected(false);
 		hotbutton.setSelected(false);
@@ -328,7 +340,7 @@ public class MyFrame extends JFrame {
 		livebutton.setSelected(false);
 	}
 
-	void setStatics(){
+	void setStatics() {
 		index.setSelected(false);
 		playerbutton.setSelected(false);
 		teambutton.setSelected(false);
@@ -337,10 +349,10 @@ public class MyFrame extends JFrame {
 		matchbutton.setSelected(false);
 		staticsbutton.setSelected(true);
 		livebutton.setSelected(false);
-		
+
 	}
-	
-	void setLive(){
+
+	void setLive() {
 		card.show(mainpanel, "live");
 		index.setSelected(false);
 		playerbutton.setSelected(false);
@@ -351,7 +363,7 @@ public class MyFrame extends JFrame {
 		staticsbutton.setSelected(false);
 		livebutton.setSelected(true);
 	}
-	
+
 	void setExit() {
 		JButton el = new MyButton(new ImageIcon("image/close.png"),
 				FrameSize.bluecolor, Color.red);
@@ -391,11 +403,11 @@ public class MyFrame extends JFrame {
 		}
 
 		public void mouseEntered(MouseEvent arg0) {
-			((JButton)arg0.getSource()).setBackground(Color.red);
+			((JButton) arg0.getSource()).setBackground(Color.red);
 		}
 
 		public void mouseExited(MouseEvent arg0) {
-			((JButton)arg0.getSource()).setBackground(FrameSize.bluecolor);
+			((JButton) arg0.getSource()).setBackground(FrameSize.bluecolor);
 		}
 
 		public void mousePressed(MouseEvent arg0) {
@@ -412,11 +424,11 @@ public class MyFrame extends JFrame {
 		}
 
 		public void mouseEntered(MouseEvent e) {
-			((JButton)e.getSource()).setBackground(FrameSize.darkbluecolor);
+			((JButton) e.getSource()).setBackground(FrameSize.darkbluecolor);
 		}
 
 		public void mouseExited(MouseEvent e) {
-			((JButton)e.getSource()).setBackground(FrameSize.bluecolor);
+			((JButton) e.getSource()).setBackground(FrameSize.bluecolor);
 		}
 
 		public void mousePressed(MouseEvent e) {
