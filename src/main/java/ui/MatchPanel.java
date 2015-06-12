@@ -348,12 +348,14 @@ public class MatchPanel extends JPanel {
 
 		JScrollPane playerTable1 = setPlayerTable(team1.getPlayers());
 		JScrollPane playerTable2 = setPlayerTable(team2.getPlayers());
-		playerTable1.setBounds(0, 300, FrameSize.width, (team1.getPlayers().length+1)*16);
-		playerTable2.setBounds(0, 400+(team1.getPlayers().length+1)*16, FrameSize.width, (team2.getPlayers().length+1)*16);
-
+		playerTable1.setBounds(0, 300, FrameSize.width, (team1.getPlayers().length+1)*26+30);
+		playerTable2.setBounds(0, 350+(team1.getPlayers().length+1)*26+20, FrameSize.width, (team2.getPlayers().length+1)*26+30);
+		matchPanel.add(playerTable1);
+		matchPanel.add(playerTable2);
+		
 		matchPanel.setOpaque(false);
 		oneMatchScrollPane.getViewport().add(matchPanel);
-		matchPanel.setPreferredSize(new Dimension(FrameSize.width, 900));
+		matchPanel.setPreferredSize(new Dimension(FrameSize.width,400+(team1.getPlayers().length+1)*26+20+(team2.getPlayers().length+1)*26+120));
 		oneMatchScrollPane.setBounds(0, 0, FrameSize.width,
 				FrameSize.height * 7 / 8 - 40);
 		oneMatchScrollPane.setOpaque(false);

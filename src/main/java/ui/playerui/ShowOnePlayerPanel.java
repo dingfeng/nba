@@ -51,6 +51,7 @@ public class ShowOnePlayerPanel extends JPanel{
 	JTextField cityresult = new UneditableTextField();//城市
 	JTextField birthresult = new UneditableTextField();//生日
 	JTextField numberresult = new UneditableTextField();//球衣
+	JLabel rade = new JLabel();//雷达图
 	JButton match;
 	JButton teamplayers;
 
