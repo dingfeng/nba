@@ -95,9 +95,11 @@ public class PastMatchPanel extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
 
-					// MyFrame.matchpanel.findMatchAccordingMatch(match,
-					// table.getSelectedRow());
-					MyFrame.card.show(MyFrame.mainpanel, "match");
+					int j = match.length-6-mytable.getSelectedRow();
+					int id = match[j].getMatchId();
+					MatchesPO match = mc.getMatchById(id);
+					MyFrame.onematchpanel.setOneNowMatch(match.getTeam1(), match.getTeam2());
+					MyFrame.card.show(MyFrame.mainpanel, "onematch");
 				}
 			}
 
