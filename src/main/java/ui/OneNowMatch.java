@@ -142,7 +142,6 @@ public class OneNowMatch extends JPanel{
 		Vector columnsName = new Vector();
 //		/* 01球员图片 */columnsName.add("球员");
 		/* 02球员姓名 */columnsName.add("姓名");
-		/* 03位置 */columnsName.add("位置");
 		/* 04分钟 */columnsName.add("分钟");
 		/* 05投篮命中数 */columnsName.add("命中");
 		/* 06投篮出手数 */columnsName.add("出手");
@@ -167,7 +166,6 @@ public class OneNowMatch extends JPanel{
 			Vector rowData = new Vector();
 //			/* 01球员图片 */rowData.add("图片");
 			/* 02球员姓名 */rowData.add(players[i].getName());
-			/* 03位置 */rowData.add(players[i].getLocation());
 			/* 04分钟 */rowData.add(players[i].getTime());
 			/* 05投篮命中数 */rowData.add(players[i].getHitNo());
 			/* 06投篮出手数 */rowData.add(players[i].getHandNo());
@@ -193,6 +191,7 @@ public class OneNowMatch extends JPanel{
 		DefaultTableModel playerTable = new DefaultTableModel(data, columnsName);
 		MyTable myPlayerTable = new MyTable(playerTable);
 		JScrollPane playerScrollPane = new JScrollPane(myPlayerTable);
+		myPlayerTable.getColumnModel().getColumn(1).setPreferredWidth(130);
 		myPlayerTable.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
