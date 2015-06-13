@@ -90,11 +90,11 @@ public class MatchPanel extends JPanel {
 
 					matchLabel[i] = new JLabel();
 					matchLabel[i].setBounds(0, i * 200, FrameSize.width, 200);
-					JLabel teamImage1 = new JLabel(scaleImage(new ImageIcon(
+					JLabel teamImage1 = new JLabel(FrameSize.scaleImage(new ImageIcon(
 							teamController.getTeamData(team1.getName())
 									.getImage()), 150, 150));
 					teamImage1.setBounds(200, 25, 150, 150);
-					JLabel teamImage2 = new JLabel(scaleImage(new ImageIcon(
+					JLabel teamImage2 = new JLabel(FrameSize.scaleImage(new ImageIcon(
 							teamController.getTeamData(team2.getName())
 									.getImage()), 150, 150));
 					teamImage2.setBounds(FrameSize.width - 350, 25, 150, 150);
@@ -192,11 +192,15 @@ public class MatchPanel extends JPanel {
 			this.repaint();
 		} else {
 			System.out.println(date);
+			System.out.println(date.getYear()+1900);
+			System.out.println(date.getMonth()+1);
+			System.out.println(date.getDate());
 			todatyMatchScrollPane.getViewport().removeAll();
 			JPanel matchPanel = new JPanel();
 			matchPanel.setLayout(null);
-			OldMatch[] matches = matchController.getOldMatch(date.getDate(), 0,
-					100, SeasonType.REGULAR);
+			OldMatch[] matches = matchController.getOldMatch(date.getYear()+1900, 0,
+					10, SeasonType.REGULAR);
+			System.out.println(matches.length);
 			JLabel[] matchLabel = new JLabel[matches.length];
 			for (int i = 0; i < matches.length; i++) {
 				OldMatch match = matchController.getOldMatchInfo(matches[i]
@@ -207,68 +211,71 @@ public class MatchPanel extends JPanel {
 
 				matchLabel[i] = new JLabel();
 				matchLabel[i].setBounds(0, i * 200, FrameSize.width, 200);
-				JLabel teamImage1 = new JLabel(
-						FrameSize.scaleImage(
-								new ImageIcon(teamController.getTeamData(team1)
-										.getImage()), 150, 150));
-				teamImage1.setBounds(200, 25, 150, 150);
-				JLabel teamImage2 = new JLabel(
-						FrameSize.scaleImage(
-								new ImageIcon(teamController.getTeamData(team2)
-										.getImage()), 150, 150));
-				teamImage2.setBounds(FrameSize.width - 350, 25, 150, 150);
-				matchLabel[i].add(teamImage1);
-				matchLabel[i].add(teamImage2);
+//				JLabel teamImage1 = new JLabel(
+//						FrameSize.scaleImage(
+//								new ImageIcon(teamController.getTeamData(team1)
+//										.getImage()), 150, 150));
+//				teamImage1.setBounds(200, 25, 150, 150);
+//				JLabel teamImage2 = new JLabel(
+//						FrameSize.scaleImage(
+//								new ImageIcon(teamController.getTeamData(team2)
+//										.getImage()), 150, 150));
+//				teamImage2.setBounds(FrameSize.width - 350, 25, 150, 150);
+//				matchLabel[i].add(teamImage1);
+//				matchLabel[i].add(teamImage2);
 
 				JLabel teamName1 = new JLabel(team1);
 				JLabel teamName2 = new JLabel(team2);
 				teamName1.setFont(MyFont.font2);
 				teamName2.setFont(MyFont.font2);
-				teamName1.setBounds(100, 30, 100, 30);
-				teamName2.setBounds(FrameSize.width - 150, 30, 50, 30);
+				teamName1.setBounds(100, 60, 100, 30);
+				teamName2.setBounds(FrameSize.width - 150, 60, 100, 30);
 				matchLabel[i].add(teamName1);
 				matchLabel[i].add(teamName2);
 
-				String[] scores1 = matches[i].getPt1();
-				String[] scores2 = matches[i].getPt2();
+				String[] scores1 = match.getPt1();
+				String[] scores2 = match.getPt2();
 				JLabel teamScores1 = new JLabel(scores1[scores1.length - 1]);
 				JLabel teamScores2 = new JLabel(scores2[scores2.length - 1]);
-				if (Integer.parseInt(scores1[scores1.length - 1]) > Integer
-						.parseInt(scores2[scores2.length - 1])) {
-					teamScores1.setForeground(Color.red);
-				} else {
-					teamScores2.setForeground(Color.red);
-				}
-				teamScores1.setBounds(100, 60, 50, 30);
-				teamScores2.setBounds(FrameSize.width - 150, 60, 50, 30);
+				teamScores1.setFont(MyFont.font3);
+				teamScores2.setFont(MyFont.font3);				
+//				if (Integer.parseInt(scores1[scores1.length - 1]) > Integer
+//						.parseInt(scores2[scores2.length - 1])) {
+//					teamScores1.setForeground(Color.red);
+//				} else {
+//					teamScores2.setForeground(Color.red);
+//				}
+				teamScores1.setBounds(100, 120, 50, 30);
+				teamScores2.setBounds(FrameSize.width - 150, 120, 50, 30);
 				matchLabel[i].add(teamScores1);
 				matchLabel[i].add(teamScores2);
 
-				int column = scores1.length;
+				int column = scores1.length-1;
 				JLabel[][] scores = new JLabel[3][column];
 				for (int j = 0; j < column; j++) {
 					scores[0][j] = new JLabel(String.valueOf(j + 1));
 					scores[1][j] = new JLabel(scores1[j]);
 					scores[2][j] = new JLabel(scores2[j]);
-					if (Integer.parseInt(scores1[j]) > Integer
-							.parseInt(scores2[j])) {
-						scores[1][j].setForeground(Color.red);
-					} else {
-						scores[2][j].setForeground(Color.red);
-					}
+//					if (Integer.parseInt(scores1[j]) > Integer
+//							.parseInt(scores2[j])) {
+//						scores[1][j].setForeground(Color.red);
+//					} else {
+//						scores[2][j].setForeground(Color.red);
+//					}
 					for (int k = 0; k < 3; k++) {
 						scores[k][j].setBounds(350
 								+ (FrameSize.width - 700 - 120) * (j + 1)
-								/ (column + 1) + j * 30, 40 + k * 50, 30, 30);
+								/ (column + 2) + j * 30, 40 + k * 50, 30, 30);
 						matchLabel[i].add(scores[k][j]);
 					}
 
 				}
 
-				Image matchImage = matches[i].getImg();
+				Image matchImage = match.getImg();
 				matchLabel[i].addMouseListener(new MouseAdapter() {
 					public void mouseClicked(MouseEvent e) {
-						setOneOldMatch(matchImage);
+						MyFrame.oldmatchpanel.setOneOldMatch(matchImage);
+						MyFrame.card.show(MyFrame.mainpanel, "oldmatch");
 					}
 				});
 				matchPanel.add(matchLabel[i]);
@@ -288,6 +295,7 @@ public class MatchPanel extends JPanel {
 			this.repaint();
 		}
 	}
+
 
 	private void test() {
 		JLabel[] jLabel = new JLabel[100];

@@ -27,6 +27,7 @@ public class OneOldMatch extends JPanel{
 	
 	/** 一场旧比赛的信息图 */
 	public void setOneOldMatch(Image picture) {
+		System.out.println("oldmatch");
 		oneMatchScrollPane.getViewport().removeAll();
 		JLabel jLabel = new JLabel();
 		jLabel.setIcon(new ImageIcon(picture));

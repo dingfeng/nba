@@ -173,6 +173,32 @@ public class StatisticsPlayerPanel extends JPanel {
 				data.add(rowData);
 			}
 			mytable.setRowHeight(50);
+			mytable.setRowSorter(new TableRowSorter<TableModel>(table));
+//			getColumnModel().getColumn(0).setCellRenderer(myRenderer);
+			mytable.updateUI();
+
+			TableRowSorter rowSorter = (TableRowSorter) mytable.getRowSorter();  
+			 Comparator<String> numberComparator = new Comparator<String>() {  
+		            @Override  
+		            public int compare(String o1, String o2) {  
+		                if ( o1 == null ) {  
+		                    return -1;  
+		                }  
+		                if ( o2 == null ) {  
+		                    return 1;  
+		                }  
+		                if ( Double.parseDouble(o1) < Double.parseDouble(o2)) {  
+		                    return -1;  
+		                }  
+		                if ( Double.parseDouble(o1) > Double.parseDouble(o2) ) {  
+		                    return 1;  
+		                }  
+		                return 0;  
+		            }  
+		        };  
+		        for (int col = 3; col < mytable.getColumnCount(); col++) {  
+		            rowSorter.setComparator(col, numberComparator);  
+		        }  
 			setScrollPane();
 		}
 	}
