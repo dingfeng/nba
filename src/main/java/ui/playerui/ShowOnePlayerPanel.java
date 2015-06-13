@@ -1,4 +1,4 @@
-package ui.playerui;
+	package ui.playerui;
 
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -323,9 +323,10 @@ public class ShowOnePlayerPanel extends JPanel{
 		birthresult.setText(player.getBirthday());//生日
 		numberresult.setText(player.getNum());//球衣
 		rade.setIcon(new ImageIcon(playerController.getRadarImage(2014, playerName, SeasonType.REGULAR)));
-		
-		
-		image.setOpaque(false);
+//		rade.setText("雷达图");
+//		rade.setBackground(Color.red);
+//		
+//		rade.setOpaque(true);
 
 		image.setBounds(30, 5, FrameSize.width / 6, FrameSize.width / 6);
 		nameresult.setBounds(FrameSize.width / 2 + 50, FrameSize.height / 40,
@@ -342,7 +343,8 @@ public class ShowOnePlayerPanel extends JPanel{
 				FrameSize.height / 40 + 150, FrameSize.width / 12, 30);
 		numberresult.setBounds(FrameSize.width / 2 + 50,
 				FrameSize.height / 40 + 180, FrameSize.width / 12, 30);
-		rade.setBounds(FrameSize.width*3/4,FrameSize.height / 40,FrameSize.width*3/4-20,FrameSize.width*3/4-20);
+//		rade.setBounds(FrameSize.width*3/4,100,FrameSize.width*3/4-20,FrameSize.width*3/4-20);
+		rade.setBounds(FrameSize.width*3/4-100,10,260,180);
 
 		find.add(image);
 		find.add(nameresult);
