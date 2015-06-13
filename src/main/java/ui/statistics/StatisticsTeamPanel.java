@@ -44,8 +44,8 @@ public class StatisticsTeamPanel extends JPanel {
 	DefaultTableModel table = new DefaultTableModel(rowimage, columnsName);
 	JTable mytable = new MyTable(table);
 	{
-//		((MyTable)mytable).setShowImage(true);
-//		mytable.getTableHeader().setPreferredSize(new Dimension(1,40));;
+		((MyTable)mytable).setShowImage(true);
+		mytable.getTableHeader().setPreferredSize(new Dimension(1,40));
 	}
 	JScrollPane jScrollPane;
 	MyComboBox aveOrAll = new MyComboBox(new String[] { "场均", "总数" });
