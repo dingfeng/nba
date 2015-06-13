@@ -241,7 +241,7 @@ public class ShowOnePlayerPanel extends JPanel{
 	}
 
 	void setContrast() {
-		playercontrastpanel.setChart();
+		playercontrastpanel.setChart(nameresult.getText());
 		card.show(playermain, "contrast");
 		contrastbutton.setSelected(true);
 		databutton.setSelected(false);

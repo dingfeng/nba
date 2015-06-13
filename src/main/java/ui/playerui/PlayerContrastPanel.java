@@ -19,6 +19,8 @@ public class PlayerContrastPanel extends JPanel{
 
 	PlayerBlService playerController=new PlayerController();
 	JLabel imagelabel=new JLabel();
+	JLabel player1 = new JLabel();
+	JLabel player2 = new JLabel();
 	
 	public PlayerContrastPanel(){
 	this.setLayout(null);
@@ -28,8 +30,7 @@ public class PlayerContrastPanel extends JPanel{
 	this.repaint();
 	}
 	
-	public void setChart(){
-		String playerName=MyFrame.teampanel.nameAbridgeresult.getText();
+	public void setChart(String playerName){
 		Image image=playerController.getPlayerBar(2014, playerName, SeasonType.REGULAR);
 		
 		imagelabel.setIcon(new ImageIcon(image));
