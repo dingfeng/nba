@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -57,7 +59,17 @@ public class PlayerController implements PlayerBlService {
 		}
 	}
 
-	@Override
+	public static Date getDate(String date)
+	{
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	    try {
+			return format.parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return null;	
+	}
+	
 	public synchronized HotPlayerTeam[] getDayHotPlayer(String type) {
 		HotType hotType = null;
 		switch(type)
@@ -79,7 +91,7 @@ public class PlayerController implements PlayerBlService {
 			break;
 		}
 		try {
-			return playerService.getDayHotPlayer(new Date(), hotType);
+			return playerService.getDayHotPlayer(getDate("2014-06-10"), hotType);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
