@@ -599,6 +599,12 @@ public class PlayerController implements PlayerBlService {
 //			pr.waitFor();
 		ImageIcon imageIcon = new ImageIcon(filename);
 		Image radar = imageIcon.getImage();
+		//如果没有图片则返回一个白的图片
+		if(radar == null){
+			ImageIcon non = new ImageIcon("image\\white.png");
+			Image nonImage = non.getImage();
+			return nonImage;
+		}
 		return radar;
 //			return null;
 //		} catch (IOException | InterruptedException e) {
@@ -1048,6 +1054,12 @@ public class PlayerController implements PlayerBlService {
 //			pr.waitFor();
 		ImageIcon imageIcon = new ImageIcon(filename);
 		Image bar = imageIcon.getImage();
+		//若没有相应图片，则返回一个代理图片
+		if(bar == null){
+			ImageIcon non = new ImageIcon("image\\nochart.png");
+			Image nonImage = non.getImage();
+			return nonImage;
+		}
 		return bar;
 //			return null;
 //		} catch (IOException | InterruptedException e) {

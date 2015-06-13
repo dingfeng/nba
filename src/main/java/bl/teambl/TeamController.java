@@ -17,7 +17,6 @@ import po.PlayerPO;
 import po.TeamHighPO;
 import po.TeamNormalPO;
 import po.TeamPO;
-import tool.ImageTool;
 import DataFactory.DataFactory;
 import DataFactoryService.NBADataFactory;
 import blservice.teamblservice.Teamblservice;
@@ -364,6 +363,12 @@ public class TeamController implements Teamblservice {
 		// pr.waitFor();
 		ImageIcon imageIcon = new ImageIcon(filename);
 		Image bar = imageIcon.getImage();
+		//如果没有比赛数据则返回代理图片
+		if(bar == null){
+			ImageIcon non = new ImageIcon("image\\nochart.png");
+			Image nonImage = non.getImage();
+			return nonImage;
+		}
 		return bar;
 		// } catch (IOException e) {
 		// // TODO Auto-generated catch block
@@ -476,6 +481,11 @@ public class TeamController implements Teamblservice {
 		// pr.waitFor();
 		ImageIcon imageIcon = new ImageIcon(filename);
 		Image compare = imageIcon.getImage();
+		if(compare == null){
+			ImageIcon non = new ImageIcon("image\\nochart.png");
+			Image nonImage = non.getImage();
+			return nonImage;
+		}
 		return compare;
 		// return null;
 		// } catch (IOException e) {
