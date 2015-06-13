@@ -30,6 +30,7 @@ import blservice.playerblservice.PlayerBlService;
 import blservice.teamblservice.Teamblservice;
 import ui.mainui.FrameSize;
 import ui.mainui.MyButton;
+import ui.mainui.MyFrame;
 import ui.mainui.MyTable;
 import ui.mainui.MyToggleButton;
 import ui.mainui.UneditableTextField;
@@ -346,6 +347,12 @@ public class ShowOnePlayerPanel extends JPanel{
 				FrameSize.height / 40 + 180, FrameSize.width / 12, 30);
 		rade.setBounds(FrameSize.width*3/4-100,10,260,180);
 		team.setBounds(80+FrameSize.width/6,30,FrameSize.width/8,FrameSize.width/8);
+		team.addMouseListener((new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				MyFrame.teampanel.showOne(player.getTeama());
+				MyFrame.card.show(MyFrame.mainpanel, "team");
+			}
+		}));
 
 		find.add(image);
 		find.add(nameresult);
