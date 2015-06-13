@@ -94,7 +94,7 @@ public class RecentMatchPanel extends JPanel {
 
 //					MyFrame.matchpanel.findMatchAccordingMatch(match,
 //							recenttable.getSelectedRow());
-					MyFrame.card.show(MyFrame.mainpanel, "match");
+					MyFrame.card.show(MyFrame.mainpanel, "onematch");
 				}
 			}
 

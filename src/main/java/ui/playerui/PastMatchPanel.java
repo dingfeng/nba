@@ -53,6 +53,12 @@ public class PastMatchPanel extends JPanel{
 		season.setBackground(Color.white);
 		season.addActionListener(e->setPastTable(MyFrame.onePlayerPanel.nameresult.getText()));
 		season.setForeground(Color.black);
+		pastjScrollPane = new JScrollPane(mytable);
+		pastjScrollPane
+				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		pastjScrollPane.setBounds(0, 30, FrameSize.width,FrameSize.height*3/4 -180);
+		pastjScrollPane.setOpaque(false);
+		pastjScrollPane.getViewport().setOpaque(false);
 		recent.add(season);
 		this.add(recent);
 
@@ -80,12 +86,7 @@ public class PastMatchPanel extends JPanel{
 		
 		table.setDataVector(data, columnsName);
 		mytable.updateUI();
-		pastjScrollPane = new JScrollPane(mytable);
-		pastjScrollPane
-				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		pastjScrollPane.setBounds(0, 30, FrameSize.width,FrameSize.height*3/4 -180);
-		pastjScrollPane.setOpaque(false);
-		pastjScrollPane.getViewport().setOpaque(false);
+		
 
 		mytable.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -93,7 +94,7 @@ public class PastMatchPanel extends JPanel{
 
 //					MyFrame.matchpanel.findMatchAccordingMatch(match,
 //							table.getSelectedRow());
-					MyFrame.card.show(MyFrame.mainpanel, "match");
+					MyFrame.card.show(MyFrame.mainpanel, "onematch");
 				}
 			}
 
