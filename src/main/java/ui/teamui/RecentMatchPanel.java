@@ -96,6 +96,7 @@ public class RecentMatchPanel extends JPanel {
 					int id = match[j].getMatchId();
 					MatchesPO match = mc.getMatchById(id);
 					MyFrame.onematchpanel.setOneNowMatch(match.getTeam1(), match.getTeam2());
+					MyFrame.setMatch();
 					MyFrame.card.show(MyFrame.mainpanel, "onematch");
 				}
 			}
