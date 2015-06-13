@@ -306,7 +306,7 @@ public class MatchPlayerPO implements Comparable<MatchPlayerPO>, Serializable
 	public double getPenaltyHitRate()
 	{
 		if (penaltyHandNo == 0) return 0;
-		return 1.0 * penaltyHandNo / penaltyHitNo;
+		return 1.0 * penaltyHitNo / penaltyHandNo;
 	}
 	/**
 	 * 设置球队缩写名
