@@ -6,6 +6,7 @@ import java.awt.Image;
 import dataservice.playerdataservice.SeasonType;
 import po.HPlayerPO;
 import po.HotPlayerTeam;
+import po.HotType;
 import po.PlayerHighPO;
 import po.PlayerNormalPO;
 import po.PlayerPO;
@@ -44,7 +45,7 @@ public interface PlayerBlService {
 	 * @param sortby			排序依据
 	 * @return	返回当天热点球员
 	 */
-	public HotPlayerTeam[] getDayHotPlayer(String sortby);
+	public HotPlayerTeam[] getDayHotPlayer(String type);
 	/**
 	 * 获得赛季热点球员
 	 * @param season			赛季

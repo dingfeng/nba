@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.ImageIcon;
 
@@ -17,6 +18,7 @@ import dataservice.playerdataservice.PlayerDataService;
 import dataservice.playerdataservice.SeasonType;
 import po.HPlayerPO;
 import po.HotPlayerTeam;
+import po.HotType;
 import po.MatchPlayerPO;
 import po.PlayerHighPO;
 import po.PlayerNormalPO;
@@ -56,7 +58,31 @@ public class PlayerController implements PlayerBlService {
 	}
 
 	@Override
-	public synchronized HotPlayerTeam[] getDayHotPlayer(String sortBy) {
+	public synchronized HotPlayerTeam[] getDayHotPlayer(String type) {
+		HotType hotType = null;
+		switch(type)
+		{
+		case "points":
+			hotType = HotType.SCORES;
+			break;
+		case "rebs":
+			hotType = HotType.REBS;
+			break;
+		case "assistNo":
+			hotType = HotType.ASSIST;
+			break;
+		case "blockNo":
+			hotType = HotType.BLOCK;
+			break;
+		case "stealsNo":
+			hotType = HotType.STEALS;
+			break;
+		}
+		try {
+			return playerService.getDayHotPlayer(new Date(), hotType);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
@@ -472,7 +498,6 @@ public class PlayerController implements PlayerBlService {
 		try {
 			return playerService.getSeasonPlayerNormalTotal(season, type);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
