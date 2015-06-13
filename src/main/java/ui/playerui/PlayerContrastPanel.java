@@ -120,41 +120,50 @@ public class PlayerContrastPanel extends JPanel {
 	private void setCompare() {
 		one = false;
 		String player = player2.getText();
-		try{
-			Image image = playerController.getCompareImage(2014, MyFrame.onePlayerPanel.nameresult.getText(), player2.getText(), season);
+		try {
+			Image image = playerController.getCompareImage(2014,
+					MyFrame.onePlayerPanel.nameresult.getText(),
+					player2.getText(), season);
 			playerName2.setText(player);
-			playerImage2.setIcon(FrameSize.scaleImage(new ImageIcon(playerController.getPlayerImage(player)),FrameSize.height/5, FrameSize.height/5 ));
+			playerImage2.setIcon(FrameSize.scaleImage(new ImageIcon(
+					playerController.getPlayerImage(player)),
+					FrameSize.height / 5, FrameSize.height / 5));
 			imagelabel.setIcon(new ImageIcon(image));
 			add(playerName2);
 			add(playerImage2);
 			add(imagelabel);
 			repaint();
-		}catch(NullPointerException e){
-//			JOptionPane.showMessageDialog(null, "未找到该球员", "查找失败",
-//					JOptionPane.ERROR_MESSAGE);
+		} catch (NullPointerException e) {
+			// JOptionPane.showMessageDialog(null, "未找到该球员", "查找失败",
+			// JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
-	public void setChart(String playerName){
-		one=true;
+	public void setChart(String playerName) {
+		one = true;
 		playerName1.setText(MyFrame.onePlayerPanel.nameresult.getText());
 		playerName2.setText("NBA联盟平均");
-		playerImage1.setIcon(FrameSize.scaleImage(new ImageIcon(playerController.getPlayerImage(playerName1.getText())), FrameSize.height/5, FrameSize.height/5));
-		playerImage2.setIcon(FrameSize.scaleImage(new ImageIcon("image/nbabig.png"), FrameSize.height/5, FrameSize.height/5));
-		new Thread(){
-			public void run(){
-		Image image=playerController.getPlayerBar(2014, playerName, season);
-		imagelabel.setIcon(new ImageIcon(image));
-		imagelabel.setBounds((FrameSize.width-560)/2, 30, 560, 420);
-		imagelabel.setOpaque(false);		
-		imagelabel.repaint();
-		add(imagelabel);
-		repaint();
-		validate();
-		imagelabel.setVisible(true);
-		imagelabel.repaint();
+		playerImage1.setIcon(FrameSize.scaleImage(new ImageIcon(
+				playerController.getPlayerImage(playerName1.getText())),
+				FrameSize.height / 5, FrameSize.height / 5));
+		playerImage2.setIcon(FrameSize
+				.scaleImage(new ImageIcon("image/nbabig.png"),
+						FrameSize.height / 5, FrameSize.height / 5));
+		new Thread() {
+			public void run() {
+				Image image = playerController.getPlayerBar(2014, playerName,
+						season);
+				imagelabel.setIcon(new ImageIcon(image));
+				imagelabel.setBounds((FrameSize.width - 560) / 2, 30, 560, 420);
+				imagelabel.setOpaque(false);
+				imagelabel.repaint();
+				add(imagelabel);
+				repaint();
+				validate();
+				imagelabel.setVisible(true);
+				imagelabel.repaint();
 			}
 		}.start();
 	}
-	
+
 }

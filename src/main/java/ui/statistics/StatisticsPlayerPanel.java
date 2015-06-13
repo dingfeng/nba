@@ -269,7 +269,7 @@ public class StatisticsPlayerPanel extends JPanel {
 				FrameSize.height * 7 / 8 - 40);
 		jScrollPane.setBackground(Color.white);
 		jScrollPane.getViewport().setOpaque(false);
-		resizeTable(false,jScrollPane,mytable);
+//		resizeTable(false,jScrollPane,mytable);
 		this.add(jScrollPane);
 		this.repaint();
 	}

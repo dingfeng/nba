@@ -208,12 +208,12 @@ public class MatchPanel extends JPanel {
 				matchLabel[i] = new JLabel();
 				matchLabel[i].setBounds(0, i * 200, FrameSize.width, 200);
 				JLabel teamImage1 = new JLabel(
-						scaleImage(
+						FrameSize.scaleImage(
 								new ImageIcon(teamController.getTeamData(team1)
 										.getImage()), 150, 150));
 				teamImage1.setBounds(200, 25, 150, 150);
 				JLabel teamImage2 = new JLabel(
-						scaleImage(
+						FrameSize.scaleImage(
 								new ImageIcon(teamController.getTeamData(team2)
 										.getImage()), 150, 150));
 				teamImage2.setBounds(FrameSize.width - 350, 25, 150, 150);
@@ -289,30 +289,6 @@ public class MatchPanel extends JPanel {
 		}
 	}
 
-
-	/** 一场旧比赛的信息图 */
-	private void setOneOldMatch(Image picture) {
-		oneMatchScrollPane.getViewport().removeAll();
-		JLabel jLabel = new JLabel();
-		jLabel.setIcon(new ImageIcon(picture));
-		jLabel.setOpaque(false);
-
-		oneMatchScrollPane.getViewport().add(jLabel);
-		jLabel.setPreferredSize(new Dimension(FrameSize.width, 900));
-		oneMatchScrollPane.setBounds(0, 0, FrameSize.width,
-				FrameSize.height * 7 / 8 - 40);
-		oneMatchScrollPane.setOpaque(false);
-		oneMatchScrollPane.getViewport().setOpaque(false);
-		oneMatchScrollPane
-				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		oneMatchScrollPane
-				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		card.show(matchmain, "one");
-		this.repaint();
-
-	}
-
-
 	private void test() {
 		JLabel[] jLabel = new JLabel[100];
 		JScrollPane jScrollPane = new JScrollPane();
@@ -337,19 +313,5 @@ public class MatchPanel extends JPanel {
 		this.repaint();
 	}
 
-	/** 更改图片大小 */
-	private ImageIcon scaleImage(ImageIcon icon, int iconWidth, int iconHeight) {
-		int width = icon.getIconWidth();
-		int height = icon.getIconHeight();
-
-		if (width == iconWidth && height == iconHeight) {
-			return icon;
-		}
-		Image image = icon.getImage();
-		image = image.getScaledInstance(iconWidth, iconHeight,
-				Image.SCALE_DEFAULT);
-
-		return new ImageIcon(image);
-	}
 
 }

@@ -26,6 +26,7 @@ import ui.IndexPanel;
 import ui.LivePanel;
 import ui.MatchPanel;
 import ui.OneNowMatch;
+import ui.OneOldMatch;
 import ui.playerui.ShowAllPlayerPanel;
 import ui.playerui.ShowOnePlayerPanel;
 import ui.statistics.StatisticsPanel;
@@ -58,6 +59,7 @@ public class MyFrame extends JFrame {
 	public static HotPanel hotpanel;
 	public static MatchPanel matchpanel;
 	public static OneNowMatch onematchpanel;
+	public static OneOldMatch oldmatchpanel;
 	public static StatisticsPlayerPanel statisticsPlayerPanel;
 	public static StatisticsTeamPanel statisticsTeamPanel;
 	public static LivePanel livepanel;
@@ -166,6 +168,12 @@ public class MyFrame extends JFrame {
         	 public void run(){
         		 onematchpanel = new OneNowMatch();
         		 mainpanel.add(onematchpanel,"onematch");
+        	 }
+         }.start();
+         new Thread(){
+        	 public void run(){
+        		 oldmatchpanel = new OneOldMatch();
+        		 mainpanel.add(oldmatchpanel,"oldmatch");
         	 }
          }.start();
          
