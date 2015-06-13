@@ -119,15 +119,15 @@ public class TeamContrastPanel extends JPanel{
 	void setCompare(){
 		one=false;
 		String teamname=t2.getText();
-		try {
-			TeamPO team=tc.getTeamData(teamname);
-		} catch (NullPointerException e1) {
+		TeamPO team=tc.getTeamData(teamname);
+		if(team==null){
+			
 			JOptionPane.showMessageDialog(null, "未找到该球队", "查找失败",
 					JOptionPane.ERROR_MESSAGE);
 
 			return;
 		}
-		TeamPO team=tc.getTeamData(teamname);
+//		TeamPO team=tc.getTeamData(teamname);
 		name2.setText(team.getName());
 		pic2.setIcon(FrameSize.scaleImage(new ImageIcon(team.getImage()),FrameSize.height/5, FrameSize.height/5));
 		Image image=tc.getTeamCompare(2014, MyFrame.teampanel.nameAbridgeresult.getText(),teamname, season);
