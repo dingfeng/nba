@@ -198,7 +198,7 @@ public class ShowOnePlayerPanel extends JPanel{
 	}
 	
 	void setTrend() {
-		
+		trendpanel.setPic(nameresult.getText());
 		card.show(playermain, "trend");
 		databutton.setSelected(false);
 		recentbutton.setSelected(false);
