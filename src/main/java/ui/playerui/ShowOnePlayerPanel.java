@@ -30,6 +30,7 @@ import blservice.playerblservice.PlayerBlService;
 import blservice.teamblservice.Teamblservice;
 import ui.mainui.FrameSize;
 import ui.mainui.MyButton;
+import ui.mainui.MyFrame;
 import ui.mainui.MyTable;
 import ui.mainui.MyToggleButton;
 import ui.mainui.UneditableTextField;
@@ -327,7 +328,7 @@ public class ShowOnePlayerPanel extends JPanel{
 		birthresult.setText(player.getBirthday());//生日
 		numberresult.setText(player.getNum());//球衣
 		rade.setIcon(new ImageIcon(playerController.getRadarImage(2014, playerName, SeasonType.REGULAR)));
-		team.setIcon((FrameSize.scaleImage(new ImageIcon(teamController.getTeamImage(player.getTeama())), FrameSize.width/6, FrameSize.width/6)));
+		team.setIcon((FrameSize.scaleImage(new ImageIcon(teamController.getTeamImage(player.getTeama())), FrameSize.width/8, FrameSize.width/8)));
 
 		image.setBounds(30, 5, FrameSize.width / 6, FrameSize.width / 6);
 		nameresult.setBounds(FrameSize.width / 2 + 50, FrameSize.height / 40,
@@ -345,7 +346,13 @@ public class ShowOnePlayerPanel extends JPanel{
 		numberresult.setBounds(FrameSize.width / 2 + 50,
 				FrameSize.height / 40 + 180, FrameSize.width / 12, 30);
 		rade.setBounds(FrameSize.width*3/4-100,10,260,180);
-		team.setBounds(40+FrameSize.width/6,5,FrameSize.width/6,FrameSize.width/6);
+		team.setBounds(80+FrameSize.width/6,30,FrameSize.width/8,FrameSize.width/8);
+		team.addMouseListener((new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				MyFrame.teampanel.showOne(player.getTeama());
+				MyFrame.card.show(MyFrame.mainpanel, "team");
+			}
+		}));
 
 		find.add(image);
 		find.add(nameresult);
