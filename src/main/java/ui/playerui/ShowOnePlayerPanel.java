@@ -25,7 +25,9 @@ import javax.swing.table.DefaultTableModel;
 import dataservice.playerdataservice.SeasonType;
 import po.HPlayerPO;
 import bl.playerbl.PlayerController;
+import bl.teambl.TeamController;
 import blservice.playerblservice.PlayerBlService;
+import blservice.teamblservice.Teamblservice;
 import ui.mainui.FrameSize;
 import ui.mainui.MyButton;
 import ui.mainui.MyTable;
@@ -53,6 +55,7 @@ public class ShowOnePlayerPanel extends JPanel{
 	JTextField birthresult = new UneditableTextField();//生日
 	JTextField numberresult = new UneditableTextField();//球衣
 	JLabel rade = new JLabel();//雷达图
+	JLabel team = new JLabel();
 	JButton match;
 	JButton teamplayers;
 
@@ -75,6 +78,7 @@ public class ShowOnePlayerPanel extends JPanel{
 	MyToggleButton avedata;
 	boolean high=false;
 	PlayerBlService playerController = new PlayerController();
+	Teamblservice teamController = new TeamController();
 
 
 	public ShowOnePlayerPanel() {
@@ -323,10 +327,7 @@ public class ShowOnePlayerPanel extends JPanel{
 		birthresult.setText(player.getBirthday());//生日
 		numberresult.setText(player.getNum());//球衣
 		rade.setIcon(new ImageIcon(playerController.getRadarImage(2014, playerName, SeasonType.REGULAR)));
-//		rade.setText("雷达图");
-//		rade.setBackground(Color.red);
-//		
-//		rade.setOpaque(true);
+		team.setIcon(new ImageIcon(teamController.getTeamImage(player.getTeama())));
 
 		image.setBounds(30, 5, FrameSize.width / 6, FrameSize.width / 6);
 		nameresult.setBounds(FrameSize.width / 2 + 50, FrameSize.height / 40,
@@ -343,8 +344,8 @@ public class ShowOnePlayerPanel extends JPanel{
 				FrameSize.height / 40 + 150, FrameSize.width / 12, 30);
 		numberresult.setBounds(FrameSize.width / 2 + 50,
 				FrameSize.height / 40 + 180, FrameSize.width / 12, 30);
-//		rade.setBounds(FrameSize.width*3/4,100,FrameSize.width*3/4-20,FrameSize.width*3/4-20);
 		rade.setBounds(FrameSize.width*3/4-100,10,260,180);
+		team.setBounds(40+FrameSize.width/6,5,FrameSize.width/6,FrameSize.width/6);
 
 		find.add(image);
 		find.add(nameresult);
@@ -355,6 +356,7 @@ public class ShowOnePlayerPanel extends JPanel{
 		find.add(birthresult);
 		find.add(numberresult);
 		find.add(rade);
+		find.add(team);
 		find.setVisible(true);
 		find.repaint();
 		this.add(find);
