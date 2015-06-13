@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
+import po.MatchTeamPO;
 import po.MatchesPO;
 import ui.mainui.FrameSize;
 import ui.mainui.MyFrame;
