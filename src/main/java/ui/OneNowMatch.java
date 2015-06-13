@@ -120,18 +120,18 @@ public class OneNowMatch extends JPanel{
 		}
 
 		JLabel teamImage3 = new JLabel(scaleImage(new ImageIcon(teamController
-				.getTeamData(team1.getName()).getImage()), 100, 100));
-		teamImage3.setBounds(10, 220, 100, 100);
+				.getTeamData(team1.getName()).getImage()), 50, 50));
+		teamImage3.setBounds(10, 220, 50, 50);
 		JLabel teamImage4 = new JLabel(scaleImage(new ImageIcon(teamController
-				.getTeamData(team2.getName()).getImage()), 100, 100));
-		teamImage4.setBounds(10, 320+(team1.getPlayers().length+1)*26+35, 100, 100);
+				.getTeamData(team2.getName()).getImage()), 50, 50));
+		teamImage4.setBounds(10, 320+(team1.getPlayers().length+1)*26+35, 50, 50);
 		matchPanel.add(teamImage3);
 		matchPanel.add(teamImage4);
 		
 		JScrollPane playerTable1 = setPlayerTable(team1.getPlayers());
 		JScrollPane playerTable2 = setPlayerTable(team2.getPlayers());
-		playerTable1.setBounds(10, 320, FrameSize.width-20, (team1.getPlayers().length+1)*26+35);
-		playerTable2.setBounds(10, 470+(team1.getPlayers().length+1)*26+20, FrameSize.width-20, (team2.getPlayers().length+1)*26+35);
+		playerTable1.setBounds(0, 320, FrameSize.width, (team1.getPlayers().length+1)*26+35);
+		playerTable2.setBounds(0, 470+(team1.getPlayers().length+1)*26+20, FrameSize.width, (team2.getPlayers().length+1)*26+35);
 		matchPanel.add(playerTable1);
 		matchPanel.add(playerTable2);
 		

@@ -155,7 +155,7 @@ public class StatisticsPlayerPanel extends JPanel {
 				/* 01球员 */rowData.add(playerController.getPlayerImage(playerMatchVOs[i].getName()));
 				/* 02姓名 */rowData.add(playerMatchVOs[i].getName());
 				/* 03球队 */rowData.add(playerMatchVOs[i].getTeam());
-				/* 04场数 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getMatchNo(),1));
+				/* 04场数 */rowData.add(playerMatchVOs[i].getMatchNo());
 				/* 05篮板 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getRebs(),0));
 				/* 06助攻 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getAssistNo(),1));
 				/* 07分钟 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getTime(),1));
@@ -174,6 +174,7 @@ public class StatisticsPlayerPanel extends JPanel {
 			}
 			mytable.setRowHeight(50);
 			mytable.setRowSorter(new TableRowSorter<TableModel>(table));
+			mytable.getColumnModel().getColumn(1).setPreferredWidth(150);
 //			getColumnModel().getColumn(0).setCellRenderer(myRenderer);
 			mytable.updateUI();
 
