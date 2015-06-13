@@ -119,10 +119,19 @@ public class OneNowMatch extends JPanel{
 
 		}
 
+		JLabel teamImage3 = new JLabel(scaleImage(new ImageIcon(teamController
+				.getTeamData(team1.getName()).getImage()), 100, 100));
+		teamImage3.setBounds(10, 220, 100, 100);
+		JLabel teamImage4 = new JLabel(scaleImage(new ImageIcon(teamController
+				.getTeamData(team2.getName()).getImage()), 100, 100));
+		teamImage4.setBounds(10, 320+(team1.getPlayers().length+1)*26+35, 100, 100);
+		matchPanel.add(teamImage3);
+		matchPanel.add(teamImage4);
+		
 		JScrollPane playerTable1 = setPlayerTable(team1.getPlayers());
 		JScrollPane playerTable2 = setPlayerTable(team2.getPlayers());
-		playerTable1.setBounds(0, 300, FrameSize.width, (team1.getPlayers().length+1)*26+35);
-		playerTable2.setBounds(0, 350+(team1.getPlayers().length+1)*26+20, FrameSize.width, (team2.getPlayers().length+1)*26+35);
+		playerTable1.setBounds(10, 320, FrameSize.width-20, (team1.getPlayers().length+1)*26+35);
+		playerTable2.setBounds(10, 470+(team1.getPlayers().length+1)*26+20, FrameSize.width-20, (team2.getPlayers().length+1)*26+35);
 		matchPanel.add(playerTable1);
 		matchPanel.add(playerTable2);
 		
@@ -167,7 +176,7 @@ public class OneNowMatch extends JPanel{
 			Vector rowData = new Vector();
 //			/* 01球员图片 */rowData.add("图片");
 			/* 02球员姓名 */rowData.add(players[i].getName());
-			/* 04分钟 */rowData.add(players[i].getTime());
+			/* 04分钟 */rowData.add((int)players[i].getTime());
 			/* 05投篮命中数 */rowData.add(players[i].getHitNo());
 			/* 06投篮出手数 */rowData.add(players[i].getHandNo());
 			/* 07三分命中率 */rowData.add(FrameSize.roundForNumber((double)players[i].getThreeHitRate()*100,1));
