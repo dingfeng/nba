@@ -215,6 +215,7 @@ public class MatchPanel extends JPanel {
 				System.out.println(team1 + "-" + team2);
 
 				matchLabel[i] = new JPanel();
+				matchLabel[i].setLayout(null);
 				matchLabel[i].setBounds(0, i * 200, FrameSize.width, 200);
 //				JLabel teamImage1 = new JLabel(
 //						FrameSize.scaleImage(
