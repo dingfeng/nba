@@ -10,8 +10,11 @@ package dataservice.playerdataservice;
 import java.awt.Image;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.Date;
 
 import po.HPlayerPO;
+import po.HotPlayerTeam;
+import po.HotType;
 import po.MatchPlayerPO;
 import po.PlayerHighPO;
 import po.PlayerImage;
@@ -295,7 +298,18 @@ public interface PlayerDataService extends Remote{
 	 * @throws RemoteException  可能抛出网络异常
 	 */
     public PlayerPO findActivePlayerPO(String playerName) throws RemoteException;
+    /**
+     * 获得所有球员图片<br/>
+     * @return                    所有球员图片
+     * @throws RemoteException    有可能抛出网络异常
+     */
     public TeamPlayerImage[] getAllPlayerImage()  throws RemoteException;
+    /**
+     * 获得当日热点球员
+     * @param date      日期
+     * @return          热点球员
+     */
+    public HotPlayerTeam[] getDayHotPlayer(Date date,HotType hotType)throws RemoteException;
 //	public PlayerNormalPO[] sortPlayerNormalTotalHis(String sort, int n);
 //	public PlayerNormalPO sortPlayerNormalAveHis(String sort, int n);
 }
