@@ -304,7 +304,13 @@ public class TeamController implements Teamblservice {
 	@Override
 	public Image getTeamImage(String name) {
 		TeamPO team = this.getTeamData(name);
-		return team.getImage();
+		Image teamImage = team.getImage();
+		if(teamImage == null){
+			ImageIcon non = new ImageIcon("image/white.png");
+			Image nonImage = non.getImage();
+			return nonImage;
+		}
+		return teamImage;
 	}
 
 	@Override
