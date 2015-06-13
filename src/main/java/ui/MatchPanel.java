@@ -93,11 +93,11 @@ public class MatchPanel extends JPanel {
 					JLabel teamImage1 = new JLabel(FrameSize.scaleImage(new ImageIcon(
 							teamController.getTeamData(team1.getName())
 									.getImage()), 150, 150));
-					teamImage1.setBounds(200, 25, 150, 150);
+					teamImage1.setBounds(200, 50, 150, 150);
 					JLabel teamImage2 = new JLabel(FrameSize.scaleImage(new ImageIcon(
 							teamController.getTeamData(team2.getName())
 									.getImage()), 150, 150));
-					teamImage2.setBounds(FrameSize.width - 350, 25, 150, 150);
+					teamImage2.setBounds(FrameSize.width - 350, 50, 150, 150);
 					teamImage1.addMouseListener((new MouseAdapter() {
 						public void mouseClicked(MouseEvent e) {
 							MyFrame.teampanel.showOne(team1.getName());
