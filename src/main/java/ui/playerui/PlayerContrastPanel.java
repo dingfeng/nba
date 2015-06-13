@@ -143,7 +143,7 @@ public class PlayerContrastPanel extends JPanel {
 		playerImage2.setIcon(FrameSize.scaleImage(new ImageIcon("image/nbabig.png"), FrameSize.height/5, FrameSize.height/5));
 		new Thread(){
 			public void run(){
-		Image image=playerController.getPlayerBar(2014, playerName, SeasonType.REGULAR);
+		Image image=playerController.getPlayerBar(2014, playerName, season);
 		imagelabel.setIcon(new ImageIcon(image));
 		imagelabel.setBounds((FrameSize.width-560)/2, 30, 560, 420);
 		imagelabel.setOpaque(false);		

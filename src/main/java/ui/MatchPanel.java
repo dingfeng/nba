@@ -285,7 +285,6 @@ public class MatchPanel extends JPanel {
 					.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 			todatyMatchScrollPane
 					.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-			// this.add(todatyMatchScrollPane);
 			this.repaint();
 		}
 	}
