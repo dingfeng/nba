@@ -105,6 +105,18 @@ public class MatchPanel extends JPanel {
 							teamController.getTeamData(team2.getName())
 									.getImage()), 150, 150));
 					teamImage2.setBounds(FrameSize.width - 350, 25, 150, 150);
+					teamImage1.addMouseListener((new MouseAdapter() {
+						public void mouseClicked(MouseEvent e) {
+							MyFrame.teampanel.showOne(team1.getName());
+							MyFrame.card.show(MyFrame.mainpanel, "team");
+						}
+					}));
+					teamImage2.addMouseListener((new MouseAdapter() {
+						public void mouseClicked(MouseEvent e) {
+							MyFrame.teampanel.showOne(team2.getName());
+							MyFrame.card.show(MyFrame.mainpanel, "team");
+						}
+					}));
 					matchLabel[i].add(teamImage1);
 					matchLabel[i].add(teamImage2);
 
@@ -401,7 +413,6 @@ public class MatchPanel extends JPanel {
 				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		oneMatchScrollPane
 				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		// this.add(todatyMatchScrollPane);
 		card.show(matchmain, "one");
 		this.repaint();
 
@@ -413,7 +424,7 @@ public class MatchPanel extends JPanel {
 		System.out.println(players.length);
 
 		Vector columnsName = new Vector();
-		/* 01球员图片 */columnsName.add("球员");
+//		/* 01球员图片 */columnsName.add("球员");
 		/* 02球员姓名 */columnsName.add("姓名");
 		/* 03位置 */columnsName.add("位置");
 		/* 04分钟 */columnsName.add("分钟");
@@ -438,7 +449,7 @@ public class MatchPanel extends JPanel {
 		Vector data = new Vector();
 		for (int i = 0; i < players.length; i++) {
 			Vector rowData = new Vector();
-			/* 01球员图片 */rowData.add("图片");
+//			/* 01球员图片 */rowData.add("图片");
 			/* 02球员姓名 */rowData.add(players[i].getName());
 			/* 03位置 */rowData.add(players[i].getLocation());
 			/* 04分钟 */rowData.add(players[i].getTime());
@@ -469,7 +480,9 @@ public class MatchPanel extends JPanel {
 		myPlayerTable.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
-
+					MyFrame.onePlayerPanel.showOne((String) myPlayerTable.getModel().getValueAt(
+							myPlayerTable.getSelectedRow(), 0));
+					MyFrame.card.show(MyFrame.mainpanel, "oneplayer");
 				}
 			}
 		});
