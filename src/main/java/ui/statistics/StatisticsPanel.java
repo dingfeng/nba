@@ -243,7 +243,7 @@ public class StatisticsPanel extends JPanel {
 		jScrollPane.setBounds(0, 50, FrameSize.width,210);
 		table.setDataVector(rowimage, columnsName);
 		imagelabel.setIcon(new ImageIcon("image/ptsScatter.png"));
-		text.setText("可得卡方值为25.63226"+"\n"+"经查表可知34.3816（a = 0.1） > 25.63226"+"\n"+"可知年龄与得分之间关系较显著"+"\n"+"计算年龄与得分Pearson系数得："+"\n"+"(-0.578,0.006)"+"\n"+"可以发现年龄与得分一般相关"+"\n"+"这和之前卡方独立性统计的结果相符合。"+"\n"+"经过非线性回归分析数据与y = -1.1996e-06x^4 + 7.84"+"\n"+"拟合度较高"+"\n"+"且标准残差很低");
+		text.setText("可得卡方值为25.63226"+"\n"+"经查表可知34.3816（a = 0.1） > 25.63226"+"\n"+"可知年龄与得分之间关系较显著"+"\n"+"计算年龄与得分Pearson系数得："+"\n"+"(-0.578,0.006)"+"\n"+"可以发现年龄与得分一般相关"+"\n"+"这和之前卡方独立性统计的结果相符合。"+"\n"+"经过非线性回归分析数据与y = -1.1996e-06x^4+7.84"+"\n"+"拟合度较高"+"\n"+"且标准残差很低");
 	}
 
 	void setTableReb(){
@@ -300,7 +300,7 @@ public class StatisticsPanel extends JPanel {
 		jScrollPane.setBounds(0, 50, FrameSize.width,210);
 		table.setDataVector(rowimage, columnsName);
 		imagelabel.setIcon(new ImageIcon("image/rebScatter.png"));
-		text.setText("可得卡方值为20.21252"+"\n"+"经查表可知22.3071（a=0.1） > 20.21252"+"\n"+"可知年龄与篮板之间关系较显著"+"\n"+"计算年龄与篮板Pearson系数得："+"\n"+"(-0.509,0.018)"+"\n"+"可以发现年龄与篮板一般相关"+"\n"+"这和之前卡方独立性统计的结果相符合。"+"\n"+"经过非线性回归分析数据与y = -8.3174e-07 x^4 + 3.72"+"\n"+"拟合度较高"+"\n"+"且标准残差很低");
+		text.setText("可得卡方值为20.21252"+"\n"+"经查表可知22.3071（a=0.1） > 20.21252"+"\n"+"可知年龄与篮板之间关系较显著"+"\n"+"计算年龄与篮板Pearson系数得："+"\n"+"(-0.509,0.018)"+"\n"+"可以发现年龄与篮板一般相关"+"\n"+"这和之前卡方独立性统计的结果相符合。"+"\n"+"经过非线性回归分析数据与y = -8.3174e-07x^4+3.72"+"\n"+"拟合度较高"+"\n"+"且标准残差很低");
 	}
 
 	void setTableAss(){
