@@ -17,6 +17,7 @@ import po.PlayerHighPO;
 import po.PlayerImage;
 import po.PlayerNormalPO;
 import po.PlayerPO;
+import po.TeamPlayerImage;
 
 /**
  * 球员数据接口 javaBean ClassName:PlayerDataService<br/>
@@ -294,6 +295,7 @@ public interface PlayerDataService extends Remote{
 	 * @throws RemoteException  可能抛出网络异常
 	 */
     public PlayerPO findActivePlayerPO(String playerName) throws RemoteException;
+    public TeamPlayerImage[] getAllPlayerImage()  throws RemoteException;
 //	public PlayerNormalPO[] sortPlayerNormalTotalHis(String sort, int n);
 //	public PlayerNormalPO sortPlayerNormalAveHis(String sort, int n);
 }

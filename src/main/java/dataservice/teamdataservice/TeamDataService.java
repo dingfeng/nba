@@ -16,6 +16,7 @@ import po.HotPlayerTeam;
 import po.TeamHighPO;
 import po.TeamNormalPO;
 import po.TeamPO;
+import po.TeamPlayerImage;
 
 /**
  * 球员数据接口 javaBean ClassName:TeanDataService<br/>
@@ -182,4 +183,5 @@ public interface TeamDataService extends Remote{
 	 * @throws RemoteException    有可能抛出网络异常
 	 */
 	public HotPlayerTeam[] getHotTeam(int season,String hot,SeasonType seasonType)throws RemoteException;
+	public TeamPlayerImage[] getAllPlayers() throws RemoteException;
 }
