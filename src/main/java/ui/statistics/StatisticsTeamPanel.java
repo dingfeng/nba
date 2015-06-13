@@ -90,8 +90,8 @@ public class StatisticsTeamPanel extends JPanel {
 		headerPanel.add(SeasonTypebox);
 
 		//赛季
-		String[] seasons=new String[20];
-		for(int i=0;i<20;i++){
+		String[] seasons=new String[30];
+		for(int i=0;i<30;i++){
 			seasons[i]=2014-i+"";
 		}
 		season = new MyComboBox(seasons);

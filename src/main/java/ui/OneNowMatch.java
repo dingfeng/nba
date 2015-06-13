@@ -35,6 +35,12 @@ public class OneNowMatch extends JPanel{
 		this.setOpaque(false);
 		oneMatchScrollPane.setBounds(0, 0, FrameSize.width,
 				FrameSize.height * 7 / 8);
+		oneMatchScrollPane.setOpaque(false);
+		oneMatchScrollPane.getViewport().setOpaque(false);
+		oneMatchScrollPane
+				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		oneMatchScrollPane
+				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		this.add(oneMatchScrollPane);
 	}
 	
@@ -63,7 +69,7 @@ public class OneNowMatch extends JPanel{
 			}
 		}));
 		
-		
+		System.out.println(team1.getName());
 		JLabel teamName1 = new JLabel(team1.getName());
 		JLabel teamName2 = new JLabel(team2.getName());
 		teamName1.setFont(MyFont.font2);
@@ -122,15 +128,9 @@ public class OneNowMatch extends JPanel{
 		matchPanel.setOpaque(false);
 		oneMatchScrollPane.getViewport().add(matchPanel);
 		matchPanel.setPreferredSize(new Dimension(FrameSize.width,400+(team1.getPlayers().length+1)*26+20+(team2.getPlayers().length+1)*26+120));
-		oneMatchScrollPane.setBounds(0, 0, FrameSize.width,
-				FrameSize.height * 7 / 8);
-		oneMatchScrollPane.setOpaque(false);
-		oneMatchScrollPane.getViewport().setOpaque(false);
-		oneMatchScrollPane
-				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		oneMatchScrollPane
-				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		
 		// this.add(todatyMatchScrollPane);
+		this.add(oneMatchScrollPane);
 		this.repaint();
 	}
 	
