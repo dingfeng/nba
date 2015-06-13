@@ -60,7 +60,7 @@ public class HotPanel extends JPanel {
 
 		setTag();
 		setShow();
-		showchoose(2);
+		showchoose(1);
 		this.add(tag);
 		this.add(show);
 		this.repaint();
@@ -374,11 +374,11 @@ public class HotPanel extends JPanel {
 			// name[i].addMouseListener(new showPlayer());
 		}
 
-		score_1.setText(String.format("%.3f", players[0].getHotData()));
-		score_2.setText(String.format("%.3f", players[1].getHotData()));
-		score_3.setText(String.format("%.3f", players[2].getHotData()));
-		score_4.setText(String.format("%.3f", players[3].getHotData()));
-		score_5.setText(String.format("%.3f", players[4].getHotData()));
+		score_1.setText(FrameSize.roundForNumber(players[0].getHotData(),0));
+		score_2.setText(FrameSize.roundForNumber(players[1].getHotData(),0));
+		score_3.setText(FrameSize.roundForNumber(players[2].getHotData(),0));
+		score_4.setText(FrameSize.roundForNumber(players[3].getHotData(),0));
+		score_5.setText(FrameSize.roundForNumber(players[4].getHotData(),0));
 
 		show.add(portrait_1);
 		show.add(portrait_2);
@@ -448,11 +448,11 @@ public class HotPanel extends JPanel {
 				5 * FrameSize.height / 7, FrameSize.width / 12,
 				FrameSize.width / 12);
 
-		score_1.setText(String.format("%.3f", hotteam[0].getHotData()));
-		score_2.setText(String.format("%.3f", hotteam[1].getHotData()));
-		score_3.setText(String.format("%.3f", hotteam[2].getHotData()));
-		score_4.setText(String.format("%.3f", hotteam[3].getHotData()));
-		score_5.setText(String.format("%.3f", hotteam[4].getHotData()));
+		score_1.setText(FrameSize.roundForNumber(hotteam[0].getHotData(),0));
+		score_2.setText(FrameSize.roundForNumber(hotteam[1].getHotData(),0));
+		score_3.setText(FrameSize.roundForNumber(hotteam[2].getHotData(),0));
+		score_4.setText(FrameSize.roundForNumber(hotteam[3].getHotData(),0));
+		score_5.setText(FrameSize.roundForNumber(hotteam[4].getHotData(),0));
 
 		show.add(portrait_1);
 		show.add(portrait_2);

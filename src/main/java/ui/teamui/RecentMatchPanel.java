@@ -59,7 +59,7 @@ public class RecentMatchPanel extends JPanel {
 		recentjScrollPane.getViewport().setOpaque(false);
 
 		this.add(recent);
-		recent.add(season);
+//		recent.add(season);
 
 	}
 

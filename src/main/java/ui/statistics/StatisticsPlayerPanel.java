@@ -208,7 +208,7 @@ public class StatisticsPlayerPanel extends JPanel {
 		if (playerMatchVOs != null) {
 			columnsName.removeAllElements();
 //			/* 00排名 */columnsName.add("排名");
-//			/* 01球员 */columnsName.add("球员");
+			/* 01球员 */columnsName.add("球员");
 			/* 02姓名 */columnsName.add("姓名");
 			/* 03球队 */columnsName.add("球队");
 			/* 04效率 */columnsName.add("效率");
@@ -227,7 +227,7 @@ public class StatisticsPlayerPanel extends JPanel {
 			for (int i = 0; i < playerMatchVOs.length; i++) {
 				Vector rowData = new Vector();
 //				/* 00排名 */rowData.add(i+1);
-//				/* 01球员 */rowData.add("图片");
+				/* 01球员 */rowData.add(playerController.getPlayerImage(playerMatchVOs[i].getPlayerName()));
 				/* 02姓名 */rowData.add(playerMatchVOs[i].getPlayerName());
 				/* 03球队 */rowData.add(playerMatchVOs[i].getTeamName());
 				/* 04效率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getEfficiency(),1));
@@ -243,6 +243,7 @@ public class StatisticsPlayerPanel extends JPanel {
 				/* 14使用率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getUseEfficiency(),1));	
 				data.add(rowData);
 			}
+			mytable.setRowHeight(50);
 			setScrollPane();
 		} 
 	}

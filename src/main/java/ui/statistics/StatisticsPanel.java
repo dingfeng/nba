@@ -40,7 +40,7 @@ public class StatisticsPanel extends JPanel {
 		type.setBackground(Color.white);
 		type.setForeground(Color.black);
 		imagelabel.setBounds(FrameSize.width/2-280,275 ,560,420);
-		text.setBounds(FrameSize.width-280,300,250,400);
+		text.setBounds(FrameSize.width/2+280,300,300,400);
 		this.add(text);
 		this.add(type);
 		this.add(imagelabel);
@@ -171,7 +171,7 @@ public class StatisticsPanel extends JPanel {
 		jScrollPane.getViewport().setOpaque(false);
 		this.add(jScrollPane);
 		imagelabel.setIcon(null);
-		imagelabel.setText("得分偏离度=某年龄段得分占比-球员数占比"+"\n"+"偏离度正值越大"+"\n"+"表示该年龄段球员的数据贡献越大");
+		imagelabel.setText("得分偏离度=某年龄段得分占比-球员数占比。偏离度正值越大，表示该年龄段球员的数据贡献越大");
 		text.setText(null);
 		this.repaint();
 	}
