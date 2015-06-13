@@ -29,7 +29,7 @@ public class RecentMatchPanel extends JPanel {
 	DefaultTableModel table = new DefaultTableModel(rowimage, columnsName);
 	MyTable mytable = new MyTable(table);
 	JComboBox season=new MyComboBox(new String[]{"2014","2013","2012","2011","2010","2009","2008","2007","2006","2005","2004","2003","2002","2001","2000","1999","1998","1997","1996","1995","1994","1993","1992","1991","1990","1989","1988","1987","1986","1985"});
-	JScrollPane recentjScrollPane;
+	JScrollPane recentjScrollPane = new JScrollPane(mytable);
 
 	public RecentMatchPanel() {
 		this.setLayout(null);
@@ -54,6 +54,10 @@ public class RecentMatchPanel extends JPanel {
 		season.setBackground(Color.white);
 		season.addActionListener(e->setRecentTable());
 		season.setForeground(Color.black);
+		recentjScrollPane.setBounds(0, 30, FrameSize.width, FrameSize.height*3/4-180);
+		recentjScrollPane.setOpaque(false);
+		recentjScrollPane.getViewport().setOpaque(false);
+
 		this.add(recent);
 		recent.add(season);
 
@@ -82,19 +86,18 @@ public class RecentMatchPanel extends JPanel {
 		table.setDataVector(rowimage, columnsName);
 		
 		mytable.updateUI();
-		recentjScrollPane = new JScrollPane(mytable);
+		
 
-		recentjScrollPane.setBounds(0, 30, FrameSize.width, FrameSize.height*3/4-180);
-		recentjScrollPane.setOpaque(false);
-		recentjScrollPane.getViewport().setOpaque(false);
-
+		
 		mytable.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
-
-//					MyFrame.matchpanel.findMatchAccordingMatch(match,
-//							recenttable.getSelectedRow());
-					MyFrame.card.show(MyFrame.mainpanel, "match");
+					int j = match.length-mytable.getSelectedRow()-1;
+					int id = match[j].getMatchId();
+					MatchesPO match = mc.getMatchById(id);
+					MyFrame.onematchpanel.setOneNowMatch(match.getTeam1(), match.getTeam2());
+					MyFrame.setMatch();
+					MyFrame.card.show(MyFrame.mainpanel, "onematch");
 				}
 			}
 

@@ -79,15 +79,16 @@ public class RecentMatchPanel extends JPanel{
 		mytable.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
-					try {
-						int j = match.length-mytable.getSelectedRow()-1;
-						int id = match[j].getMatchId();
-						MatchesPO match = matchController.getMatchById(id);
-						MyFrame.onematchpanel.setOneNowMatch(match.getTeam1(), match.getTeam2());
+//					try {
+//						int j = match.length-mytable.getSelectedRow()-1;
+//						int id = match[j].getMatchId();
+//						MatchesPO match = matchController.getMatchById(id);
+//						MyFrame.onematchpanel.setOneNowMatch(match.getTeam1(), match.getTeam2());
 						MyFrame.card.show(MyFrame.mainpanel, "onematch");
-					} catch (NullPointerException e1) {
+				
+//					} catch (NullPointerException e1) {
 					
-					}
+//					}
 				}
 			}
 

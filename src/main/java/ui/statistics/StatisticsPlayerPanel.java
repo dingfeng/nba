@@ -106,9 +106,9 @@ public class StatisticsPlayerPanel extends JPanel {
 	/**设置表格*/
 	private void setTable(String location,Area zone,SeasonType seasonType,int season,String aveOrAll,String lowOrHigh) {
 
-//		if(location.equals("球员位置")){
-//			location=null;
-//		}
+		if(location.equals("球员位置")){
+			location=null;
+		}
 		if(lowOrHigh.equals("基本")){
 			if (aveOrAll.equals("场均")){
 			PlayerNormalPO[] playerNormal = playerController.screenNormalAvePlayers(season, location, zone, seasonType);
