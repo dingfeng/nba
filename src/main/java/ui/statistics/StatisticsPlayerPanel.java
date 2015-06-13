@@ -109,10 +109,15 @@ public class StatisticsPlayerPanel extends JPanel {
 //		if(location.equals("球员位置")){
 //			location=null;
 //		}
-		
 		if(lowOrHigh.equals("基本")){
+			if (aveOrAll.equals("场均")){
 			PlayerNormalPO[] playerNormal = playerController.screenNormalAvePlayers(season, location, zone, seasonType);
 			setLowTable(playerNormal);
+			}
+			else{
+				PlayerNormalPO[] playerNormal = playerController.screenNormalTotalPlayers(season, location, zone, seasonType);
+				setLowTable(playerNormal);
+			}
 		}else{
 			PlayerHighPO[] playerHigh = playerController.screenHighPlayers(season, location, zone, seasonType);
 			setHighTable(playerHigh);
