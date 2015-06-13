@@ -95,6 +95,9 @@ public class MatchPanel extends JPanel {
 
 					matchLabel[i] = new JPanel();
 					matchLabel[i].setLayout(null);
+					if(i%2==1){
+						matchLabel[i].setBackground(Color.white);
+					}
 					matchLabel[i].setBounds(0, i * 200, FrameSize.width, 200);
 					JLabel teamImage1 = new JLabel(FrameSize.scaleImage(new ImageIcon(
 							teamController.getTeamData(team1.getName())
@@ -188,7 +191,7 @@ public class MatchPanel extends JPanel {
 			todatyMatchScrollPane.getViewport().add(matchPanel);
 			matchPanel.setPreferredSize(new Dimension(FrameSize.width,
 					200 * (matches.length + 1)));
-			todatyMatchScrollPane.setBounds(0, 0, FrameSize.width,
+			todatyMatchScrollPane.setBounds(0, 40, FrameSize.width,
 					FrameSize.height * 7 / 8 - 40);
 			todatyMatchScrollPane.setOpaque(false);
 			todatyMatchScrollPane.getViewport().setOpaque(false);
