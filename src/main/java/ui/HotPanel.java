@@ -373,12 +373,15 @@ public class HotPanel extends JPanel {
 			name[i].setText(players[i].getName());
 			// name[i].addMouseListener(new showPlayer());
 		}
-
-		score_1.setText(FrameSize.roundForNumber(players[0].getHotData(),0));
-		score_2.setText(FrameSize.roundForNumber(players[1].getHotData(),0));
-		score_3.setText(FrameSize.roundForNumber(players[2].getHotData(),0));
-		score_4.setText(FrameSize.roundForNumber(players[3].getHotData(),0));
-		score_5.setText(FrameSize.roundForNumber(players[4].getHotData(),0));
+		int num=1;
+		if(hottype==1){
+			num=0;
+		}
+		score_1.setText(FrameSize.roundForNumber(players[0].getHotData(),num));
+		score_2.setText(FrameSize.roundForNumber(players[1].getHotData(),num));
+		score_3.setText(FrameSize.roundForNumber(players[2].getHotData(),num));
+		score_4.setText(FrameSize.roundForNumber(players[3].getHotData(),num));
+		score_5.setText(FrameSize.roundForNumber(players[4].getHotData(),num));
 
 		show.add(portrait_1);
 		show.add(portrait_2);
@@ -448,11 +451,11 @@ public class HotPanel extends JPanel {
 				5 * FrameSize.height / 7, FrameSize.width / 12,
 				FrameSize.width / 12);
 
-		score_1.setText(FrameSize.roundForNumber(hotteam[0].getHotData(),0));
-		score_2.setText(FrameSize.roundForNumber(hotteam[1].getHotData(),0));
-		score_3.setText(FrameSize.roundForNumber(hotteam[2].getHotData(),0));
-		score_4.setText(FrameSize.roundForNumber(hotteam[3].getHotData(),0));
-		score_5.setText(FrameSize.roundForNumber(hotteam[4].getHotData(),0));
+		score_1.setText(FrameSize.roundForNumber(hotteam[0].getHotData(),1));
+		score_2.setText(FrameSize.roundForNumber(hotteam[1].getHotData(),1));
+		score_3.setText(FrameSize.roundForNumber(hotteam[2].getHotData(),1));
+		score_4.setText(FrameSize.roundForNumber(hotteam[3].getHotData(),1));
+		score_5.setText(FrameSize.roundForNumber(hotteam[4].getHotData(),1));
 
 		show.add(portrait_1);
 		show.add(portrait_2);
