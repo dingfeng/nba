@@ -274,12 +274,15 @@ public class PlayerController implements PlayerBlService {
 			if (players == null) {
 				return null;
 			}
-			PlayerNormalPO[] result = new PlayerNormalPO[players.length];
+			ArrayList<PlayerNormalPO> result = new ArrayList<PlayerNormalPO>(players.length);
+			PlayerNormalPO thisPlayer = null;
 			for (int i = 0; i != players.length; i++) {
-				result[i] = playerService.getPlayerNormalAve(season,
-						players[i].getName(), type);
+				thisPlayer = playerService.getPlayerNormalAve(season, players[i].getName(), type);
+				if(thisPlayer != null){
+					result.add(thisPlayer);
+				}
 			}
-			return result;
+			return (PlayerNormalPO[])result.toArray(new PlayerNormalPO[result.size()]);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -333,12 +336,15 @@ public class PlayerController implements PlayerBlService {
 			if (players == null) {
 				return null;
 			}
-			PlayerNormalPO[] result = new PlayerNormalPO[players.length];
+			ArrayList<PlayerNormalPO> result = new ArrayList<PlayerNormalPO>(players.length);
+			PlayerNormalPO thisPlayer = null;
 			for (int i = 0; i != players.length; i++) {
-				result[i] = playerService.getPlayerNormalTotal(season,
-						players[i].getName(), type);
+				thisPlayer = playerService.getPlayerNormalTotal(season, players[i].getName(), type);
+				if(thisPlayer != null){
+					result.add(thisPlayer);
+				}
 			}
-			return result;
+			return (PlayerNormalPO[])result.toArray(new PlayerNormalPO[result.size()]);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -392,12 +398,16 @@ public class PlayerController implements PlayerBlService {
 			if (players == null) {
 				return null;
 			}
-			PlayerHighPO[] result = new PlayerHighPO[players.length];
+			ArrayList<PlayerHighPO> result = new ArrayList<PlayerHighPO>(players.length);
+			PlayerHighPO thisPlayer = null;
 			for (int i = 0; i != players.length; i++) {
-				result[i] = playerService.getPlayerHigh(season,
+				thisPlayer = playerService.getPlayerHigh(season,
 						players[i].getName(), type);
+				if(thisPlayer != null){
+					result.add(thisPlayer);
+				}
 			}
-			return result;
+			return (PlayerHighPO[])result.toArray(new PlayerHighPO[result.size()]);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
