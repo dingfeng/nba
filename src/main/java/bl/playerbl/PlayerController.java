@@ -270,7 +270,7 @@ public class PlayerController implements PlayerBlService {
 		PlayerPO[] players;
 		try {
 			players = playerService.screenPlayer(null, matcharea, playerarea,
-					playerPosition, 100);
+					playerPosition, 50);
 			if (players == null) {
 				return null;
 			}
@@ -332,7 +332,7 @@ public class PlayerController implements PlayerBlService {
 		PlayerPO[] players;
 		try {
 			players = playerService.screenPlayer(null, matcharea, playerarea,
-					playerPosition, 100);
+					playerPosition, 50);
 			if (players == null) {
 				return null;
 			}
@@ -394,7 +394,7 @@ public class PlayerController implements PlayerBlService {
 		PlayerPO[] players;
 		try {
 			players = playerService.screenPlayer(null, matcharea, playerarea,
-					playerPosition, 100);
+					playerPosition, 50);
 			if (players == null) {
 				return null;
 			}
@@ -891,6 +891,7 @@ public class PlayerController implements PlayerBlService {
 			pr.waitFor();
 			ImageIcon imageIcon = new ImageIcon(filename);
 			Image compare = imageIcon.getImage();
+			
 			return compare;
 		} catch (IOException | InterruptedException e) {
 			// TODO Auto-generated catch block

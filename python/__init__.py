@@ -8,6 +8,7 @@ def getData():
          playername1 = file_object.readline()
          playername2 = file_object.readline()
          AveStd = np.zeros((10, 2));
+         maxi = 0.0;
          for i in range(10):
              line = file_object.readline()
              parts = line.split(',')
@@ -22,17 +23,21 @@ def getData():
              AveStd[i] = np.array([mean, std])
          for j in range(5):
              dataSub1Done = (AveStd[0][0], AveStd[1][0], AveStd[2][0], AveStd[3][0], AveStd[4][0])
+             maxi = dataSub1Done.max() if dataSub1Done.max() > maxi
              dataSub2Done = (AveStd[0][1], AveStd[1][1], AveStd[2][1], AveStd[3][1], AveStd[4][1])
+             maxi = dataSub2Done.max() if dataSub2Done.max() > maxi
              dataSub3Done = (AveStd[5][0], AveStd[6][0], AveStd[7][0], AveStd[8][0], AveStd[9][0])
+             maxi = dataSub3Done.max() if dataSub3Done.max() > maxi
              dataSub4Done = (AveStd[5][1], AveStd[6][1], AveStd[7][1], AveStd[8][1], AveStd[9][1])
+             maxi = dataSub4Done.max() if dataSub4Done.max() > maxi
     finally:
         file_object.close()
     
-    return filename, playername1, playername2, dataSub1Done, dataSub2Done, dataSub3Done, dataSub4Done
+    return maxi, filename, playername1, playername2, dataSub1Done, dataSub2Done, dataSub3Done, dataSub4Done
  
 if __name__ == '__main__':
     N = 5
-    filename, player1name, player2name, player1Means, player1Std, player2Means, player2Std = getData()
+    maxi, filename, player1name, player2name, player1Means, player1Std, player2Means, player2Std = getData()
  
     ind = np.arange(N)  # the x locations for the groups
     width = 0.35  # the width of the bars
@@ -45,7 +50,7 @@ if __name__ == '__main__':
     ax.set_ylabel('Scores')
     ax.set_xticks(ind + width)
     ax.set_xticklabels(('PTS', 'REB', 'AST', 'FT%', '3PT%'))
- 
+ 	ax.set_yticks(np.linespace(0, maxi + 2, 10))
     ax.legend((player1name, player2name), fontsize=11)
  
 def autolabel(rects):
