@@ -111,8 +111,9 @@ public class OneNowMatch extends JPanel{
 			for (int k = 0; k < 3; k++) {
 				scores[k][j].setBounds(350
 						+ (FrameSize.width - 700 - 120) * (j + 1)
-						/ (column + 2) + j * 30, 40 + k * 50, 30,
-						30);
+						/ (column + 2) + j * 30, 40 + k * 50, 50,
+						50);
+				scores[k][j].setFont(MyFont.font4);
 				matchPanel.add(scores[k][j]);
 			}
 
@@ -169,12 +170,10 @@ public class OneNowMatch extends JPanel{
 			/* 04分钟 */rowData.add(players[i].getTime());
 			/* 05投篮命中数 */rowData.add(players[i].getHitNo());
 			/* 06投篮出手数 */rowData.add(players[i].getHandNo());
-			/* 07三分命中率 */rowData.add((double) players[i].getThreeHitNo()
-					/ players[i].getThreeHandNo());
+			/* 07三分命中率 */rowData.add(FrameSize.roundForNumber((double)players[i].getThreeHitRate()*100,1));
 			/* 08三分命中 */rowData.add(players[i].getThreeHitNo());
 			/* 09三分出手 */rowData.add(players[i].getThreeHandNo());
-			/* 10罚球命中率 */rowData.add((double) players[i].getPenaltyHitNo()
-					/ players[i].getPenaltyHandNo());
+			/* 10罚球命中率 */rowData.add(FrameSize.roundForNumber((double) players[i].getPenaltyHitRate()*100,1));
 			/* 11罚球命中 */rowData.add(players[i].getHitNo());
 			/* 12罚球出手 */rowData.add(players[i].getHandNo());
 			/* 13进攻 */rowData.add(players[i].getOffenseRebs());
@@ -191,7 +190,7 @@ public class OneNowMatch extends JPanel{
 		DefaultTableModel playerTable = new DefaultTableModel(data, columnsName);
 		MyTable myPlayerTable = new MyTable(playerTable);
 		JScrollPane playerScrollPane = new JScrollPane(myPlayerTable);
-		myPlayerTable.getColumnModel().getColumn(1).setPreferredWidth(130);
+		myPlayerTable.getColumnModel().getColumn(0).setPreferredWidth(150);
 		myPlayerTable.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
