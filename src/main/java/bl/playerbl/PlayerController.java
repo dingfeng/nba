@@ -43,7 +43,7 @@ public class PlayerController implements PlayerBlService {
 		filenameAnalysis = "D:/analysis.csv";
 		imageR = "D:/Player/radar";
 		imageC = "D:/compare";
-		imageL = "D:/line";
+		imageL = "D:/Player/line";
 		imageB = "D:/Player/playerData";
 		NBADataFactory dataFactory;
 		try {
@@ -893,93 +893,98 @@ public class PlayerController implements PlayerBlService {
 	public Image getLineChartImage(int season, String playername) {
 		String filename = imageL + playername + Integer.toString(season)
 				+ ".png";
-		MatchPlayerPO[] newest = new MatchPlayerPO[10];
-		MatchPlayerPO[] regularP = null;
-		MatchPlayerPO[] playeroffP = null;
-		try {
-			regularP = playerService.getSeasonMatches(season, playername,
-					SeasonType.REGULAR);
-			playeroffP = playerService.getSeasonMatches(season, playername,
-					SeasonType.PLAYOFF);
-		} catch (RemoteException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-		int nowP = 0;
-		if (regularP == null && playeroffP == null) {
-			return null;
-		} else {
-			if (playeroffP != null && playeroffP.length != 0) {
-				for (int i = 0; i != playeroffP.length && nowP != 10; i++) {
-					newest[9 - nowP] = playeroffP[i];
-					nowP++;
-				}
-			}
-			if (regularP != null && nowP != 10 && regularP.length != 0) {
-				for (int i = 0; i != regularP.length && nowP != 10; i++) {
-					newest[9 - nowP] = regularP[i];
-					nowP++;
-				}
-			}
-			StringBuffer Date = new StringBuffer(60);
-			StringBuffer PTS = new StringBuffer(44);
-			StringBuffer REB = new StringBuffer(44);
-			StringBuffer AST = new StringBuffer(44);
-			StringBuffer STL = new StringBuffer(44);
-			StringBuffer BLK = new StringBuffer(44);
-			for (int i = 10 - nowP; i != nowP - 1; i++) {
-				Date.append(newest[i].getDate() + ",");
-				PTS.append(newest[i].getPoints() + ",");
-				REB.append(newest[i].getRebs() + ",");
-				AST.append(newest[i].getHelp() + ",");
-				STL.append(newest[i].getStealsNo() + ",");
-				BLK.append(newest[i].getBlockNo() + ",");
-//				FT.append((newest[i].getPenaltyHandNo() != 0 ? newest[i]
-//						.getPenaltyHitNo() / newest[i].getPenaltyHandNo() * 100
-//						: 0) + ",");
-//				PT3.append((newest[i].getThreeHandNo() != 0 ? newest[i]
-//						.getThreeHitNo() / newest[i].getThreeHandNo() * 100
-//						: 0) + ",");
-			}
-			Date.append(newest[nowP - 1].getDate() + "," + "future");
-			PTS.append(newest[nowP - 1].getPoints());
-			REB.append(newest[nowP - 1].getRebs());
-			AST.append(newest[nowP - 1].getHelp());
-			STL.append(newest[nowP - 1].getStealsNo());
-			BLK.append(newest[nowP - 1].getBlockNo());
-//			FT.append(newest[nowP - 1].getPenaltyHandNo() != 0 ? newest[10]
-//					.getPenaltyHitNo() / newest[10].getPenaltyHandNo() * 100
-//					: 0);
-//			PT3.append(newest[nowP - 1].getThreeHandNo() != 0 ? newest[10]
-//					.getThreeHitNo() / newest[10].getThreeHandNo() * 100 : 0);
-
-			String toWrite = filename + '\n' + playername + '\n'
-					+ Integer.toString(nowP) + '\n' + Date.toString() + '\n'
-					+ PTS.toString() + '\n' + REB.toString() + '\n'
-					+ AST.toString() + '\n' + STL.toString() + '\n'
-					+ BLK.toString();
-			BufferedWriter output;
-
-			try {
-				output = new BufferedWriter(new FileWriter(new File(filenameL)));
-				output.write(toWrite);
-				output.close();
-				Process pr = Runtime.getRuntime().exec(
-						"python python\\errorbar.py");
-				pr.waitFor();
+//		MatchPlayerPO[] newest = new MatchPlayerPO[10];
+//		MatchPlayerPO[] regularP = null;
+//		MatchPlayerPO[] playeroffP = null;
+//		try {
+//			regularP = playerService.getSeasonMatches(season, playername,
+//					SeasonType.REGULAR);
+//			playeroffP = playerService.getSeasonMatches(season, playername,
+//					SeasonType.PLAYOFF);
+//		} catch (RemoteException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//
+//		int nowP = 0;
+//		if (regularP == null && playeroffP == null) {
+//			return null;
+//		} else {
+//			if (playeroffP != null && playeroffP.length != 0) {
+//				for (int i = 0; i != playeroffP.length && nowP != 10; i++) {
+//					newest[9 - nowP] = playeroffP[i];
+//					nowP++;
+//				}
+//			}
+//			if (regularP != null && nowP != 10 && regularP.length != 0) {
+//				for (int i = 0; i != regularP.length && nowP != 10; i++) {
+//					newest[9 - nowP] = regularP[i];
+//					nowP++;
+//				}
+//			}
+//			StringBuffer Date = new StringBuffer(60);
+//			StringBuffer PTS = new StringBuffer(44);
+//			StringBuffer REB = new StringBuffer(44);
+//			StringBuffer AST = new StringBuffer(44);
+//			StringBuffer STL = new StringBuffer(44);
+//			StringBuffer BLK = new StringBuffer(44);
+//			for (int i = 10 - nowP; i != nowP - 1; i++) {
+//				Date.append(newest[i].getDate() + ",");
+//				PTS.append(newest[i].getPoints() + ",");
+//				REB.append(newest[i].getRebs() + ",");
+//				AST.append(newest[i].getHelp() + ",");
+//				STL.append(newest[i].getStealsNo() + ",");
+//				BLK.append(newest[i].getBlockNo() + ",");
+////				FT.append((newest[i].getPenaltyHandNo() != 0 ? newest[i]
+////						.getPenaltyHitNo() / newest[i].getPenaltyHandNo() * 100
+////						: 0) + ",");
+////				PT3.append((newest[i].getThreeHandNo() != 0 ? newest[i]
+////						.getThreeHitNo() / newest[i].getThreeHandNo() * 100
+////						: 0) + ",");
+//			}
+//			Date.append(newest[nowP - 1].getDate() + "," + "future");
+//			PTS.append(newest[nowP - 1].getPoints());
+//			REB.append(newest[nowP - 1].getRebs());
+//			AST.append(newest[nowP - 1].getHelp());
+//			STL.append(newest[nowP - 1].getStealsNo());
+//			BLK.append(newest[nowP - 1].getBlockNo());
+////			FT.append(newest[nowP - 1].getPenaltyHandNo() != 0 ? newest[10]
+////					.getPenaltyHitNo() / newest[10].getPenaltyHandNo() * 100
+////					: 0);
+////			PT3.append(newest[nowP - 1].getThreeHandNo() != 0 ? newest[10]
+////					.getThreeHitNo() / newest[10].getThreeHandNo() * 100 : 0);
+//
+//			String toWrite = filename + '\n' + playername + '\n'
+//					+ Integer.toString(nowP) + '\n' + Date.toString() + '\n'
+//					+ PTS.toString() + '\n' + REB.toString() + '\n'
+//					+ AST.toString() + '\n' + STL.toString() + '\n'
+//					+ BLK.toString();
+//			BufferedWriter output;
+//
+//			try {
+//				output = new BufferedWriter(new FileWriter(new File(filenameL)));
+//				output.write(toWrite);
+//				output.close();
+//				Process pr = Runtime.getRuntime().exec(
+//						"python python\\errorbar.py");
+//				pr.waitFor();
 				ImageIcon imageIcon = new ImageIcon(filename);
 				Image line = imageIcon.getImage();
+				if(line == null){
+					ImageIcon non = new ImageIcon("Image\\nochart.png");
+					Image nonImage = non.getImage();
+					return nonImage;
+				}
 				return line;
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return null;
-		}
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			return null;
+//		}
 	}
 
 	@Override
