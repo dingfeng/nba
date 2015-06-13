@@ -75,6 +75,21 @@ public class RecentMatchPanel extends JPanel{
 		table.setDataVector(data, columnsName);
 		
 		mytable.updateUI();
+		mytable.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					try {
+						int i = mytable.getSelectedRow();
+						i=match.length-i;
+						MyFrame.onematchpanel.setOneNowMatch(match[i].getTeam1(), match[i].getTeam2());
+						MyFrame.card.show(MyFrame.mainpanel, "onematch");
+					} catch (NullPointerException e1) {
+					
+					}
+				}
+			}
+
+		});
 		recentjScrollPane = new JScrollPane(mytable);
 
 		recentjScrollPane.setBounds(0, 30, FrameSize.width, FrameSize.height*3/4-180);

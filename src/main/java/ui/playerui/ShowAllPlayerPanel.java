@@ -63,14 +63,21 @@ public class ShowAllPlayerPanel extends JPanel {
 		this.setOpaque(false);
 		JPanel headerPanel = HeaderPanel();
 		this.add(headerPanel);
+		set();
 		try {
 			setNowPlayerTable(playerService.fuzzilySearchAvtivePlayerPO("A"));
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 
+	void set(){
+		jAllPlayerScrollPane = new JScrollPane(myAllPlayerTable);
+		jAllPlayerScrollPane.setBounds(0, 40, FrameSize.width,
+				FrameSize.width * 7 / 8 - 40);
+	}
 	/** 查找栏 */
 	private JPanel HeaderPanel() {
 		JPanel headerPanel = new JPanel();
@@ -205,9 +212,7 @@ public class ShowAllPlayerPanel extends JPanel {
 				data.add(rowData);
 			}
 			allPlayerTable.setDataVector(data, columnsName);
-			jAllPlayerScrollPane = new JScrollPane(myAllPlayerTable);
-			jAllPlayerScrollPane.setBounds(0, 40, FrameSize.width,
-					FrameSize.width * 7 / 8 - 40);
+			
 			this.add(jAllPlayerScrollPane);
 			this.repaint();
 			myAllPlayerTable.addMouseListener(new MouseAdapter(){
@@ -260,9 +265,7 @@ public class ShowAllPlayerPanel extends JPanel {
 				data.add(rowData);
 			}
 			allPlayerTable.setDataVector(data, columnsName);
-			jAllPlayerScrollPane = new JScrollPane(myAllPlayerTable);
-			jAllPlayerScrollPane.setBounds(0, 40, FrameSize.width,
-					FrameSize.width * 7 / 8 - 40);
+			
 			this.add(jAllPlayerScrollPane);
 			this.repaint();
 			myAllPlayerTable.addMouseListener(new MouseAdapter(){

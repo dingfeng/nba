@@ -45,7 +45,7 @@ public class StatisticsTeamPanel extends JPanel {
 	JTable mytable = new MyTable(table);
 	{
 		((MyTable)mytable).setShowImage(true);
-		mytable.getTableHeader().setPreferredSize(new Dimension(1,40));;
+		mytable.getTableHeader().setPreferredSize(new Dimension(1,40));
 	}
 	JScrollPane jScrollPane;
 	MyComboBox aveOrAll = new MyComboBox(new String[] { "场均", "总数" });
@@ -60,9 +60,21 @@ public class StatisticsTeamPanel extends JPanel {
 		this.setBackground(FrameSize.backColor);
 		this.setOpaque(false);
 		JPanel headerPanel = HeaderPanel();
+		set();
 		setTable();
 //		setHighTable();
 		this.add(headerPanel);
+	}
+
+	void set(){
+		jScrollPane=new JScrollPane(mytable);
+		jScrollPane
+				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		jScrollPane
+		.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		jScrollPane.setBounds(0, 40,FrameSize.width , FrameSize.height * 7 / 8-40);
+		jScrollPane.setBackground(Color.white);
+		jScrollPane.getViewport().setOpaque(false);
 	}
 
 	private  JPanel HeaderPanel() {
@@ -101,19 +113,7 @@ public class StatisticsTeamPanel extends JPanel {
 
 		return headerPanel;
 	}
-//	public class ColorTableCellRenderer extends DefaultTableCellRenderer {
-//	    DefaultTableCellRenderer renderer=new DefaultTableCellRenderer(); 
-//	    @Override
-//	    public Component getTableCellRendererComponent(JTable table, Object value,   
-//	            boolean isSelected, boolean hasFocus, int row, int column) {  
-//	        if(column==0){
-//	            return new JLabel((ImageIcon)value);
-//	        }else{
-//	            return super.getTableCellRendererComponent(table, value, isSelected,hasFocus, row, column);
-//	        }
-//	    }   
-//	
-//}
+
 	//低阶数据
 	void setLowTable(TeamNormalPO[] team){
 		columnsName.removeAllElements();
@@ -190,14 +190,7 @@ public class StatisticsTeamPanel extends JPanel {
 	        }  
 
 			mytable.setRowHeight(50);
-	    jScrollPane=new JScrollPane(mytable);
-		jScrollPane
-				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		jScrollPane
-		.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		jScrollPane.setBounds(0, 40,FrameSize.width , FrameSize.height * 7 / 8-40);
-		jScrollPane.setBackground(Color.white);
-		jScrollPane.getViewport().setOpaque(false);
+	    
 		this.add(jScrollPane);
 		this.repaint();
 	}
@@ -205,9 +198,8 @@ public class StatisticsTeamPanel extends JPanel {
 	//高阶数据
 	void setHighTable(TeamHighPO[] team){
 		columnsName.removeAllElements();
-//		columnsName.add("排名");
+		columnsName.add("图标");
 		columnsName.add("球队");
-		
 		columnsName.add("进攻回合");
 		columnsName.add("进攻效率");
 		columnsName.add("防守效率");
@@ -220,6 +212,7 @@ public class StatisticsTeamPanel extends JPanel {
 		for (int i = 0; i <team.length; i++) {
 			TeamHighPO str=team[i];
 			Vector data = new Vector();
+			data.add(tc.getTeamImage(str.getName()));
 			data.add(str.getName());
 			data.add(FrameSize.roundForNumber(str.getOffenseRound(), 1));
 			data.add(FrameSize.roundForNumber(str.getOffenseEfficiency(), 1));
@@ -231,34 +224,8 @@ public class StatisticsTeamPanel extends JPanel {
 			rowimage.add(data);
 		}
 		table.setDataVector(rowimage, columnsName);
-		
-		mytable.setRowSorter(new TableRowSorter<TableModel>(table));
 		mytable.updateUI();
 
-		TableRowSorter rowSorter = (TableRowSorter) mytable.getRowSorter();  
-		 Comparator<Number> numberComparator = new Comparator<Number>() {  
-	            @Override  
-	            public int compare(Number o1, Number o2) {  
-	                if ( o1 == null ) {  
-	                    return -1;  
-	                }  
-	                if ( o2 == null ) {  
-	                    return 1;  
-	                }  
-	                if ( o1.doubleValue() < o2.doubleValue() ) {  
-	                    return -1;  
-	                }  
-	                if ( o1.doubleValue() > o2.doubleValue() ) {  
-	                    return 1;  
-	                }  
-	                return 0;  
-	            }  
-	        };  
-	        for (int col = 1; col < mytable.getColumnCount(); col++) {  
-	            rowSorter.setComparator(col, numberComparator);  
-	        }  
-		
-		
 		this.add(jScrollPane);
 		this.repaint();
 	}
