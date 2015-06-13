@@ -22,69 +22,73 @@ import blservice.matchblservice.Matchblservice;
 
 public class PastMatchPanel extends JPanel{
 
-	Matchblservice matchController = new MatchController();
+	MatchController mc = new MatchController();
 
-	
 	Vector<String> columnsName = new Vector<String>();
-	Vector data = new Vector();
-	DefaultTableModel table = new DefaultTableModel(data, columnsName);
+	Vector rowimage = new Vector();
+	DefaultTableModel table = new DefaultTableModel(rowimage, columnsName);
 	MyTable mytable = new MyTable(table);
-	JScrollPane pastjScrollPane;
-	JComboBox season=new MyComboBox(new String[]{"2014","2013","2012","2011","2010","2009","2008","2007","2006","2005","2004","2003","2002","2001","2000","1999","1998","1997","1996","1995","1994","1993","1992","1991","1990","1989","1988","1987","1986","1985"});
+	JScrollPane pastjScrollPane = new JScrollPane(mytable);
+	JComboBox season = new MyComboBox(new String[] { "2014", "2013", "2012",
+			"2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004",
+			"2003", "2002", "2001", "2000", "1999", "1998", "1997", "1996",
+			"1995", "1994", "1993", "1992", "1991", "1990", "1989", "1988",
+			"1987", "1986", "1985" });
 
-	
-	public PastMatchPanel(){
+	public PastMatchPanel() {
 		this.setLayout(null);
-		this.setBounds(0, 0,
-				 FrameSize.width , FrameSize.height * 3 / 4);
+		this.setBounds(0, 0, FrameSize.width, FrameSize.height * 3 / 4);
 		this.setBackground(Color.white);
 		setText();
 	}
-	
+
 	/** 设置界面提示文字 */
 	void setText() {
 		JLabel recent = new JLabel("过往比赛");
-		recent.setBounds(0,0, FrameSize.width, 30);
-		
+		recent.setBounds(0, 0, FrameSize.width, 30);
+
 		recent.setOpaque(true);
 		recent.setBackground(FrameSize.bluecolor);
 		recent.setForeground(Color.white);
-		season.setBounds(FrameSize.width-150,0 ,100 ,30 );
+		season.setBounds(FrameSize.width - 150, 0, 100, 30);
 		season.setBackground(Color.white);
-		season.addActionListener(e->setPastTable(MyFrame.onePlayerPanel.nameresult.getText()));
+		season.addActionListener(e -> setPastTable());
 		season.setForeground(Color.black);
-		pastjScrollPane = new JScrollPane(mytable);
 		pastjScrollPane
 				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		pastjScrollPane.setBounds(0, 30, FrameSize.width,FrameSize.height*3/4 -180);
+		pastjScrollPane.setBounds(0, 30, FrameSize.width,
+				FrameSize.height * 3 / 4 - 180);
 		pastjScrollPane.setOpaque(false);
 		pastjScrollPane.getViewport().setOpaque(false);
-		recent.add(season);
+
 		this.add(recent);
+		recent.add(season);
 
 	}
+
 	/** 过往查询 */
-	void setPastTable(String playerName) {
+	void setPastTable() {
+		String playername = MyFrame.onePlayerPanel.numberresult.getText();
 		columnsName.clear();
 		columnsName.add("日期");
 		columnsName.add("对阵队伍");
 		columnsName.add("比分");
 
-		MatchesPO[] match = matchController.getRegularPlayerMatches(Integer.parseInt((String) season.getSelectedItem()),playerName);
-		data.clear();
+		MatchesPO[] match = mc.getRegularTeamMatches(
+				Integer.parseInt((String) season.getSelectedItem()), playername);
+		rowimage.clear();
 		for (int i = match.length - 6; i >= 0; i--) {
-			Vector rowData = new Vector();
-			rowData.add(match[i].getDate());
-			rowData.add(match[i].getTeam1().getName() + "-"
+			Vector data = new Vector();
+			data.add(match[i].getDate());
+			data.add(match[i].getTeam1().getName() + "-"
 					+ match[i].getTeam2().getName());
-			rowData.add(match[i].getTeam1().getTotalScores() + "-"
+			data.add(match[i].getTeam1().getTotalScores() + "-"
 					+ match[i].getTeam2().getTotalScores());
 
-			data.add(rowData);
+			rowimage.add(data);
 		}
 
-		
-		table.setDataVector(data, columnsName);
+		table.setDataVector(rowimage, columnsName);
 		mytable.updateUI();
 		
 
@@ -92,8 +96,11 @@ public class PastMatchPanel extends JPanel{
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
 
-//					MyFrame.matchpanel.findMatchAccordingMatch(match,
-//							table.getSelectedRow());
+					int j = match.length-6-mytable.getSelectedRow();
+					int id = match[j].getMatchId();
+					MatchesPO match = mc.getMatchById(id);
+					MyFrame.onematchpanel.setOneNowMatch(match.getTeam1(), match.getTeam2());
+					MyFrame.setMatch();
 					MyFrame.card.show(MyFrame.mainpanel, "onematch");
 				}
 			}

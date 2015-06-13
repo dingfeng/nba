@@ -120,8 +120,8 @@ public class OneNowMatch extends JPanel{
 
 		JScrollPane playerTable1 = setPlayerTable(team1.getPlayers());
 		JScrollPane playerTable2 = setPlayerTable(team2.getPlayers());
-		playerTable1.setBounds(0, 300, FrameSize.width, (team1.getPlayers().length+1)*26+30);
-		playerTable2.setBounds(0, 350+(team1.getPlayers().length+1)*26+20, FrameSize.width, (team2.getPlayers().length+1)*26+30);
+		playerTable1.setBounds(0, 300, FrameSize.width, (team1.getPlayers().length+1)*26+35);
+		playerTable2.setBounds(0, 350+(team1.getPlayers().length+1)*26+20, FrameSize.width, (team2.getPlayers().length+1)*26+35);
 		matchPanel.add(playerTable1);
 		matchPanel.add(playerTable2);
 		

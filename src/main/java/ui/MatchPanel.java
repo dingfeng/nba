@@ -51,6 +51,11 @@ public class MatchPanel extends JPanel {
 		todatyMatchScrollPane.setBounds(0, 40, FrameSize.width,
 				FrameSize.height * 7 / 8 - 40);
 		this.add(todatyMatchScrollPane);
+		Date date = new Date();
+		date.setYear(2014-1900);
+		date.setMonth(4);
+		date.setDate(16);
+		setTodayMatches(date);
 
 	}
 
@@ -80,7 +85,7 @@ public class MatchPanel extends JPanel {
 			MatchesPO[] matches = matchController.getTimeMatches(date);
 			System.out.println(matches.length);
 			if (matches.length != 0) {
-				JLabel[] matchLabel = new JLabel[matches.length];
+				JPanel[] matchLabel = new JPanel[matches.length];
 				for (int i = 0; i < matches.length; i++) {
 					MatchesPO match = matchController.getMatchById(matches[i]
 							.getMatchId());
@@ -88,7 +93,7 @@ public class MatchPanel extends JPanel {
 					MatchTeamPO team2 = match.getTeam2();
 					System.out.println(team1.getName() + "-" + team2.getName());
 
-					matchLabel[i] = new JLabel();
+					matchLabel[i] = new JPanel();
 					matchLabel[i].setBounds(0, i * 200, FrameSize.width, 200);
 					JLabel teamImage1 = new JLabel(FrameSize.scaleImage(new ImageIcon(
 							teamController.getTeamData(team1.getName())
@@ -201,7 +206,7 @@ public class MatchPanel extends JPanel {
 			OldMatch[] matches = matchController.getOldMatch(date.getYear()+1900, 0,
 					10, SeasonType.REGULAR);
 			System.out.println(matches.length);
-			JLabel[] matchLabel = new JLabel[matches.length];
+			JPanel[] matchLabel = new JPanel[matches.length];
 			for (int i = 0; i < matches.length; i++) {
 				OldMatch match = matchController.getOldMatchInfo(matches[i]
 						.getMatchId());
@@ -209,7 +214,7 @@ public class MatchPanel extends JPanel {
 				String team2 = match.getGuestTeam();
 				System.out.println(team1 + "-" + team2);
 
-				matchLabel[i] = new JLabel();
+				matchLabel[i] = new JPanel();
 				matchLabel[i].setBounds(0, i * 200, FrameSize.width, 200);
 //				JLabel teamImage1 = new JLabel(
 //						FrameSize.scaleImage(

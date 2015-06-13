@@ -5,6 +5,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
 
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -13,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import po.MatchTeamPO;
 import po.MatchesPO;
 import ui.mainui.FrameSize;
+import ui.mainui.MyComboBox;
 import ui.mainui.MyFrame;
 import ui.mainui.MyTable;
 import bl.matchbl.MatchController;
@@ -20,15 +22,15 @@ import blservice.matchblservice.Matchblservice;
 
 public class RecentMatchPanel extends JPanel{
 
-	MatchController matchController = new MatchController();
+	MatchController mc = new MatchController();
 	String playerName;
 
 	Vector<String> columnsName = new Vector<String>();
-	Vector data = new Vector();
-	DefaultTableModel table = new DefaultTableModel(data, columnsName);
+	Vector rowimage = new Vector();
+	DefaultTableModel table = new DefaultTableModel(rowimage, columnsName);
 	MyTable mytable = new MyTable(table);
-	
-	JScrollPane recentjScrollPane;
+	JComboBox season=new MyComboBox(new String[]{"2014","2013","2012","2011","2010","2009","2008","2007","2006","2005","2004","2003","2002","2001","2000","1999","1998","1997","1996","1995","1994","1993","1992","1991","1990","1989","1988","1987","1986","1985"});
+	JScrollPane recentjScrollPane = new JScrollPane(mytable);
 
 	public RecentMatchPanel() {
 		this.setLayout(null);
@@ -49,63 +51,54 @@ public class RecentMatchPanel extends JPanel{
 		recent.setOpaque(true);
 		recent.setBackground(FrameSize.bluecolor);
 		recent.setForeground(Color.white);
-		
-		this.add(recent);
-
-	}
-
-	/** 近期比赛 */
-	public void setRecentTable(String playerName) {
-		columnsName.clear();
-		data.clear();
-		columnsName.add("日期");
-		columnsName.add("对阵队伍");
-		columnsName.add("比分");
-		MatchesPO[] match = matchController.getRegularPlayerMatches(2014, playerName);
-
-		for (int i = match.length-1; i >match.length-6; i--) {
-			Vector rowData = new Vector();
-			rowData.add(match[i].getDate());
-			rowData.add(match[i].getTeam1().getName() + "-"
-					+ match[i].getTeam2().getName());
-			rowData.add(match[i].getTeam1().getTotalScores() + "-"
-					+ match[i].getTeam2().getTotalScores());
-
-			data.add(rowData);
-		}
-		table.setDataVector(data, columnsName);
-		
-		mytable.updateUI();
-		mytable.addMouseListener(new MouseAdapter(){
-			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 2) {
-//					try {
-//						int j = match.length-mytable.getSelectedRow()-1;
-//						int id = match[j].getMatchId();
-//						MatchesPO match = matchController.getMatchById(id);
-//						MyFrame.onematchpanel.setOneNowMatch(match.getTeam1(), match.getTeam2());
-						MyFrame.card.show(MyFrame.mainpanel, "onematch");
-				
-//					} catch (NullPointerException e1) {
-					
-//					}
-				}
-			}
-
-		});
-		recentjScrollPane = new JScrollPane(mytable);
-
+		season.setBounds(FrameSize.width-150,0 ,100 ,30 );
+		season.setBackground(Color.white);
+		season.addActionListener(e->setRecentTable());
+		season.setForeground(Color.black);
 		recentjScrollPane.setBounds(0, 30, FrameSize.width, FrameSize.height*3/4-180);
 		recentjScrollPane.setOpaque(false);
 		recentjScrollPane.getViewport().setOpaque(false);
 
+		this.add(recent);
+		recent.add(season);
+
+	}
+
+	/** 近期比赛 */
+	public void setRecentTable() {
+		String playerName=MyFrame.onePlayerPanel.nameresult.getText();
+		columnsName.clear();
+		rowimage.clear();
+		columnsName.add("日期");
+		columnsName.add("对阵队伍");
+		columnsName.add("比分");
+		MatchesPO[] match = mc.getRegularPlayerMatches(2014,playerName);
+
+		for (int i = match.length-1; i >match.length-6; i--) {
+			Vector data = new Vector();
+			data.add(match[i].getDate());
+			data.add(match[i].getTeam1().getName() + "-"
+					+ match[i].getTeam2().getName());
+			data.add(match[i].getTeam1().getTotalScores() + "-"
+					+ match[i].getTeam2().getTotalScores());
+
+			rowimage.add(data);
+		}
+		table.setDataVector(rowimage, columnsName);
+		
+		mytable.updateUI();
+		
+
+		
 		mytable.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
-
-//					MyFrame.matchpanel.findMatchAccordingMatch(match,
-//							recenttable.getSelectedRow());
-					MyFrame.card.show(MyFrame.mainpanel, "match");
+					int j = match.length-mytable.getSelectedRow()-1;
+					int id = match[j].getMatchId();
+					MatchesPO match = mc.getMatchById(id);
+					MyFrame.onematchpanel.setOneNowMatch(match.getTeam1(), match.getTeam2());
+					MyFrame.setMatch();
+					MyFrame.card.show(MyFrame.mainpanel, "onematch");
 				}
 			}
 
