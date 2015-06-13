@@ -22,6 +22,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import dataservice.playerdataservice.SeasonType;
 import po.HPlayerPO;
 import bl.playerbl.PlayerController;
 import blservice.playerblservice.PlayerBlService;
@@ -321,7 +322,9 @@ public class ShowOnePlayerPanel extends JPanel{
 		cityresult.setText(player.getBirthCity());//城市
 		birthresult.setText(player.getBirthday());//生日
 		numberresult.setText(player.getNum());//球衣
-
+		rade.setIcon(new ImageIcon(playerController.getRadarImage(2014, playerName, SeasonType.REGULAR)));
+		
+		
 		image.setOpaque(false);
 
 		image.setBounds(30, 5, FrameSize.width / 6, FrameSize.width / 6);
@@ -339,6 +342,7 @@ public class ShowOnePlayerPanel extends JPanel{
 				FrameSize.height / 40 + 150, FrameSize.width / 12, 30);
 		numberresult.setBounds(FrameSize.width / 2 + 50,
 				FrameSize.height / 40 + 180, FrameSize.width / 12, 30);
+		rade.setBounds(FrameSize.width*3/4,FrameSize.height / 40,FrameSize.width*3/4-20,FrameSize.width*3/4-20);
 
 		find.add(image);
 		find.add(nameresult);
@@ -348,6 +352,7 @@ public class ShowOnePlayerPanel extends JPanel{
 		find.add(cityresult);
 		find.add(birthresult);
 		find.add(numberresult);
+		find.add(rade);
 		find.setVisible(true);
 		find.repaint();
 		this.add(find);
