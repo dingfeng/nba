@@ -159,8 +159,9 @@ public class MatchPanel extends JPanel {
 						for (int k = 0; k < 3; k++) {
 							scores[k][j].setBounds(350
 									+ (FrameSize.width - 700 - 120) * (j + 1)
-									/ (column + 2) + j * 30, 40 + k * 50, 30,
-									30);
+									/ (column + 2) + j * 30, 40 + k * 50, 50,
+									50);
+							scores[k][j].setFont(MyFont.font4);
 							matchLabel[i].add(scores[k][j]);
 						}
 
@@ -271,7 +272,8 @@ public class MatchPanel extends JPanel {
 					for (int k = 0; k < 3; k++) {
 						scores[k][j].setBounds(350
 								+ (FrameSize.width - 700 - 120) * (j + 1)
-								/ (column + 2) + j * 30, 40 + k * 50, 30, 30);
+								/ (column + 2) + j * 30, 40 + k * 50, 50, 50);
+						scores[k][j].setFont(MyFont.font4);
 						matchLabel[i].add(scores[k][j]);
 					}
 

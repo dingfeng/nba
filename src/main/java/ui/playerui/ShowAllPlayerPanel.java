@@ -212,7 +212,8 @@ public class ShowAllPlayerPanel extends JPanel {
 				data.add(rowData);
 			}
 			allPlayerTable.setDataVector(data, columnsName);
-			
+			myAllPlayerTable.getColumnModel().getColumn(1).setPreferredWidth(130);
+			myAllPlayerTable.getColumnModel().getColumn(6).setPreferredWidth(150);
 			this.add(jAllPlayerScrollPane);
 			this.repaint();
 			myAllPlayerTable.addMouseListener(new MouseAdapter(){
@@ -265,7 +266,8 @@ public class ShowAllPlayerPanel extends JPanel {
 				data.add(rowData);
 			}
 			allPlayerTable.setDataVector(data, columnsName);
-			
+			myAllPlayerTable.getColumnModel().getColumn(1).setPreferredWidth(130);
+			myAllPlayerTable.getColumnModel().getColumn(6).setPreferredWidth(150);
 			this.add(jAllPlayerScrollPane);
 			this.repaint();
 			myAllPlayerTable.addMouseListener(new MouseAdapter(){
