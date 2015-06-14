@@ -91,7 +91,7 @@ public class TeamDataPanel extends JPanel {
 		for (int i = 1; i < team.length; i++) {
 			TeamNormalPO str = team[i];
 			Vector data = new Vector();
-			data.add(2014 - i + "");
+			data.add(str.getSeason()+"");
 			data.add(FrameSize.roundForNumber(str.getPoints(),num));
 			data.add(FrameSize.roundForNumber(str.getWinRate() * 100, 1));
 			// data.add(str.getMatchNo());
@@ -164,7 +164,7 @@ public class TeamDataPanel extends JPanel {
 		for (int i = 0; i < team.length; i++) {
 			TeamHighPO str = team[i];
 			Vector data = new Vector();
-			data.add(2014-i);
+			data.add(str.getSeason()+"");
 			data.add(FrameSize.roundForNumber(str.getOffenseRound(), 1));
 			data.add(FrameSize.roundForNumber(str.getOffenseEfficiency(), 1));
 			data.add(FrameSize.roundForNumber(str.getDefenceEfficiency(), 1));
