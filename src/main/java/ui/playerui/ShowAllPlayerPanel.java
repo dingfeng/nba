@@ -347,7 +347,7 @@ public class ShowAllPlayerPanel extends JPanel {
 											1));
 					MyFrame.card.show(MyFrame.mainpanel, "oneplayer");
 						} catch (NullPointerException e1) {
-
+                                   e1.printStackTrace();
 						}
 					}
 				}

@@ -328,8 +328,9 @@ public class ShowOnePlayerPanel extends JPanel{
 		birthresult.setText(player.getBirthday());//生日
 		numberresult.setText(player.getNum());//球衣
 		rade.setIcon(new ImageIcon(playerController.getRadarImage(2014, playerName, SeasonType.REGULAR)));
+		try{
 		team.setIcon((FrameSize.scaleImage(new ImageIcon(teamController.getTeamImage(player.getTeama())), FrameSize.width/8, FrameSize.width/8)));
-
+		}catch(Exception e){team.setIcon(new ImageIcon());}
 		image.setBounds(30, 5, FrameSize.width / 6, FrameSize.width / 6);
 		nameresult.setBounds(FrameSize.width / 2 + 50, FrameSize.height / 40,
 				FrameSize.width / 12, 30);

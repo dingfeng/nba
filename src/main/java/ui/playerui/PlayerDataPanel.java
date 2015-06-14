@@ -74,6 +74,7 @@ public class PlayerDataPanel extends JPanel{
 //		/* 02姓名 */columnsName.add("姓名");
 		/* 03球队 */columnsName.add("球队");
 		/* 04场数 */columnsName.add("场数");
+		columnsName.add("首发");
 		/* 05篮板 */columnsName.add("篮板");
 		/* 06助攻 */columnsName.add("助攻");
 		/* 07分钟 */columnsName.add("分钟");
@@ -94,11 +95,12 @@ public class PlayerDataPanel extends JPanel{
 		for (int i = 1; i < player.length; i++) {
 			PlayerNormalPO str = player[i];
 			Vector rowData = new Vector();
-			/*00赛季*/rowData.add(2014 - i);
+			/*00赛季*/rowData.add(str.getSeason());
 //			/*01球员*/rowData.add(playerController.getPlayerImage(str.getName()));
 //			/*02姓名*/rowData.add(str.getName());
 			/*03球队*/rowData.add(str.getTeam());
 			/*04场数*/rowData.add(FrameSize.roundForNumber(str.getMatchNo(), 1));
+			          rowData.add(FrameSize.roundForNumber(str.getFirstServiceNo(), 1));
 			/*05篮板*/rowData.add(FrameSize.roundForNumber(str.getRebs(), 1));
 			/* 06助攻 */rowData.add(FrameSize.roundForNumber(str.getAssistNo(), 1));
 			/* 07分钟 */rowData.add(FrameSize.roundForNumber(str.getTime(), 1));
@@ -170,7 +172,7 @@ public class PlayerDataPanel extends JPanel{
 		for (int i = 0; i < player.length; i++) {
 			PlayerHighPO str = player[i];
 			Vector rowData = new Vector();
-			/* 00赛季 */rowData.add(2014-i);
+			/* 00赛季 */rowData.add(str.getSeason());
 //			/* 01球员 */rowData.add(playerController.getPlayerImage(str.getPlayerName()));
 //			/* 02姓名 */rowData.add(str.getPlayerName());
 			/* 03球队 */rowData.add(str.getTeamName());
