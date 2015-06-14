@@ -330,7 +330,7 @@ public class MyFrame extends JFrame {
 		helpbutton.addActionListener(e -> HelpUtil.startHelp());
 		staticsbutton.addActionListener(e -> setStatics());
 		livebutton.addActionListener(e -> setLive());
-
+		index.setSelected(true);
 		frame.add(livebutton);
 		frame.add(helpbutton);
 		frame.add(index);

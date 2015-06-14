@@ -71,7 +71,7 @@ public class TeamPlayerPanel extends JPanel {
 
 	void setButton() {
 		JLabel blue=new JLabel("队员信息");
-		blue.setBounds(0, 0,FrameSize.width,30);
+		blue.setBounds(0, 0,FrameSize.width-100,30);
 		blue.setBackground(FrameSize.bluecolor);
 		blue.setOpaque(true);
 		blue.setForeground(Color.white);
@@ -214,7 +214,6 @@ public class TeamPlayerPanel extends JPanel {
 	public void setTable() {
 		
 		String teamname = MyFrame.teampanel.nameAbridgeresult.getText();
-		String[] playername = tc.getPlayers(teamname);
 		PlayerPO[] players  = pc.getPlayerOfTeam(teamname);
 		
 		if (base.isSelected()) {
