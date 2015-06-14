@@ -48,11 +48,17 @@ public class OneNowMatch extends JPanel{
 		oneMatchScrollPane.getViewport().removeAll();
 		JPanel matchPanel = new JPanel();
 		matchPanel.setLayout(null);
-		JLabel teamImage1 = new JLabel(scaleImage(new ImageIcon(teamController
+		JLabel teamImage1 = new JLabel();
+		try{
+		teamImage1 = new JLabel(scaleImage(new ImageIcon(teamController
 				.getTeamData(team1.getName()).getImage()), 150, 150));
+		}catch(Exception e) {e.printStackTrace();}
 		teamImage1.setBounds(200, 25, 150, 150);
-		JLabel teamImage2 = new JLabel(scaleImage(new ImageIcon(teamController
+		JLabel teamImage2 = new JLabel();
+		try{
+		teamImage2 = new JLabel(scaleImage(new ImageIcon(teamController
 				.getTeamData(team2.getName()).getImage()), 150, 150));
+		}catch(Exception e){e.printStackTrace();}
 		teamImage2.setBounds(FrameSize.width - 350, 25, 150, 150);
 		matchPanel.add(teamImage1);
 		matchPanel.add(teamImage2);
@@ -119,12 +125,17 @@ public class OneNowMatch extends JPanel{
 			}
 
 		}
-
-		JLabel teamImage3 = new JLabel(scaleImage(new ImageIcon(teamController
-				.getTeamData(team1.getName()).getImage()), 50, 50));
+        JLabel teamImage3 = new JLabel();
+        try{
+		 teamImage3 = new JLabel(scaleImage(new ImageIcon(teamController
+				.getTeamImage(team1.getName())), 50, 50));
+        }catch(Exception e){e.printStackTrace();}
 		teamImage3.setBounds(10, 220, 50, 50);
-		JLabel teamImage4 = new JLabel(scaleImage(new ImageIcon(teamController
-				.getTeamData(team2.getName()).getImage()), 50, 50));
+		JLabel teamImage4 = new JLabel();
+		try{
+		 teamImage4 = new JLabel(scaleImage(new ImageIcon(teamController
+				.getTeamImage(team2.getName())), 50, 50));
+		}catch(Exception e){e.printStackTrace();}
 		teamImage4.setBounds(10, 320+(team1.getPlayers().length+1)*30-50, 50, 50);
 		matchPanel.add(teamImage3);
 		matchPanel.add(teamImage4);

@@ -64,7 +64,7 @@ public class PastMatchPanel extends JPanel {
 		recent.add(season);
 
 	}
-
+    MatchesPO[] match = null;
 	/** 过往查询 */
 	void setPastTable() {
 		String teamname = MyFrame.teampanel.nameAbridgeresult.getText();
@@ -73,7 +73,7 @@ public class PastMatchPanel extends JPanel {
 		columnsName.add("对阵队伍");
 		columnsName.add("比分");
 
-		MatchesPO[] match = mc.getRegularTeamMatches(
+		 match = mc.getRegularTeamMatches(
 				Integer.parseInt((String) season.getSelectedItem()), teamname);
 		rowimage.clear();
 		for (int i = match.length - 6; i >= 0; i--) {
