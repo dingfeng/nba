@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -48,7 +49,12 @@ public class PlayerDataPanel extends JPanel{
 	}
 
 	public void setText() {
-
+		JLabel blue=new JLabel("球员总信息");
+		blue.setBounds(0, 0,FrameSize.width,30);
+		blue.setBackground(FrameSize.bluecolor);
+		blue.setOpaque(true);
+		blue.setForeground(Color.white);
+		this.add(blue);
 		jScrollPane
 				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		jScrollPane
