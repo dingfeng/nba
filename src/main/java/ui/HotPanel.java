@@ -202,6 +202,9 @@ public class HotPanel extends JPanel {
 						FrameSize.width * 5 / 48, 50);
 				show.add(choose[i]);
 			}
+			for(int i=0;i<8;i++){
+				choose[i].setSelected(false);
+			}
 			choose[0].setSelected(true);
 			 showMessage_team("得分");
 			// choose.addActionListener(e -> showMessage_team());
@@ -218,6 +221,9 @@ public class HotPanel extends JPanel {
 				choose[i].setBounds(FrameSize.width * 5 / 18 * i, 0,
 						FrameSize.width * 5 / 18, 50);
 				show.add(choose[i]);
+			}
+			for(int i=0;i<8;i++){
+				choose[i].setSelected(false);
 			}
 			choose[0].setSelected(true);
 			 showMessage_player("得分提升率");
@@ -245,7 +251,11 @@ public class HotPanel extends JPanel {
 				season_team.setSelected(false);
 				fast_player.setSelected(false);
 			}
+			for(int i=0;i<8;i++){
+				choose[i].setSelected(false);
+			}
 			choose[0].setSelected(true);
+			
 			 showMessage_player("得分");
 			// choose.addActionListener(e -> showMessage_player());
 

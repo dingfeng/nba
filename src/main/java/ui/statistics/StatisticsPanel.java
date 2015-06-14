@@ -44,9 +44,20 @@ public class StatisticsPanel extends JPanel {
 		this.add(text);
 		this.add(type);
 		this.add(imagelabel);
+		set();
 		setTableOne();
 	}
-
+	void set(){
+		
+		jScrollPane
+				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		jScrollPane
+				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		jScrollPane.setBounds(0, 50, FrameSize.width,240);
+		jScrollPane.setBackground(Color.white);
+		jScrollPane.getViewport().setOpaque(false);
+	}
+	
 	void setTableOne() {
 		columnsName.clear();
 		columnsName.add("年龄段");
@@ -140,35 +151,28 @@ public class StatisticsPanel extends JPanel {
 		table.setDataVector(rowimage, columnsName);
 		mytable.setRowSorter(new TableRowSorter<TableModel>(table));
 		TableRowSorter rowSorter = (TableRowSorter) mytable.getRowSorter();
-		Comparator<String> numberComparator = new Comparator<String>() {
-			@Override
-			public int compare(String o1, String o2) {
-				if (o1 == null) {
-					return -1;
-				}
-				if (o2 == null) {
-					return 1;
-				}
-				if (Double.parseDouble(o1) < Double.parseDouble(o2)) {
-					return -1;
-				}
-				if (Double.parseDouble(o1) > Double.parseDouble(o2)) {
-					return 1;
-				}
-				return 0;
-			}
-		};
-		for (int col = 1; col < mytable.getColumnCount(); col++) {
-			rowSorter.setComparator(col, numberComparator);
-		}
+		 Comparator<Number> numberComparator = new Comparator<Number>() {  
+	            @Override  
+	            public int compare(Number o1, Number o2) {  
+	                if ( o1 == null ) {  
+	                    return -1;  
+	                }  
+	                if ( o2 == null ) {  
+	                    return 1;  
+	                }  
+	                if ( o1.doubleValue() < o2.doubleValue() ) {  
+	                    return -1;  
+	                }  
+	                if ( o1.doubleValue() > o2.doubleValue() ) {  
+	                    return 1;  
+	                }  
+	                return 0;  
+	            }  
+	        };  
+	        for (int col = 1; col < mytable.getColumnCount(); col++) {  
+	            rowSorter.setComparator(col, numberComparator);  
+	        }  
 
-		jScrollPane
-				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		jScrollPane
-				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		jScrollPane.setBounds(0, 50, FrameSize.width,240);
-		jScrollPane.setBackground(Color.white);
-		jScrollPane.getViewport().setOpaque(false);
 		this.add(jScrollPane);
 		imagelabel.setIcon(null);
 		imagelabel.setText("得分偏离度=某年龄段得分占比-球员数占比。偏离度正值越大，表示该年龄段球员的数据贡献越大");
@@ -242,6 +246,30 @@ public class StatisticsPanel extends JPanel {
 		rowimage.add(data6);
 		jScrollPane.setBounds(0, 50, FrameSize.width,210);
 		table.setDataVector(rowimage, columnsName);
+		mytable.setRowSorter(new TableRowSorter<TableModel>(table));
+		TableRowSorter rowSorter = (TableRowSorter) mytable.getRowSorter();
+		 Comparator<Number> numberComparator = new Comparator<Number>() {  
+	            @Override  
+	            public int compare(Number o1, Number o2) {  
+	                if ( o1 == null ) {  
+	                    return -1;  
+	                }  
+	                if ( o2 == null ) {  
+	                    return 1;  
+	                }  
+	                if ( o1.doubleValue() < o2.doubleValue() ) {  
+	                    return -1;  
+	                }  
+	                if ( o1.doubleValue() > o2.doubleValue() ) {  
+	                    return 1;  
+	                }  
+	                return 0;  
+	            }  
+	        };  
+	        for (int col = 1; col < mytable.getColumnCount(); col++) {  
+	            rowSorter.setComparator(col, numberComparator);  
+	        }  
+
 		imagelabel.setIcon(new ImageIcon("image/ptsScatter.png"));
 		text.setText("可得卡方值为25.63226"+"\n"+"经查表可知34.3816（a = 0.1） > 25.63226"+"\n"+"可知年龄与得分之间关系较显著"+"\n"+"计算年龄与得分Pearson系数得："+"\n"+"(-0.578,0.006)"+"\n"+"可以发现年龄与得分一般相关"+"\n"+"这和之前卡方独立性统计的结果相符合。"+"\n"+"经过非线性回归分析数据与y = -1.1996e-06x^4+7.84"+"\n"+"拟合度较高"+"\n"+"且标准残差很低");
 	}
@@ -299,6 +327,30 @@ public class StatisticsPanel extends JPanel {
 		rowimage.add(data6);
 		jScrollPane.setBounds(0, 50, FrameSize.width,210);
 		table.setDataVector(rowimage, columnsName);
+		mytable.setRowSorter(new TableRowSorter<TableModel>(table));
+		TableRowSorter rowSorter = (TableRowSorter) mytable.getRowSorter();
+		 Comparator<Number> numberComparator = new Comparator<Number>() {  
+	            @Override  
+	            public int compare(Number o1, Number o2) {  
+	                if ( o1 == null ) {  
+	                    return -1;  
+	                }  
+	                if ( o2 == null ) {  
+	                    return 1;  
+	                }  
+	                if ( o1.doubleValue() < o2.doubleValue() ) {  
+	                    return -1;  
+	                }  
+	                if ( o1.doubleValue() > o2.doubleValue() ) {  
+	                    return 1;  
+	                }  
+	                return 0;  
+	            }  
+	        };  
+	        for (int col = 1; col < mytable.getColumnCount(); col++) {  
+	            rowSorter.setComparator(col, numberComparator);  
+	        }  
+
 		imagelabel.setIcon(new ImageIcon("image/rebScatter.png"));
 		text.setText("可得卡方值为20.21252"+"\n"+"经查表可知22.3071（a=0.1） > 20.21252"+"\n"+"可知年龄与篮板之间关系较显著"+"\n"+"计算年龄与篮板Pearson系数得："+"\n"+"(-0.509,0.018)"+"\n"+"可以发现年龄与篮板一般相关"+"\n"+"这和之前卡方独立性统计的结果相符合。"+"\n"+"经过非线性回归分析数据与y = -8.3174e-07x^4+3.72"+"\n"+"拟合度较高"+"\n"+"且标准残差很低");
 	}
@@ -356,6 +408,30 @@ public class StatisticsPanel extends JPanel {
 		rowimage.add(data6);
 		table.setDataVector(rowimage, columnsName);
 		jScrollPane.setBounds(0, 50, FrameSize.width,210);
+		mytable.setRowSorter(new TableRowSorter<TableModel>(table));
+		TableRowSorter rowSorter = (TableRowSorter) mytable.getRowSorter();
+		 Comparator<Number> numberComparator = new Comparator<Number>() {  
+	            @Override  
+	            public int compare(Number o1, Number o2) {  
+	                if ( o1 == null ) {  
+	                    return -1;  
+	                }  
+	                if ( o2 == null ) {  
+	                    return 1;  
+	                }  
+	                if ( o1.doubleValue() < o2.doubleValue() ) {  
+	                    return -1;  
+	                }  
+	                if ( o1.doubleValue() > o2.doubleValue() ) {  
+	                    return 1;  
+	                }  
+	                return 0;  
+	            }  
+	        };  
+	        for (int col = 1; col < mytable.getColumnCount(); col++) {  
+	            rowSorter.setComparator(col, numberComparator);  
+	        }  
+
 		imagelabel.setIcon(new ImageIcon("image/astScatter.png"));
 		text.setText("可得卡方值为11.88465"+"\n"+"经查表可知22.3071（a=0.1） > 11.88465"+"\n"+"可知年龄与助攻之间不显著"+"\n"+"可得年龄与助攻Pearson系数："+"\n"+"(-0.188,0.413)"+"\n"+"可以发现年龄与助攻不相关"+"\n"+"这和之前卡方独立性统计的结果相符合。");
 	}

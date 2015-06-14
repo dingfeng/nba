@@ -166,12 +166,29 @@ public class ShowAllPlayerPanel extends JPanel {
 						HPlayerPO[] player = new HPlayerPO[1];
 						player[0] = playerController
 								.findPlayer(playerNameTextField.getText());
+
+						if(player[0]!=null){
 						setOldPlayerTable(player);
+						}
+						else{
+
+							JOptionPane.showMessageDialog(null, "未找到该球员", "查找失败",
+									JOptionPane.ERROR_MESSAGE);
+
+							return;
+						}
 					} else {
 						PlayerPO[] player = new PlayerPO[1];
 						player[0] = playerController
 								.getplayerPObyName(playerNameTextField
 										.getText());
+						if(player[0]==null){
+							JOptionPane.showMessageDialog(null, "未找到该球员", "查找失败",
+									JOptionPane.ERROR_MESSAGE);
+
+							return;
+						}
+						
 						setNowPlayerTable(player);
 					}
 				}

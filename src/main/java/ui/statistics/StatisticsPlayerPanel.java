@@ -296,7 +296,6 @@ public class StatisticsPlayerPanel extends JPanel {
 
 	/** 设置jScrollPanel */
  	private void setScrollPane() {
-		table.setDataVector(data, columnsName);
 		mytable.updateUI();
 		jScrollPane
 				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
