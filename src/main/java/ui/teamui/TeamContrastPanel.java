@@ -122,7 +122,7 @@ public class TeamContrastPanel extends JPanel{
 		String teamname=t2.getText();
 		TeamPO team=tc.getTeamData(teamname);
 		if(team==null){
-			name2.setText("未找到该球员");
+			t2.setText("未找到该球员");
 //			JOptionPane.showMessageDialog(null, "未找到该球队", "查找失败",
 //					JOptionPane.ERROR_MESSAGE);
 
