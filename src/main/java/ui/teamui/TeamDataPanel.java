@@ -88,7 +88,7 @@ public class TeamDataPanel extends JPanel {
 
 		rowimage.clear();
 
-		for (int i = 1; i < team.length; i++) {
+		for (int i = 0; i < team.length; i++) {
 			TeamNormalPO str = team[i];
 			Vector data = new Vector();
 			data.add(str.getSeason()+"");

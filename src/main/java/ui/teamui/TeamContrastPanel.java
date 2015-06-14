@@ -50,6 +50,7 @@ public class TeamContrastPanel extends JPanel{
 		JLabel blue=new JLabel("球队对比");
 		blue.setBackground(FrameSize.bluecolor);
 		blue.setBounds(0, 0, FrameSize.width,30);
+		blue.setForeground(Color.white);
 		blue.setOpaque(true);
 		this.add(blue);
 		t2=new EditableTextField();

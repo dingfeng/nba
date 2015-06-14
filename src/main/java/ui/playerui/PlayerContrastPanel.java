@@ -51,6 +51,7 @@ public class PlayerContrastPanel extends JPanel {
 		JLabel header = new JLabel("球员对比");
 		header.setBackground(FrameSize.bluecolor);
 		header.setBounds(0, 0, FrameSize.width, 30);
+		header.setForeground(Color.white);
 		header.setOpaque(true);
 		this.add(header);
 		player2 = new EditableTextField();
