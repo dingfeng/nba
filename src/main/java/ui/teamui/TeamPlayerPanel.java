@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.util.Comparator;
 import java.util.Vector;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -14,7 +15,6 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-import po.HPlayerPO;
 import po.PlayerNormalPO;
 import po.PlayerPO;
 import ui.mainui.FrameSize;
@@ -70,6 +70,12 @@ public class TeamPlayerPanel extends JPanel {
 	}
 
 	void setButton() {
+		JLabel blue=new JLabel("队员信息");
+		blue.setBounds(0, 0,FrameSize.width,30);
+		blue.setBackground(FrameSize.bluecolor);
+		blue.setOpaque(true);
+		blue.setForeground(Color.white);
+		this.add(blue);
 		data = new MyToggleButton("数据", FrameSize.bluecolor,
 				FrameSize.darkbluecolor);
 		base = new MyToggleButton("信息", FrameSize.bluecolor,

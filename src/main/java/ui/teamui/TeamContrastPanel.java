@@ -47,7 +47,7 @@ public class TeamContrastPanel extends JPanel{
 	}
 	
 	void setchoose(){
-		JLabel blue=new JLabel();
+		JLabel blue=new JLabel("球队对比");
 		blue.setBackground(FrameSize.bluecolor);
 		blue.setBounds(0, 0, FrameSize.width,30);
 		blue.setOpaque(true);

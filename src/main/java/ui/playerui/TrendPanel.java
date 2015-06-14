@@ -21,6 +21,12 @@ public class TrendPanel extends JPanel{
 			this.setBounds(0, 0,
 					 FrameSize.width , FrameSize.height * 3 / 4);
 			this.setBackground(Color.white);
+			JLabel blue=new JLabel("球员趋势");
+			blue.setBounds(0, 0,FrameSize.width,30);
+			blue.setBackground(FrameSize.bluecolor);
+			blue.setOpaque(true);
+			blue.setForeground(Color.white);
+			this.add(blue);
 //			setText();
 		
 	}

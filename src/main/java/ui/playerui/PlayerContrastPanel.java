@@ -48,7 +48,7 @@ public class PlayerContrastPanel extends JPanel {
 	}
 
 	private void setchoose() {
-		JLabel header = new JLabel();
+		JLabel header = new JLabel("球员对比");
 		header.setBackground(FrameSize.bluecolor);
 		header.setBounds(0, 0, FrameSize.width, 30);
 		header.setOpaque(true);
