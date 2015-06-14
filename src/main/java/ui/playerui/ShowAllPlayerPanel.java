@@ -172,8 +172,9 @@ public class ShowAllPlayerPanel extends JPanel {
 						}
 						else{
 
-							JOptionPane.showMessageDialog(null, "未找到该球员", "查找失败",
-									JOptionPane.ERROR_MESSAGE);
+							playerNameTextField.setText("未找到该球员");
+//							JOptionPane.showMessageDialog(null, "未找到该球员", "查找失败",
+//									JOptionPane.ERROR_MESSAGE);
 
 							return;
 						}
@@ -183,8 +184,9 @@ public class ShowAllPlayerPanel extends JPanel {
 								.getplayerPObyName(playerNameTextField
 										.getText());
 						if(player[0]==null){
-							JOptionPane.showMessageDialog(null, "未找到该球员", "查找失败",
-									JOptionPane.ERROR_MESSAGE);
+							playerNameTextField.setText("未找到该球员");
+//							JOptionPane.showMessageDialog(null, "未找到该球员", "查找失败",
+//									JOptionPane.ERROR_MESSAGE);
 
 							return;
 						}

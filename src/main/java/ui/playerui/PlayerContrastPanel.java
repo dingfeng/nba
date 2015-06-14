@@ -143,8 +143,7 @@ public class PlayerContrastPanel extends JPanel {
 			repaint();
 			}
 			else{
-				 JOptionPane.showMessageDialog(null, "未找到该球员", "查找失败",
-				 JOptionPane.ERROR_MESSAGE);
+				player2.setText("未找到该球员");
 				 return;
 			}
 		} catch (NullPointerException e) {
