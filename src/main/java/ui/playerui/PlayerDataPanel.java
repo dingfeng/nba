@@ -92,7 +92,7 @@ public class PlayerDataPanel extends JPanel{
 
 		data.clear();
 
-		for (int i = 1; i < player.length; i++) {
+		for (int i = 0; i < player.length; i++) {
 			PlayerNormalPO str = player[i];
 			Vector rowData = new Vector();
 			/*00赛季*/rowData.add(str.getSeason());
