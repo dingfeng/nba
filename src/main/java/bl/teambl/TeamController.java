@@ -20,6 +20,7 @@ import po.PlayerPO;
 import po.TeamHighPO;
 import po.TeamNormalPO;
 import po.TeamPO;
+import po.TeamPlayerImage;
 import DataFactory.DataFactory;
 import DataFactoryService.NBADataFactory;
 import blservice.teamblservice.Teamblservice;
@@ -306,14 +307,20 @@ public class TeamController implements Teamblservice {
 
 	@Override
 	public Image getTeamImage(String name) {
-		TeamPO team = this.getTeamData(name);
-		Image teamImage = team.getImage();
-		if(teamImage == null){
-			ImageIcon non = new ImageIcon("image/white.png");
+		TeamPlayerImage image = null;
+		try {
+			image = teamservice.findTeamImage(name);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(image != null){
+			return image.getImage();
+		} else{
+			ImageIcon non = new ImageIcon("image\\white.png");
 			Image nonImage = non.getImage();
 			return nonImage;
 		}
-		return teamImage;
 	}
 
 	@Override
