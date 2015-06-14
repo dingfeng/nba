@@ -204,28 +204,28 @@ public class StatisticsPlayerPanel extends JPanel {
 
 			});
 
-			TableRowSorter rowSorter = (TableRowSorter) mytable.getRowSorter();  
-			 Comparator<String> numberComparator = new Comparator<String>() {  
-		            @Override  
-		            public int compare(String o1, String o2) {  
-		                if ( o1 == null ) {  
-		                    return -1;  
-		                }  
-		                if ( o2 == null ) {  
-		                    return 1;  
-		                }  
-		                if ( Double.parseDouble(o1) < Double.parseDouble(o2)) {  
-		                    return -1;  
-		                }  
-		                if ( Double.parseDouble(o1) > Double.parseDouble(o2) ) {  
-		                    return 1;  
-		                }  
-		                return 0;  
-		            }  
-		        };  
-		        for (int col = 3; col < mytable.getColumnCount(); col++) {  
-		            rowSorter.setComparator(col, numberComparator);  
-		        }  
+			TableRowSorter rowSorter = (TableRowSorter) mytable.getRowSorter();
+			Comparator<String> numberComparator = new Comparator<String>() {
+				@Override
+				public int compare(String o1, String o2) {
+					if (o1 == null) {
+						return -1;
+					}
+					if (o2 == null) {
+						return 1;
+					}
+					if (Double.parseDouble(o1) <Double.parseDouble(o2)) {
+						return -1;
+					}
+					if (Double.parseDouble(o1) > Double.parseDouble(o2)) {
+						return 1;
+					}
+					return 0;
+				}
+			};
+			for (int col = 3; col < mytable.getColumnCount(); col++) {
+				rowSorter.setComparator(col, numberComparator);
+			}
 			setScrollPane();
 		}
 	}
@@ -295,28 +295,28 @@ public class StatisticsPlayerPanel extends JPanel {
 
 			});
 			
-			TableRowSorter rowSorter = (TableRowSorter) mytable.getRowSorter();  
-			 Comparator<String> numberComparator = new Comparator<String>() {  
-		            @Override  
-		            public int compare(String o1, String o2) {  
-		                if ( o1 == null ) {  
-		                    return -1;  
-		                }  
-		                if ( o2 == null ) {  
-		                    return 1;  
-		                }  
-		                if ( Double.parseDouble(o1) < Double.parseDouble(o2)) {  
-		                    return -1;  
-		                }  
-		                if ( Double.parseDouble(o1) > Double.parseDouble(o2) ) {  
-		                    return 1;  
-		                }  
-		                return 0;  
-		            }  
-		        };  
-		        for (int col = 3; col < mytable.getColumnCount(); col++) {  
-		            rowSorter.setComparator(col, numberComparator);  
-		        }  
+			TableRowSorter rowSorter = (TableRowSorter) mytable.getRowSorter();
+			Comparator<String> numberComparator = new Comparator<String>() {
+				@Override
+				public int compare(String o1, String o2) {
+					if (o1 == null) {
+						return -1;
+					}
+					if (o2 == null) {
+						return 1;
+					}
+					if (Double.parseDouble(o1) <Double.parseDouble(o2)) {
+						return -1;
+					}
+					if (Double.parseDouble(o1) > Double.parseDouble(o2)) {
+						return 1;
+					}
+					return 0;
+				}
+			};
+			for (int col = 3; col < mytable.getColumnCount(); col++) {
+				rowSorter.setComparator(col, numberComparator);
+			}
 			setScrollPane();
 		} 
 	}

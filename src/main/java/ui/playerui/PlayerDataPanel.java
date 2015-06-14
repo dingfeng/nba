@@ -39,6 +39,7 @@ public class PlayerDataPanel extends JPanel{
 
 	PlayerBlService playerController = new PlayerController();
 	boolean ave = true;
+	int num = 0;
 
 	public PlayerDataPanel() {
 		this.setLayout(null);
@@ -99,22 +100,22 @@ public class PlayerDataPanel extends JPanel{
 //			/*01球员*/rowData.add(playerController.getPlayerImage(str.getName()));
 //			/*02姓名*/rowData.add(str.getName());
 			/*03球队*/rowData.add(str.getTeam());
-			/*04场数*/rowData.add(FrameSize.roundForNumber(str.getMatchNo(), 1));
-			          rowData.add(FrameSize.roundForNumber(str.getFirstServiceNo(), 1));
-			/*05篮板*/rowData.add(FrameSize.roundForNumber(str.getRebs(), 1));
-			/* 06助攻 */rowData.add(FrameSize.roundForNumber(str.getAssistNo(), 1));
-			/* 07分钟 */rowData.add(FrameSize.roundForNumber(str.getTime(), 1));
-			/* 08三分命中率 */rowData.add(FrameSize.roundForNumber(str.getThreeHitRate(), 1));
-			/* 09罚球命中率 */rowData.add(FrameSize.roundForNumber(str.getPenaltyHitRate(), 1));
-			/* 10投篮命中率 */rowData.add(FrameSize.roundForNumber(str.getHitRate(), 1));
-			/* 11进攻 */rowData.add(FrameSize.roundForNumber(str.getOffendRebsNo(), 1));
-			/* 12防守 */rowData.add(FrameSize.roundForNumber(str.getDefenceRebsNo(), 1));
-			/* 13抢断 */rowData.add(FrameSize.roundForNumber(str.getStealsNo(), 1));
-			/* 14盖帽 */rowData.add(FrameSize.roundForNumber(str.getBlockNo(), 1));
-			/* 15失误 */rowData.add(FrameSize.roundForNumber(str.getMistakesNo(), 1));
-			/* 16犯规 */rowData.add(FrameSize.roundForNumber(str.getFoulsNo(), 1));
-			/* 17两双 */rowData.add(FrameSize.roundForNumber(str.getTwoPair(), 1));
-			/* 18得分 */rowData.add(FrameSize.roundForNumber(str.getPoints(),1));
+			/*04场数*/rowData.add(FrameSize.roundForNumber(str.getMatchNo(), 0));
+			          rowData.add(FrameSize.roundForNumber(str.getFirstServiceNo(), 0));
+			/*05篮板*/rowData.add(FrameSize.roundForNumber(str.getRebs(), num));
+			/* 06助攻 */rowData.add(FrameSize.roundForNumber(str.getAssistNo(), num));
+			/* 07分钟 */rowData.add(FrameSize.roundForNumber(str.getTime(), num));
+			/* 08三分命中率 */rowData.add(FrameSize.roundForNumber(str.getThreeHitRate()*100, 1));
+			/* 09罚球命中率 */rowData.add(FrameSize.roundForNumber(str.getPenaltyHitRate()*100, 1));
+			/* 10投篮命中率 */rowData.add(FrameSize.roundForNumber(str.getHitRate()*100, 1));
+			/* 11进攻 */rowData.add(FrameSize.roundForNumber(str.getOffendRebsNo(), num));
+			/* 12防守 */rowData.add(FrameSize.roundForNumber(str.getDefenceRebsNo(), num));
+			/* 13抢断 */rowData.add(FrameSize.roundForNumber(str.getStealsNo(), num));
+			/* 14盖帽 */rowData.add(FrameSize.roundForNumber(str.getBlockNo(), num));
+			/* 15失误 */rowData.add(FrameSize.roundForNumber(str.getMistakesNo(), num));
+			/* 16犯规 */rowData.add(FrameSize.roundForNumber(str.getFoulsNo(), num));
+			/* 17两双 */rowData.add(FrameSize.roundForNumber(str.getTwoPair(), num));
+			/* 18得分 */rowData.add(FrameSize.roundForNumber(str.getPoints(),num));
 
 			data.add(rowData);
 		}
@@ -123,19 +124,19 @@ public class PlayerDataPanel extends JPanel{
 		mytable.updateUI();
 
 		TableRowSorter rowSorter = (TableRowSorter) mytable.getRowSorter();
-		Comparator<Number> numberComparator = new Comparator<Number>() {
+		Comparator<String> numberComparator = new Comparator<String>() {
 			@Override
-			public int compare(Number o1, Number o2) {
+			public int compare(String o1, String o2) {
 				if (o1 == null) {
 					return -1;
 				}
 				if (o2 == null) {
 					return 1;
 				}
-				if (o1.doubleValue() < o2.doubleValue()) {
+				if (Double.parseDouble(o1) <Double.parseDouble(o2)) {
 					return -1;
 				}
-				if (o1.doubleValue() > o2.doubleValue()) {
+				if (Double.parseDouble(o1) > Double.parseDouble(o2)) {
 					return 1;
 				}
 				return 0;
@@ -176,38 +177,37 @@ public class PlayerDataPanel extends JPanel{
 //			/* 01球员 */rowData.add(playerController.getPlayerImage(str.getPlayerName()));
 //			/* 02姓名 */rowData.add(str.getPlayerName());
 			/* 03球队 */rowData.add(str.getTeamName());
-			/* 04效率 */rowData.add(FrameSize.roundForNumber(str.getEfficiency(), 1));
-			/* 05真实命中率 */rowData.add(FrameSize.roundForNumber(str.getTrueHitRate(), 1));
-			/* 06GmSc */rowData.add(FrameSize.roundForNumber(str.getGmScEfficiency(), 1));
-			/* 07篮板效率*/rowData.add(FrameSize.roundForNumber(str.getRebEfficiency(), 1));
-			/* 08进攻篮板率 */rowData.add(FrameSize.roundForNumber(str.getOffenseRebsEfficiency(), 1));
-			/* 09防守篮板率 */rowData.add(FrameSize.roundForNumber(str.getDefenceRebsEfficiency(), 1));
-			/* 10助攻率 */rowData.add(FrameSize.roundForNumber(str.getAssistEfficiency(), 1));
-			/* 11抢断率 */rowData.add(FrameSize.roundForNumber(str.getStealsEfficiency(), 1));
-			/* 12盖帽率 */rowData.add(FrameSize.roundForNumber(str.getBlockEfficiency(), 1));
-			/* 13失误率 */rowData.add(FrameSize.roundForNumber(str.getMistakeEfficiency(), 1));
-			/* 14使用率 */rowData.add(FrameSize.roundForNumber(str.getMistakeEfficiency(), 1));
+			/* 04效率 */rowData.add(FrameSize.roundForNumber(str.getEfficiency()*100, 1));
+			/* 05真实命中率 */rowData.add(FrameSize.roundForNumber(str.getTrueHitRate()*100, 1));
+			/* 06GmSc */rowData.add(FrameSize.roundForNumber(str.getGmScEfficiency()*100, 1));
+			/* 07篮板效率*/rowData.add(FrameSize.roundForNumber(str.getRebEfficiency()*100, 1));
+			/* 08进攻篮板率 */rowData.add(FrameSize.roundForNumber(str.getOffenseRebsEfficiency()*100, 1));
+			/* 09防守篮板率 */rowData.add(FrameSize.roundForNumber(str.getDefenceRebsEfficiency()*100, 1));
+			/* 10助攻率 */rowData.add(FrameSize.roundForNumber(str.getAssistEfficiency()*100, 1));
+			/* 11抢断率 */rowData.add(FrameSize.roundForNumber(str.getStealsEfficiency()*100, 1));
+			/* 12盖帽率 */rowData.add(FrameSize.roundForNumber(str.getBlockEfficiency()*100, 1));
+			/* 13失误率 */rowData.add(FrameSize.roundForNumber(str.getMistakeEfficiency()*100, 1));
+			/* 14使用率 */rowData.add(FrameSize.roundForNumber(str.getMistakeEfficiency()*100, 1));
 			data.add(rowData);
 		}
 		table.setDataVector(data, columnsName);
 
 		mytable.setRowSorter(new TableRowSorter<TableModel>(table));
 		mytable.updateUI();
-
 		TableRowSorter rowSorter = (TableRowSorter) mytable.getRowSorter();
-		Comparator<Number> numberComparator = new Comparator<Number>() {
+		Comparator<String> numberComparator = new Comparator<String>() {
 			@Override
-			public int compare(Number o1, Number o2) {
+			public int compare(String o1, String o2) {
 				if (o1 == null) {
 					return -1;
 				}
 				if (o2 == null) {
 					return 1;
 				}
-				if (o1.doubleValue() < o2.doubleValue()) {
+				if (Double.parseDouble(o1) <Double.parseDouble(o2)) {
 					return -1;
 				}
-				if (o1.doubleValue() > o2.doubleValue()) {
+				if (Double.parseDouble(o1) > Double.parseDouble(o2)) {
 					return 1;
 				}
 				return 0;
@@ -233,9 +233,11 @@ public class PlayerDataPanel extends JPanel{
 		// }else if(((String)SeasonTypebox.getSelectedItem()).equals("季后赛")){
 		// type=SeasonType.PLAYOFF;
 		// }
-		if (!all&&!high) {			
+		if (!all&&!high) {		
+			num=1;
 			setLowTable(playerController.getPlayerAllSeasonsAve(playerName, type));
 		} else if (all&&!high) {
+			num=0;
 			setLowTable(playerController.getPlayerAllSeasonsTotal(playerName, type));
 		} else if (high) {
 			setHighTable(playerController.getPlayerAllSeasons(playerName, type));

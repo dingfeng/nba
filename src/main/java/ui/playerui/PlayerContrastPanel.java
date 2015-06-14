@@ -123,6 +123,7 @@ public class PlayerContrastPanel extends JPanel {
 		one = false;
 		String player = player2.getText();
 		try {
+			if(playerController.getplayerPObyName(player)!=null){
 			Image image = playerController.getCompareImage(2014,
 					MyFrame.onePlayerPanel.nameresult.getText(),
 					player2.getText(), season);
@@ -140,9 +141,14 @@ public class PlayerContrastPanel extends JPanel {
 			add(playerImage2);
 			add(imagelabel);
 			repaint();
+			}
+			else{
+				player2.setText("未找到该球员");
+				 return;
+			}
 		} catch (NullPointerException e) {
-			// JOptionPane.showMessageDialog(null, "未找到该球员", "查找失败",
-			// JOptionPane.ERROR_MESSAGE);
+//			 JOptionPane.showMessageDialog(null, "未找到该球员", "查找失败",
+//			 JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
