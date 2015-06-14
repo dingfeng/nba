@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -173,8 +174,10 @@ public class StatisticsPlayerPanel extends JPanel {
 				data.add(rowData);
 			}
 			mytable.setRowHeight(50);
+			table.setDataVector(data, columnsName);
+			
 			mytable.setRowSorter(new TableRowSorter<TableModel>(table));
-//			mytable.getColumnModel().getColumn(1).setPreferredWidth(150);
+			mytable.getColumnModel().getColumn(1).setPreferredWidth(150);
 			mytable.updateUI();
 
 			TableRowSorter rowSorter = (TableRowSorter) mytable.getRowSorter();  
@@ -243,7 +246,9 @@ public class StatisticsPlayerPanel extends JPanel {
 				/* 14使用率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getUseEfficiency(),1));	
 				data.add(rowData);
 			}
+			table.setDataVector(data, columnsName);
 			mytable.setRowHeight(50);
+			mytable.getColumnModel().getColumn(1).setPreferredWidth(150);
 			setScrollPane();
 		} 
 	}
