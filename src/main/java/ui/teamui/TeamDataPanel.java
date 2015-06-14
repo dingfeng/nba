@@ -48,7 +48,7 @@ public class TeamDataPanel extends JPanel {
 	}
 
 	public void setText() {
-		JLabel blue=new JLabel("球员总数据");
+		JLabel blue=new JLabel("球队总数据");
 		blue.setBackground(FrameSize.bluecolor);
 		blue.setBounds(0, 0, FrameSize.width-100, 30);
 		blue.setForeground(Color.white);
