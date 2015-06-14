@@ -223,7 +223,7 @@ public class ShowOnePlayerPanel extends JPanel{
 	}
 
 	void setRecent() {
-		recentmatchpanel.setRecentTable(nameresult.getText());
+		recentmatchpanel.setRecentTable();
 		card.show(playermain, "recent");
 		
 		recentbutton.setSelected(true);

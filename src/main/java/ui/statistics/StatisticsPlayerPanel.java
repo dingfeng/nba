@@ -174,8 +174,7 @@ public class StatisticsPlayerPanel extends JPanel {
 			}
 			mytable.setRowHeight(50);
 			mytable.setRowSorter(new TableRowSorter<TableModel>(table));
-			mytable.getColumnModel().getColumn(1).setPreferredWidth(150);
-//			getColumnModel().getColumn(0).setCellRenderer(myRenderer);
+//			mytable.getColumnModel().getColumn(1).setPreferredWidth(150);
 			mytable.updateUI();
 
 			TableRowSorter rowSorter = (TableRowSorter) mytable.getRowSorter();  
