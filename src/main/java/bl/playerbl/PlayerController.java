@@ -928,7 +928,11 @@ public class PlayerController implements PlayerBlService {
 			pr.waitFor();
 			ImageIcon imageIcon = new ImageIcon(filename);
 			Image compare = imageIcon.getImage();
-			
+			if(compare == null){
+				ImageIcon non = new ImageIcon("image\\nochart.png");
+				Image nonImage = non.getImage();
+				return nonImage;
+			}
 			return compare;
 		} catch (IOException | InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -1019,7 +1023,7 @@ public class PlayerController implements PlayerBlService {
 				ImageIcon imageIcon = new ImageIcon(filename);
 				Image line = imageIcon.getImage();
 				if(line == null){
-					ImageIcon non = new ImageIcon("Image\\nochart.png");
+					ImageIcon non = new ImageIcon("image\\nochart.png");
 					Image nonImage = non.getImage();
 					return nonImage;
 				}
