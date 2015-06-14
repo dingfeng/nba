@@ -69,7 +69,6 @@ public class OneNowMatch extends JPanel{
 			}
 		}));
 		
-		System.out.println(team1.getName());
 		JLabel teamName1 = new JLabel(team1.getName());
 		JLabel teamName2 = new JLabel(team2.getName());
 		teamName1.setFont(MyFont.font2);
@@ -124,14 +123,23 @@ public class OneNowMatch extends JPanel{
 		teamImage3.setBounds(10, 220, 50, 50);
 		JLabel teamImage4 = new JLabel(scaleImage(new ImageIcon(teamController
 				.getTeamData(team2.getName()).getImage()), 50, 50));
-		teamImage4.setBounds(10, 320+(team1.getPlayers().length+1)*26+35, 50, 50);
+		teamImage4.setBounds(10, 320+(team1.getPlayers().length+1)*30-50, 50, 50);
 		matchPanel.add(teamImage3);
 		matchPanel.add(teamImage4);
 		
+		JLabel teamName3 = new JLabel(team1.getName());
+		JLabel teamName4 = new JLabel(team2.getName());
+		teamName3.setFont(MyFont.font4);
+		teamName4.setFont(MyFont.font4);
+		teamName3.setBounds(70, 240, 100, 30);
+		teamName4.setBounds(70, 320+(team1.getPlayers().length+1)*30-30, 100, 30);
+		matchPanel.add(teamName3);
+		matchPanel.add(teamName4);
+		
 		JScrollPane playerTable1 = setPlayerTable(team1.getPlayers());
 		JScrollPane playerTable2 = setPlayerTable(team2.getPlayers());
-		playerTable1.setBounds(0, 320, FrameSize.width, (team1.getPlayers().length+1)*26+35);
-		playerTable2.setBounds(0, 470+(team1.getPlayers().length+1)*26+20, FrameSize.width, (team2.getPlayers().length+1)*26+35);
+		playerTable1.setBounds(0, 270, FrameSize.width, (team1.getPlayers().length+1)*30-5);
+		playerTable2.setBounds(0, 320+(team1.getPlayers().length+1)*30,FrameSize.width, (team2.getPlayers().length+1)*30-5);
 		matchPanel.add(playerTable1);
 		matchPanel.add(playerTable2);
 		
@@ -147,8 +155,6 @@ public class OneNowMatch extends JPanel{
 	/** 每个队伍的球员表现 */
 	private JScrollPane setPlayerTable(MatchPlayerPO[] players) {
 		
-		System.out.println(players.length);
-
 		Vector columnsName = new Vector();
 //		/* 01球员图片 */columnsName.add("球员");
 		/* 02球员姓名 */columnsName.add("姓名");

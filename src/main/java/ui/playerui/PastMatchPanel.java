@@ -52,7 +52,7 @@ public class PastMatchPanel extends JPanel{
 		recent.setForeground(Color.white);
 		season.setBounds(FrameSize.width - 150, 0, 100, 30);
 		season.setBackground(Color.white);
-		season.addActionListener(e -> setPastTable());
+		season.addActionListener(e -> setPastTable(MyFrame.onePlayerPanel.nameresult.getText()));
 		season.setForeground(Color.black);
 		pastjScrollPane
 				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -67,15 +67,16 @@ public class PastMatchPanel extends JPanel{
 	}
 
 	/** 过往查询 */
-	void setPastTable() {
-		String playername = MyFrame.onePlayerPanel.numberresult.getText();
+	void setPastTable(String name) {
+		String playername = name;
 		columnsName.clear();
 		columnsName.add("日期");
 		columnsName.add("对阵队伍");
 		columnsName.add("比分");
 
-		MatchesPO[] match = mc.getRegularTeamMatches(
+		MatchesPO[] match = mc.getRegularPlayerMatches(
 				Integer.parseInt((String) season.getSelectedItem()), playername);
+		System.out.println(match.length);
 		rowimage.clear();
 		for (int i = match.length - 6; i >= 0; i--) {
 			Vector data = new Vector();
