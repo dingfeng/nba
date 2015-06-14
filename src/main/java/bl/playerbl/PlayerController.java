@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import dataservice.playerdataservice.PlayerDataService;
@@ -1020,14 +1021,19 @@ public class PlayerController implements PlayerBlService {
 //				Process pr = Runtime.getRuntime().exec(
 //						"python python\\errorbar.py");
 //				pr.waitFor();
-				ImageIcon imageIcon = new ImageIcon(filename);
-				Image line = imageIcon.getImage();
-				if(line == null){
+		        Image temp = null;
+		        try {
+		        	temp = ImageIO.read(new File(filename));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		        
+				if(temp == null){
 					ImageIcon non = new ImageIcon("image\\nochart.png");
 					Image nonImage = non.getImage();
 					return nonImage;
 				}
-				return line;
+				return temp;
 //			} catch (IOException e) {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
