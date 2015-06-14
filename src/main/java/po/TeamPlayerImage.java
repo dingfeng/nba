@@ -20,4 +20,8 @@ public class TeamPlayerImage implements Serializable{
        {
     	   return name;
        }
+       public String toString()
+       {
+    	   return name;
+       }
 }
