@@ -133,7 +133,7 @@ public class TeamPlayerPanel extends JPanel {
 		}
 		table.setDataVector(rowimage, columnsName);
 		TableColumn firsetColumn = mytable.getColumnModel().getColumn(0);
-		firsetColumn.setPreferredWidth(112);
+		firsetColumn.setPreferredWidth(150);
 		this.add(jScrollPane);
 		this.repaint();
 	}
@@ -181,7 +181,7 @@ public class TeamPlayerPanel extends JPanel {
 		}
 		table.setDataVector(rowimage, columnsName);
 		TableColumn firsetColumn = mytable.getColumnModel().getColumn(0);
-		firsetColumn.setPreferredWidth(112);
+		firsetColumn.setPreferredWidth(150);
 		mytable.setRowSorter(new TableRowSorter<TableModel>(table));
 		mytable.updateUI();
 

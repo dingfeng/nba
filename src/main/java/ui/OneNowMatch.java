@@ -213,8 +213,9 @@ public class OneNowMatch extends JPanel{
 				if (e.getClickCount() == 2) {
 					MyFrame.onePlayerPanel.showOne((String) myPlayerTable.getModel().getValueAt(
 							myPlayerTable.getSelectedRow(), 0));
-					MyFrame.card.show(MyFrame.mainpanel, "oneplayer");
 					MyFrame.setPlayer();
+					MyFrame.card.show(MyFrame.mainpanel, "oneplayer");
+					
 				}
 			}
 		});
