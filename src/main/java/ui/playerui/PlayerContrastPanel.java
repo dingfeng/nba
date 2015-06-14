@@ -6,6 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -129,6 +130,11 @@ public class PlayerContrastPanel extends JPanel {
 			playerImage2.setIcon(FrameSize.scaleImage(new ImageIcon(
 					playerController.getPlayerImage(player)),
 					FrameSize.height / 5, FrameSize.height / 5));
+			playerImage2.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					MyFrame.onePlayerPanel.showOne(playerName2.getText());
+				}
+			});
 			imagelabel.setIcon(new ImageIcon(image));
 			add(playerName2);
 			add(playerImage2);
@@ -150,6 +156,7 @@ public class PlayerContrastPanel extends JPanel {
 		playerImage2.setIcon(FrameSize
 				.scaleImage(new ImageIcon("image/nbabig.png"),
 						FrameSize.height / 5, FrameSize.height / 5));
+		
 		new Thread() {
 			public void run() {
 				Image image = playerController.getPlayerBar(2014, playerName,

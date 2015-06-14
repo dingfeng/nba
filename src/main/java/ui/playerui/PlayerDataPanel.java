@@ -50,7 +50,7 @@ public class PlayerDataPanel extends JPanel{
 
 	public void setText() {
 		JLabel blue=new JLabel("球员总信息");
-		blue.setBounds(0, 0,FrameSize.width,30);
+		blue.setBounds(0, 0,FrameSize.width-100,30);
 		blue.setBackground(FrameSize.bluecolor);
 		blue.setOpaque(true);
 		blue.setForeground(Color.white);

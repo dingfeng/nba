@@ -645,8 +645,13 @@ public class PlayerController implements PlayerBlService {
 //			output.close();
 //			Process pr = Runtime.getRuntime().exec("python python\\radar.py");
 //			pr.waitFor();
-		ImageIcon imageIcon = new ImageIcon(filename);
-		Image radar = imageIcon.getImage();
+		Image radar = null;
+		try {
+			radar = ImageIO.read(new File(filename));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//如果没有图片则返回一个白的图片
 		if(radar == null){
 			ImageIcon non = new ImageIcon("image\\white.png");
@@ -927,8 +932,7 @@ public class PlayerController implements PlayerBlService {
 			Process pr = Runtime.getRuntime()
 					.exec("python python\\__init__.py");
 			pr.waitFor();
-			ImageIcon imageIcon = new ImageIcon(filename);
-			Image compare = imageIcon.getImage();
+			Image compare = ImageIO.read(new File(filename));
 			if(compare == null){
 				ImageIcon non = new ImageIcon("image\\nochart.png");
 				Image nonImage = non.getImage();
@@ -1115,8 +1119,13 @@ public class PlayerController implements PlayerBlService {
 //			Process pr = Runtime.getRuntime().exec(
 //					"python python\\playerBar.py");
 //			pr.waitFor();
-		ImageIcon imageIcon = new ImageIcon(filename);
-		Image bar = imageIcon.getImage();
+		Image bar = null;
+		try {
+			bar = ImageIO.read(new File(filename));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//若没有相应图片，则返回一个代理图片
 		if(bar == null){
 			ImageIcon non = new ImageIcon("image\\nochart.png");

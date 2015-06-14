@@ -205,7 +205,7 @@ public class IndexPanel extends JPanel {
 	            }
 	        }
 	        findteam(index);
-			System.out.println(index);
+			MyFrame.setTeam();
 		}
 
 		@Override

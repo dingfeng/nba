@@ -339,8 +339,8 @@ public class TeamPanel extends JPanel {
 		image.setOpaque(false);
 
 		image.setBounds(30, 5, FrameSize.width / 6, FrameSize.width / 6);
-		nameresult.setBounds(FrameSize.width / 4 , FrameSize.height / 40+30,
-				FrameSize.width / 8, 40);
+		nameresult.setBounds(FrameSize.width / 4-30 , FrameSize.height / 40+30,
+				FrameSize.width / 6, 40);
 		nameAbridgeresult.setBounds(FrameSize.width / 4 ,
 				FrameSize.height / 40 + 90, FrameSize.width / 10, 40);
 		addressresult.setBounds(FrameSize.width / 2 + 50,

@@ -1,9 +1,12 @@
 package bl.teambl;
 
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import dataservice.playerdataservice.PlayerDataService;
@@ -367,8 +370,13 @@ public class TeamController implements Teamblservice {
 		// output.close();
 		// Process pr = Runtime.getRuntime().exec("python python\\teamBar.py");
 		// pr.waitFor();
-		ImageIcon imageIcon = new ImageIcon(filename);
-		Image bar = imageIcon.getImage();
+		Image bar = null;
+		try {
+			bar = ImageIO.read(new File(filename));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//如果没有比赛数据则返回代理图片
 		if(bar == null){
 			ImageIcon non = new ImageIcon("image\\nochart.png");
@@ -485,8 +493,13 @@ public class TeamController implements Teamblservice {
 		// Process pr = Runtime.getRuntime().exec(
 		// "python python\\teamCompare.py");
 		// pr.waitFor();
-		ImageIcon imageIcon = new ImageIcon(filename);
-		Image compare = imageIcon.getImage();
+		Image compare = null;
+		try {
+			compare = ImageIO.read(new File(filename));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(compare == null){
 			ImageIcon non = new ImageIcon("image\\nochart.png");
 			Image nonImage = non.getImage();
