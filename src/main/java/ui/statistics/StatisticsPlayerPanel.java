@@ -194,6 +194,7 @@ public class StatisticsPlayerPanel extends JPanel {
 															.getSelectedRow(),
 													1));
 							MyFrame.card.show(MyFrame.mainpanel, "oneplayer");
+							MyFrame.setPlayer();
 						} catch (NullPointerException e1) {
 
 						}
@@ -283,6 +284,7 @@ public class StatisticsPlayerPanel extends JPanel {
 															.getSelectedRow(),
 													1));
 							MyFrame.card.show(MyFrame.mainpanel, "oneplayer");
+							MyFrame.setPlayer();
 						} catch (NullPointerException e1) {
 
 						}

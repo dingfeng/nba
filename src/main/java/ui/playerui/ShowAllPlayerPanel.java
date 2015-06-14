@@ -74,7 +74,7 @@ public class ShowAllPlayerPanel extends JPanel {
 	void set() {
 		jAllPlayerScrollPane = new JScrollPane(myAllPlayerTable);
 		jAllPlayerScrollPane.setBounds(0, 40, FrameSize.width,
-				FrameSize.width * 7 / 8 - 40);
+				FrameSize.height * 7 / 8 - 40);
 	}
 
 	/** 查找栏 */
