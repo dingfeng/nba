@@ -60,7 +60,7 @@ public class PlayerDataPanel extends JPanel{
 		jScrollPane
 				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		jScrollPane.setBounds(0, 30, FrameSize.width,
-				FrameSize.height * 7 / 8 - 30);
+				420);
 		jScrollPane.setBackground(Color.white);
 		jScrollPane.getViewport().setOpaque(false);
 	}
