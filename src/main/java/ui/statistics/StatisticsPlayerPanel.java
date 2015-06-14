@@ -2,6 +2,8 @@ package ui.statistics;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Comparator;
 import java.util.Vector;
 
@@ -21,6 +23,7 @@ import po.PlayerHighPO;
 import po.PlayerNormalPO;
 import ui.mainui.FrameSize;
 import ui.mainui.MyComboBox;
+import ui.mainui.MyFrame;
 import ui.mainui.MyTable;
 import vo.Area;
 
@@ -179,6 +182,25 @@ public class StatisticsPlayerPanel extends JPanel {
 			mytable.setRowSorter(new TableRowSorter<TableModel>(table));
 			mytable.getColumnModel().getColumn(1).setPreferredWidth(150);
 			mytable.updateUI();
+			
+			mytable.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					if (e.getClickCount() == 2) {
+						try {
+							MyFrame.onePlayerPanel
+									.showOne((String) mytable
+											.getModel().getValueAt(
+													mytable
+															.getSelectedRow(),
+													1));
+							MyFrame.card.show(MyFrame.mainpanel, "oneplayer");
+						} catch (NullPointerException e1) {
+
+						}
+					}
+				}
+
+			});
 
 			TableRowSorter rowSorter = (TableRowSorter) mytable.getRowSorter();  
 			 Comparator<String> numberComparator = new Comparator<String>() {  
@@ -249,6 +271,48 @@ public class StatisticsPlayerPanel extends JPanel {
 			table.setDataVector(data, columnsName);
 			mytable.setRowHeight(50);
 			mytable.getColumnModel().getColumn(1).setPreferredWidth(150);
+			
+			mytable.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					if (e.getClickCount() == 2) {
+						try {
+							MyFrame.onePlayerPanel
+									.showOne((String) mytable
+											.getModel().getValueAt(
+													mytable
+															.getSelectedRow(),
+													1));
+							MyFrame.card.show(MyFrame.mainpanel, "oneplayer");
+						} catch (NullPointerException e1) {
+
+						}
+					}
+				}
+
+			});
+			
+			TableRowSorter rowSorter = (TableRowSorter) mytable.getRowSorter();  
+			 Comparator<String> numberComparator = new Comparator<String>() {  
+		            @Override  
+		            public int compare(String o1, String o2) {  
+		                if ( o1 == null ) {  
+		                    return -1;  
+		                }  
+		                if ( o2 == null ) {  
+		                    return 1;  
+		                }  
+		                if ( Double.parseDouble(o1) < Double.parseDouble(o2)) {  
+		                    return -1;  
+		                }  
+		                if ( Double.parseDouble(o1) > Double.parseDouble(o2) ) {  
+		                    return 1;  
+		                }  
+		                return 0;  
+		            }  
+		        };  
+		        for (int col = 3; col < mytable.getColumnCount(); col++) {  
+		            rowSorter.setComparator(col, numberComparator);  
+		        }  
 			setScrollPane();
 		} 
 	}

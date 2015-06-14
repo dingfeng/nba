@@ -60,12 +60,14 @@ public class OneNowMatch extends JPanel{
 			public void mouseClicked(MouseEvent e) {
 				MyFrame.teampanel.showOne(team1.getName());
 				MyFrame.card.show(MyFrame.mainpanel, "team");
+				MyFrame.setTeam();
 			}
 		}));
 		teamImage2.addMouseListener((new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				MyFrame.teampanel.showOne(team2.getName());
 				MyFrame.card.show(MyFrame.mainpanel, "team");
+				MyFrame.setTeam();
 			}
 		}));
 		
@@ -212,6 +214,7 @@ public class OneNowMatch extends JPanel{
 					MyFrame.onePlayerPanel.showOne((String) myPlayerTable.getModel().getValueAt(
 							myPlayerTable.getSelectedRow(), 0));
 					MyFrame.card.show(MyFrame.mainpanel, "oneplayer");
+					MyFrame.setPlayer();
 				}
 			}
 		});

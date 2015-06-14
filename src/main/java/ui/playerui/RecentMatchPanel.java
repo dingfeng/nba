@@ -94,6 +94,7 @@ public class RecentMatchPanel extends JPanel{
 					MyFrame.onematchpanel.setOneNowMatch(match.getTeam1(), match.getTeam2());
 					MyFrame.setMatch();
 					MyFrame.card.show(MyFrame.mainpanel, "onematch");
+					MyFrame.setMatch();
 				}
 			}
 
