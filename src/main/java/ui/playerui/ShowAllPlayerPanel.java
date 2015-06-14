@@ -339,7 +339,13 @@ public class ShowAllPlayerPanel extends JPanel {
 				public void mouseClicked(MouseEvent e) {
 					if (e.getClickCount() == 2) {
 						try {
-
+							MyFrame.onePlayerPanel
+							.showOne((String) myAllPlayerTable
+									.getModel().getValueAt(
+											myAllPlayerTable
+													.getSelectedRow(),
+											1));
+					MyFrame.card.show(MyFrame.mainpanel, "oneplayer");
 						} catch (NullPointerException e1) {
 
 						}
