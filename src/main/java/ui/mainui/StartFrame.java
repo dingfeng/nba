@@ -21,7 +21,6 @@ public class StartFrame extends JFrame{
 		new StartFrame();
 	}
 	
-    
 	private Point origin = new Point();
 	public StartFrame()
 	{  
