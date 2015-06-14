@@ -211,7 +211,7 @@ public class MatchPanel extends JPanel {
 			JPanel matchPanel = new JPanel();
 			matchPanel.setLayout(null);
 			OldMatch[] matches = matchController.getOldMatch(date.getYear()+1900, 0,
-					10, SeasonType.REGULAR);
+					100, SeasonType.REGULAR);
 			System.out.println(matches.length);
 			JPanel[] matchLabel = new JPanel[matches.length];
 			for (int i = 0; i < matches.length; i++) {
