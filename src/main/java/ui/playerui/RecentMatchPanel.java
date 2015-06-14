@@ -29,7 +29,6 @@ public class RecentMatchPanel extends JPanel{
 	Vector rowimage = new Vector();
 	DefaultTableModel table = new DefaultTableModel(rowimage, columnsName);
 	MyTable mytable = new MyTable(table);
-	JComboBox season=new MyComboBox(new String[]{"2014","2013","2012","2011","2010","2009","2008","2007","2006","2005","2004","2003","2002","2001","2000","1999","1998","1997","1996","1995","1994","1993","1992","1991","1990","1989","1988","1987","1986","1985"});
 	JScrollPane recentjScrollPane = new JScrollPane(mytable);
 
 	public RecentMatchPanel() {
@@ -51,16 +50,12 @@ public class RecentMatchPanel extends JPanel{
 		recent.setOpaque(true);
 		recent.setBackground(FrameSize.bluecolor);
 		recent.setForeground(Color.white);
-		season.setBounds(FrameSize.width-150,0 ,100 ,30 );
-		season.setBackground(Color.white);
-		season.addActionListener(e->setRecentTable());
-		season.setForeground(Color.black);
 		recentjScrollPane.setBounds(0, 30, FrameSize.width, FrameSize.height*3/4-180);
 		recentjScrollPane.setOpaque(false);
 		recentjScrollPane.getViewport().setOpaque(false);
 
 		this.add(recent);
-		recent.add(season);
+
 
 	}
 
