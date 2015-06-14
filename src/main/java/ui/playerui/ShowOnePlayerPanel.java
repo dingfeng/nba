@@ -351,6 +351,7 @@ public class ShowOnePlayerPanel extends JPanel{
 			public void mouseClicked(MouseEvent e) {
 				MyFrame.teampanel.showOne(player.getTeama());
 				MyFrame.card.show(MyFrame.mainpanel, "team");
+				MyFrame.setTeam();
 			}
 		}));
 

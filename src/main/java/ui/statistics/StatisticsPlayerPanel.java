@@ -2,6 +2,8 @@ package ui.statistics;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Comparator;
 import java.util.Vector;
 
@@ -21,6 +23,7 @@ import po.PlayerHighPO;
 import po.PlayerNormalPO;
 import ui.mainui.FrameSize;
 import ui.mainui.MyComboBox;
+import ui.mainui.MyFrame;
 import ui.mainui.MyTable;
 import vo.Area;
 
@@ -160,9 +163,9 @@ public class StatisticsPlayerPanel extends JPanel {
 				/* 05篮板 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getRebs(),0));
 				/* 06助攻 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getAssistNo(),1));
 				/* 07分钟 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getTime(),1));
-				/* 09三分命中率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getThreeHitRate(),1));
-				/* 10罚球命中率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getPenaltyHitRate(),1));
-				/* 11投篮命中率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getHitRate(),1));
+				/* 09三分命中率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getThreeHitRate()*100,1));
+				/* 10罚球命中率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getPenaltyHitRate()*100,1));
+				/* 11投篮命中率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getHitRate()*100,1));
 				/* 12进攻 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getOffendRebsNo(),1));
 				/* 13防守 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getDefenceRebsNo(),1));
 				/* 14抢断 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getStealsNo(),1));
@@ -179,6 +182,25 @@ public class StatisticsPlayerPanel extends JPanel {
 			mytable.setRowSorter(new TableRowSorter<TableModel>(table));
 			mytable.getColumnModel().getColumn(1).setPreferredWidth(150);
 			mytable.updateUI();
+			
+			mytable.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					if (e.getClickCount() == 2) {
+						try {
+							MyFrame.onePlayerPanel
+									.showOne((String) mytable
+											.getModel().getValueAt(
+													mytable
+															.getSelectedRow(),
+													1));
+							MyFrame.card.show(MyFrame.mainpanel, "oneplayer");
+						} catch (NullPointerException e1) {
+
+						}
+					}
+				}
+
+			});
 
 			TableRowSorter rowSorter = (TableRowSorter) mytable.getRowSorter();  
 			 Comparator<String> numberComparator = new Comparator<String>() {  
@@ -234,21 +256,63 @@ public class StatisticsPlayerPanel extends JPanel {
 				/* 02姓名 */rowData.add(playerMatchVOs[i].getPlayerName());
 				/* 03球队 */rowData.add(playerMatchVOs[i].getTeamName());
 				/* 04效率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getEfficiency(),1));
-				/* 05真实命中率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getTrueHitRate(),1));
-				/* 06GmSc */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getGmScEfficiency(),1));
-				/* 07篮板效率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getRebEfficiency(),1));
-				/* 08进攻篮板率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getDefenceRebsEfficiency(),1));
-				/* 09防守篮板率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getOffenseRebsEfficiency(),1));
-				/* 10助攻率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getAssistEfficiency(),1));
-				/* 11抢断率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getStealsEfficiency(),1));
-				/* 12盖帽率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getBlockEfficiency(),1));
-				/* 13失误率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getMistakeEfficiency(),1));
-				/* 14使用率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getUseEfficiency(),1));	
+				/* 05真实命中率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getTrueHitRate()*100,1));
+				/* 06GmSc */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getGmScEfficiency()*100,1));
+				/* 07篮板效率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getRebEfficiency()*100,1));
+				/* 08进攻篮板率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getDefenceRebsEfficiency()*100,1));
+				/* 09防守篮板率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getOffenseRebsEfficiency()*100,1));
+				/* 10助攻率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getAssistEfficiency()*100,1));
+				/* 11抢断率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getStealsEfficiency()*100,1));
+				/* 12盖帽率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getBlockEfficiency()*100,1));
+				/* 13失误率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getMistakeEfficiency()*100,1));
+				/* 14使用率 */rowData.add(FrameSize.roundForNumber(playerMatchVOs[i].getUseEfficiency()*100,1));	
 				data.add(rowData);
 			}
 			table.setDataVector(data, columnsName);
 			mytable.setRowHeight(50);
 			mytable.getColumnModel().getColumn(1).setPreferredWidth(150);
+			
+			mytable.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					if (e.getClickCount() == 2) {
+						try {
+							MyFrame.onePlayerPanel
+									.showOne((String) mytable
+											.getModel().getValueAt(
+													mytable
+															.getSelectedRow(),
+													1));
+							MyFrame.card.show(MyFrame.mainpanel, "oneplayer");
+						} catch (NullPointerException e1) {
+
+						}
+					}
+				}
+
+			});
+			
+			TableRowSorter rowSorter = (TableRowSorter) mytable.getRowSorter();  
+			 Comparator<String> numberComparator = new Comparator<String>() {  
+		            @Override  
+		            public int compare(String o1, String o2) {  
+		                if ( o1 == null ) {  
+		                    return -1;  
+		                }  
+		                if ( o2 == null ) {  
+		                    return 1;  
+		                }  
+		                if ( Double.parseDouble(o1) < Double.parseDouble(o2)) {  
+		                    return -1;  
+		                }  
+		                if ( Double.parseDouble(o1) > Double.parseDouble(o2) ) {  
+		                    return 1;  
+		                }  
+		                return 0;  
+		            }  
+		        };  
+		        for (int col = 3; col < mytable.getColumnCount(); col++) {  
+		            rowSorter.setComparator(col, numberComparator);  
+		        }  
 			setScrollPane();
 		} 
 	}

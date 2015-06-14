@@ -111,12 +111,14 @@ public class MatchPanel extends JPanel {
 						public void mouseClicked(MouseEvent e) {
 							MyFrame.teampanel.showOne(team1.getName());
 							MyFrame.card.show(MyFrame.mainpanel, "team");
+							MyFrame.setTeam();
 						}
 					}));
 					teamImage2.addMouseListener((new MouseAdapter() {
 						public void mouseClicked(MouseEvent e) {
 							MyFrame.teampanel.showOne(team2.getName());
 							MyFrame.card.show(MyFrame.mainpanel, "team");
+							MyFrame.setTeam();
 						}
 					}));
 					matchLabel[i].add(teamImage1);
